@@ -28,8 +28,6 @@ public class CategorySector {
 	@OneToMany(mappedBy="sector")
 	private List<CategoryProgramme> programmes;
 	
-	/*CONSTRUCTORS*/
-	
 	public CategorySector() {
 	}
 	
