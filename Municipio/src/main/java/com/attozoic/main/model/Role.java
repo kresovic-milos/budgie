@@ -1,4 +1,4 @@
-package com.attozoic.model;
+package com.attozoic.main.model;
 
 public enum Role {
 	USER,

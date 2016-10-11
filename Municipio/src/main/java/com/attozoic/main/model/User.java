@@ -1,4 +1,4 @@
-package com.attozoic.model;
+package com.attozoic.main.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

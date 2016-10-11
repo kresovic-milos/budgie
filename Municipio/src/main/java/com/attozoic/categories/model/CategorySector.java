@@ -1,18 +1,11 @@
 package com.attozoic.categories.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
-
-
 
 @Entity
 @Table(name = "category_sector")
@@ -22,18 +15,14 @@ public class CategorySector {
 	@Id
 	@GeneratedValue
 	private Long uid;
-	
-	private String name;
-	
-	@OneToMany(mappedBy="sector")
-	private List<CategoryProgramme> programmes;
+	private String name; //Сектор_1__Пољопривреда_и_рурални_развој
 	
 	public CategorySector() {
 	}
 	
-	public CategorySector(String name, List<CategoryProgramme> programmes) {
+	public CategorySector(String name) {
 		this.name = name;
-		this.programmes = programmes;
 	}
+
 	
 }
