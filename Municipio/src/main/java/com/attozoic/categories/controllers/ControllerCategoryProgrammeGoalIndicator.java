@@ -11,7 +11,7 @@ import com.attozoic.categories.model.CategoryProgrammeGoalIndicator;
 import com.attozoic.categories.services.ServiceCategoryProgrammeGoalIndicator;
 
 @RestController
-@RequestMapping("/categoryProgrammeGoalIndicator")
+@RequestMapping("/categoryProgrammeGoalIndicators")
 public class ControllerCategoryProgrammeGoalIndicator {
 
 	@Autowired

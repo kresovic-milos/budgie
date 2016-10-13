@@ -14,6 +14,10 @@ public class DaoCategoryProgrammeGoal {
 	@Autowired
 	RepositoryCategoryProgrammeGoal repoProgrammeGoal;
 	
+	public CategoryProgrammeGoal findById(Long uid) {
+		return repoProgrammeGoal.findOne(uid);
+	}
+	
 	public Page<CategoryProgrammeGoal> findAll() {
 		Page<CategoryProgrammeGoal> page = new PageImpl<>(repoProgrammeGoal.findAll());
 		return page;

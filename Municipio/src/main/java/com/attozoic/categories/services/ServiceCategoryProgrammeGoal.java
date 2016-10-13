@@ -6,6 +6,7 @@ import com.attozoic.categories.model.CategoryProgrammeGoal;
 
 public interface ServiceCategoryProgrammeGoal {
 
+	CategoryProgrammeGoal findByUid(Long uid);
 	Page<CategoryProgrammeGoal> findAll();
 	CategoryProgrammeGoal save(CategoryProgrammeGoal goal);
 }

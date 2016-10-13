@@ -24,4 +24,9 @@ public class ServiceCategoryProgrammeGoalImpl implements ServiceCategoryProgramm
 		return daoProgrammeGoal.save(goal);
 	}
 
+	@Override
+	public CategoryProgrammeGoal findByUid(Long uid) {
+		return daoProgrammeGoal.findById(uid);
+	}
+
 }

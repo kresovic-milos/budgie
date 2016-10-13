@@ -10,6 +10,8 @@ import com.attozoic.categories.model.CategoryProgrammeGoal;
 @Repository
 public interface RepositoryCategoryProgrammeGoal extends CrudRepository<CategoryProgrammeGoal, Long> {
 
+
+	
 	List<CategoryProgrammeGoal> findAll();
 	@SuppressWarnings("unchecked")
 	CategoryProgrammeGoal save(CategoryProgrammeGoal goal);
