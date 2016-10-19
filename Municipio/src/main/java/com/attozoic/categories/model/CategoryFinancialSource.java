@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "category_financial_source")
+@Table(name = "category_financial_sources")
 @Data
 public class CategoryFinancialSource {
 

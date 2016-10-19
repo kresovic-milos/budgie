@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "category_function")
+@Table(name = "category_functions")
 @Data
 public class CategoryFunction {
 

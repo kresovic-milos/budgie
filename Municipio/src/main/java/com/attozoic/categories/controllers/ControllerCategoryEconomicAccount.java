@@ -11,7 +11,7 @@ import com.attozoic.categories.model.CategoryEconomicAccount;
 import com.attozoic.categories.services.ServiceCategoryEconomicAccount;
 
 @RestController
-@RequestMapping("/economic_account")
+@RequestMapping("/categoryEconomicAccounts")
 public class ControllerCategoryEconomicAccount {
 
 	@Autowired

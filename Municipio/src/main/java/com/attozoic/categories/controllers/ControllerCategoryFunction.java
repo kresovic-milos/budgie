@@ -11,7 +11,7 @@ import com.attozoic.categories.model.CategoryFunction;
 import com.attozoic.categories.services.ServiceCategoryFunction;
 
 @RestController
-@RequestMapping("/categoryFunction")
+@RequestMapping("/categoryFunctions")
 public class ControllerCategoryFunction {
 
 	@Autowired

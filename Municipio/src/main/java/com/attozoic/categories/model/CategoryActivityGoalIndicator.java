@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "category_activity_goal_indicator")
+@Table(name = "category_activity_goal_indicators")
 @Data
 public class CategoryActivityGoalIndicator {
 
