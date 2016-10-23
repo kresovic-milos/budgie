@@ -1,6 +1,6 @@
 package com.attozoic.main.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,11 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -49,10 +53,19 @@ public class Activity {
 	
     @ManyToOne
     @JoinColumn(name="function_id")
-    @JsonBackReference
+    @JsonBackReference(value = "secondParent")
     private Function function;
     
+    @ManyToMany
+    @JoinTable(
+    		name="activity_finance",
+    		joinColumns={@JoinColumn(name="activity_id")},
+    		inverseJoinColumns={@JoinColumn(name="activityFinancialSource_id")}
+    		)
+    private List<ActivityFinancialSource> activityFinancialSources;
+    
     private String budgetUser;
+    private String purpose;
 	private String rudiment;
 	private String description;
 	private String anex;
@@ -61,20 +74,24 @@ public class Activity {
 	private Long sumExpenses;
 	private Long sumFinancialSources;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	@Column(name = "create_date")
 	private Date createDate;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	@Column(name = "update_date")
 	private Date updateDate;
 	
 	public Activity() {}
 
-	public Activity(CategoryActivity categoryActivity, String budgetUser, String rudiment, String description,
-			String anex, String responsibleAuthority, Long sumExpenses, Long sumFinancialSources) {
+	public Activity(CategoryActivity categoryActivity, String budgetUser, String purpose, String rudiment,
+			String description, String anex, String responsibleAuthority, Long sumExpenses, Long sumFinancialSources) {
+		super();
 		this.categoryActivity = categoryActivity;
 		this.budgetUser = budgetUser;
+		this.purpose = purpose;
 		this.rudiment = rudiment;
 		this.description = description;
 		this.anex = anex;
@@ -82,5 +99,7 @@ public class Activity {
 		this.sumExpenses = sumExpenses;
 		this.sumFinancialSources = sumFinancialSources;
 	}
+
+
     
 }

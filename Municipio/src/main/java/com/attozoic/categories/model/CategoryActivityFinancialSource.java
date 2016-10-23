@@ -8,9 +8,9 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "category_financial_sources")
+@Table(name = "category_activity_financial_sources")
 @Data
-public class CategoryFinancialSource {
+public class CategoryActivityFinancialSource {
 
 	@Id
 	@GeneratedValue
@@ -18,9 +18,9 @@ public class CategoryFinancialSource {
 	private String code; // 01
 	private String name; // Приходи из буџета
 	
-	public CategoryFinancialSource() {}
+	public CategoryActivityFinancialSource() {}
 	
-	public CategoryFinancialSource(String code, String name) {
+	public CategoryActivityFinancialSource(String code, String name) {
 		this.code = code;
 		this.name = name;
 	}

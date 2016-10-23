@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.ProjectGoal;
 
 @Repository
-public interface RepositoryActivityGoal extends CrudRepository<ActivityGoal, Long> {
+public interface RepositoryProjectGoal extends CrudRepository<ProjectGoal, Long> {
 
-	List<ActivityGoal> findAll();
+	List<ProjectGoal> findAll();
 	@SuppressWarnings("unchecked")
-	ActivityGoal save(ActivityGoal activityGoal);
+	ProjectGoal save(ProjectGoal projectGoal);
 	
 }

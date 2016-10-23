@@ -1,6 +1,6 @@
 package com.attozoic.main.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,7 +34,6 @@ public class ProgrammeGoalIndicator {
 	private Long uid;
 	
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    // @JoinColumn(name="USER_ID", nullable=false)
     @PrimaryKeyJoinColumn
 	private CategoryActivityGoalIndicator categoryProgrammeGoalIndicator;
 	
@@ -51,10 +52,12 @@ public class ProgrammeGoalIndicator {
 	private long targetValuePlus3; // 2019
 	private long verificationSource;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	@Column(name = "create_date")
 	private Date createDate;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	@Column(name = "update_date")
 	private Date updateDate;

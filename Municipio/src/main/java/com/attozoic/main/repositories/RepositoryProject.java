@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.attozoic.main.model.FinancialSource;
+import com.attozoic.main.model.Project;
 
 @Repository
-public interface RepositoryFinancialSource extends CrudRepository<FinancialSource, Long>{
+public interface RepositoryProject extends CrudRepository<Project, Long> {
 
-	List<FinancialSource> findAll();
+	List<Project> findAll();
 	@SuppressWarnings("unchecked")
-	FinancialSource save(FinancialSource finance);
+	Project save(Project project);
 	
 }

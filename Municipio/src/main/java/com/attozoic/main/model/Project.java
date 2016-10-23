@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,45 +19,55 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.attozoic.categories.model.CategoryProgramme;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
 @Entity
-@Table(name="programmes")
+@Table(name="projects")
 @Data
-public class Programme {
+public class Project {
 
 	@Id
 	@GeneratedValue
 	private Long uid;
-	
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-	private CategoryProgramme categoryProgramme;
-	
-	@ManyToOne
-	@JoinColumn(name="sector_uid")
-	@JsonManagedReference
-    private Sector sector;
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    @JsonManagedReference
-	private List<ProgrammeGoal> programmeGoals;
+
+//    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+//    @PrimaryKeyJoinColumn
+//	private CategoryActivity categoryActivity;    
     
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    @JsonManagedReference
-    private List<Activity> activities;
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
+	@JsonManagedReference
+    private List<ProjectGoal> projectGoals;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    @JsonManagedReference
-    private List<Activity> projects;
+    @ManyToOne
+	@JoinColumn(name="programme_uid")
+	@JsonBackReference
+    private Programme programme;
 	
+//    @ManyToOne
+//    @JoinColumn(name="function_id")
+//    @JsonBackReference(value = "secondParent")
+//    private Function function;
+    
+//    @ManyToMany
+//    @JoinTable(
+//    		name="activity_finance",
+//    		joinColumns={@JoinColumn(name="activity_id")},
+//    		inverseJoinColumns={@JoinColumn(name="activityFinancialSource_id")}
+//    		)
+//    private List<ActivityFinancialSource> activityFinancialSources;
+    
+	private String code;
+	private String name;
+    private String budgetUser;
+    private String purpose;
 	private String rudiment;
 	private String description;
-	private String budgetUser;
+	private String anex;
 	private String responsibleAuthority;
+	
 	private Long sumExpenses;
 	private Long sumFinancialSources;
 	
@@ -73,17 +81,18 @@ public class Programme {
 	@Column(name = "update_date")
 	private Date updateDate;
 	
-	public Programme() {}
+	public Project() {}
 
-	public Programme(CategoryProgramme categoryProgramme, String rudiment, String description, String budgetUser,
-			String responsibleAuthority, Long sumExpenses, Long sumFinancialSources) {
-		this.categoryProgramme = categoryProgramme;
+	public Project(String budgetUser, String rudiment, String description, String anex, String responsibleAuthority,
+			Long sumExpenses, Long sumFinancialSources) {
+		super();
+		this.budgetUser = budgetUser;
 		this.rudiment = rudiment;
 		this.description = description;
-		this.budgetUser = budgetUser;
+		this.anex = anex;
 		this.responsibleAuthority = responsibleAuthority;
 		this.sumExpenses = sumExpenses;
 		this.sumFinancialSources = sumFinancialSources;
 	}
-	
+    
 }

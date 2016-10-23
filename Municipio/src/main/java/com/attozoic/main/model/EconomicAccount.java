@@ -1,6 +1,6 @@
 package com.attozoic.main.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -53,10 +55,12 @@ public class EconomicAccount {
 	private long sumExpenses123Budget;
 	private long sumExpenses123Others;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	@Column(name = "create_date")
 	private Date createDate;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	@Column(name = "update_date")
 	private Date updateDate;

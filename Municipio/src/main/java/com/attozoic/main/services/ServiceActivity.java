@@ -8,5 +8,6 @@ public interface ServiceActivity {
 
 	Page<Activity> findAll();
 	Activity save(Activity activity);
+	Activity findOneById(Long uid);
 
 }

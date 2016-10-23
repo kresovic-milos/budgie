@@ -23,5 +23,11 @@ public class ServiceActivityImpl implements ServiceActivity {
 	public Activity save(Activity activity) {
 		return daoActivity.save(activity);
 	}
+
+	@Override
+	public Activity findOneById(Long uid) {
+		// TODO Auto-generated method stub
+		return daoActivity.findOneById(uid);
+	}
 	
 }

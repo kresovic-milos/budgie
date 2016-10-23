@@ -1,6 +1,6 @@
 package com.attozoic.main.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,12 +13,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.attozoic.categories.model.CategorySector;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
@@ -32,18 +34,19 @@ public class Sector {
 	private Long uid;
 	
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    // @JoinColumn(name="USER_ID", nullable=false)
     @PrimaryKeyJoinColumn
 	private CategorySector categorySector;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="sector")
-	@JsonManagedReference
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="sector")
+	@JsonBackReference
     private List<Programme> programmes; 
     
+	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	@Column(name = "create_date")
 	private Date createDate;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	@Column(name = "update_date")
 	private Date updateDate;
@@ -53,9 +56,5 @@ public class Sector {
 	public Sector(CategorySector categorySector) {
 		this.categorySector = categorySector;
 	}
-	
-//	public String toString() {
-//		return uid;
-//	}
 	
 }

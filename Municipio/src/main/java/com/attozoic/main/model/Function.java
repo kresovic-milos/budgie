@@ -20,7 +20,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.attozoic.categories.model.CategoryFunction;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -38,7 +38,7 @@ public class Function {
 	private CategoryFunction categoryFunction;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="function")
-	@JsonIgnore
+	@JsonManagedReference(value = "secondParent")
     private List<Activity> activities;
     
 	@Temporal(TemporalType.TIMESTAMP)

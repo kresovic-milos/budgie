@@ -23,4 +23,7 @@ public class DaoActivity {
 		return repoActivity.save(activity);
 	}
 	
+	public Activity findOneById(Long uid) {
+		return repoActivity.findOne(uid);
+	}
 }

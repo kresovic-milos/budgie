@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,33 +19,34 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.attozoic.categories.model.CategoryProgrammeGoal;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
 @Entity
-@Table(name="programme_goals")
+@Table(name="project_goals")
 @Data
-public class ProgrammeGoal {
+public class ProjectGoal {
 
 	@Id
 	@GeneratedValue
 	private Long uid;
+	private String name;
 	
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-	private CategoryProgrammeGoal categoryProgrammeGoal;
+//    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+//    //@JoinColumn(name="USER_ID", nullable=false)
+//    @PrimaryKeyJoinColumn
+//	private CategoryActivityGoal categoryActivityGoal;
 	
     @ManyToOne
-	@JoinColumn(name="programme_uid")
-    @JsonBackReference
-    private Programme programme;
+	@JoinColumn(name="project_uid")
+	@JsonBackReference
+    private Project project;
     
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="programmeGoal")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="projectGoal")
 	@JsonManagedReference
-    private List<ProgrammeGoalIndicator> programmeGoalIndicators;
+    private List<ProjectGoalIndicator> projectGoalIndicators;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
@@ -59,10 +58,12 @@ public class ProgrammeGoal {
 	@Column(name = "update_date")
 	private Date updateDate;
 	
-	public ProgrammeGoal() {}
+    public ProjectGoal() {}
 
-	public ProgrammeGoal(Programme programme) {
-		this.programme = programme;
+	public ProjectGoal(String name) {
+		this.name = name;
 	}
-	
+    
+
+    
 }

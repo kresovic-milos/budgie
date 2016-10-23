@@ -13,5 +13,6 @@ public interface RepositoryActivity extends CrudRepository<Activity, Long> {
 	List<Activity> findAll();
 	@SuppressWarnings("unchecked")
 	Activity save(Activity activity);
+	Activity findOne(Long uid);
 	
 }
