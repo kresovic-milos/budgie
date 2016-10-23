@@ -22,6 +22,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.attozoic.categories.model.CategoryProgramme;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -38,6 +39,9 @@ public class Programme {
     @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
     @PrimaryKeyJoinColumn
 	private CategoryProgramme categoryProgramme;
+    
+    @Column(name= "category_programme_id", insertable=false, updatable=false)
+	private Long categoryProgrammeId;
 	
 	@ManyToOne
 	@JoinColumn(name="sector_uid")
@@ -75,6 +79,9 @@ public class Programme {
 	
 	public Programme() {}
 
+	
+	
+	
 	public Programme(CategoryProgramme categoryProgramme, String rudiment, String description, String budgetUser,
 			String responsibleAuthority, Long sumExpenses, Long sumFinancialSources) {
 		this.categoryProgramme = categoryProgramme;

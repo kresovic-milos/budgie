@@ -36,16 +36,16 @@ public class ControllerActivity {
 		return serviceActivity.save(activity);
 	}
 	
-	@RequestMapping(value="/{uid}/finsrc", method = RequestMethod.PUT)
-	public ActivityFinancialSource addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource financialSource) {
-		Activity a = serviceActivity.findOneById(financialSource.getActivities().get(0).getUid());
-		List<Activity> aList = new ArrayList<>();
-		aList.add(a);
-		financialSource.setActivities(aList);
-		ActivityFinancialSource finSrc = serviceFinSrc.save(financialSource);
-		a.getActivityFinancialSources().add(finSrc);
-		serviceActivity.save(a);
-		
-		return finSrc;
-	}
+//	@RequestMapping(value="/{uid}/finsrc", method = RequestMethod.PUT)
+//	public ActivityFinancialSource addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource financialSource) {
+//		Activity a = serviceActivity.findOneById(financialSource.getActivities().get(0).getUid());
+//		List<Activity> aList = new ArrayList<>();
+//		aList.add(a);
+//		financialSource.setActivities(aList);
+//		ActivityFinancialSource finSrc = serviceFinSrc.save(financialSource);
+//		a.getActivityFinancialSources().add(finSrc);
+//		serviceActivity.save(a);
+//		
+//		return finSrc;
+//	}
 }
