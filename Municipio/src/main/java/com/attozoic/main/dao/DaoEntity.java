@@ -6,18 +6,22 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.ActiveState;
-import com.attozoic.main.model.Programme;
-import com.attozoic.main.repositories.RepositoryProgramme;
+import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.repositories.RepositoryEntity;
 
 @Repository
-public class DaoProgramme {
+public class DaoEntity {
 //	@Autowired
 //		private SessionFactory sessionFactory;
 	
 	@Autowired
-	private RepositoryProgramme repoProgramme;
+	private RepositoryEntity repoEntity;
 	
-	public Page<Programme> findAll() {	
+	public RepositoryEntity getRepoEntity() {
+		return repoEntity;
+	}
+
+	public Page<SuperEntity> findAll() {	
 //		try{
 //			Session sesion = sessionF.openSession();
 //			Criteria nekiCrit = sesion.createCriteria(Programme.class);
@@ -29,37 +33,37 @@ public class DaoProgramme {
 //			e.printStackTrace();
 //		}
 
-		Page<Programme> page = new PageImpl<>(repoProgramme.findAll());
+		Page<SuperEntity> page = new PageImpl<>(repoEntity.findAll());
 		return page;
 	}
 	
-	public Programme findOne(Long uid) {
-		return repoProgramme.findOne(uid);
+	public SuperEntity findOne(Long uid) {
+		return repoEntity.findOne(uid);
 	}
 	
-	public Programme save(Programme programme) {
-		return repoProgramme.save(programme);
+	public SuperEntity save(SuperEntity superEntity) {
+		return repoEntity.save(superEntity);
 	}
 	
-	public Programme update(Programme programme) {
-		return repoProgramme.save(programme);
+	public SuperEntity update(SuperEntity superEntity) {
+		return repoEntity.save(superEntity);
 	}
 	
 	public void delete(Long uid) {
-		repoProgramme.delete(uid);
+		repoEntity.delete(uid);
 	}
 	
 	public void archive(Long uid) {
 		//sessionFactory.openSession().create
-		Programme programme = repoProgramme.findOne(uid);
-		programme.setActiveState(ActiveState.ARCHIVED);
-		repoProgramme.save(programme);
+		SuperEntity superEntity = repoEntity.findOne(uid);
+		superEntity.setActiveState(ActiveState.ARCHIVED);
+		repoEntity.save(superEntity);
 	}
 	
 	public void unarchive(Long uid) {
-		Programme programme = repoProgramme.findOne(uid);
-		programme.setActiveState(ActiveState.ACTIVE);
-		repoProgramme.save(programme);
+		SuperEntity superEntity = repoEntity.findOne(uid);
+		superEntity.setActiveState(ActiveState.ACTIVE);
+		repoEntity.save(superEntity);
 	}
 	
 }

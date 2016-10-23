@@ -9,8 +9,11 @@ import com.attozoic.main.model.Sector;
 
 @Repository
 public interface RepositorySector extends CrudRepository<Sector, Long> {
-
+	
 	List<Sector> findAll();
+	Sector findOne(Long uid);
 	@SuppressWarnings("unchecked")
 	Sector save(Sector sector);
+	void delete(Long uid);
+	
 }

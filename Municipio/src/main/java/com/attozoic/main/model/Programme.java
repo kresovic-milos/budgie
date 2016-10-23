@@ -1,10 +1,8 @@
 package com.attozoic.main.model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,40 +10,32 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.attozoic.categories.model.CategoryProgramme;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="programmes")
 @Data
-public class Programme {
+@EqualsAndHashCode(callSuper=true)
+public class Programme extends SuperEntity {
 
 	@Id
 	@GeneratedValue
 	private Long uid;
 	
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-	private CategoryProgramme categoryProgramme;
-    
-    @Column(name= "category_programme_id", insertable=false, updatable=false)
-	private Long categoryProgrammeId;
+	private String code; // 1101
+	private String ordNumber; // ПГ_1
+	private String name; // Програм_1__Локални_развој_и_просторно_планирање
+	private String purpose; // Планско одређивање праваца развоја локалне средине и ефикасно администрирање захтева за издавање грађевинских дозвола
 	
 	@ManyToOne
 	@JoinColumn(name="sector_uid")
-	@JsonManagedReference
+	@JsonBackReference
     private Sector sector;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
@@ -67,24 +57,17 @@ public class Programme {
 	private Long sumExpenses;
 	private Long sumFinancialSources;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreationTimestamp
-	@Column(name = "create_date")
-	private Date createDate;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@UpdateTimestamp
-	@Column(name = "update_date")
-	private Date updateDate;
-	
 	public Programme() {}
 
-	
-	
-	
-	public Programme(CategoryProgramme categoryProgramme, String rudiment, String description, String budgetUser,
-			String responsibleAuthority, Long sumExpenses, Long sumFinancialSources) {
-		this.categoryProgramme = categoryProgramme;
+	public Programme(String code, String ordNumber, String name, String purpose, Sector sector, String rudiment,
+			String description, String budgetUser, String responsibleAuthority, Long sumExpenses,
+			Long sumFinancialSources) {
+		super();
+		this.code = code;
+		this.ordNumber = ordNumber;
+		this.name = name;
+		this.purpose = purpose;
+		this.sector = sector;
 		this.rudiment = rudiment;
 		this.description = description;
 		this.budgetUser = budgetUser;
@@ -92,5 +75,4 @@ public class Programme {
 		this.sumExpenses = sumExpenses;
 		this.sumFinancialSources = sumFinancialSources;
 	}
-	
 }

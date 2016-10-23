@@ -23,8 +23,4 @@ public class CategorySector {
 	public CategorySector(String name) {
 		this.name = name;
 	}
-
-//	public String toString() {
-//		return uid + " " + name;
-//	}
 }

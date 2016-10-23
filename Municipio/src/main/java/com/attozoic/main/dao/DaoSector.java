@@ -1,25 +1,22 @@
 package com.attozoic.main.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
+import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.Sector;
-import com.attozoic.main.repositories.RepositorySector;
 
 @Repository
-public class DaoSector {
+public class DaoSector extends DaoEntity {
 
-	@Autowired
-	private RepositorySector repoSector;
+	public Programme addProgramme(Long uid, Programme programme) {
+		Sector sector = (Sector) getRepoEntity().findOne(uid);
+		List<Programme> programmes = sector.getProgrammes();
+		programmes.add(programme);
+		sector.setProgrammes(programmes);
+		getRepoEntity().save(sector);
+		return programme;
+	}
 	
-	public Page<Sector> findAll() {
-		Page<Sector> page = new PageImpl<>(repoSector.findAll());
-		return page;
-	}
-
-	public Sector save(Sector sector) {
-		return repoSector.save(sector);
-	}
 }

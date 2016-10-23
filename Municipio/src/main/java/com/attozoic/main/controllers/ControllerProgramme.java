@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.main.model.Programme;
+import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceProgramme;
 
 @RestController
@@ -19,12 +20,12 @@ public class ControllerProgramme {
 	private ServiceProgramme serviceProgramme;
 	
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
-	public Page<Programme> getAllProgrammes() {
+	public Page<SuperEntity> getAllProgrammes() {
 		return serviceProgramme.findAll();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Programme addProgramme(@RequestBody Programme programme) {
-		return serviceProgramme.save(programme);
+		return (Programme) serviceProgramme.save(programme);
 	}
 }
