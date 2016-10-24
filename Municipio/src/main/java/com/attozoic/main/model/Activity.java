@@ -28,19 +28,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="activities")
 @Data
-public class Activity {
-
-	@Id
-	@GeneratedValue
-	private Long uid;
-	
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-	private CategoryActivity categoryActivity;    
+@EqualsAndHashCode(callSuper=true)
+public class Activity extends SuperEntity { 
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
 	@JsonManagedReference
@@ -74,22 +68,11 @@ public class Activity {
 	private Long sumExpenses;
 	private Long sumFinancialSources;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreationTimestamp
-	@Column(name = "create_date")
-	private Date createDate;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@UpdateTimestamp
-	@Column(name = "update_date")
-	private Date updateDate;
-	
 	public Activity() {}
 
-	public Activity(CategoryActivity categoryActivity, String budgetUser, String purpose, String rudiment,
+	public Activity(String budgetUser, String purpose, String rudiment,
 			String description, String anex, String responsibleAuthority, Long sumExpenses, Long sumFinancialSources) {
 		super();
-		this.categoryActivity = categoryActivity;
 		this.budgetUser = budgetUser;
 		this.purpose = purpose;
 		this.rudiment = rudiment;

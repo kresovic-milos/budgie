@@ -42,7 +42,7 @@ public class Programme extends SuperEntity {
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
     @JsonManagedReference
-    private List<Activity> projects;
+    private List<Project> projects;
 	
 	private String rudiment;
 	private String description;

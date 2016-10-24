@@ -27,15 +27,7 @@ import lombok.Data;
 @Entity
 @Table(name="projects")
 @Data
-public class Project {
-
-	@Id
-	@GeneratedValue
-	private Long uid;
-
-//    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-//    @PrimaryKeyJoinColumn
-//	private CategoryActivity categoryActivity;    
+public class Project extends SuperEntity {
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
 	@JsonManagedReference
@@ -45,19 +37,6 @@ public class Project {
 	@JoinColumn(name="programme_uid")
 	@JsonBackReference
     private Programme programme;
-	
-//    @ManyToOne
-//    @JoinColumn(name="function_id")
-//    @JsonBackReference(value = "secondParent")
-//    private Function function;
-    
-//    @ManyToMany
-//    @JoinTable(
-//    		name="activity_finance",
-//    		joinColumns={@JoinColumn(name="activity_id")},
-//    		inverseJoinColumns={@JoinColumn(name="activityFinancialSource_id")}
-//    		)
-//    private List<ActivityFinancialSource> activityFinancialSources;
     
 	private String code;
 	private String name;
@@ -70,16 +49,6 @@ public class Project {
 	
 	private Long sumExpenses;
 	private Long sumFinancialSources;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreationTimestamp
-	@Column(name = "create_date")
-	private Date createDate;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@UpdateTimestamp
-	@Column(name = "update_date")
-	private Date updateDate;
 	
 	public Project() {}
 

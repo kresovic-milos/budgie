@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityFinancialSource;
+import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceActivity;
 import com.attozoic.main.services.ServiceActivityFinancialSource;
 
@@ -29,15 +31,10 @@ public class ControllerActivityFinancialSource {
 		return serviceActivityFinancialSource.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ActivityFinancialSource addActivityFinancialSource(@RequestBody ActivityFinancialSource financialSource) {
-		Activity a = serviceActivity.findOneById(financialSource.getActivities().get(0).getUid());
-		a.getActivityFinancialSources().add(financialSource);
-		serviceActivity.save(a);
-		List<Activity> aList = new ArrayList<>();
-		aList.add(a);
-		financialSource.setActivities(aList);
-		return serviceActivityFinancialSource.save(financialSource);
+	@RequestMapping(value="/{uid}/financialSources", method = RequestMethod.POST)
+	public SuperEntity addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource financialSource) {
+				//TODO add fin src
+		return null;
 	}
 	
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProgramme;
+import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.services.ServiceProgramme;
 
@@ -24,5 +25,8 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 		return ((DaoProgramme) getDaoEntity()).addProgrammeGoal(uid, programmeGoal);
 	}	
 
-	
+	@Override
+	public Activity addActivity(Long uid, Activity activity) {
+		return ((DaoProgramme) getDaoEntity()).addActivity(uid, activity);
+	}
 }

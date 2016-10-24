@@ -22,11 +22,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.attozoic.categories.model.CategoryActivityFinancialSource;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="activity_financial_sources")
 @Data
-public class ActivityFinancialSource {
+@EqualsAndHashCode(callSuper=true)
+public class ActivityFinancialSource extends SuperEntity {
 
 	@Id
 	@GeneratedValue
