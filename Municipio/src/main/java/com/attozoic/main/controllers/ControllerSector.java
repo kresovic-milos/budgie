@@ -39,6 +39,26 @@ public class ControllerSector {
 		return (Sector) serviceSector.save(sector);
 	}
 	
+	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Sector update(@RequestBody Sector sector) {
+		return (Sector) serviceSector.save(sector);
+	}
+	
+	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void delete(@PathVariable(value="uid") Long uid) {
+		serviceSector.delete(uid);
+	}
+	
+	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void archive(@PathVariable(value="uid") Long uid) {
+		serviceSector.archive(uid);
+	}
+	
+	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void unarchive(@PathVariable(value="uid") Long uid) {
+		serviceSector.unarchive(uid);
+	}
+	
 	@RequestMapping(value="/{uid}/programme", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Programme addProgramme(@PathVariable(value="uid") Long uid, @RequestBody Programme programme) {
 		programme.setActiveState(ActiveState.ACTIVE);
