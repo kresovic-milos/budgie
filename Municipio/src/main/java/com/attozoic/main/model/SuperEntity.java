@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -16,16 +19,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
-@Entity
-@Inheritance
+@MappedSuperclass
 @Data
 public abstract class SuperEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long uid;
 	
 	@Enumerated(EnumType.ORDINAL)
+//	@Column(columnDefinition="int default 1")
 	private ActiveState activeState;
 	
 	@Temporal(TemporalType.TIMESTAMP)

@@ -8,18 +8,14 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.repositories.RepositoryEntity;
+import com.attozoic.main.repositories.RepositorySector;
 
 @Repository
-public class DaoEntity {
+public abstract class DaoEntity {
 //	@Autowired
 //		private SessionFactory sessionFactory;
 	
-	@Autowired
-	private RepositoryEntity repoEntity;
-	
-	public RepositoryEntity getRepoEntity() {
-		return repoEntity;
-	}
+	public abstract RepositoryEntity getRepoEntity();
 
 	public Page<SuperEntity> findAll() {	
 //		try{
@@ -33,37 +29,37 @@ public class DaoEntity {
 //			e.printStackTrace();
 //		}
 
-		Page<SuperEntity> page = new PageImpl<>(repoEntity.findAll());
+		Page<SuperEntity> page = new PageImpl<>(getRepoEntity().findAll());
 		return page;
 	}
 	
 	public SuperEntity findOne(Long uid) {
-		return repoEntity.findOne(uid);
+		return getRepoEntity().findOne(uid);
 	}
 	
 	public SuperEntity save(SuperEntity superEntity) {
-		return repoEntity.save(superEntity);
+		return getRepoEntity().save(superEntity);
 	}
 	
 	public SuperEntity update(SuperEntity superEntity) {
-		return repoEntity.save(superEntity);
+		return getRepoEntity().save(superEntity);
 	}
 	
 	public void delete(Long uid) {
-		repoEntity.delete(uid);
+		getRepoEntity().delete(uid);
 	}
 	
 	public void archive(Long uid) {
 		//sessionFactory.openSession().create
-		SuperEntity superEntity = repoEntity.findOne(uid);
+		SuperEntity superEntity = getRepoEntity().findOne(uid);
 		superEntity.setActiveState(ActiveState.ARCHIVED);
-		repoEntity.save(superEntity);
+		getRepoEntity().save(superEntity);
 	}
 	
 	public void unarchive(Long uid) {
-		SuperEntity superEntity = repoEntity.findOne(uid);
+		SuperEntity superEntity = getRepoEntity().findOne(uid);
 		superEntity.setActiveState(ActiveState.ACTIVE);
-		repoEntity.save(superEntity);
+		getRepoEntity().save(superEntity);
 	}
 	
 }

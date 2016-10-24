@@ -28,6 +28,11 @@ public class ControllerSector {
 	public Page<SuperEntity> getAllSectors() {
 		return serviceSector.findAll();
 	}
+	
+	@RequestMapping(value="/{uid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public SuperEntity getSector(@PathVariable(value="uid") Long uid) {
+		return serviceSector.findOne(uid);
+	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Sector addSector(@RequestBody Sector sector) {

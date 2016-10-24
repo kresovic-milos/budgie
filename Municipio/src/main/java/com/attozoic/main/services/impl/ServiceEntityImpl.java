@@ -9,44 +9,43 @@ import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceEntity;
 
 @Service
-public class ServiceEntityImpl implements ServiceEntity {
+public abstract class ServiceEntityImpl implements ServiceEntity {
 
-	@Autowired
-	private DaoEntity daoEntity;
+	public abstract DaoEntity getDaoEntity();
 
 	@Override
 	public Page<SuperEntity> findAll() {
-		return daoEntity.findAll();
+		return getDaoEntity().findAll();
 	}
 
 	@Override
 	public SuperEntity findOne(Long uid) {
-		return daoEntity.findOne(uid);
+		return getDaoEntity().findOne(uid);
 	}
 
 	@Override
 	public SuperEntity save(SuperEntity superEntity) {
-		return daoEntity.save(superEntity);
+		return getDaoEntity().save(superEntity);
 	}
 
 	@Override
 	public SuperEntity update(SuperEntity superEntity) {
-		return daoEntity.update(superEntity);
+		return getDaoEntity().update(superEntity);
 	}
 
 	@Override
 	public void delete(Long uid) {
-		daoEntity.delete(uid);
+		getDaoEntity().delete(uid);
 	}
 
 	@Override
 	public void archive(Long uid) {
-		daoEntity.archive(uid);
+		getDaoEntity().archive(uid);
 	}
 
 	@Override
 	public void unarchive(Long uid) {
-		daoEntity.unarchive(uid);
+		getDaoEntity().unarchive(uid);
 	}
 	
 	
