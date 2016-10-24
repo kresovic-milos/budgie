@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.main.model.ActiveState;
+import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.ProgrammeGoalIndicator;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceProgrammeGoal;
@@ -31,6 +32,26 @@ public class ControllerProgrammeGoal {
 	@RequestMapping(value="/{uid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public SuperEntity getProgrammeGoal(@PathVariable(value="uid") Long uid) {
 		return serviceProgrammeGoal.findOne(uid);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ProgrammeGoal update(@RequestBody ProgrammeGoal programmeGoal) {
+		return (ProgrammeGoal) serviceProgrammeGoal.save(programmeGoal);
+	}
+	
+	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void delete(@PathVariable(value="uid") Long uid) {
+		serviceProgrammeGoal.delete(uid);
+	}
+	
+	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void archive(@PathVariable(value="uid") Long uid) {
+		serviceProgrammeGoal.archive(uid);
+	}
+	
+	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void unarchive(@PathVariable(value="uid") Long uid) {
+		serviceProgrammeGoal.unarchive(uid);
 	}
 
 	// Dodeljuje indicator izabranom cilju
