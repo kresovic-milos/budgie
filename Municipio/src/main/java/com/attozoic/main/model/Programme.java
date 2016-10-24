@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -23,10 +21,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 public class Programme extends SuperEntity {
-
-	@Id
-	@GeneratedValue
-	private Long uid;
 	
 	private String code; // 1101
 	private String ordNumber; // ПГ_1
@@ -59,15 +53,13 @@ public class Programme extends SuperEntity {
 	
 	public Programme() {}
 
-	public Programme(String code, String ordNumber, String name, String purpose, Sector sector, String rudiment,
+	public Programme(String code, String ordNumber, String name, String purpose, String rudiment,
 			String description, String budgetUser, String responsibleAuthority, Long sumExpenses,
 			Long sumFinancialSources) {
-		super();
 		this.code = code;
 		this.ordNumber = ordNumber;
 		this.name = name;
 		this.purpose = purpose;
-		this.sector = sector;
 		this.rudiment = rudiment;
 		this.description = description;
 		this.budgetUser = budgetUser;

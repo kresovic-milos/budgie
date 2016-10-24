@@ -1,26 +1,28 @@
 package com.attozoic.main.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.ProgrammeGoal;
+import com.attozoic.main.model.ProgrammeGoalIndicator;
+import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProgrammeGoal;
 
 @Repository
-public class DaoProgrammeGoal {
+public class DaoProgrammeGoal extends DaoEntity {
 
 	@Autowired
-	private RepositoryProgrammeGoal repoProgrammeGoal;
+	private RepositoryProgrammeGoal repo;
 	
-	public Page<ProgrammeGoal> findAll() {
-		Page<ProgrammeGoal> page = new PageImpl<>(repoProgrammeGoal.findAll());
-		return page;
+	@Override
+	public RepositoryEntity getRepoEntity() {
+		return repo;
 	}
 	
-	public ProgrammeGoal save(ProgrammeGoal programmeGoal) {
-		return repoProgrammeGoal.save(programmeGoal);
+	public ProgrammeGoalIndicator addProgrammeGoalIndicator(Long uid, ProgrammeGoalIndicator programmeGoalIndicator) {
+		ProgrammeGoal programmeGoal = (ProgrammeGoal) getRepoEntity().findOne(uid);
+		programmeGoalIndicator.setProgrammeGoal(programmeGoal);
+		return (ProgrammeGoalIndicator) getRepoEntity().save(programmeGoalIndicator);
 	}
-
+	
 }

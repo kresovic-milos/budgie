@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.Sector;
+import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositorySector;
 
@@ -24,5 +25,7 @@ public class DaoSector extends DaoEntity {
 		programme.setSector(sector);
 		return (Programme) getRepoEntity().save(programme);
 	}
+	
+	
 	
 }

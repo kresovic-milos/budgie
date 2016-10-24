@@ -1,6 +1,5 @@
 package com.attozoic.main.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
@@ -8,39 +7,33 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.repositories.RepositoryEntity;
-import com.attozoic.main.repositories.RepositorySector;
 
 @Repository
 public abstract class DaoEntity {
-//	@Autowired
-//		private SessionFactory sessionFactory;
 	
+	// Getter za konkretni Repo svakog pojedinacnog Dao objekta
+	@SuppressWarnings("rawtypes")
 	public abstract RepositoryEntity getRepoEntity();
 
-	public Page<SuperEntity> findAll() {	
-//		try{
-//			Session sesion = sessionF.openSession();
-//			Criteria nekiCrit = sesion.createCriteria(Programme.class);
-//			// nekiCrit.add(Restrictions.eq("name", "pera"))
-//			List<Programme> asdf = nekiCrit.list();
-//			System.out.println("Total: " + asdf.size());
-//		}catch (Exception e) {
-//			System.out.println("Ex: "  + e.getMessage());
-//			e.printStackTrace();
-//		}
-
+	// Vraca sve unete objekte zeljenog tipa (SuperEntity)
+	@SuppressWarnings("unchecked")
+	public Page<SuperEntity> findAll() {
 		Page<SuperEntity> page = new PageImpl<>(getRepoEntity().findAll());
-		return page;
+		return page;	
 	}
 	
+	// Vraca jedan, trazen po UID-u
 	public SuperEntity findOne(Long uid) {
 		return getRepoEntity().findOne(uid);
 	}
 	
+	// Cuva objekat
+	@SuppressWarnings("unchecked")
 	public SuperEntity save(SuperEntity superEntity) {
 		return getRepoEntity().save(superEntity);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public SuperEntity update(SuperEntity superEntity) {
 		return getRepoEntity().save(superEntity);
 	}
@@ -49,6 +42,7 @@ public abstract class DaoEntity {
 		getRepoEntity().delete(uid);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void archive(Long uid) {
 		//sessionFactory.openSession().create
 		SuperEntity superEntity = getRepoEntity().findOne(uid);
@@ -56,6 +50,7 @@ public abstract class DaoEntity {
 		getRepoEntity().save(superEntity);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void unarchive(Long uid) {
 		SuperEntity superEntity = getRepoEntity().findOne(uid);
 		superEntity.setActiveState(ActiveState.ACTIVE);

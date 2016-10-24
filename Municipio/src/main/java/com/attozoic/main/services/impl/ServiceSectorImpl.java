@@ -12,11 +12,11 @@ import com.attozoic.main.services.ServiceSector;
 public class ServiceSectorImpl extends ServiceEntityImpl implements ServiceSector {
 
 	@Autowired
-	private DaoSector daoEntity;
+	private DaoSector dao;
 	
 	@Override
 	public DaoEntity getDaoEntity() {
-		return daoEntity;
+		return dao;
 	}
 	
 	@Override

@@ -6,21 +6,29 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.ProgrammeGoalIndicator;
+import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProgrameGoalIndicator;
 
 @Repository
-public class DaoProgrammeGoalIndicator {
+public class DaoProgrammeGoalIndicator extends DaoEntity {
 
-	@Autowired
-	private RepositoryProgrameGoalIndicator repoProgrammeGoalIndicator;
+	private RepositoryProgrameGoalIndicator repo;
 	
-	public Page<ProgrammeGoalIndicator> findAll() {
-		Page<ProgrammeGoalIndicator> page = new PageImpl<>(repoProgrammeGoalIndicator.findAll());
-		return page;
+	@Override
+	public RepositoryEntity getRepoEntity() {
+		return repo;
 	}
-	
-	public ProgrammeGoalIndicator save(ProgrammeGoalIndicator programmeGoalIndicator) {
-		return repoProgrammeGoalIndicator.save(programmeGoalIndicator);
-	}
+
+//	@Autowired
+//	private RepositoryProgrameGoalIndicator repoProgrammeGoalIndicator;
+//	
+//	public Page<ProgrammeGoalIndicator> findAll() {
+//		Page<ProgrammeGoalIndicator> page = new PageImpl<>(repoProgrammeGoalIndicator.findAll());
+//		return page;
+//	}
+//	
+//	public ProgrammeGoalIndicator save(ProgrammeGoalIndicator programmeGoalIndicator) {
+//		return repoProgrammeGoalIndicator.save(programmeGoalIndicator);
+//	}
 
 }

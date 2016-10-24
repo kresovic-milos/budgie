@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.SuperEntity;
 
@@ -13,10 +12,7 @@ public interface RepositoryEntity<T extends SuperEntity> extends CrudRepository<
 	
 	List<T> findAll();
 	T findOne(Long uid);
-	@SuppressWarnings("unchecked")
 	T save(T superEntity);
-	//SuperEntity update(SuperEntity superEntity);
 	void delete(Long uid);
-	
 	
 }
