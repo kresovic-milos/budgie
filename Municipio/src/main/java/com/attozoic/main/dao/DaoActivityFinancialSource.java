@@ -1,26 +1,21 @@
 package com.attozoic.main.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
-import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.repositories.RepositoryActivityFinancialSource;
+import com.attozoic.main.repositories.RepositoryEntity;
 
 @Repository
-public class DaoActivityFinancialSource {
+public class DaoActivityFinancialSource extends DaoEntity {
 
 	@Autowired
-	private RepositoryActivityFinancialSource repoActivityFinancialSources;
+	private RepositoryActivityFinancialSource repo;
 	
-	public Page<ActivityFinancialSource> findAll() {
-		Page<ActivityFinancialSource> page = new PageImpl<>(repoActivityFinancialSources.findAll());
-		return page;
-	}
-	
-	public ActivityFinancialSource save(ActivityFinancialSource financialSource) {
-		return repoActivityFinancialSources.save(financialSource);
+	@SuppressWarnings("rawtypes")
+	@Override
+	public RepositoryEntity getRepoEntity() {
+		return repo;
 	}
 	
 }

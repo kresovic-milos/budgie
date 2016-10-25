@@ -1,26 +1,31 @@
 package com.attozoic.main.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
-import com.attozoic.main.model.ActivityGoalIndicator;
 import com.attozoic.main.repositories.RepositoryActivityGoalIndicator;
+import com.attozoic.main.repositories.RepositoryEntity;
 
 @Repository
-public class DaoActivityGoalIndicator {
+public class DaoActivityGoalIndicator extends DaoEntity {
 
-	@Autowired
-	private RepositoryActivityGoalIndicator repoActivityGoalIndicator;
+	private RepositoryActivityGoalIndicator repo;
 	
-	public Page<ActivityGoalIndicator> findAll() {
-		Page<ActivityGoalIndicator> page = new PageImpl<>(repoActivityGoalIndicator.findAll());
-		return page;
+	@SuppressWarnings("rawtypes")
+	@Override
+	public RepositoryEntity getRepoEntity() {
+		return repo;
 	}
-	
-	public ActivityGoalIndicator save(ActivityGoalIndicator activityGoalIndicator) {
-		return repoActivityGoalIndicator.save(activityGoalIndicator);
-	}
+
+//	@Autowired
+//	private RepositoryProgrameGoalIndicator repoProgrammeGoalIndicator;
+//	
+//	public Page<ProgrammeGoalIndicator> findAll() {
+//		Page<ProgrammeGoalIndicator> page = new PageImpl<>(repoProgrammeGoalIndicator.findAll());
+//		return page;
+//	}
+//	
+//	public ProgrammeGoalIndicator save(ProgrammeGoalIndicator programmeGoalIndicator) {
+//		return repoProgrammeGoalIndicator.save(programmeGoalIndicator);
+//	}
 
 }

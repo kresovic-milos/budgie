@@ -1,27 +1,27 @@
 package com.attozoic.main.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.attozoic.main.dao.DaoActivityGoal;
-import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.dao.DaoEntity;
+import com.attozoic.main.model.ActivityGoalIndicator;
 import com.attozoic.main.services.ServiceActivityGoal;
 
 @Service
-public class ServiceActivityGoalImpl implements ServiceActivityGoal {
+public class ServiceActivityGoalImpl extends ServiceEntityImpl implements ServiceActivityGoal {
 
 	@Autowired
-	private DaoActivityGoal daoActivityGoal;
+	private DaoActivityGoal dao;
 
 	@Override
-	public Page<ActivityGoal> findAll() {
-		return daoActivityGoal.findAll();
+	public DaoEntity getDaoEntity() {
+		return dao;
 	}
 
 	@Override
-	public ActivityGoal save(ActivityGoal activityGoal) {
-		return daoActivityGoal.save(activityGoal);
+	public ActivityGoalIndicator addActivityGoalIndicator(Long uid, ActivityGoalIndicator activityGoalIndicator) {
+		return ((DaoActivityGoal) getDaoEntity()).addActivityGoalIndicator(uid, activityGoalIndicator);
 	}
 	
 }

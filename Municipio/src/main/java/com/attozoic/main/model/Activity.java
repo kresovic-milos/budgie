@@ -1,29 +1,18 @@
 package com.attozoic.main.model;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.attozoic.categories.model.CategoryActivity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,6 +24,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 public class Activity extends SuperEntity { 
+	
+	private String code; // 1101-0001
+	private String ordNumber; // ПА_1
+	private String name; // Стратешко, просторно и урбанистичко планирање
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
 	@JsonManagedReference
@@ -56,7 +49,7 @@ public class Activity extends SuperEntity {
     		joinColumns={@JoinColumn(name="activity_id")},
     		inverseJoinColumns={@JoinColumn(name="activityFinancialSource_id")}
     		)
-    private List<ActivityFinancialSource> activityFinancialSources;
+    private List<ActivityFinancialSource> activityFinancialSources = new ArrayList<>();
     
     private String budgetUser;
     private String purpose;
@@ -70,9 +63,12 @@ public class Activity extends SuperEntity {
 	
 	public Activity() {}
 
-	public Activity(String budgetUser, String purpose, String rudiment,
+	public Activity(String code, String ordNumber, String name, String budgetUser, String purpose, String rudiment,
 			String description, String anex, String responsibleAuthority, Long sumExpenses, Long sumFinancialSources) {
 		super();
+		this.code = code;
+		this.ordNumber = ordNumber;
+		this.name = name;
 		this.budgetUser = budgetUser;
 		this.purpose = purpose;
 		this.rudiment = rudiment;
@@ -83,6 +79,4 @@ public class Activity extends SuperEntity {
 		this.sumFinancialSources = sumFinancialSources;
 	}
 
-
-    
 }

@@ -15,17 +15,20 @@ public class DaoProgramme extends DaoEntity {
 	@Autowired
 	private RepositoryProgramme repo;
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repo;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ProgrammeGoal addProgrammeGoal(Long uid, ProgrammeGoal programmeGoal) {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		programmeGoal.setProgramme(programme);
 		return (ProgrammeGoal) getRepoEntity().save(programmeGoal);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Activity addActivity(Long uid, Activity activity) {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		activity.setProgramme(programme);

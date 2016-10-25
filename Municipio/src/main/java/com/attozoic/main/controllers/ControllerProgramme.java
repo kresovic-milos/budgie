@@ -13,7 +13,6 @@ import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeGoal;
-import com.attozoic.main.model.Sector;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceProgramme;
 
