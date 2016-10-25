@@ -1,26 +1,40 @@
 package com.attozoic.main.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Project;
+import com.attozoic.main.model.ProjectFinancialSource;
+import com.attozoic.main.model.ProjectGoal;
+import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProject;
 
 @Repository
-public class DaoProject {
+public class DaoProject extends DaoEntity {
 
 	@Autowired
-	private RepositoryProject repoProject;
+	private RepositoryProject repo;
 	
-	public Page<Project> findAll() {
-		Page<Project> page = new PageImpl<>(repoProject.findAll());
-		return page;
+	@Override
+	public RepositoryEntity getRepoEntity() {
+		return repo;
 	}
 	
-	public Project save(Project project) {
-		return repoProject.save(project);
+	public ProjectFinancialSource addFinancialSource(Long uid, ProjectFinancialSource financialSource) {
+		Project project = (Project) getRepoEntity().findOne(uid);
+		project.getFinancialSources().add(financialSource);
+		
+		financialSource.getProject().add(project);			
+		
+		return (ProjectFinancialSource) getRepoEntity().save(financialSource);
+	}
+
+	public ProjectGoal addGoal(Long uid, ProjectGoal goal) {
+		Project project = (Project) getRepoEntity().findOne(uid);
+		goal.setProject(project);
+		return (ProjectGoal) getRepoEntity().save(goal);
 	}
 	
 }

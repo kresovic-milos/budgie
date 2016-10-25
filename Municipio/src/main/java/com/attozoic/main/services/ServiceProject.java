@@ -1,12 +1,11 @@
 package com.attozoic.main.services;
 
-import org.springframework.data.domain.Page;
+import com.attozoic.main.model.ProjectFinancialSource;
+import com.attozoic.main.model.ProjectGoal;
 
-import com.attozoic.main.model.Project;
+public interface ServiceProject extends ServiceEntity {
 
-public interface ServiceProject {
-
-	Page<Project> findAll();
-	Project save(Project project);
+	ProjectFinancialSource addFinancialSource(Long uid, ProjectFinancialSource financialSource);
+	ProjectGoal addGoal(Long uid, ProjectGoal goal);
 
 }

@@ -14,5 +14,6 @@ public interface RepositoryEntity<T extends SuperEntity> extends CrudRepository<
 	T findOne(Long uid);
 	T save(T superEntity);
 	void delete(Long uid);
+	boolean exists(Long uid);
 	
 }

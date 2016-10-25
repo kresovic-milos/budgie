@@ -19,7 +19,7 @@ public abstract class DaoEntity {
 	@SuppressWarnings("unchecked")
 	public Page<SuperEntity> findAll() {
 		Page<SuperEntity> page = new PageImpl<>(getRepoEntity().findAll());
-		return page;	
+		return page;
 	}
 	
 	// Vraca jedan, trazen po UID-u
@@ -30,6 +30,9 @@ public abstract class DaoEntity {
 	// Cuva objekat
 	@SuppressWarnings("unchecked")
 	public SuperEntity save(SuperEntity superEntity) {
+		if (!getRepoEntity().exists(superEntity.getUid())) {
+			superEntity.setActiveState(ActiveState.ACTIVE);
+		}
 		return getRepoEntity().save(superEntity);
 	}
 	
@@ -56,5 +59,7 @@ public abstract class DaoEntity {
 		superEntity.setActiveState(ActiveState.ACTIVE);
 		getRepoEntity().save(superEntity);
 	}
+	
+	
 	
 }

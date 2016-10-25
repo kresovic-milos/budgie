@@ -15,6 +15,8 @@ import com.attozoic.main.model.Sector;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceSector;
 
+import io.swagger.annotations.Api;
+
 @RestController
 //@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/sectors")
@@ -22,7 +24,7 @@ public class ControllerSector {
 
 	@Autowired
 	private ServiceSector serviceSector;
-
+	
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Page<SuperEntity> getAllSectors() {
 		return serviceSector.findAll();

@@ -4,24 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProjectFinancialSource;
 import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.services.ServiceProjectFinancialSource;
 
 @Service
-public class ServiceProjectFinancialSourceImpl implements ServiceProjectFinancialSource {
+public class ServiceProjectFinancialSourceImpl extends ServiceEntityImpl implements ServiceProjectFinancialSource {
 
 	@Autowired
-	private DaoProjectFinancialSource daoProjectFinancialSource;
+	private DaoProjectFinancialSource dao;
 	
 	@Override
-	public Page<ProjectFinancialSource> findAll(){
-		return daoProjectFinancialSource.findAll();
+	public DaoEntity getDaoEntity() {
+		return dao;
 	}
-	
-	@Override
-	public ProjectFinancialSource save(ProjectFinancialSource financialSource) {
-		return daoProjectFinancialSource.save(financialSource);
-	}
-	
 }
