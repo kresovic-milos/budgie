@@ -1,26 +1,21 @@
 package com.attozoic.main.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoFunction;
-import com.attozoic.main.model.Function;
 import com.attozoic.main.services.ServiceFunction;
 
 @Service
-public class ServiceFunctionImpl implements ServiceFunction {
+public class ServiceFunctionImpl extends ServiceEntityImpl implements ServiceFunction {
 
 	@Autowired
 	DaoFunction daoFunction;
 
 	@Override
-	public Page<Function> findAll() {
-		return daoFunction.findAll();
+	public DaoEntity getDaoEntity() {
+		return daoFunction;
 	}
 
-	@Override
-	public Function save(Function function) {
-		return daoFunction.save(function);
-	}
 }

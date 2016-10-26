@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.attozoic.main.model.EconomicAccount;
+import com.attozoic.main.model.Function;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoal;
@@ -66,4 +68,16 @@ public class ControllerProject {
 	public ProjectFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProjectFinancialSource financialSource) {
 		return serviceProject.addFinancialSource(uid, financialSource);
 	}
+	
+	@RequestMapping(value="/{uid}/function", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Function addFunction(@PathVariable(value="uid") Long uid, @RequestBody Function function) {
+		return serviceProject.addFunction(uid, function);
+	}
+	
+	// addEconimcalAccount to Project
+	@RequestMapping(value="/{uid}/projectEconomicAccount", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public EconomicAccount addEconomic(@PathVariable(value="uid") Long uid, @RequestBody EconomicAccount economicAccount) {
+		return serviceProject.addEconomicAccount(uid, economicAccount);
+	}
+	
 }

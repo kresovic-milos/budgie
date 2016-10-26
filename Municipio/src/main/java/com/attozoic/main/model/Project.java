@@ -1,5 +1,6 @@
 package com.attozoic.main.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -33,6 +35,11 @@ public class Project extends SuperEntity {
 	@JsonBackReference
     private Programme programme;
     
+    @ManyToOne
+    @JoinColumn(name="function_id")
+    @JsonIgnore
+    private Function function;
+    
 	private String code;
 	private String name;
     private String budgetUser;
@@ -52,6 +59,14 @@ public class Project extends SuperEntity {
     		inverseJoinColumns={@JoinColumn(name="financialSource_id")}
     		)
     private List<ProjectFinancialSource> financialSources;
+	
+    @ManyToMany
+    @JoinTable(
+    		name="project_economicalAcc",
+    		joinColumns={@JoinColumn(name="project_id")},
+    		inverseJoinColumns={@JoinColumn(name="economicalAcc_id")}
+    		)
+    private List<EconomicAccount> projectEconomicalAccount = new ArrayList<>();
 	
 	public Project() {}
 

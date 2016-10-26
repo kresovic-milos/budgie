@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.EconomicAccount;
+import com.attozoic.main.model.Function;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceActivity;
 
@@ -52,6 +54,23 @@ public class ControllerActivity {
 		return serviceActivity.addFinancialSource(uid, activityFinancialSource);
 	}
 	
+	// addFunction to Activity 
+	@RequestMapping(value="/{uid}/function", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Function addFunction(@PathVariable(value="uid") Long uid, @RequestBody Function function) {
+//		Activity a = (Activity)serviceActivity.findOne(uid);
+//		System.out.println(a.getName());
+//		System.err.println(a.getName());
+		return serviceActivity.addFunction(uid, function);
+	}
+	
+	// addEconimcalAccount to Activity
+	@RequestMapping(value="/{uid}/activityEconomicAccount", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public EconomicAccount addEconomic(@PathVariable(value="uid") Long uid, @RequestBody EconomicAccount economicAccount) {
+		//Activity a = (Activity)serviceActivity.findOne(uid);
+		//System.err.println(a.getName());
+		return serviceActivity.addEconomicAccount(uid, economicAccount);
+	}
+	
 	// updateActivity
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Activity update(@RequestBody Activity activity) {
@@ -75,6 +94,8 @@ public class ControllerActivity {
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceActivity.unarchive(uid);
 	}
+	
+
 	
 //	@RequestMapping(value="/{uid}/finsrc", method = RequestMethod.PUT)
 //	public ActivityFinancialSource addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource financialSource) {

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.Programme;
+import com.attozoic.main.model.ProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
+import com.attozoic.main.model.Project;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceProgramme;
 
@@ -35,40 +37,58 @@ public class ControllerProgramme {
 		return serviceProgramme.findOne(uid);
 	}
 
+	// Ubacuje program
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Programme save(@RequestBody Programme programme) {
 		return (Programme) serviceProgramme.save(programme);
 	}
 	
+	// Apdejtuje program
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Programme update(@RequestBody Programme programme) {
 		return (Programme) serviceProgramme.save(programme);
 	}
 	
+	// Brise program
 	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void delete(@PathVariable(value="uid") Long uid) {
 		serviceProgramme.delete(uid);
 	}
 	
+	// Arhivira program
 	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void archive(@PathVariable(value="uid") Long uid) {
 		serviceProgramme.archive(uid);
 	}
 	
+	// Anarhivira program
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceProgramme.unarchive(uid);
 	}
 
-	// Cuva programski cilj za izabrani program
+	// Ubacuje cilj za program
 	@RequestMapping(value="/{uid}/programmeGoal", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProgrammeGoal addProgrammeGoal(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeGoal programmeGoal) {
 		programmeGoal.setActiveState(ActiveState.ACTIVE);
 		return serviceProgramme.addProgrammeGoal(uid, programmeGoal);
 	}
 	
+	// Ubacuje aktivnost za program
 	@RequestMapping(value="/{uid}/activities", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Activity addActivity(@PathVariable(value="uid") Long uid, @RequestBody Activity activity) {
 		return serviceProgramme.addActivity(uid, activity);
+	}
+	
+	// Ubacuje projekat za program
+	@RequestMapping(value="/{uid}/project", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Project addProject(@PathVariable(value="uid") Long uid, @RequestBody Project project) {
+		return serviceProgramme.addProject(uid, project);
+	}
+	
+	// Ubacuje izvor finansiranja za program
+	@RequestMapping(value="/{uid}/programmeFinancialSource", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ProgrammeFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeFinancialSource financialSource) {
+		return serviceProgramme.addProgrammeFinancialSource(uid, financialSource);
 	}
 }

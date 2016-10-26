@@ -17,7 +17,5 @@ public class ServiceActivityFinancialSourceImpl extends ServiceEntityImpl implem
 	public DaoEntity getDaoEntity() {
 		return daoActivityFinancialSource;
 	}
-	
-	
-	
+		
 }

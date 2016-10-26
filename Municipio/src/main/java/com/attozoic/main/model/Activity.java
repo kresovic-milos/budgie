@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -40,7 +41,7 @@ public class Activity extends SuperEntity {
 	
     @ManyToOne
     @JoinColumn(name="function_id")
-    @JsonBackReference(value = "secondParent")
+    @JsonIgnore
     private Function function;
     
     @ManyToMany
@@ -50,6 +51,14 @@ public class Activity extends SuperEntity {
     		inverseJoinColumns={@JoinColumn(name="activityFinancialSource_id")}
     		)
     private List<ActivityFinancialSource> activityFinancialSources = new ArrayList<>();
+    
+    @ManyToMany
+    @JoinTable(
+    		name="activity_economicalAcc",
+    		joinColumns={@JoinColumn(name="activity_id")},
+    		inverseJoinColumns={@JoinColumn(name="economicalAcc_id")}
+    		)
+    private List<EconomicAccount> activityEconomicalAccount = new ArrayList<>();
     
     private String budgetUser;
     private String purpose;

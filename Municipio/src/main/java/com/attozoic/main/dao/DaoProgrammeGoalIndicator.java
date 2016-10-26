@@ -10,6 +10,7 @@ public class DaoProgrammeGoalIndicator extends DaoEntity {
 
 	private RepositoryProgrameGoalIndicator repo;
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repo;

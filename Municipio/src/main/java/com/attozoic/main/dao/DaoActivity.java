@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.EconomicAccount;
+import com.attozoic.main.model.Function;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryEntity;
 
@@ -34,6 +36,22 @@ public class DaoActivity extends DaoEntity {
 		activityFinancialSource.getActivities().add(activity);
 		activity.getActivityFinancialSources().add(activityFinancialSource);
 		return (ActivityFinancialSource) getRepoEntity().save(activityFinancialSource);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Function addFunction(Long uid, Function function) {
+		Activity activity = (Activity) getRepoEntity().findOne(uid);
+		function.getActivities().add(activity);
+		//System.err.println(activity.getName());
+		return (Function) getRepoEntity().save(function);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public EconomicAccount addActivityEconomicAccount(Long uid, EconomicAccount economicAccount) {
+		Activity activity = (Activity) getRepoEntity().findOne(uid);
+		economicAccount.getActivities().add(activity);
+		activity.getActivityEconomicalAccount().add(economicAccount);
+		return (EconomicAccount) getRepoEntity().save(economicAccount);
 	}
 	
 }

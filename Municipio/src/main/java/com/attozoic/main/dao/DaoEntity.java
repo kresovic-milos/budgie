@@ -30,10 +30,15 @@ public abstract class DaoEntity {
 	// Cuva objekat
 	@SuppressWarnings("unchecked")
 	public SuperEntity save(SuperEntity superEntity) {
+		try {
 		if (!getRepoEntity().exists(superEntity.getUid())) {
 			superEntity.setActiveState(ActiveState.ACTIVE);
 		}
+		} catch (Exception ex) {
+			System.out.println("UFACEN");
+		}
 		return getRepoEntity().save(superEntity);
+		
 	}
 	
 	@SuppressWarnings("unchecked")

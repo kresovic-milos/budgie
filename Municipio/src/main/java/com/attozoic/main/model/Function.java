@@ -1,59 +1,37 @@
 package com.attozoic.main.model;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.attozoic.categories.model.CategoryFunction;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="functions")
 @Data
-public class Function {
-
-	@Id
-	@GeneratedValue
-	private Long uid;
+@EqualsAndHashCode(callSuper=true)
+public class Function extends SuperEntity{
 	
-    @OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-	private CategoryFunction categoryFunction;
+	private String code; // 010
+	private String name; // Болест и инвалидност
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="function")
-	@JsonManagedReference(value = "secondParent")
-    private List<Activity> activities;
-    
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreationTimestamp
-	@Column(name = "create_date")
-	private Date createDate;
+    private List<Activity> activities = new ArrayList<>();
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@UpdateTimestamp
-	@Column(name = "update_date")
-	private Date updateDate;
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="function")
+    private List<Project> projects = new ArrayList<>();
 	
     public Function() {}
+
+	public Function(String code, String name) {
+		this.code = code;
+		this.name = name;
+	}
     
-    public Function(CategoryFunction categoryFunction) {
-    	this.categoryFunction = categoryFunction;
-    }
 }

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.Programme;
+import com.attozoic.main.model.ProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
+import com.attozoic.main.model.Project;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProgramme;
 
@@ -33,6 +35,21 @@ public class DaoProgramme extends DaoEntity {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		activity.setProgramme(programme);
 		return (Activity) getRepoEntity().save(activity);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Project addProject(Long uid, Project project) {
+		Programme programme = (Programme) getRepoEntity().findOne(uid);
+		project.setProgramme(programme);
+		return (Project) getRepoEntity().save(project);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ProgrammeFinancialSource addProgrammeFinancialSource(Long uid, ProgrammeFinancialSource programmeFinancialSource) {
+		Programme programme = (Programme) getRepoEntity().findOne(uid);
+		programmeFinancialSource.getProgrammes().add(programme);
+		programme.getProgrammeFinancialSources().add(programmeFinancialSource);
+		return (ProgrammeFinancialSource) getRepoEntity().save(programmeFinancialSource);
 	}
 	
 }

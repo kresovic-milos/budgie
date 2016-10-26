@@ -15,8 +15,6 @@ import com.attozoic.main.model.Sector;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceSector;
 
-import io.swagger.annotations.Api;
-
 @RestController
 //@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/sectors")
@@ -63,7 +61,6 @@ public class ControllerSector {
 	
 	@RequestMapping(value="/{uid}/programme", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Programme addProgramme(@PathVariable(value="uid") Long uid, @RequestBody Programme programme) {
-		programme.setActiveState(ActiveState.ACTIVE);
 		return serviceSector.addProgramme(uid, programme);
 	}
 }
