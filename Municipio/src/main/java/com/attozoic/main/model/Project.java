@@ -58,7 +58,7 @@ public class Project extends SuperEntity {
     		joinColumns={@JoinColumn(name="project_id")},
     		inverseJoinColumns={@JoinColumn(name="financialSource_id")}
     		)
-    private List<ProjectFinancialSource> financialSources;
+    private List<ProjectFinancialSource> financialSources = new ArrayList<>();
 	
     @ManyToMany
     @JoinTable(
