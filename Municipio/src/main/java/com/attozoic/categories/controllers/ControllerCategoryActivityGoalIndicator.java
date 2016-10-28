@@ -1,5 +1,7 @@
 package com.attozoic.categories.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.categories.model.CategoryActivityGoalIndicator;
 import com.attozoic.categories.model.CategorySuperEntity;
+import com.attozoic.categories.services.ServiceCategoryActivityGoal;
 import com.attozoic.categories.services.ServiceCategoryActivityGoalIndicator;
 
 @RestController
@@ -19,6 +22,17 @@ public class ControllerCategoryActivityGoalIndicator {
 
 	@Autowired
 	private ServiceCategoryActivityGoalIndicator serviceActivityGoalIndicator;
+	
+	@Autowired
+	private ServiceCategoryActivityGoal serviceActivityGoal;
+	
+	@RequestMapping(value="/addAll", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void addAllActivityGoalIndicatorCategories(@RequestBody List<CategoryActivityGoalIndicator> categoryActivityGoalIndicators) {
+		for (CategoryActivityGoalIndicator categoryActivityGoalIndicator : categoryActivityGoalIndicators) {
+			Long id = categoryActivityGoalIndicator.getCategoryActivitiGoalID();
+			serviceActivityGoal.addCategoryActivityGoalIndicator(id, categoryActivityGoalIndicator);
+		}
+	}
 	
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Page<CategorySuperEntity> getAllActivityGoalIndicatorCategories() {

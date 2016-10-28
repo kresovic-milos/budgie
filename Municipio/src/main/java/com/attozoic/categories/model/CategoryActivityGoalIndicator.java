@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -24,6 +25,9 @@ public class CategoryActivityGoalIndicator extends CategorySuperEntity {
 	private Long uid;
 	@Column(length = 512)
 	private String name;
+	
+	@Transient
+	private Long categoryActivitiGoalID;
 	
 	@ManyToOne
 	@JoinColumn(name="categoryActivityGoal_uid")
