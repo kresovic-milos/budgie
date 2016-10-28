@@ -28,7 +28,7 @@ public class Project extends SuperEntity {
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
 	@JsonManagedReference
-    private List<ProjectGoal> projectGoals;
+    private List<ProjectGoal> projectGoals = new ArrayList<>();
 	
     @ManyToOne
 	@JoinColumn(name="programme_uid")

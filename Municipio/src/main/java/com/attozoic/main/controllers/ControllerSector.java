@@ -1,5 +1,7 @@
 package com.attozoic.main.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -21,6 +23,13 @@ public class ControllerSector {
 
 	@Autowired
 	private ServiceSector serviceSector;
+	
+	@RequestMapping(value="/addAll", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void addAllSectors(@RequestBody List<Sector> sectors) {
+		for (Sector sector : sectors) {
+			serviceSector.save(sector);
+		}
+	}
 	
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Page<SuperEntity> getAllSectors() {

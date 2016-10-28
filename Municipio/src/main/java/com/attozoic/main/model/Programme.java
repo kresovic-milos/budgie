@@ -40,15 +40,15 @@ public class Programme extends SuperEntity {
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
     @JsonManagedReference
-	private List<ProgrammeGoal> programmeGoals;
+	private List<ProgrammeGoal> programmeGoals = new ArrayList<>();
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
     @JsonManagedReference
-    private List<Activity> activities;
+    private List<Activity> activities = new ArrayList<>();
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
     @JsonManagedReference
-    private List<Project> projects;
+    private List<Project> projects = new ArrayList<>();
 	
     @ManyToMany
     @JoinTable(

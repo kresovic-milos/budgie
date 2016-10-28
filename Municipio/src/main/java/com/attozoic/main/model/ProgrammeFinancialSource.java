@@ -38,10 +38,9 @@ public class ProgrammeFinancialSource extends SuperEntity {
 	
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name = "programme_financial_source_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
-	private List<RebalanceOneField> rebalances;
+	private List<RebalanceOneField> rebalances = new ArrayList<>();
 	
     public ProgrammeFinancialSource() {
-    	rebalances = new ArrayList<>();
     }
     
     

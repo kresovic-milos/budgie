@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -33,6 +34,7 @@ public class CategoryActivity extends CategorySuperEntity {
 	@Column(length = 512)
 	private String name; // Стратешко, просторно и урбанистичко планирање
 	
+	@Transient
 	private Long categoryProgrammeID;
 	
 	@ManyToOne

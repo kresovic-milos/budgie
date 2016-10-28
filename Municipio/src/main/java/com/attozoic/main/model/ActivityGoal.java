@@ -1,5 +1,6 @@
 package com.attozoic.main.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,7 +33,7 @@ public class ActivityGoal extends SuperEntity {
     
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="activityGoal")
 	@JsonManagedReference
-    private List<ActivityGoalIndicator> activityGoalIndicators;
+    private List<ActivityGoalIndicator> activityGoalIndicators = new ArrayList<>();
 	
     public ActivityGoal() {}
 

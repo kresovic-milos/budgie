@@ -32,7 +32,7 @@ public class Activity extends SuperEntity {
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
 	@JsonManagedReference
-    private List<ActivityGoal> activityGoals;
+    private List<ActivityGoal> activityGoals = new ArrayList<>();
 	
     @ManyToOne
 	@JoinColumn(name="programme_uid")

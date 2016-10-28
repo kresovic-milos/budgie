@@ -27,7 +27,7 @@ public class ProjectFinancialSource extends SuperEntity {
 	private long sumSources123;
 	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="financialSources")
-    private List<Project> project;
+    private List<Project> project = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name = "projectFinancialSource_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))

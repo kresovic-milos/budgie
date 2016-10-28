@@ -1,5 +1,6 @@
 package com.attozoic.main.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,7 +26,7 @@ public class Sector extends SuperEntity {
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="sector")
 	@JsonManagedReference
-    private List<Programme> programmes; 
+    private List<Programme> programmes = new ArrayList<>(); 
 	
 	public Sector() {}
 	
