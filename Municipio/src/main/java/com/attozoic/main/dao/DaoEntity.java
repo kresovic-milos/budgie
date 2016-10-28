@@ -15,6 +15,18 @@ public abstract class DaoEntity {
 	@SuppressWarnings("rawtypes")
 	public abstract RepositoryEntity getRepoEntity();
 
+	@SuppressWarnings("unchecked")
+	public Page<SuperEntity> findActive() {
+		Page<SuperEntity> page = new PageImpl<>(getRepoEntity().findByActiveState(ActiveState.ACTIVE));
+		return page;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Page<SuperEntity> findArchived() {
+		Page<SuperEntity> page = new PageImpl<>(getRepoEntity().findByActiveState(ActiveState.ARCHIVED));
+		return page;
+	}
+	
 	// Vraca sve unete objekte zeljenog tipa (SuperEntity)
 	@SuppressWarnings("unchecked")
 	public Page<SuperEntity> findAll() {
@@ -27,18 +39,23 @@ public abstract class DaoEntity {
 		return getRepoEntity().findOne(uid);
 	}
 	
+//	// Cuva objekat
+//	@SuppressWarnings("unchecked")
+//	public SuperEntity save(SuperEntity superEntity) {
+//		try {
+//			if (superEntity.getUid()==null||!getRepoEntity().exists(superEntity.getUid())) {
+//				superEntity.setActiveState(ActiveState.ACTIVE);
+//			} 
+//		} catch (Exception ex) {
+//			System.out.println("UFACEN");
+//		}
+//		return getRepoEntity().save(superEntity);	
+//	}
+
 	// Cuva objekat
 	@SuppressWarnings("unchecked")
 	public SuperEntity save(SuperEntity superEntity) {
-		try {
-		if (!getRepoEntity().exists(superEntity.getUid())) {
-			superEntity.setActiveState(ActiveState.ACTIVE);
-		}
-		} catch (Exception ex) {
-			System.out.println("UFACEN");
-		}
-		return getRepoEntity().save(superEntity);
-		
+		return getRepoEntity().save(superEntity);	
 	}
 	
 	@SuppressWarnings("unchecked")

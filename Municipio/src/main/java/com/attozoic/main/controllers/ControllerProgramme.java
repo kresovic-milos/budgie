@@ -37,6 +37,16 @@ public class ControllerProgramme {
 		return serviceProgramme.findOne(uid);
 	}
 
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceProgramme.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceProgramme.findArchived();
+	}
+	
 	// Ubacuje program
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Programme save(@RequestBody Programme programme) {
@@ -68,7 +78,7 @@ public class ControllerProgramme {
 	}
 
 	// Ubacuje cilj za program
-	@RequestMapping(value="/{uid}/programmeGoal", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/programmeGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProgrammeGoal addProgrammeGoal(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeGoal programmeGoal) {
 		programmeGoal.setActiveState(ActiveState.ACTIVE);
 		return serviceProgramme.addProgrammeGoal(uid, programmeGoal);
@@ -81,13 +91,13 @@ public class ControllerProgramme {
 	}
 	
 	// Ubacuje projekat za program
-	@RequestMapping(value="/{uid}/project", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/projects", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Project addProject(@PathVariable(value="uid") Long uid, @RequestBody Project project) {
 		return serviceProgramme.addProject(uid, project);
 	}
 	
 	// Ubacuje izvor finansiranja za program
-	@RequestMapping(value="/{uid}/programmeFinancialSource", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/programmeFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProgrammeFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeFinancialSource financialSource) {
 		return serviceProgramme.addProgrammeFinancialSource(uid, financialSource);
 	}

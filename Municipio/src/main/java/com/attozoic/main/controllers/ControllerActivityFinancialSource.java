@@ -30,6 +30,16 @@ public class ControllerActivityFinancialSource {
 		return serviceActivityFinancialSource.findOne(uid);
 	}
 	
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceActivityFinancialSource.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceActivityFinancialSource.findArchived();
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ActivityFinancialSource update(@RequestBody ActivityFinancialSource activityFinancialSource) {
 		return (ActivityFinancialSource) serviceActivityFinancialSource.save(activityFinancialSource);

@@ -1,24 +1,64 @@
 package com.attozoic.categories.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "category_programmes")
 @Data
-public class CategoryProgramme {
+@EqualsAndHashCode(callSuper=true)
+public class CategoryProgramme extends CategorySuperEntity {
 
 	@Id
 	@GeneratedValue
 	private Long uid;
 	private String code; // 1101
 	private String ordNumber; // ПГ_1
+	@Column(length = 512)
 	private String name; // Програм_1__Локални_развој_и_просторно_планирање
+	@Column(length = 2048)
 	private String purpose; // Планско одређивање праваца развоја локалне средине и ефикасно администрирање захтева за издавање грађевинских дозвола
+	
+	@Transient
+	private Long categorySectorID;
+	
+	@ManyToOne
+	@JoinColumn(name="categorySector_uid")
+	@JsonBackReference
+	private CategorySector categorySector;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="categoryProgramme")
+	@JsonManagedReference
+	private List<CategoryProgrammeGoal> categoryProgrammeGoals;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="categoryProgramme")
+	@JsonManagedReference	
+	private List<CategoryActivity> acivities;
+	
+//    @ManyToMany
+//    @JoinTable(
+//    		name="categoryProgramme_categoryFinance",
+//    		joinColumns={@JoinColumn(name="categoryProgramme_id")},
+//    		inverseJoinColumns={@JoinColumn(name="categoryFinancialSource_id")}
+//    		)
+//    private List<CategoryFinancialSource> categoryProgrammeFinancialSources = new ArrayList<>();
 	
 	public CategoryProgramme() {
 	}

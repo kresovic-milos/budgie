@@ -1,32 +1,28 @@
 package com.attozoic.categories.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.attozoic.categories.dao.DaoCategoryEntity;
 import com.attozoic.categories.dao.DaoCategoryProgrammeGoal;
-import com.attozoic.categories.model.CategoryProgrammeGoal;
+import com.attozoic.categories.model.CategoryProgrammeGoalIndicator;
 import com.attozoic.categories.services.ServiceCategoryProgrammeGoal;
 
 @Service
-public class ServiceCategoryProgrammeGoalImpl implements ServiceCategoryProgrammeGoal {
+public class ServiceCategoryProgrammeGoalImpl extends ServiceCategoryEntityImpl implements ServiceCategoryProgrammeGoal {
 
 	@Autowired
 	private DaoCategoryProgrammeGoal daoProgrammeGoal;
-	
+
 	@Override
-	public Page<CategoryProgrammeGoal> findAll() {
-		return daoProgrammeGoal.findAll();
+	public DaoCategoryEntity getDaoCategoryEntity() {
+		return daoProgrammeGoal;
 	}
 
 	@Override
-	public CategoryProgrammeGoal save(CategoryProgrammeGoal goal) {
-		return daoProgrammeGoal.save(goal);
-	}
-
-	@Override
-	public CategoryProgrammeGoal findByUid(Long uid) {
-		return daoProgrammeGoal.findById(uid);
+	public CategoryProgrammeGoalIndicator addCategoryProgrammeGoalIndicator(Long uid,
+			CategoryProgrammeGoalIndicator categoryProgrammeGoalIndicator) {
+		return daoProgrammeGoal.addCategoryProgrammeGoalIndicator(uid, categoryProgrammeGoalIndicator);
 	}
 
 }

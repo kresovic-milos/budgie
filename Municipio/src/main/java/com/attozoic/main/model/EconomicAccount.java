@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -42,6 +45,10 @@ public class EconomicAccount extends SuperEntity {
     @JsonIgnore
     private List<Project> projects = new ArrayList<>();
 	
+	@ElementCollection
+	@CollectionTable(name = "economicAccount_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	private List<RebalanceTwoFields> rebalances = new ArrayList<>(); 
+    
     public EconomicAccount() {}
 
 	public EconomicAccount(String code, String name, String poz, long expenseBaseYearBudget, long expenseBaseYearOthers,

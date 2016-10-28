@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -32,6 +36,14 @@ public class ProgrammeFinancialSource extends SuperEntity {
 	private long sourceBaseYearPlus3; // 2019
 	private long sumSources123;
 	
-    public ProgrammeFinancialSource() {}
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name = "programme_financial_source_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	private List<RebalanceOneField> rebalances;
+	
+    public ProgrammeFinancialSource() {
+    	rebalances = new ArrayList<>();
+    }
+    
+    
     
 }

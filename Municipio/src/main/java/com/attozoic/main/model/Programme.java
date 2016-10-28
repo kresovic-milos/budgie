@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -27,7 +28,9 @@ public class Programme extends SuperEntity {
 	
 	private String code; // 1101
 	private String ordNumber; // ПГ_1
+	@Column(length = 512)
 	private String name; // Програм_1__Локални_развој_и_просторно_планирање
+	@Column(length = 2048)
 	private String purpose; // Планско одређивање праваца развоја локалне средине и ефикасно администрирање захтева за издавање грађевинских дозвола
 	
 	@ManyToOne
@@ -55,9 +58,13 @@ public class Programme extends SuperEntity {
     		)
     private List<ProgrammeFinancialSource> programmeFinancialSources = new ArrayList<>();
 	
+    @Column(length = 2048)
 	private String rudiment;
+    @Column(length = 2048)
 	private String description;
+    @Column(length = 2048)
 	private String budgetUser;
+    @Column(length = 2048)
 	private String responsibleAuthority;
 	private Long sumExpenses;
 	private Long sumFinancialSources;

@@ -29,6 +29,16 @@ public class ControllerProjectFinancialSource {
 	public ProjectFinancialSource getSector(@PathVariable(value="uid") Long uid) {
 		return (ProjectFinancialSource) serviceProjectFinancialSource.findOne(uid);
 	}
+	
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceProjectFinancialSource.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceProjectFinancialSource.findArchived();
+	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProjectFinancialSource save(@RequestBody ProjectFinancialSource financialSource) {

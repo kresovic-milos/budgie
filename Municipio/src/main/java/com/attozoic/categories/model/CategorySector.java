@@ -1,21 +1,36 @@
 package com.attozoic.categories.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "category_sectors")
 @Data
-public class CategorySector {
+@EqualsAndHashCode(callSuper=true)
+public class CategorySector extends CategorySuperEntity {
 
 	@Id
 	@GeneratedValue
 	private Long uid;
+	@Column(length = 512)
 	private String name; //Сектор_1__Пољопривреда_и_рурални_развој
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="categorySector")
+	@JsonManagedReference
+	private List<CategoryProgramme> categoryProgrammes;
 	
 	public CategorySector() {
 	}

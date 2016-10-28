@@ -6,5 +6,4 @@ import com.attozoic.main.model.EconomicAccount;
 
 @Repository
 public interface RepositoryEconomicAccount extends RepositoryEntity<EconomicAccount> {
-	
 }

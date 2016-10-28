@@ -1,12 +1,9 @@
 package com.attozoic.categories.services;
 
-import org.springframework.data.domain.Page;
+import com.attozoic.categories.model.CategoryActivity;
+import com.attozoic.categories.model.CategoryProgrammeGoal;
 
-import com.attozoic.categories.model.CategoryProgramme;
-
-public interface ServiceCategoryProgramme {
-
-	Page<CategoryProgramme> findAll();
-	CategoryProgramme save(CategoryProgramme programme);
-
+public interface ServiceCategoryProgramme extends ServiceCategoryEntity {
+	CategoryProgrammeGoal addCategoryProgrammeGoal(Long uid, CategoryProgrammeGoal categoryProgrammeGoal);
+	CategoryActivity addCategoryActivity(Long uid, CategoryActivity categoryActivity);
 }

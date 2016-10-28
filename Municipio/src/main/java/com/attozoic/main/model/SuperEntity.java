@@ -16,6 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
+
 @MappedSuperclass
 @Data
 public abstract class SuperEntity {
@@ -25,8 +26,7 @@ public abstract class SuperEntity {
 	private Long uid;
 	
 	@Enumerated(EnumType.ORDINAL)
-//	@Column(columnDefinition="int default 1")
-	private ActiveState activeState;
+	private ActiveState activeState = ActiveState.ACTIVE;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp

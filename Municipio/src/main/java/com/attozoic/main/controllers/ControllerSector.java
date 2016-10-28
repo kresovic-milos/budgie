@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.Sector;
 import com.attozoic.main.model.SuperEntity;
@@ -33,9 +32,19 @@ public class ControllerSector {
 		return serviceSector.findOne(uid);
 	}
 
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceSector.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceSector.findArchived();
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Sector addSector(@RequestBody Sector sector) {
-		sector.setActiveState(ActiveState.ACTIVE);
+		//sector.setActiveState(ActiveState.ACTIVE);
 		return (Sector) serviceSector.save(sector);
 	}
 	
@@ -59,7 +68,7 @@ public class ControllerSector {
 		serviceSector.unarchive(uid);
 	}
 	
-	@RequestMapping(value="/{uid}/programme", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/programmes", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Programme addProgramme(@PathVariable(value="uid") Long uid, @RequestBody Programme programme) {
 		return serviceSector.addProgramme(uid, programme);
 	}

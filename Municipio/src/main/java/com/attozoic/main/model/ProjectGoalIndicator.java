@@ -35,8 +35,8 @@ public class ProjectGoalIndicator extends SuperEntity {
 	private long verificationSource;
 	
 	@ElementCollection
-	@CollectionTable(name = "indicator_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
-	private List<Double> rebalances; 
+	@CollectionTable(name = "projectGoalIndicator_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	private List<RebalanceOneField> rebalances = new ArrayList<>(); 
 	
 	public ProjectGoalIndicator() {}
 

@@ -1,5 +1,10 @@
 package com.attozoic.main.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,6 +34,10 @@ public class ActivityGoalIndicator extends SuperEntity {
 	private long targetValuePlus3; // 2019
 	private long verificationSource;
 
+	@ElementCollection
+	@CollectionTable(name = "activityGoalIndicator_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	private List<RebalanceOneField> rebalances = new ArrayList<>();
+	
 	public ActivityGoalIndicator() {}
 
 	public ActivityGoalIndicator(String name, long valueBase, long targetValuePlus1, long targetValuePlus2,

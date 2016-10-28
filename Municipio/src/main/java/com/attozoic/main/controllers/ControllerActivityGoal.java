@@ -34,6 +34,16 @@ public class ControllerActivityGoal {
 		return serviceActivityGoal.findOne(uid);
 	}
 	
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceActivityGoal.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceActivityGoal.findArchived();
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ActivityGoal update(@RequestBody ActivityGoal activityGoal) {
 		return (ActivityGoal) serviceActivityGoal.save(activityGoal);
@@ -55,7 +65,7 @@ public class ControllerActivityGoal {
 	}
 
 	// Dodeljuje indicator izabranom cilju
-	@RequestMapping(value="/{uid}/activityGoalIndicator", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/activityGoalIndicators", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ActivityGoalIndicator addActivityGoalIndicator(@PathVariable(value="uid") Long uid, @RequestBody ActivityGoalIndicator activityGoalIndicator) {
 		activityGoalIndicator.setActiveState(ActiveState.ACTIVE);
 		return serviceActivityGoal.addActivityGoalIndicator(uid, activityGoalIndicator);

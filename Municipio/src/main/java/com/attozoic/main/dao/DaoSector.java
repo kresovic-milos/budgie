@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.Sector;
-import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositorySector;
 
@@ -15,11 +14,13 @@ public class DaoSector extends DaoEntity {
 	@Autowired
 	private RepositorySector repo;
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repo;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Programme addProgramme(Long uid, Programme programme) {
 		Sector sector = (Sector) getRepoEntity().findOne(uid);
 		programme.setSector(sector);

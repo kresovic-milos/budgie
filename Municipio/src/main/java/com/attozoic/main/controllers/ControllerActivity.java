@@ -36,6 +36,16 @@ public class ControllerActivity {
 		return serviceActivity.findOne(uid);
 	}
 	
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceActivity.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceActivity.findArchived();
+	}
+	
 	// addOne
 	@RequestMapping(method = RequestMethod.POST)
 	public SuperEntity save(@RequestBody Activity activity) {
@@ -43,19 +53,19 @@ public class ControllerActivity {
 	}
 	
 	// addGoal to Activity
-	@RequestMapping(value="/{uid}/activityGoal", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/activityGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ActivityGoal addActivityGoal(@PathVariable(value="uid") Long uid, @RequestBody ActivityGoal activityGoal) {
 		return serviceActivity.addActivityGoal(uid, activityGoal);
 	}
 	
 	// addFinancialSource to Activity
-	@RequestMapping(value="/{uid}/activityFinancialSource", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/activityFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ActivityFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource activityFinancialSource) {
 		return serviceActivity.addFinancialSource(uid, activityFinancialSource);
 	}
 	
 	// addFunction to Activity 
-	@RequestMapping(value="/{uid}/function", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/functions", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Function addFunction(@PathVariable(value="uid") Long uid, @RequestBody Function function) {
 //		Activity a = (Activity)serviceActivity.findOne(uid);
 //		System.out.println(a.getName());
@@ -64,7 +74,7 @@ public class ControllerActivity {
 	}
 	
 	// addEconimcalAccount to Activity
-	@RequestMapping(value="/{uid}/activityEconomicAccount", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public EconomicAccount addEconomic(@PathVariable(value="uid") Long uid, @RequestBody EconomicAccount economicAccount) {
 		//Activity a = (Activity)serviceActivity.findOne(uid);
 		//System.err.println(a.getName());

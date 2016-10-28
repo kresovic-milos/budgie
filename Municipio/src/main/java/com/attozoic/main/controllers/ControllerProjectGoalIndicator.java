@@ -30,6 +30,16 @@ public class ControllerProjectGoalIndicator {
 		return serviceProjectGoalIndicator.findOne(uid);
 	}
 
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceProjectGoalIndicator.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceProjectGoalIndicator.findArchived();
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProjectGoalIndicator save(@RequestBody ProjectGoalIndicator indicator) {
 		return (ProjectGoalIndicator) serviceProjectGoalIndicator.save(indicator);

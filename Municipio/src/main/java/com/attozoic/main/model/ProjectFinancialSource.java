@@ -1,9 +1,13 @@
 package com.attozoic.main.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -24,6 +28,10 @@ public class ProjectFinancialSource extends SuperEntity {
 	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="financialSources")
     private List<Project> project;
+	
+	@ElementCollection
+	@CollectionTable(name = "projectFinancialSource_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	private List<RebalanceOneField> rebalances = new ArrayList<>();
 	
     public ProjectFinancialSource() {}
 

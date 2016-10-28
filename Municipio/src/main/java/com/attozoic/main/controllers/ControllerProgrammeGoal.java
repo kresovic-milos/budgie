@@ -34,6 +34,16 @@ public class ControllerProgrammeGoal {
 		return serviceProgrammeGoal.findOne(uid);
 	}
 	
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceProgrammeGoal.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceProgrammeGoal.findArchived();
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProgrammeGoal update(@RequestBody ProgrammeGoal programmeGoal) {
 		return (ProgrammeGoal) serviceProgrammeGoal.save(programmeGoal);
@@ -55,7 +65,7 @@ public class ControllerProgrammeGoal {
 	}
 
 	// Dodeljuje indicator izabranom cilju
-	@RequestMapping(value="/{uid}/programmeGoalIndicator", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/programmeGoalIndicators", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProgrammeGoalIndicator addProgrammeGoalIndicator(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeGoalIndicator programmeGoalIndicator) {
 		programmeGoalIndicator.setActiveState(ActiveState.ACTIVE);
 		return serviceProgrammeGoal.addProgrammeGoalIndicator(uid, programmeGoalIndicator);

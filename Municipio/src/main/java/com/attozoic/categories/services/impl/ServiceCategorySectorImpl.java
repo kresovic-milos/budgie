@@ -1,27 +1,31 @@
 package com.attozoic.categories.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.attozoic.categories.dao.DaoCategoryEntity;
 import com.attozoic.categories.dao.DaoCategorySector;
-import com.attozoic.categories.model.CategorySector;
+import com.attozoic.categories.model.CategoryProgramme;
 import com.attozoic.categories.services.ServiceCategorySector;
 
 @Service
-public class ServiceCategorySectorImpl implements ServiceCategorySector {
+public class ServiceCategorySectorImpl extends ServiceCategoryEntityImpl implements ServiceCategorySector {
 
 	@Autowired
 	private DaoCategorySector daoSector;
-	
-	@Override
-	public Page<CategorySector> findAll() {
-		return daoSector.findAll();
-	}
 
 	@Override
-	public CategorySector save(CategorySector sector) {
-		return daoSector.save(sector);
+	public DaoCategoryEntity getDaoCategoryEntity() {
+		return daoSector;
 	}
+	
+	@Override
+	public CategoryProgramme addCategoryProgramme(Long uid, CategoryProgramme categoryProgramme) {
+		return ((DaoCategorySector)getDaoCategoryEntity()).addCategoryProgramme(uid, categoryProgramme);
+	}
+
+
+	
+
 	
 }

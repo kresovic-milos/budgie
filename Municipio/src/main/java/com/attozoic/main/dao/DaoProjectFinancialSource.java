@@ -12,6 +12,7 @@ public class DaoProjectFinancialSource extends DaoEntity {
 	@Autowired
 	private RepositoryProjectFinancialSource repo;
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repo;

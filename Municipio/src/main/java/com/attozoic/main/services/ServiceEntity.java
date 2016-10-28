@@ -12,4 +12,6 @@ public interface ServiceEntity {
 	void delete(Long uid);
 	void archive(Long uid);
 	void unarchive(Long uid);
+	Page<SuperEntity> findActive();
+	Page<SuperEntity> findArchived();
 }

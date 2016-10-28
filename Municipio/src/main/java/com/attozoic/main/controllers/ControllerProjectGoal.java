@@ -31,6 +31,16 @@ public class ControllerProjectGoal {
 		return (ProjectGoal) serviceProjectGoal.findOne(uid);
 	}
 
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceProjectGoal.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceProjectGoal.findArchived();
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProjectGoal save(@RequestBody ProjectGoal goal) {
 		return (ProjectGoal) serviceProjectGoal.save(goal);

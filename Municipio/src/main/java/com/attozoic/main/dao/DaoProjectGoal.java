@@ -14,11 +14,13 @@ public class DaoProjectGoal extends DaoEntity {
 	@Autowired
 	private RepositoryProjectGoal repo;
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repo;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ProjectGoalIndicator addIndicator(Long uid, ProjectGoalIndicator goalIndicator) {
 		ProjectGoal goal = (ProjectGoal) getRepoEntity().findOne(uid);
 		goalIndicator.setProjectGoal(goal);

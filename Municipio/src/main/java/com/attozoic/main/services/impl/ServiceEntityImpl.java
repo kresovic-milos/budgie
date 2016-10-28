@@ -46,6 +46,13 @@ public abstract class ServiceEntityImpl implements ServiceEntity {
 	public void unarchive(Long uid) {
 		getDaoEntity().unarchive(uid);
 	}
+
+	public Page<SuperEntity> findActive() {
+		return getDaoEntity().findActive();
+	}
 	
+	public Page<SuperEntity> findArchived() {
+		return getDaoEntity().findArchived();
+	}
 	
 }

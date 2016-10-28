@@ -34,6 +34,16 @@ public class ControllerProject {
 		return (Project) serviceProject.findOne(uid);
 	}
 
+	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceProject.findActive();
+	}
+	
+	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceProject.findArchived();
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Project save(@RequestBody Project project) {
 		return (Project) serviceProject.save(project);
@@ -69,13 +79,13 @@ public class ControllerProject {
 		return serviceProject.addFinancialSource(uid, financialSource);
 	}
 	
-	@RequestMapping(value="/{uid}/function", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/functions", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Function addFunction(@PathVariable(value="uid") Long uid, @RequestBody Function function) {
 		return serviceProject.addFunction(uid, function);
 	}
 	
 	// addEconimcalAccount to Project
-	@RequestMapping(value="/{uid}/projectEconomicAccount", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/projectEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public EconomicAccount addEconomic(@PathVariable(value="uid") Long uid, @RequestBody EconomicAccount economicAccount) {
 		return serviceProject.addEconomicAccount(uid, economicAccount);
 	}
