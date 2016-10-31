@@ -16,4 +16,5 @@ public interface RepositoryCategoryEntity <T extends CategorySuperEntity> extend
 	void delete(Long uid);
 	boolean exists(Long uid);
 	List<T> findByActiveState(ActiveState activeState);
+	
 }

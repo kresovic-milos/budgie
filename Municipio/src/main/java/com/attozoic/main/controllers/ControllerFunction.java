@@ -18,7 +18,7 @@ import com.attozoic.main.services.ServiceFunction;
 public class ControllerFunction {
 
 	@Autowired
-	ServiceFunction serviceFunction;
+	private ServiceFunction serviceFunction;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public Page<SuperEntity> getAllFunctions(){

@@ -39,4 +39,5 @@ public abstract class CategorySuperEntity {
 	@UpdateTimestamp
 	@Column(name = "update_date")
 	private Date updateDate;
+	
 }

@@ -28,7 +28,8 @@ public class Activity extends SuperEntity {
 	
 	private String code; // 1101-0001
 	private String ordNumber; // ПА_1
-	private String name; // Стратешко, просторно и урбанистичко планирање
+	private String categoryName; // Стратешко, просторно и урбанистичко планирање
+	private String name;
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
 	@JsonManagedReference

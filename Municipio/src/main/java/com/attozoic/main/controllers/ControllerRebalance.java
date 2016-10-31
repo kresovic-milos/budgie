@@ -13,11 +13,21 @@ import com.attozoic.main.services.ServiceEntityWithRebalances;
 public class ControllerRebalance {
 
 	@Autowired
-	ServiceEntityWithRebalances serviceEntity;
+	private ServiceEntityWithRebalances serviceEntityWithRebalances;
 
-	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/count", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public int getRebalancesCount() {
+		return serviceEntityWithRebalances.getRebalancesCount();
+	}
+	
+	@RequestMapping(value="/add", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void addRebalance() {
-		serviceEntity.addRebalance();
+		serviceEntityWithRebalances.addRebalance();
+	}
+	
+	@RequestMapping(value="/remove", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void removeRebalance() {
+		serviceEntityWithRebalances.removeRebalance();
 	}
 	
 }

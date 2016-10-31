@@ -11,11 +11,11 @@ import com.attozoic.categories.services.ServiceCategoryFunction;
 public class ServiceCategoryFunctionImpl extends ServiceCategoryEntityImpl implements ServiceCategoryFunction {
 
 	@Autowired
-	DaoCategoryFunction daoFunction;
+	private DaoCategoryFunction daoCategoryFunction;
 
 	@Override
 	public DaoCategoryEntity getDaoCategoryEntity() {
-		return daoFunction;
+		return daoCategoryFunction;
 	}
 
 }

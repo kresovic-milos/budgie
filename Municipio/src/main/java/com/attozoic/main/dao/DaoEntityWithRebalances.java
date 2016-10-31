@@ -35,10 +35,10 @@ public class DaoEntityWithRebalances {
 	private RepositoryActivityGoalIndicator repoActivityGoalIndicator;
 	
 	@Autowired
-	private RepositoryActivityFinancialSource repositoryActivityFinancialSource;
+	private RepositoryActivityFinancialSource repoActivityFinancialSource;
 	
 	@Autowired
-	private RepositoryProjectGoalIndicator repositoryProjectGoalIndicator;
+	private RepositoryProjectGoalIndicator repoProjectGoalIndicator;
 	
 	@Autowired
 	private RepositoryProjectFinancialSource repoProjectFinancialSource;
@@ -46,6 +46,10 @@ public class DaoEntityWithRebalances {
 	@Autowired
 	private RepositoryEconomicAccount repoEconomicAccount;
 
+	public int getRebalanceCount() {
+		return (repoProgrammeGoalIndicator.findOne(new Long(1))).getRebalances().size();
+	}
+	
 	public void addRebalance() {
 		addProgrammeGoalIndicatorReb();
 		addProgrammeFinancialSourceReb();
@@ -56,20 +60,48 @@ public class DaoEntityWithRebalances {
 		addEconomicAccountReb();
 	}
 	
+	public void removeRebalance() {
+		try{
+			removeProgrammeGoalIndicatorReb();
+			removeProgrammeFinancialSourceReb();
+			removeActivityGoalIndicatorReb();
+			removeActivityFinancialSourceReb();
+			removeProjectGoalIndicatorReb();
+			removeProjectFinancialSourceReb();
+			removeEcconomicAccountReb();
+			System.out.println("OBRISO!");
+		} catch (Exception ex) {
+			System.err.println("Zero rebalances");
+		}
+	}
+	
 	private void addProgrammeGoalIndicatorReb() {
 		List<ProgrammeGoalIndicator> l = repoProgrammeGoalIndicator.findAll();
 		for (ProgrammeGoalIndicator programmeGoalIndicator : l) {
 			programmeGoalIndicator.getRebalances().add(new RebalanceOneField());
+			repoProgrammeGoalIndicator.save(programmeGoalIndicator);
+		}
+	}
+	
+	private void removeProgrammeGoalIndicatorReb() {
+		List<ProgrammeGoalIndicator> l = repoProgrammeGoalIndicator.findAll();
+		for (ProgrammeGoalIndicator programmeGoalIndicator : l) {
+			programmeGoalIndicator.getRebalances().remove(programmeGoalIndicator.getRebalances().size()-1);
 		}
 	}
 	
 	private void addProgrammeFinancialSourceReb() {
 		List<ProgrammeFinancialSource> l = repoProgrammeFinancialSource.findAll();
 		for (ProgrammeFinancialSource programmeFinancialSource : l) {
-			List<RebalanceOneField> list = programmeFinancialSource.getRebalances(); 
-			list.add(new RebalanceOneField());
-			programmeFinancialSource.setRebalances(list);
+			programmeFinancialSource.getRebalances().add(new RebalanceOneField());
 			repoProgrammeFinancialSource.save(programmeFinancialSource);
+		}
+	}
+	
+	private void removeProgrammeFinancialSourceReb() {
+		List<ProgrammeFinancialSource> l = repoProgrammeFinancialSource.findAll();
+		for (ProgrammeFinancialSource programmeFinancialSource : l) {
+			programmeFinancialSource.getRebalances().remove(programmeFinancialSource.getRebalances().size()-1);
 		}
 	}
 	
@@ -77,20 +109,44 @@ public class DaoEntityWithRebalances {
 		List<ActivityGoalIndicator> l = repoActivityGoalIndicator.findAll();
 		for (ActivityGoalIndicator activityGoalIndicator : l) {
 			activityGoalIndicator.getRebalances().add(new RebalanceOneField());
+			repoActivityGoalIndicator.save(activityGoalIndicator);
+		}
+	}
+	
+	private void removeActivityGoalIndicatorReb() {
+		List<ActivityGoalIndicator> l = repoActivityGoalIndicator.findAll();
+		for (ActivityGoalIndicator activityGoalIndicator : l) {
+			activityGoalIndicator.getRebalances().remove(activityGoalIndicator.getRebalances().size()-1);
 		}
 	}
 	
 	private void addActivityFinancialSourceReb() {
-		List<ActivityFinancialSource> l = repositoryActivityFinancialSource.findAll();
+		List<ActivityFinancialSource> l = repoActivityFinancialSource.findAll();
 		for (ActivityFinancialSource activityFinancialSource : l) {
 			activityFinancialSource.getRebalances().add(new RebalanceOneField());
+			repoActivityFinancialSource.save(activityFinancialSource);
+		}
+	}
+	
+	private void removeActivityFinancialSourceReb() {
+		List<ActivityFinancialSource> l = repoActivityFinancialSource.findAll();
+		for (ActivityFinancialSource activityFinancialSource : l) {
+			activityFinancialSource.getRebalances().remove(activityFinancialSource.getRebalances().size()-1);
 		}
 	}
 	
 	private void addProjectGoalIndicatorReb() {
-		List<ProjectGoalIndicator> l = repositoryProjectGoalIndicator.findAll();
+		List<ProjectGoalIndicator> l = repoProjectGoalIndicator.findAll();
 		for (ProjectGoalIndicator projectGoalIndicator : l) {
 			projectGoalIndicator.getRebalances().add(new RebalanceOneField());
+			repoProjectGoalIndicator.save(projectGoalIndicator);
+		}
+	}
+	
+	private void removeProjectGoalIndicatorReb() {
+		List<ProjectGoalIndicator> l = repoProjectGoalIndicator.findAll();
+		for (ProjectGoalIndicator projectGoalIndicator : l) {
+			projectGoalIndicator.getRebalances().remove(projectGoalIndicator.getRebalances().size()-1);
 		}
 	}
 	
@@ -98,6 +154,14 @@ public class DaoEntityWithRebalances {
 		List<ProjectFinancialSource> l = repoProjectFinancialSource.findAll();
 		for (ProjectFinancialSource projectFinancialSource : l) {
 			projectFinancialSource.getRebalances().add(new RebalanceOneField());
+			repoProjectFinancialSource.save(projectFinancialSource);
+		}
+	}
+	
+	private void removeProjectFinancialSourceReb() {
+		List<ProjectFinancialSource> l = repoProjectFinancialSource.findAll();
+		for (ProjectFinancialSource projectFinancialSource : l) {
+			projectFinancialSource.getRebalances().remove(projectFinancialSource.getRebalances().size()-1);
 		}
 	}
 	
@@ -105,6 +169,15 @@ public class DaoEntityWithRebalances {
 		List<EconomicAccount> l = repoEconomicAccount.findAll();
 		for (EconomicAccount economicAccount : l) {
 			economicAccount.getRebalances().add(new RebalanceTwoFields());
+			repoEconomicAccount.save(economicAccount);
 		}
 	}
+	
+	private void removeEcconomicAccountReb() {
+		List<EconomicAccount> l = repoEconomicAccount.findAll();
+		for (EconomicAccount economicAccount : l) {
+			economicAccount.getRebalances().remove(economicAccount.getRebalances().size()-1);
+		}
+	}
+	
 }

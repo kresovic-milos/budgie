@@ -13,8 +13,18 @@ public class ServiceEntityWithRebalancesImpl implements ServiceEntityWithRebalan
 	private DaoEntityWithRebalances dao;
 
 	@Override
+	public int getRebalancesCount() {
+		return dao.getRebalanceCount();
+	}
+	
+	@Override
 	public void addRebalance() {
 		dao.addRebalance();		
+	}
+
+	@Override
+	public void removeRebalance() {
+		dao.removeRebalance();
 	}
 
 	

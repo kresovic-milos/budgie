@@ -11,66 +11,67 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attozoic.categories.model.CategoryFinancialSource;
+import com.attozoic.categories.model.CategoryAuthority;
 import com.attozoic.categories.model.CategorySuperEntity;
-import com.attozoic.categories.services.ServiceCategoryFinancialSource;
+import com.attozoic.categories.services.ServiceCategoryAuthority;
 
 @RestController
-@RequestMapping("/categoryFinancialSources")
-public class ControllerCategoryFinancialSource {
+@RequestMapping("/categoryAuthorities")
+public class ControllerCategoryAuthority {
 
 	@Autowired
-	private ServiceCategoryFinancialSource serviceCategoryFinancialSource;
+	private ServiceCategoryAuthority serviceCategoryAuthority;
 	
 	@RequestMapping(value="/addAll", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void addAllFinanceCategories(@RequestBody List<CategoryFinancialSource> categoryFinanceSources) {
-		for (CategoryFinancialSource categoryFinancialSource : categoryFinanceSources) {
-			serviceCategoryFinancialSource.save(categoryFinancialSource);
+	public void addAllAuthorityCategories(@RequestBody List<CategoryAuthority> categoryAuthorities) {
+		for (CategoryAuthority categoryAuthority : categoryAuthorities) {
+			serviceCategoryAuthority.save(categoryAuthority);
 		}
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<CategorySuperEntity> getAllFinancialSourceCategories() {
-		return serviceCategoryFinancialSource.findAll();
+	public Page<CategorySuperEntity> getAllAuthorities() {
+		return serviceCategoryAuthority.findAll();
 	}
 	
 	@RequestMapping(value="/{uid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public CategorySuperEntity getCategoryFinancialSource(@PathVariable(value="uid") Long uid) {
-		return serviceCategoryFinancialSource.findOne(uid);
+	public CategorySuperEntity getCategoryAuthority(@PathVariable(value="uid") Long uid) {
+		return serviceCategoryAuthority.findOne(uid);
 	}
 
 	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<CategorySuperEntity> getActiveFinancialSources() {
-		return serviceCategoryFinancialSource.findActive();
+	public Page<CategorySuperEntity> getActiveAuthorities() {
+		return serviceCategoryAuthority.findActive();
 	}
 	
 	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<CategorySuperEntity> getArchivedFinancialSources() {
-		return serviceCategoryFinancialSource.findArchived();
+	public Page<CategorySuperEntity> getArchivedAuthorities() {
+		return serviceCategoryAuthority.findArchived();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public CategoryFinancialSource addCategoryFinancialSource(@RequestBody CategoryFinancialSource categoryFinancialSource) {
-		return (CategoryFinancialSource) serviceCategoryFinancialSource.save(categoryFinancialSource);
+	public CategoryAuthority addCategoryAuthority(@RequestBody CategoryAuthority categoryAuthority) {
+		return (CategoryAuthority) serviceCategoryAuthority.save(categoryAuthority);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public CategoryFinancialSource updateCategoryFinancialSource(@RequestBody CategoryFinancialSource categoryFinancialSource) {
-		return (CategoryFinancialSource) serviceCategoryFinancialSource.save(categoryFinancialSource);
+	public CategoryAuthority updateCategoryAuthority(@RequestBody CategoryAuthority categoryAuthority) {
+		return (CategoryAuthority) serviceCategoryAuthority.save(categoryAuthority);
 	}
 	
 	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void delete(@PathVariable(value="uid") Long uid) {
-		serviceCategoryFinancialSource.delete(uid);
+		serviceCategoryAuthority.delete(uid);
 	}
 	
 	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void archive(@PathVariable(value="uid") Long uid) {
-		serviceCategoryFinancialSource.archive(uid);
+		serviceCategoryAuthority.archive(uid);
 	}
 	
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
-		serviceCategoryFinancialSource.unarchive(uid);
+		serviceCategoryAuthority.unarchive(uid);
 	}
+	
 }

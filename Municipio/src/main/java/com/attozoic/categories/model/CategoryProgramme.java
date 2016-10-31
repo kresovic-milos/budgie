@@ -6,8 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -26,9 +24,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class CategoryProgramme extends CategorySuperEntity {
 
-	@Id
-	@GeneratedValue
-	private Long uid;
 	private String code; // 1101
 	private String ordNumber; // ПГ_1
 	@Column(length = 512)
@@ -51,15 +46,7 @@ public class CategoryProgramme extends CategorySuperEntity {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="categoryProgramme")
 	@JsonManagedReference	
 	private List<CategoryActivity> acivities;
-	
-//    @ManyToMany
-//    @JoinTable(
-//    		name="categoryProgramme_categoryFinance",
-//    		joinColumns={@JoinColumn(name="categoryProgramme_id")},
-//    		inverseJoinColumns={@JoinColumn(name="categoryFinancialSource_id")}
-//    		)
-//    private List<CategoryFinancialSource> categoryProgrammeFinancialSources = new ArrayList<>();
-	
+
 	public CategoryProgramme() {
 	}
 
@@ -68,8 +55,6 @@ public class CategoryProgramme extends CategorySuperEntity {
 		this.ordNumber = ordNumber;
 		this.name = name;
 		this.purpose = purpose;
-	}
-	
-	
+	}	
 	
 }
