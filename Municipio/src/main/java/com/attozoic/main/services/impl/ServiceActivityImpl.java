@@ -7,8 +7,10 @@ import com.attozoic.main.dao.DaoActivity;
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.Authority;
 import com.attozoic.main.model.EconomicAccount;
 import com.attozoic.main.model.Function;
+import com.attozoic.main.model.Head;
 import com.attozoic.main.services.ServiceActivity;
 
 @Service
@@ -35,6 +37,16 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	@Override
 	public Function addFunction(Long uid, Function function) {
 		return ((DaoActivity) getDaoEntity()).addFunction(uid, function);
+	}
+	
+	@Override
+	public Head addHead(Long uid, Head head) {
+		return ((DaoActivity) getDaoEntity()).addHead(uid, head);
+	}
+	
+	@Override
+	public Authority addAuthority(Long uid, Authority authority) {
+		return ((DaoActivity) getDaoEntity()).addAuthority(uid, authority);
 	}
 
 	@Override

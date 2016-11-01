@@ -20,7 +20,7 @@ public class ControllerFunction {
 	@Autowired
 	private ServiceFunction serviceFunction;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Page<SuperEntity> getAllFunctions(){
 		return serviceFunction.findAll();
 	}

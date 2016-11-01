@@ -26,10 +26,24 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class Activity extends SuperEntity { 
 	
-	private String code; // 1101-0001
-	private String ordNumber; // ПА_1
-	private String categoryName; // Стратешко, просторно и урбанистичко планирање
+	private Long categoryID;
+	
+	private String code; 
+	private String ordNumber; 
+	private String categoryName;
 	private String name;
+    
+	private String organizationalUnit; // RAZDEO
+    private String budgetUser; // GLAVA   
+    
+    private String purpose;
+	private String rudiment;
+	private String description;
+	private String anex;
+	private String responsibleAuthority;
+	
+	private Long sumExpenses;
+	private Long sumFinancialSources;
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
 	@JsonManagedReference
@@ -45,6 +59,16 @@ public class Activity extends SuperEntity {
     @JsonIgnore
     private Function function;
     
+    @ManyToOne
+    @JoinColumn(name="head_id")
+    @JsonIgnore
+    private Head head;
+    
+    @ManyToOne
+    @JoinColumn(name="authority_id")
+    @JsonIgnore
+    private Authority authority;
+    
     @ManyToMany
     @JoinTable(
     		name="activity_finance",
@@ -59,26 +83,18 @@ public class Activity extends SuperEntity {
     		joinColumns={@JoinColumn(name="activity_id")},
     		inverseJoinColumns={@JoinColumn(name="economicalAcc_id")}
     		)
-    private List<EconomicAccount> activityEconomicalAccount = new ArrayList<>();
-    
-    private String budgetUser;
-    private String purpose;
-	private String rudiment;
-	private String description;
-	private String anex;
-	private String responsibleAuthority;
-	
-	private Long sumExpenses;
-	private Long sumFinancialSources;
+    private List<EconomicAccount> activityEconomicalAccounts = new ArrayList<>();
 	
 	public Activity() {}
 
-	public Activity(String code, String ordNumber, String name, String budgetUser, String purpose, String rudiment,
+	public Activity(Long categoryID, String code, String categoryName, String ordNumber, String name, String organizationalUnit, String budgetUser, String purpose, String rudiment,
 			String description, String anex, String responsibleAuthority, Long sumExpenses, Long sumFinancialSources) {
-		super();
+		this.categoryID = categoryID;
 		this.code = code;
+		this.categoryName = categoryName;
 		this.ordNumber = ordNumber;
 		this.name = name;
+		this.organizationalUnit = organizationalUnit;
 		this.budgetUser = budgetUser;
 		this.purpose = purpose;
 		this.rudiment = rudiment;

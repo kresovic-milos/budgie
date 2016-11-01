@@ -20,7 +20,7 @@ public class ControllerActivityGoalIndicator {
 	@Autowired
 	private ServiceActivityGoalIndicator serviceActivityGoalIndicator;
 	
-	@RequestMapping(method = RequestMethod.GET) 
+	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public Page<SuperEntity> getAllActivityGoalIndicators() {
 		return serviceActivityGoalIndicator.findAll();
 	}

@@ -20,6 +20,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class ProjectFinancialSource extends SuperEntity {
     
+	private Long categoryID;
+	
 	private long sourceBaseYear; // 2016
 	private long sourceBaseYearPlus1; // 2017
 	private long sourceBaseYearPlus2; // 2018
@@ -35,9 +37,9 @@ public class ProjectFinancialSource extends SuperEntity {
 	
     public ProjectFinancialSource() {}
 
-	public ProjectFinancialSource(long sourceBaseYear, long sourceBaseYearPlus1,
+	public ProjectFinancialSource(Long categoryID, long sourceBaseYear, long sourceBaseYearPlus1,
 			long sourceBaseYearPlus2, long sourceBaseYearPlus3, long sumSources123) {
-		super();
+		this.categoryID = categoryID;
 		this.sourceBaseYear = sourceBaseYear;
 		this.sourceBaseYearPlus1 = sourceBaseYearPlus1;
 		this.sourceBaseYearPlus2 = sourceBaseYearPlus2;

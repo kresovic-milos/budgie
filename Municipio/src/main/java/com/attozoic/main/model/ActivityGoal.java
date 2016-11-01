@@ -23,6 +23,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class ActivityGoal extends SuperEntity {
 	
+	private Long categoryID;
+	
 	private String code;
 	private String name;
 
@@ -37,7 +39,8 @@ public class ActivityGoal extends SuperEntity {
 	
     public ActivityGoal() {}
 
-	public ActivityGoal(String code, String name) {
+	public ActivityGoal(Long categoryID, String code, String name) {
+		this.categoryID = categoryID;
 		this.code = code;
 		this.name = name;
 	}

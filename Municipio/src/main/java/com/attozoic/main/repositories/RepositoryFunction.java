@@ -6,5 +6,4 @@ import com.attozoic.main.model.Function;
 
 @Repository
 public interface RepositoryFunction extends RepositoryEntity<Function> {
-	
 }

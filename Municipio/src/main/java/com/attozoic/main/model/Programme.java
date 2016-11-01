@@ -26,12 +26,27 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class Programme extends SuperEntity {
 	
-	private String code; // 1101
-	private String ordNumber; // ПГ_1
+	private Long categoryID;
+	
+	private String code;
+	private String ordNumber;
 	@Column(length = 512)
-	private String name; // Програм_1__Локални_развој_и_просторно_планирање
+	private String name; 
 	@Column(length = 2048)
-	private String purpose; // Планско одређивање праваца развоја локалне средине и ефикасно администрирање захтева за издавање грађевинских дозвола
+	private String purpose; 
+	
+    @Column(length = 2048)
+	private String rudiment;
+    @Column(length = 2048)
+	private String description;
+    @Column(length = 2048)
+	private String budgetUser;
+    @Column(length = 2048)
+	private String responsibleAuthority;
+    
+	private Long sumExpenses;
+	
+	private Long sumFinancialSources;
 	
 	@ManyToOne
 	@JoinColumn(name="sector_uid")
@@ -58,22 +73,12 @@ public class Programme extends SuperEntity {
     		)
     private List<ProgrammeFinancialSource> programmeFinancialSources = new ArrayList<>();
 	
-    @Column(length = 2048)
-	private String rudiment;
-    @Column(length = 2048)
-	private String description;
-    @Column(length = 2048)
-	private String budgetUser;
-    @Column(length = 2048)
-	private String responsibleAuthority;
-	private Long sumExpenses;
-	private Long sumFinancialSources;
-	
 	public Programme() {}
 
-	public Programme(String code, String ordNumber, String name, String purpose, String rudiment,
+	public Programme(Long categoryID, String code, String ordNumber, String name, String purpose, String rudiment,
 			String description, String budgetUser, String responsibleAuthority, Long sumExpenses,
 			Long sumFinancialSources) {
+		this.categoryID = categoryID;
 		this.code = code;
 		this.ordNumber = ordNumber;
 		this.name = name;

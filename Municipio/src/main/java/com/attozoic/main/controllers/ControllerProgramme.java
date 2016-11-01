@@ -38,12 +38,12 @@ public class ControllerProgramme {
 	}
 
 	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getActiveSectors() {
+	public Page<SuperEntity> getActiveProgrammes() {
 		return serviceProgramme.findActive();
 	}
 	
 	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getArchivedSectors() {
+	public Page<SuperEntity> getArchivedProgrammes() {
 		return serviceProgramme.findArchived();
 	}
 	

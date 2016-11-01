@@ -13,28 +13,28 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name="functions")
+@Table(name="heads")
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class Function extends SuperEntity {
+public class Head extends SuperEntity {
 	
 	private Long categoryID;
-	
+
 	private String code;
 	private String name;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="function")
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="head")
     private List<Activity> activities = new ArrayList<>();
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="function")
-    private List<Project> projects = new ArrayList<>();
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="head")
+	private List<Project> projects = new ArrayList<>();
 	
-    public Function() {}
-
-	public Function(Long categoryID, String code, String name) {
+	public Head() {}
+	
+	public Head(Long categoryID, String code, String name) {
 		this.categoryID = categoryID;
 		this.code = code;
 		this.name = name;
 	}
-    
+	
 }

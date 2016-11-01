@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.Authority;
 import com.attozoic.main.model.EconomicAccount;
 import com.attozoic.main.model.Function;
+import com.attozoic.main.model.Head;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryEntity;
 
@@ -47,10 +49,24 @@ public class DaoActivity extends DaoEntity {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public Head addHead(Long uid, Head head) {
+		Activity activity = (Activity) getRepoEntity().findOne(uid);
+		head.getActivities().add(activity);
+		return (Head) getRepoEntity().save(head);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Authority addAuthority(Long uid, Authority authority) {
+		Activity activity = (Activity) getRepoEntity().findOne(uid);
+		authority.getActivities().add(activity);
+		return (Authority) getRepoEntity().save(authority);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public EconomicAccount addActivityEconomicAccount(Long uid, EconomicAccount economicAccount) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		economicAccount.getActivities().add(activity);
-		activity.getActivityEconomicalAccount().add(economicAccount);
+		activity.getActivityEconomicalAccounts().add(economicAccount);
 		return (EconomicAccount) getRepoEntity().save(economicAccount);
 	}
 	

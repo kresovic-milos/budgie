@@ -21,6 +21,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class ActivityGoalIndicator extends SuperEntity {
 
+	private Long categoryID;
+	
 	private String name;
 	
     @ManyToOne
@@ -32,7 +34,8 @@ public class ActivityGoalIndicator extends SuperEntity {
 	private long targetValuePlus1; // 2017
 	private long targetValuePlus2; // 2018
 	private long targetValuePlus3; // 2019
-	private long verificationSource;
+	
+	private String verificationSource;
 
 	@ElementCollection
 	@CollectionTable(name = "activityGoalIndicator_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
@@ -40,9 +43,9 @@ public class ActivityGoalIndicator extends SuperEntity {
 	
 	public ActivityGoalIndicator() {}
 
-	public ActivityGoalIndicator(String name, long valueBase, long targetValuePlus1, long targetValuePlus2,
-			long targetValuePlus3, long verificationSource) {
-		super();
+	public ActivityGoalIndicator(Long categoryID, String name, long valueBase, long targetValuePlus1, long targetValuePlus2,
+			long targetValuePlus3, String verificationSource) {
+		this.categoryID = categoryID;
 		this.name = name;
 		this.valueBase = valueBase;
 		this.targetValuePlus1 = targetValuePlus1;

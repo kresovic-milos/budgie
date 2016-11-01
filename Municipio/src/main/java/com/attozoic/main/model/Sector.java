@@ -21,6 +21,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class Sector extends SuperEntity {
 
+	private Long categoryID;
+	
 	@Column(length = 512)
 	private String name;
 	
@@ -30,7 +32,8 @@ public class Sector extends SuperEntity {
 	
 	public Sector() {}
 	
-	public Sector(String name) {
+	public Sector(Long categoryID, String name) {
+		this.categoryID = categoryID;
 		this.name = name;
 	}
 	

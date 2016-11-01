@@ -20,7 +20,7 @@ public class ControllerEconomicAccount {
 	@Autowired
 	private ServiceEconomicAccount serviceEconomicAccount;
 	
-	@RequestMapping(method = RequestMethod.GET) 
+	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public Page<SuperEntity> getAllEconomicAccounts() {
 		return serviceEconomicAccount.findAll();
 	}

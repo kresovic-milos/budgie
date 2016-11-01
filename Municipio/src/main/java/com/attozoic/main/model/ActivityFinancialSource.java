@@ -21,6 +21,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 public class ActivityFinancialSource extends SuperEntity {
+	
+	private Long categoryID;
 
 	private String code; // 01
 	private String name; // Приходи из буџета
@@ -41,9 +43,9 @@ public class ActivityFinancialSource extends SuperEntity {
 	
     public ActivityFinancialSource() {}
 
-	public ActivityFinancialSource(String code, String name, long sourceBaseYear, long sourceBaseYearPlus1,
+	public ActivityFinancialSource(Long categoryID, String code, String name, long sourceBaseYear, long sourceBaseYearPlus1,
 			long sourceBaseYearPlus2, long sourceBaseYearPlus3, long sumSources123) {
-		super();
+		this.categoryID = categoryID;
 		this.code = code;
 		this.name = name;
 		this.sourceBaseYear = sourceBaseYear;

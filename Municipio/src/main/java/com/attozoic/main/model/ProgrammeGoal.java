@@ -23,6 +23,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class ProgrammeGoal extends SuperEntity {
 	
+	private Long categoryID;
+	
 	private String code;
 	private String name;
 	
@@ -37,7 +39,8 @@ public class ProgrammeGoal extends SuperEntity {
 	
 	public ProgrammeGoal() {}
 
-	public ProgrammeGoal(String code, String name) {
+	public ProgrammeGoal(Long categoryID, String code, String name) {
+		this.categoryID = categoryID;
 		this.code = code;
 		this.name = name;
 	}

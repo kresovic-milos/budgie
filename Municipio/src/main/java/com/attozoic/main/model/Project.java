@@ -26,6 +26,21 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class Project extends SuperEntity {
     
+	private String code;
+	private String name;
+	
+	private String organizationalUnit; // RAZDEO
+    private String budgetUser; // GLAVA
+    
+    private String purpose;
+	private String rudiment;
+	private String description;
+	private String anex;
+	private String responsibleAuthority;
+	
+	private Long sumExpenses;
+	private Long sumFinancialSources;
+	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
 	@JsonManagedReference
     private List<ProjectGoal> projectGoals = new ArrayList<>();
@@ -39,19 +54,17 @@ public class Project extends SuperEntity {
     @JoinColumn(name="function_id")
     @JsonIgnore
     private Function function;
+	
+    @ManyToOne
+    @JoinColumn(name="head_id")
+    @JsonIgnore
+    private Head head;
     
-	private String code;
-	private String name;
-    private String budgetUser;
-    private String purpose;
-	private String rudiment;
-	private String description;
-	private String anex;
-	private String responsibleAuthority;
-	
-	private Long sumExpenses;
-	private Long sumFinancialSources;
-	
+    @ManyToOne
+    @JoinColumn(name="authority_id")
+    @JsonIgnore
+    private Authority authority;
+    
 	@ManyToMany
     @JoinTable(
     		name="project_finance",
@@ -66,14 +79,18 @@ public class Project extends SuperEntity {
     		joinColumns={@JoinColumn(name="project_id")},
     		inverseJoinColumns={@JoinColumn(name="economicalAcc_id")}
     		)
-    private List<EconomicAccount> projectEconomicalAccount = new ArrayList<>();
+    private List<EconomicAccount> projectEconomicalAccounts = new ArrayList<>();
 	
 	public Project() {}
 
-	public Project(String budgetUser, String rudiment, String description, String anex, String responsibleAuthority,
-			Long sumExpenses, Long sumFinancialSources) {
-		super();
+	public Project(String code, String name, String organizationalUnit, String budgetUser, String purpose,
+			String rudiment, String description, String anex, String responsibleAuthority, Long sumExpenses,
+			Long sumFinancialSources) {
+		this.code = code;
+		this.name = name;
+		this.organizationalUnit = organizationalUnit;
 		this.budgetUser = budgetUser;
+		this.purpose = purpose;
 		this.rudiment = rudiment;
 		this.description = description;
 		this.anex = anex;

@@ -32,7 +32,8 @@ public class ProjectGoalIndicator extends SuperEntity {
 	private long targetValuePlus1; // 2017
 	private long targetValuePlus2; // 2018
 	private long targetValuePlus3; // 2019
-	private long verificationSource;
+	
+	private String verificationSource;
 	
 	@ElementCollection
 	@CollectionTable(name = "projectGoalIndicator_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
@@ -41,7 +42,7 @@ public class ProjectGoalIndicator extends SuperEntity {
 	public ProjectGoalIndicator() {}
 
 	public ProjectGoalIndicator(String name, long valueBase, long targetValuePlus1, 
-			long targetValuePlus2, long targetValuePlus3, long verificationSource) {
+			long targetValuePlus2, long targetValuePlus3, String verificationSource) {
 		super();
 		this.name = name;
 		this.valueBase = valueBase;

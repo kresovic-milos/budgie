@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProject;
+import com.attozoic.main.model.Authority;
 import com.attozoic.main.model.EconomicAccount;
 import com.attozoic.main.model.Function;
+import com.attozoic.main.model.Head;
 import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.services.ServiceProject;
@@ -35,6 +37,16 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	@Override
 	public Function addFunction(Long uid, Function function) {
 		return ((DaoProject) getDaoEntity()).addFunction(uid, function);
+	}
+	
+	@Override
+	public Head addHead(Long uid, Head head) {
+		return ((DaoProject) getDaoEntity()).addHead(uid, head);
+	}
+	
+	@Override
+	public Authority addAuthority(Long uid, Authority authority) {
+		return ((DaoProject) getDaoEntity()).addAuthority(uid, authority);
 	}
 
 	@Override

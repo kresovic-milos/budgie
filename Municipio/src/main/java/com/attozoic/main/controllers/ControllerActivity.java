@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.Authority;
 import com.attozoic.main.model.EconomicAccount;
 import com.attozoic.main.model.Function;
+import com.attozoic.main.model.Head;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceActivity;
 
@@ -25,7 +27,7 @@ public class ControllerActivity {
 	private ServiceActivity serviceActivity;
 	
 	// getAll
-	@RequestMapping(method = RequestMethod.GET) 
+	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public Page<SuperEntity> getAll() {
 		return serviceActivity.findAll();
 	}
@@ -71,6 +73,16 @@ public class ControllerActivity {
 //		System.out.println(a.getName());
 //		System.err.println(a.getName());
 		return serviceActivity.addFunction(uid, function);
+	}
+	
+	@RequestMapping(value="/{uid}/heads", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Head addHead(@PathVariable(value="uid") Long uid, @RequestBody Head head) {
+		return serviceActivity.addHead(uid, head);
+	}
+	
+	@RequestMapping(value="/{uid}/authorities", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Authority addAuthority(@PathVariable(value="uid") Long uid, @RequestBody Authority authority) {
+		return serviceActivity.addAuthority(uid, authority);
 	}
 	
 	// addEconimcalAccount to Activity
