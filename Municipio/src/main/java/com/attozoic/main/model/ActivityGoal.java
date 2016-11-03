@@ -39,10 +39,4 @@ public class ActivityGoal extends SuperEntity {
 	
     public ActivityGoal() {}
 
-	public ActivityGoal(Long categoryID, String code, String name) {
-		this.categoryID = categoryID;
-		this.code = code;
-		this.name = name;
-	}
-    
 }

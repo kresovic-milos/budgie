@@ -24,7 +24,8 @@ public class DaoActivity extends DaoEntity {
 	public RepositoryEntity getRepoEntity() {
 		return repo;
 	}
-
+	
+	// addActivityGoal
 	@SuppressWarnings("unchecked")
 	public ActivityGoal addActivityGoal(Long uid, ActivityGoal activityGoal) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
@@ -32,14 +33,17 @@ public class DaoActivity extends DaoEntity {
 		return (ActivityGoal) getRepoEntity().save(activityGoal);
 	}
 	
+	// addActivityFinancialSource
 	@SuppressWarnings("unchecked")
 	public ActivityFinancialSource addActivityFinancialSource(Long uid, ActivityFinancialSource activityFinancialSource) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		activityFinancialSource.getActivities().add(activity);
 		activity.getActivityFinancialSources().add(activityFinancialSource);
+		activityFinancialSource.setSumSources123(activityFinancialSource.getSourceBaseYear() + activityFinancialSource.getSourceBaseYearPlus1() + activityFinancialSource.getSourceBaseYearPlus2() + activityFinancialSource.getSourceBaseYearPlus3());
 		return (ActivityFinancialSource) getRepoEntity().save(activityFinancialSource);
 	}
 	
+	// addFunction
 	@SuppressWarnings("unchecked")
 	public Function addFunction(Long uid, Function function) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
@@ -48,6 +52,7 @@ public class DaoActivity extends DaoEntity {
 		return (Function) getRepoEntity().save(function);
 	}
 	
+	// addHead
 	@SuppressWarnings("unchecked")
 	public Head addHead(Long uid, Head head) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
@@ -55,6 +60,7 @@ public class DaoActivity extends DaoEntity {
 		return (Head) getRepoEntity().save(head);
 	}
 	
+	// addAuthority
 	@SuppressWarnings("unchecked")
 	public Authority addAuthority(Long uid, Authority authority) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
@@ -62,12 +68,17 @@ public class DaoActivity extends DaoEntity {
 		return (Authority) getRepoEntity().save(authority);
 	}
 	
+	// addActivityEconomicAccount
 	@SuppressWarnings("unchecked")
-	public EconomicAccount addActivityEconomicAccount(Long uid, EconomicAccount economicAccount) {
+	public EconomicAccount addActivityEconomicAccount(Long uid, EconomicAccount ecAcc) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
-		economicAccount.getActivities().add(activity);
-		activity.getActivityEconomicalAccounts().add(economicAccount);
-		return (EconomicAccount) getRepoEntity().save(economicAccount);
+		ecAcc.getActivities().add(activity);
+		activity.getActivityEconomicalAccounts().add(ecAcc);
+		ecAcc.setSumExpenses123Budget(ecAcc.getExpenseBaseYearPlus1Budget1() + ecAcc.getExpenseBaseYearPlus1Budget2() + ecAcc.getExpenseBaseYearPlus1Budget3() + ecAcc.getExpenseBaseYearPlus1Budget4() + ecAcc.getExpenseBaseYearPlus2Budget() + ecAcc.getExpenseBaseYearPlus3Budget());
+		ecAcc.setSumExpenses123Others(ecAcc.getExpenseBaseYearPlus1Others1() + ecAcc.getExpenseBaseYearPlus1Others2() + ecAcc.getExpenseBaseYearPlus1Others3() + ecAcc.getExpenseBaseYearPlus1Others4() + ecAcc.getExpenseBaseYearPlus2Others() + ecAcc.getExpenseBaseYearPlus3Others());
+		ecAcc.setSumExpensesBaseYearPlus1Budget(ecAcc.getExpenseBaseYearPlus1Budget1() + ecAcc.getExpenseBaseYearPlus1Budget2() + ecAcc.getExpenseBaseYearPlus1Budget3() + ecAcc.getExpenseBaseYearPlus1Budget4());
+		ecAcc.setSumExpensesBaseYearPlus1Others(ecAcc.getExpenseBaseYearPlus1Others1() + ecAcc.getExpenseBaseYearPlus1Others2() + ecAcc.getExpenseBaseYearPlus1Others3() + ecAcc.getExpenseBaseYearPlus1Others4());
+		return (EconomicAccount) getRepoEntity().save(ecAcc);
 	}
 	
 }

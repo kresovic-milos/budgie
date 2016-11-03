@@ -40,10 +40,15 @@ public class EconomicAccount extends SuperEntity {
 	private double expenseBaseYearPlus1Budget3;
 	private double expenseBaseYearPlus1Budget4;
 	
+	private double sumExpensesBaseYearPlus1Budget;
+	
 	private double expenseBaseYearPlus1Others1;
 	private double expenseBaseYearPlus1Others2;
 	private double expenseBaseYearPlus1Others3;
 	private double expenseBaseYearPlus1Others4;
+	
+	private double sumExpensesBaseYearPlus1Others;
+	
 	// 2018
 	private double expenseBaseYearPlus2Budget;
 	
@@ -56,9 +61,7 @@ public class EconomicAccount extends SuperEntity {
 	// Sum od Plus1 do Plus3
 	private double sumExpenses123Budget;
 	private double sumExpenses123Others;
-	
-	//  = this.expenseBaseYearPlus1Budget1 + this.expenseBaseYearPlus1Budget2 + this.expenseBaseYearPlus1Budget3 + this.expenseBaseYearPlus1Budget4 + sumRebBudget() + this.expenseBaseYearPlus2Budget + this.expenseBaseYearPlus3Budget
-	
+
 	@ElementCollection
 	@CollectionTable(name = "economicAccount_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
 	private List<RebalanceTwoFields> rebalances = new ArrayList<>();
@@ -71,11 +74,7 @@ public class EconomicAccount extends SuperEntity {
     @JsonIgnore
     private List<Project> projects = new ArrayList<>(); 
     
-    public EconomicAccount() {
-    	this.setSumExpenses123Budget(this.getExpenseBaseYearPlus1Budget1() + this.getExpenseBaseYearPlus1Budget2() + this.getExpenseBaseYearPlus1Budget3() + this.getExpenseBaseYearPlus1Budget4() + this.sumExpenses123Budget + this.getExpenseBaseYearPlus2Budget() + this.getExpenseBaseYearPlus3Budget());
-		//this.sumExpenses123Budget = this.expenseBaseYearPlus1Budget1 + this.expenseBaseYearPlus1Budget2 + this.expenseBaseYearPlus1Budget3 + this.expenseBaseYearPlus1Budget4 + sumRebBudget() + this.expenseBaseYearPlus2Budget + this.expenseBaseYearPlus3Budget;
-		this.sumExpenses123Others = this.expenseBaseYearPlus1Others1 + this.expenseBaseYearPlus1Others2 + this.expenseBaseYearPlus1Others3 + this.expenseBaseYearPlus1Others4 + sumRebOthers() + this.expenseBaseYearPlus2Others + this.expenseBaseYearPlus3Others;    	
-    }
+    public EconomicAccount() {}
 	
 	public List<Double> listRebBudget(){
 		List<Double> listB = new ArrayList<>();

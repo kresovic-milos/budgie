@@ -31,11 +31,11 @@ public class ActivityFinancialSource extends SuperEntity {
     @JsonIgnore
     private List<Activity> activities = new ArrayList<>();
     
-	private long sourceBaseYear; // 2016
-	private long sourceBaseYearPlus1; // 2017
-	private long sourceBaseYearPlus2; // 2018
-	private long sourceBaseYearPlus3; // 2019
-	private long sumSources123;
+	private double sourceBaseYear; // 2016
+	private double sourceBaseYearPlus1; // 2017
+	private double sourceBaseYearPlus2; // 2018
+	private double sourceBaseYearPlus3; // 2019
+	private double sumSources123;
 	
 	@ElementCollection
 	@CollectionTable(name = "activityFinancialSource_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))

@@ -46,12 +46,7 @@ public class DtoActivityProject {
 	private List<Double> listSumRebBudget = new ArrayList<>();
 	private List<Double> listSumRebOthers = new ArrayList<>();
 	
-	public DtoActivityProject() {
-		this.sumExpensesBaseYearPlus1Others = expenseBaseYearPlus1Others1 + expenseBaseYearPlus1Others2 + expenseBaseYearPlus1Others3 + expenseBaseYearPlus1Others4;
-		this.sumExpensesBaseYearPlus1Budget = expenseBaseYearPlus1Budget1 + expenseBaseYearPlus1Budget2 + expenseBaseYearPlus1Budget3 + expenseBaseYearPlus1Budget4;
-		this.sumExpenses123Budget = this.expenseBaseYearBudget + this.expenseBaseYearPlus1Budget1 + this.expenseBaseYearPlus1Budget2 + this.expenseBaseYearPlus1Budget3 + this.expenseBaseYearPlus1Budget4 + sumRebBudget() + this.expenseBaseYearPlus2Budget + this.expenseBaseYearPlus3Budget;
-		this.sumExpenses123Others = this.expenseBaseYearOthers + this.expenseBaseYearPlus1Others1 + this.expenseBaseYearPlus1Others2 + this.expenseBaseYearPlus1Others3 + this.expenseBaseYearPlus1Others4 + sumRebOthers() + this.expenseBaseYearPlus2Others + this.expenseBaseYearPlus3Others;
-	}
+	public DtoActivityProject() {}
 	
 	public double sumRebBudget() {
 		double sum = 0;

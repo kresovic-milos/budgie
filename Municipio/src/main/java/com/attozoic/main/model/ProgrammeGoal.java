@@ -39,10 +39,4 @@ public class ProgrammeGoal extends SuperEntity {
 	
 	public ProgrammeGoal() {}
 
-	public ProgrammeGoal(Long categoryID, String code, String name) {
-		this.categoryID = categoryID;
-		this.code = code;
-		this.name = name;
-	}
-	
 }

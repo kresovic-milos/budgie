@@ -43,10 +43,6 @@ public class Programme extends SuperEntity {
 	private String budgetUser;
     @Column(length = 2048)
 	private String responsibleAuthority;
-    
-	private Long sumExpenses;
-	
-	private Long sumFinancialSources;
 	
 	@ManyToOne
 	@JoinColumn(name="sector_uid")
@@ -73,7 +69,6 @@ public class Programme extends SuperEntity {
     		)
     private List<ProgrammeFinancialSource> programmeFinancialSources = new ArrayList<>();
 	
-	public Programme() {
-	}
+	public Programme() {}
 
 }

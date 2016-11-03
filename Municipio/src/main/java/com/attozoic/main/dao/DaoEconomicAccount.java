@@ -18,6 +18,4 @@ public class DaoEconomicAccount extends DaoEntity {
 		return repoEconomicAccount;
 	}
 	
-
-	
 }

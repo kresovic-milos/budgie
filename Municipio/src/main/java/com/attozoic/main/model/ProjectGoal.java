@@ -34,13 +34,6 @@ public class ProjectGoal extends SuperEntity {
 	@JsonManagedReference
     private List<ProjectGoalIndicator> projectGoalIndicators = new ArrayList<>();
 	
-	
     public ProjectGoal() {}
 
-	public ProjectGoal(String name) {
-		this.name = name;
-	}
-    
-
-    
 }

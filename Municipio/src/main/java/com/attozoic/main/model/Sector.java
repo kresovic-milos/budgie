@@ -32,9 +32,4 @@ public class Sector extends SuperEntity {
 	
 	public Sector() {}
 	
-	public Sector(Long categoryID, String name) {
-		this.categoryID = categoryID;
-		this.name = name;
-	}
-	
 }

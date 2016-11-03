@@ -12,12 +12,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public class RebalancesCount extends SuperEntity {
 	
-	private int rebalancesCount = 0;
+	private int rebalancesCount;
 	
-	public RebalancesCount() {}
-	
-	public RebalancesCount(int rebalancesCount) {
-		this.rebalancesCount = rebalancesCount;
+	public RebalancesCount() {
+		rebalancesCount = 0;
 	}
-	
+
 }

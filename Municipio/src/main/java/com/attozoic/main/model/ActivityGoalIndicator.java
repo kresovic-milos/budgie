@@ -30,10 +30,10 @@ public class ActivityGoalIndicator extends SuperEntity {
 	@JsonBackReference
     private ActivityGoal activityGoal;
     
-	private long valueBase; // 2016
-	private long targetValuePlus1; // 2017
-	private long targetValuePlus2; // 2018
-	private long targetValuePlus3; // 2019
+	private String valueBase; // 2016
+	private String targetValuePlus1; // 2017
+	private String targetValuePlus2; // 2018
+	private String targetValuePlus3; // 2019
 	
 	private String verificationSource;
 
@@ -42,16 +42,5 @@ public class ActivityGoalIndicator extends SuperEntity {
 	private List<RebalanceOneField> rebalances = new ArrayList<>();
 	
 	public ActivityGoalIndicator() {}
-
-	public ActivityGoalIndicator(Long categoryID, String name, long valueBase, long targetValuePlus1, long targetValuePlus2,
-			long targetValuePlus3, String verificationSource) {
-		this.categoryID = categoryID;
-		this.name = name;
-		this.valueBase = valueBase;
-		this.targetValuePlus1 = targetValuePlus1;
-		this.targetValuePlus2 = targetValuePlus2;
-		this.targetValuePlus3 = targetValuePlus3;
-		this.verificationSource = verificationSource;
-	}
 	
 }

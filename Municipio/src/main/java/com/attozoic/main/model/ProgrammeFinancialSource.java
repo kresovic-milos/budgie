@@ -31,11 +31,11 @@ public class ProgrammeFinancialSource extends SuperEntity {
     @JsonIgnore
     private List<Programme> programmes = new ArrayList<>();
     
-	private long sourceBaseYear; // 2016
-	private long sourceBaseYearPlus1; // 2017
-	private long sourceBaseYearPlus2; // 2018
-	private long sourceBaseYearPlus3; // 2019
-	private long sumSources123;
+	private double sourceBaseYear; // 2016
+	private double sourceBaseYearPlus1; // 2017
+	private double sourceBaseYearPlus2; // 2018
+	private double sourceBaseYearPlus3; // 2019
+	private double sumSources123;
 	
 	@ElementCollection
 	@CollectionTable(name = "programme_financial_source_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
@@ -43,17 +43,5 @@ public class ProgrammeFinancialSource extends SuperEntity {
 	
     public ProgrammeFinancialSource() {
     }
-
-	public ProgrammeFinancialSource(Long categoryID, String code, String name, long sourceBaseYear,
-			long sourceBaseYearPlus1, long sourceBaseYearPlus2, long sourceBaseYearPlus3, long sumSources123) {
-		this.categoryID = categoryID;
-		this.code = code;
-		this.name = name;
-		this.sourceBaseYear = sourceBaseYear;
-		this.sourceBaseYearPlus1 = sourceBaseYearPlus1;
-		this.sourceBaseYearPlus2 = sourceBaseYearPlus2;
-		this.sourceBaseYearPlus3 = sourceBaseYearPlus3;
-		this.sumSources123 = sumSources123;
-	}   
-    
+  
 }

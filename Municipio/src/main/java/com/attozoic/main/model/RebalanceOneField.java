@@ -14,7 +14,10 @@ public class RebalanceOneField {
 	private double value4;
 	
 	public RebalanceOneField() {
-		this.value1 = 17;
+		this.value1 = 0;
+		this.value2 = 0;
+		this.value3 = 0;
+		this.value4 = 0;
 	}
 	
 }

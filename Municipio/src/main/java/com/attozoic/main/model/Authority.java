@@ -33,12 +33,4 @@ public class Authority extends SuperEntity {
 	
 	public Authority() {}
 
-	public Authority(Long categoryID, String code, String jbbk, String name, String authority) {
-		this.categoryID = categoryID;
-		this.code = code;
-		this.jbbk = jbbk;
-		this.name = name;
-		this.authority = authority;
-	}
-	
 }

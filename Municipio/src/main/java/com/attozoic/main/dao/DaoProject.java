@@ -29,7 +29,8 @@ public class DaoProject extends DaoEntity {
 	public ProjectFinancialSource addFinancialSource(Long uid, ProjectFinancialSource financialSource) {
 		Project project = (Project) getRepoEntity().findOne(uid);
 		project.getFinancialSources().add(financialSource);
-		financialSource.getProject().add(project);			
+		financialSource.getProject().add(project);		
+		financialSource.setSumSources123(financialSource.getSourceBaseYear() + financialSource.getSourceBaseYearPlus1() + financialSource.getSourceBaseYearPlus2() + financialSource.getSourceBaseYearPlus3());
 		return (ProjectFinancialSource) getRepoEntity().save(financialSource);
 	}
 
@@ -62,11 +63,15 @@ public class DaoProject extends DaoEntity {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public EconomicAccount addProjectEconomicAccount(Long uid, EconomicAccount economicAccount) {
+	public EconomicAccount addProjectEconomicAccount(Long uid, EconomicAccount ecAcc) {
 		Project project = (Project) getRepoEntity().findOne(uid);
-		economicAccount.getProjects().add(project);
-		project.getProjectEconomicalAccounts().add(economicAccount);
-		return (EconomicAccount) getRepoEntity().save(economicAccount);
+		ecAcc.getProjects().add(project);
+		project.getProjectEconomicalAccounts().add(ecAcc);
+		ecAcc.setSumExpenses123Budget(ecAcc.getExpenseBaseYearPlus1Budget1() + ecAcc.getExpenseBaseYearPlus1Budget2() + ecAcc.getExpenseBaseYearPlus1Budget3() + ecAcc.getExpenseBaseYearPlus1Budget4() + ecAcc.getExpenseBaseYearPlus2Budget() + ecAcc.getExpenseBaseYearPlus3Budget());
+		ecAcc.setSumExpenses123Others(ecAcc.getExpenseBaseYearPlus1Others1() + ecAcc.getExpenseBaseYearPlus1Others2() + ecAcc.getExpenseBaseYearPlus1Others3() + ecAcc.getExpenseBaseYearPlus1Others4() + ecAcc.getExpenseBaseYearPlus2Others() + ecAcc.getExpenseBaseYearPlus3Others());
+		ecAcc.setSumExpensesBaseYearPlus1Budget(ecAcc.getExpenseBaseYearPlus1Budget1() + ecAcc.getExpenseBaseYearPlus1Budget2() + ecAcc.getExpenseBaseYearPlus1Budget3() + ecAcc.getExpenseBaseYearPlus1Budget4());
+		ecAcc.setSumExpensesBaseYearPlus1Others(ecAcc.getExpenseBaseYearPlus1Others1() + ecAcc.getExpenseBaseYearPlus1Others2() + ecAcc.getExpenseBaseYearPlus1Others3() + ecAcc.getExpenseBaseYearPlus1Others4());
+		return (EconomicAccount) getRepoEntity().save(ecAcc);
 	}
 	
 }

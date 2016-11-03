@@ -33,20 +33,12 @@ public class Activity extends SuperEntity {
 	private String categoryName;
 	private String name;
     
-//	private String organizationalUnit; // RAZDEO
-//    private String budgetUser; // GLAVA   
-    
     private String purpose;
 	private String rudiment;
 	private String description;
 	private String anex;
 	private String responsibleAuthority;
-	
-//	private double sumExpencesBudget;
-//	private double sumExpencesOthers;
-//	
-//	private double sumFinancialSources;
-    
+
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
 	@JsonManagedReference
     private List<ActivityGoal> activityGoals = new ArrayList<>();
@@ -100,10 +92,12 @@ public class Activity extends SuperEntity {
 			dto.setExpenseBaseYearPlus1Budget2(dto.getExpenseBaseYearPlus1Budget2() + economicAccount.getExpenseBaseYearPlus1Budget2());
 			dto.setExpenseBaseYearPlus1Budget3(dto.getExpenseBaseYearPlus1Budget3() + economicAccount.getExpenseBaseYearPlus1Budget3());
 			dto.setExpenseBaseYearPlus1Budget4(dto.getExpenseBaseYearPlus1Budget4() + economicAccount.getExpenseBaseYearPlus1Budget4());
+			dto.setSumExpensesBaseYearPlus1Budget(dto.getSumExpensesBaseYearPlus1Budget() + economicAccount.getSumExpensesBaseYearPlus1Budget());
 			dto.setExpenseBaseYearPlus1Others1(dto.getExpenseBaseYearPlus1Others1() + economicAccount.getExpenseBaseYearPlus1Others1());
 			dto.setExpenseBaseYearPlus1Others2(dto.getExpenseBaseYearPlus1Others2() + economicAccount.getExpenseBaseYearPlus1Others2());
 			dto.setExpenseBaseYearPlus1Others3(dto.getExpenseBaseYearPlus1Others3() + economicAccount.getExpenseBaseYearPlus1Others3());
 			dto.setExpenseBaseYearPlus1Others4(dto.getExpenseBaseYearPlus1Others4() + economicAccount.getExpenseBaseYearPlus1Others4());
+			dto.setSumExpensesBaseYearPlus1Others(dto.getSumExpensesBaseYearPlus1Others() + economicAccount.getSumExpensesBaseYearPlus1Others());
 			List<Double> ldb = economicAccount.listRebBudget();
 			for (Double value : ldb) {
 				dto.getListSumRebBudget().add(value);
@@ -116,6 +110,8 @@ public class Activity extends SuperEntity {
 			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + economicAccount.getExpenseBaseYearPlus2Budget());
 			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + economicAccount.getExpenseBaseYearPlus3Budget());
 			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + economicAccount.getExpenseBaseYearPlus3Budget());
+			dto.setSumExpenses123Budget(dto.getSumExpenses123Budget() + economicAccount.getSumExpenses123Budget());
+			dto.setSumExpenses123Others(dto.getSumExpenses123Others() + economicAccount.getSumExpenses123Others());
 		}
 		return dto;
 	}

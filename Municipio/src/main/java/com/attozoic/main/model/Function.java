@@ -30,11 +30,5 @@ public class Function extends SuperEntity {
     private List<Project> projects = new ArrayList<>();
 	
     public Function() {}
-
-	public Function(Long categoryID, String code, String name) {
-		this.categoryID = categoryID;
-		this.code = code;
-		this.name = name;
-	}
-    
+ 
 }

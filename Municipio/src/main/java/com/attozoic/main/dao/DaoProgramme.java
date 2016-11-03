@@ -49,6 +49,7 @@ public class DaoProgramme extends DaoEntity {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		programmeFinancialSource.getProgrammes().add(programme);
 		programme.getProgrammeFinancialSources().add(programmeFinancialSource);
+		programmeFinancialSource.setSumSources123(programmeFinancialSource.getSourceBaseYear() + programmeFinancialSource.getSourceBaseYearPlus1() + programmeFinancialSource.getSourceBaseYearPlus2() + programmeFinancialSource.getSourceBaseYearPlus3());
 		return (ProgrammeFinancialSource) getRepoEntity().save(programmeFinancialSource);
 	}
 	

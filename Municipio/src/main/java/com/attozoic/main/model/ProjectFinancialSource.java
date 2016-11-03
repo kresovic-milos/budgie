@@ -22,11 +22,11 @@ public class ProjectFinancialSource extends SuperEntity {
     
 	private Long categoryID;
 	
-	private long sourceBaseYear; // 2016
-	private long sourceBaseYearPlus1; // 2017
-	private long sourceBaseYearPlus2; // 2018
-	private long sourceBaseYearPlus3; // 2019
-	private long sumSources123;
+	private double sourceBaseYear; // 2016
+	private double sourceBaseYearPlus1; // 2017
+	private double sourceBaseYearPlus2; // 2018
+	private double sourceBaseYearPlus3; // 2019
+	private double sumSources123;
 	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="financialSources")
     private List<Project> project = new ArrayList<>();
@@ -36,15 +36,5 @@ public class ProjectFinancialSource extends SuperEntity {
 	private List<RebalanceOneField> rebalances = new ArrayList<>();
 	
     public ProjectFinancialSource() {}
-
-	public ProjectFinancialSource(Long categoryID, long sourceBaseYear, long sourceBaseYearPlus1,
-			long sourceBaseYearPlus2, long sourceBaseYearPlus3, long sumSources123) {
-		this.categoryID = categoryID;
-		this.sourceBaseYear = sourceBaseYear;
-		this.sourceBaseYearPlus1 = sourceBaseYearPlus1;
-		this.sourceBaseYearPlus2 = sourceBaseYearPlus2;
-		this.sourceBaseYearPlus3 = sourceBaseYearPlus3;
-		this.sumSources123 = sumSources123;
-	}
 	
 }
