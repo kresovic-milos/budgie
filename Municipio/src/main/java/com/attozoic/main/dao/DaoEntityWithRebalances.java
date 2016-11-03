@@ -46,9 +46,9 @@ public class DaoEntityWithRebalances {
 	@Autowired
 	private RepositoryEconomicAccount repoEconomicAccount;
 
-	public int getRebalanceCount() {
-		return (repoProgrammeGoalIndicator.findOne(new Long(1))).getRebalances().size();
-	}
+//	public int getRebalanceCount() {
+//		return (repoProgrammeGoalIndicator.findOne(new Long(1))).getRebalances().size();
+//	}
 	
 	public void addRebalance() {
 		addProgrammeGoalIndicatorReb();

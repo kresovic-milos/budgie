@@ -44,7 +44,6 @@ public class ControllerRebalance {
 	}
 	
 	private Page<SuperEntity> getAllCounts() {
-		System.err.println("SIZE" + serviceRebalanceCount.findAll().getSize());
 		return serviceRebalanceCount.findAll();
 	}
 	

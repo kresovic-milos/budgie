@@ -12,10 +12,10 @@ public class ServiceEntityWithRebalancesImpl implements ServiceEntityWithRebalan
 	@Autowired
 	private DaoEntityWithRebalances dao;
 
-	@Override
-	public int getRebalancesCount() {
-		return dao.getRebalanceCount();
-	}
+//	@Override
+//	public int getRebalancesCount() {
+//		return dao.getRebalanceCount();
+//	}
 	
 	@Override
 	public void addRebalance() {
