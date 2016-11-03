@@ -1,6 +1,6 @@
 package com.attozoic.main.services.impl;
 
-import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	}
 
 	@Override
-	public HashMap<String, DtoActivityProject> getProgrammeDTOs(Long uid) {
+	public List<DtoActivityProject> getProgrammeDTOs(Long uid) {
 		return getDaoDto().getProgrammeDTOs(uid);
 	}
 

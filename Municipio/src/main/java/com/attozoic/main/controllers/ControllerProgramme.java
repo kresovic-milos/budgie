@@ -1,6 +1,6 @@
 package com.attozoic.main.controllers;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +30,7 @@ public class ControllerProgramme {
 	
 	// Vraca DTO objekte Akivnosti i Projekata
 	@RequestMapping(value="/{uid}/dtos", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, DtoActivityProject> getProgrammeDTOs(@PathVariable(value="uid") Long uid) {
+	public List<DtoActivityProject> getProgrammeDTOs(@PathVariable(value="uid") Long uid) {
 		return serviceProgramme.getProgrammeDTOs(uid);
 	}
 	
