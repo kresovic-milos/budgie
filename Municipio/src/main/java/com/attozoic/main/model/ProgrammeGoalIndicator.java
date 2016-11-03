@@ -52,10 +52,6 @@ public class ProgrammeGoalIndicator extends SuperEntity {
 		this.targetValuePlus2 = targetValuePlus2;
 		this.targetValuePlus3 = targetValuePlus3;
 		this.verificationSource = verificationSource;
-		//this.rebalances = new ArrayList<>();
 	}
-	
-	
-
 	
 }

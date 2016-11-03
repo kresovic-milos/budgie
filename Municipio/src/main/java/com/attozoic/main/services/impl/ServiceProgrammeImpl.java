@@ -1,11 +1,15 @@
 package com.attozoic.main.services.impl;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.attozoic.main.dao.DaoDtoActivityProject;
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
+import com.attozoic.main.model.DtoActivityProject;
 import com.attozoic.main.model.ProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
@@ -17,9 +21,16 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	@Autowired
 	private DaoProgramme dao;
 	
+	@Autowired
+	private DaoDtoActivityProject daoDto;
+	
 	@Override
 	public DaoEntity getDaoEntity() {
 		return dao;
+	}
+	
+	public DaoDtoActivityProject getDaoDto() {
+		return daoDto;
 	}
 
 	@Override	
@@ -40,6 +51,11 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	@Override
 	public ProgrammeFinancialSource addProgrammeFinancialSource(Long uid, ProgrammeFinancialSource programmeFinancialSource) {
 		return ((DaoProgramme) getDaoEntity()).addProgrammeFinancialSource(uid, programmeFinancialSource);
+	}
+
+	@Override
+	public HashMap<String, DtoActivityProject> getProgrammeDTOs(Long uid) {
+		return getDaoDto().getProgrammeDTOs(uid);
 	}
 
 	

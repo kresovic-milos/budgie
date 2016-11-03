@@ -24,8 +24,8 @@ public class ProgrammeFinancialSource extends SuperEntity {
 	
 	private Long categoryID;
 	
-	private String code; // 01
-	private String name; // Приходи из буџета
+	private String code;
+	private String name;
 
     @ManyToMany(cascade=CascadeType.ALL, mappedBy="programmeFinancialSources")
     @JsonIgnore

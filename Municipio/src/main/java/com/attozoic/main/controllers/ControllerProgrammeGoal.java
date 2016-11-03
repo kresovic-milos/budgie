@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.ProgrammeGoalIndicator;
 import com.attozoic.main.model.SuperEntity;
@@ -67,7 +66,6 @@ public class ControllerProgrammeGoal {
 	// Dodeljuje indicator izabranom cilju
 	@RequestMapping(value="/{uid}/programmeGoalIndicators", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProgrammeGoalIndicator addProgrammeGoalIndicator(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeGoalIndicator programmeGoalIndicator) {
-		programmeGoalIndicator.setActiveState(ActiveState.ACTIVE);
 		return serviceProgrammeGoal.addProgrammeGoalIndicator(uid, programmeGoalIndicator);
 	}
 	

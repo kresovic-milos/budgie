@@ -43,7 +43,6 @@ public class ProjectGoalIndicator extends SuperEntity {
 
 	public ProjectGoalIndicator(String name, long valueBase, long targetValuePlus1, 
 			long targetValuePlus2, long targetValuePlus3, String verificationSource) {
-		super();
 		this.name = name;
 		this.valueBase = valueBase;
 		this.targetValuePlus1 = targetValuePlus1;

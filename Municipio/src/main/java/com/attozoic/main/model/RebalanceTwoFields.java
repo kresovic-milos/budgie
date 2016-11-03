@@ -8,11 +8,25 @@ import lombok.Data;
 @Embeddable
 public class RebalanceTwoFields {
 
-	private double value1;
-	private double value2;
+	private double valueB1;
+	private double valueB2;
+	private double valueB3;
+	private double valueB4;
+	
+	private double valueO1;
+	private double valueO2;
+	private double valueO3;
+	private double valueO4;
 	
 	public RebalanceTwoFields() {
-		this.value1 = 0;
-		this.value1 = 0;
+		this.valueB1 = 0;
+		this.valueB2 = 0;
+		this.valueB3 = 0;
+		this.valueB4 = 0;
+		
+		this.valueO1 = 0;
+		this.valueO2 = 0;
+		this.valueO3 = 0;
+		this.valueO4 = 0;
 	}
 }

@@ -73,21 +73,7 @@ public class Programme extends SuperEntity {
     		)
     private List<ProgrammeFinancialSource> programmeFinancialSources = new ArrayList<>();
 	
-	public Programme() {}
-
-	public Programme(Long categoryID, String code, String ordNumber, String name, String purpose, String rudiment,
-			String description, String budgetUser, String responsibleAuthority, Long sumExpenses,
-			Long sumFinancialSources) {
-		this.categoryID = categoryID;
-		this.code = code;
-		this.ordNumber = ordNumber;
-		this.name = name;
-		this.purpose = purpose;
-		this.rudiment = rudiment;
-		this.description = description;
-		this.budgetUser = budgetUser;
-		this.responsibleAuthority = responsibleAuthority;
-		this.sumExpenses = sumExpenses;
-		this.sumFinancialSources = sumFinancialSources;
+	public Programme() {
 	}
+
 }

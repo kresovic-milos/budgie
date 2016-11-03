@@ -1,6 +1,9 @@
 package com.attozoic.main.services;
 
+import java.util.HashMap;
+
 import com.attozoic.main.model.Activity;
+import com.attozoic.main.model.DtoActivityProject;
 import com.attozoic.main.model.ProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
@@ -11,4 +14,5 @@ public interface ServiceProgramme extends ServiceEntity {
 	Activity addActivity(Long uid, Activity activity);
 	ProgrammeFinancialSource addProgrammeFinancialSource(Long uid, ProgrammeFinancialSource programmeFinancialSource);
 	Project addProject(Long uid, Project project);
+	HashMap<String, DtoActivityProject> getProgrammeDTOs(Long uid);
 }

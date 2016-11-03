@@ -69,7 +69,6 @@ public class DaoEntityWithRebalances {
 			removeProjectGoalIndicatorReb();
 			removeProjectFinancialSourceReb();
 			removeEcconomicAccountReb();
-			System.out.println("OBRISO!");
 		} catch (Exception ex) {
 			System.err.println("Zero rebalances");
 		}
