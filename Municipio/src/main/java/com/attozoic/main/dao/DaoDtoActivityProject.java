@@ -1,5 +1,6 @@
 package com.attozoic.main.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class DaoDtoActivityProject {
 	@Autowired
 	private RepositoryProgramme repoProgramme;
 	
-	public HashMap<String, DtoActivityProject> getProgrammeDTOs(Long uid) {
+	public List<DtoActivityProject> getProgrammeDTOs(Long uid) {
 		
 		HashMap<String, DtoActivityProject> dtoMap = new HashMap<>();
 		
@@ -37,7 +38,7 @@ public class DaoDtoActivityProject {
 			DtoActivityProject dto = project.buildProjectDTO();
 			dtoMap.put(project.getName(), dto);
 		}
-		return dtoMap;
+		return new ArrayList<DtoActivityProject>(dtoMap.values());
 	}
 	
 }
