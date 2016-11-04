@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +21,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="sectors")
 @Data
 @EqualsAndHashCode(callSuper=true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class Sector extends SuperEntity {
 
 	private Long categoryID;
@@ -27,7 +30,7 @@ public class Sector extends SuperEntity {
 	private String name;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="sector")
-	@JsonManagedReference
+	//@JsonManagedReference
     private List<Programme> programmes = new ArrayList<>(); 
 	
 	public Sector() {}

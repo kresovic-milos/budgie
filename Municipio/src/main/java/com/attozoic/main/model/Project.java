@@ -14,8 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +26,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="projects")
 @Data
 @EqualsAndHashCode(callSuper=true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class Project extends SuperEntity {
     
 	private String code;
@@ -36,27 +39,27 @@ public class Project extends SuperEntity {
 	private String responsibleAuthority;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
-	@JsonManagedReference
+	//@JsonManagedReference
     private List<ProjectGoal> projectGoals = new ArrayList<>();
 	
     @ManyToOne
 	@JoinColumn(name="programme_uid")
-	@JsonBackReference
+	//@JsonBackReference
     private Programme programme;
     
     @ManyToOne
     @JoinColumn(name="function_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Function function;
 	
     @ManyToOne
     @JoinColumn(name="head_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Head head;
     
     @ManyToOne
     @JoinColumn(name="authority_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Authority authority;
     
 	@ManyToMany

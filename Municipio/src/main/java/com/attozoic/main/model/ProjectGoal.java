@@ -12,7 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,17 +23,18 @@ import lombok.EqualsAndHashCode;
 @Table(name="project_goals")
 @Data
 @EqualsAndHashCode(callSuper=true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class ProjectGoal extends SuperEntity {
 	
 	private String name;
 	
     @ManyToOne
 	@JoinColumn(name="project_uid")
-	@JsonBackReference
+	//@JsonBackReference
     private Project project;
     
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="projectGoal")
-	@JsonManagedReference
+	//@JsonManagedReference
     private List<ProjectGoalIndicator> projectGoalIndicators = new ArrayList<>();
 	
     public ProjectGoal() {}

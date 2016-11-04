@@ -11,7 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,15 +22,16 @@ import lombok.EqualsAndHashCode;
 @Table(name="activity_financial_sources")
 @Data
 @EqualsAndHashCode(callSuper=true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class ActivityFinancialSource extends SuperEntity {
 	
 	private Long categoryID;
 
-	private String code; // 01
-	private String name; // Приходи из буџета
+	private String code;
+	private String name;
 
     @ManyToMany(cascade=CascadeType.ALL, mappedBy="activityFinancialSources")
-    @JsonIgnore
+    //@JsonIgnore
     private List<Activity> activities = new ArrayList<>();
     
 	private double sourceBaseYear; // 2016
@@ -42,18 +45,6 @@ public class ActivityFinancialSource extends SuperEntity {
 	private List<RebalanceOneField> rebalances = new ArrayList<>();
 	
     public ActivityFinancialSource() {}
-
-	public ActivityFinancialSource(Long categoryID, String code, String name, long sourceBaseYear, long sourceBaseYearPlus1,
-			long sourceBaseYearPlus2, long sourceBaseYearPlus3, long sumSources123) {
-		this.categoryID = categoryID;
-		this.code = code;
-		this.name = name;
-		this.sourceBaseYear = sourceBaseYear;
-		this.sourceBaseYearPlus1 = sourceBaseYearPlus1;
-		this.sourceBaseYearPlus2 = sourceBaseYearPlus2;
-		this.sourceBaseYearPlus3 = sourceBaseYearPlus3;
-		this.sumSources123 = sumSources123;
-	}
 	
 	public List<Double> listRebDouble(){
 		List<Double> list = new ArrayList<>();

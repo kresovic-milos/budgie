@@ -11,7 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +22,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="project_financial_sources")
 @Data
 @EqualsAndHashCode(callSuper=true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class ProjectFinancialSource extends SuperEntity {
     
 	private Long categoryID;
@@ -34,7 +37,7 @@ public class ProjectFinancialSource extends SuperEntity {
 	private double sumSources123;
 	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="financialSources")
-	@JsonIgnore
+	//@JsonIgnore
     private List<Project> project = new ArrayList<>();
 	
 	@ElementCollection

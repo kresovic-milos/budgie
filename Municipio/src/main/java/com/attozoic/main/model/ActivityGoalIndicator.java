@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +21,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="activity_goal_indicators")
 @Data
 @EqualsAndHashCode(callSuper=true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class ActivityGoalIndicator extends SuperEntity {
 
 	private Long categoryID;
@@ -27,7 +30,7 @@ public class ActivityGoalIndicator extends SuperEntity {
 	
     @ManyToOne
 	@JoinColumn(name="activityGoal_uid")
-	@JsonBackReference
+	//@JsonBackReference
     private ActivityGoal activityGoal;
     
 	private String valueBase; // 2016

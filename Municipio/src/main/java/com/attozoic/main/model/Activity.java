@@ -14,8 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +26,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="activities")
 @Data
 @EqualsAndHashCode(callSuper=true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class Activity extends SuperEntity { 
 	
 	private Long categoryID;
@@ -40,27 +43,27 @@ public class Activity extends SuperEntity {
 	private String responsibleAuthority;
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
-	@JsonManagedReference
+	//@JsonManagedReference
     private List<ActivityGoal> activityGoals = new ArrayList<>();
 	
     @ManyToOne
 	@JoinColumn(name="programme_uid")
-	@JsonBackReference
+	//@JsonBackReference
     private Programme programme;
 	
     @ManyToOne
     @JoinColumn(name="function_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Function function;
     
     @ManyToOne
     @JoinColumn(name="head_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Head head;
     
     @ManyToOne
     @JoinColumn(name="authority_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Authority authority;
     
     @ManyToMany

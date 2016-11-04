@@ -15,7 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +26,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="programmes")
 @Data
 @EqualsAndHashCode(callSuper=true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class Programme extends SuperEntity {
 	
 	private Long categoryID;
@@ -46,19 +49,19 @@ public class Programme extends SuperEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="sector_uid")
-	@JsonBackReference
+	//@JsonBackReference
     private Sector sector;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    @JsonManagedReference
+    //@JsonManagedReference
 	private List<ProgrammeGoal> programmeGoals = new ArrayList<>();
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    @JsonManagedReference
+    //@JsonManagedReference
     private List<Activity> activities = new ArrayList<>();
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    @JsonManagedReference
+    //@JsonManagedReference
     private List<Project> projects = new ArrayList<>();
 	
     @ManyToMany
