@@ -75,13 +75,28 @@ public class DtoActivityProject {
 		this.setExpenseBaseYearPlus1Others2(this.getExpenseBaseYearPlus1Others2() + dto.getExpenseBaseYearPlus1Others2());
 		this.setExpenseBaseYearPlus1Others3(this.getExpenseBaseYearPlus1Others3() + dto.getExpenseBaseYearPlus1Others3());
 		this.setExpenseBaseYearPlus1Others4(this.getExpenseBaseYearPlus1Others4() + dto.getExpenseBaseYearPlus1Others4());
+		plusRebBudget(dto.getListSumRebBudget());
+		plusRebOthers(dto.getListSumRebOthers());
 		this.setExpenseBaseYearPlus2Budget(this.getExpenseBaseYearPlus2Budget() + dto.getExpenseBaseYearPlus2Budget());
 		this.setExpenseBaseYearPlus2Others(this.getExpenseBaseYearPlus2Others() + dto.getExpenseBaseYearPlus2Others());
 		this.setExpenseBaseYearPlus3Budget(this.getExpenseBaseYearPlus3Budget() + dto.getExpenseBaseYearPlus3Others());
+		this.setExpenseBaseYearPlus3Others(this.getExpenseBaseYearPlus3Others() + dto.getExpenseBaseYearPlus3Others());
 		this.setSumExpenses123Budget(this.getSumExpenses123Budget() + dto.getSumExpenses123Budget());
 		this.setSumExpenses123Others(this.getSumExpenses123Others() + dto.getSumExpenses123Others());
 		this.setSumExpensesBaseYearPlus1Budget(this.getSumExpensesBaseYearPlus1Budget() + dto.getSumExpensesBaseYearPlus1Budget());
 		this.setSumExpensesBaseYearPlus1Others(this.getSumExpensesBaseYearPlus1Others() + dto.getSumExpensesBaseYearPlus1Others());
+	}
+	
+	public void plusRebBudget(List<Double> list) {
+		for (int i = 0; i < this.getListSumRebBudget().size(); i++) {
+			this.getListSumRebBudget().set(i, (this.getListSumRebBudget().get(i) + list.get(i)));
+		}
+	}
+	
+	public void plusRebOthers(List<Double> list) {
+		for (int i = 0; i < this.getListSumRebOthers().size(); i++) {
+			this.getListSumRebOthers().set(i, (this.getListSumRebOthers().get(i) + list.get(i)));
+		}
 	}
 	
 }

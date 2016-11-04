@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.attozoic.main.dao.DaoDtoActivityProject;
+import com.attozoic.main.dao.DaoDtoProgrammeFinancialSource;
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
@@ -24,6 +26,9 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	@Autowired
 	private DaoDtoActivityProject daoDto;
 	
+	@Autowired
+	private DaoDtoProgrammeFinancialSource daoDtoFinance;
+	
 	@Override
 	public DaoEntity getDaoEntity() {
 		return dao;
@@ -31,6 +36,10 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	
 	public DaoDtoActivityProject getDaoDto() {
 		return daoDto;
+	}
+	
+	public DaoDtoProgrammeFinancialSource getDaoDtoFinance() {
+		return daoDtoFinance;
 	}
 
 	@Override	
@@ -56,6 +65,11 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	@Override
 	public List<DtoActivityProject> getProgrammeDTOs(Long uid) {
 		return getDaoDto().getProgrammeDTOs(uid);
+	}
+
+	@Override
+	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDto(Long uid) {
+		return getDaoDtoFinance().getProgrammeFinanceDto(uid);
 	}
 
 	

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
@@ -28,11 +29,17 @@ public class ControllerProgramme {
 	@Autowired
 	private ServiceProgramme serviceProgramme;
 	
-	// Vraca DTO objekte Akivnosti i Projekata
+	// Vraca DTO objekte EXPENCES Akivnosti i Projekata
 	@RequestMapping(value="/{uid}/dtos", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<DtoActivityProject> getProgrammeDTOs(@PathVariable(value="uid") Long uid) {
 		return serviceProgramme.getProgrammeDTOs(uid);
 	}
+	
+	// Vraca DTO objekte FINANCIALSOURCES Akivnosti i Projekata
+		@RequestMapping(value="/{uid}/dtoFinances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+		public List<DtoProgrammeFinancialSource> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
+			return serviceProgramme.getProgrammeFinanceDto(uid);
+		}
 	
 	// Vraca listu svih programa
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 

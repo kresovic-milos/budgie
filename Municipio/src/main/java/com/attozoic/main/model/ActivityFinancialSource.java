@@ -54,5 +54,14 @@ public class ActivityFinancialSource extends SuperEntity {
 		this.sourceBaseYearPlus3 = sourceBaseYearPlus3;
 		this.sumSources123 = sumSources123;
 	}
+	
+	public List<Double> listRebDouble(){
+		List<Double> list = new ArrayList<>();
+		for (RebalanceOneField rof : rebalances) {
+			double sum = rof.getValue1() + rof.getValue2() + rof.getValue3() + rof.getValue4();
+			list.add(sum);
+		}
+		return list;
+	}
 
 }

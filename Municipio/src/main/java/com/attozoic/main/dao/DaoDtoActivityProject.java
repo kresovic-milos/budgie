@@ -20,9 +20,7 @@ public class DaoDtoActivityProject {
 	private RepositoryProgramme repoProgramme;
 	
 	public List<DtoActivityProject> getProgrammeDTOs(Long uid) {
-		
 		HashMap<String, DtoActivityProject> dtoMap = new HashMap<>();
-		
 		Programme programme = repoProgramme.findOne(uid);
 		List<Activity> acivities = programme.getActivities();
 		for (Activity activity : acivities) {

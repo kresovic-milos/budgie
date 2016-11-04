@@ -39,7 +39,7 @@ public class DaoActivity extends DaoEntity {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		activityFinancialSource.getActivities().add(activity);
 		activity.getActivityFinancialSources().add(activityFinancialSource);
-		activityFinancialSource.setSumSources123(activityFinancialSource.getSourceBaseYear() + activityFinancialSource.getSourceBaseYearPlus1() + activityFinancialSource.getSourceBaseYearPlus2() + activityFinancialSource.getSourceBaseYearPlus3());
+		activityFinancialSource.setSumSources123(activityFinancialSource.getSourceBaseYearPlus1() + activityFinancialSource.getSourceBaseYearPlus2() + activityFinancialSource.getSourceBaseYearPlus3());
 		return (ActivityFinancialSource) getRepoEntity().save(activityFinancialSource);
 	}
 	

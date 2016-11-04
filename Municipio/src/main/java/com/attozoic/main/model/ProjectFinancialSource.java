@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +24,9 @@ public class ProjectFinancialSource extends SuperEntity {
     
 	private Long categoryID;
 	
+	private String code;
+	private String name; // Приходи из буџета
+	
 	private double sourceBaseYear; // 2016
 	private double sourceBaseYearPlus1; // 2017
 	private double sourceBaseYearPlus2; // 2018
@@ -29,6 +34,7 @@ public class ProjectFinancialSource extends SuperEntity {
 	private double sumSources123;
 	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="financialSources")
+	@JsonIgnore
     private List<Project> project = new ArrayList<>();
 	
 	@ElementCollection
@@ -36,5 +42,14 @@ public class ProjectFinancialSource extends SuperEntity {
 	private List<RebalanceOneField> rebalances = new ArrayList<>();
 	
     public ProjectFinancialSource() {}
+    
+    public List<Double> listRebDouble(){
+		List<Double> list = new ArrayList<>();
+		for (RebalanceOneField rof : rebalances) {
+			double sum = rof.getValue1() + rof.getValue2() + rof.getValue3() + rof.getValue4();
+			list.add(sum);
+		}
+		return list;
+	}
 	
 }

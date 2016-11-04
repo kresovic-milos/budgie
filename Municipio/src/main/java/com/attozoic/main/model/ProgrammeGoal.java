@@ -33,7 +33,7 @@ public class ProgrammeGoal extends SuperEntity {
     @JsonBackReference
     private Programme programme;
     
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="programmeGoal")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="programmeGoal", orphanRemoval=true)
 	@JsonManagedReference
     private List<ProgrammeGoalIndicator> programmeGoalIndicators = new ArrayList<>();
 	

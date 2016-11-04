@@ -80,6 +80,22 @@ public class Activity extends SuperEntity {
     private List<EconomicAccount> activityEconomicalAccounts = new ArrayList<>();
 	
 	public Activity() {}
+	
+	public List<DtoProgrammeFinancialSource> buildDtoFinanceList() {
+		List<DtoProgrammeFinancialSource> list = new ArrayList<>();
+		for (ActivityFinancialSource financialSrc : activityFinancialSources) {
+			DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
+			dto.setName(financialSrc.getName());
+			dto.setSourceBaseYear(financialSrc.getSourceBaseYear());
+			dto.setSourceBaseYearPlus1(financialSrc.getSourceBaseYearPlus1());
+			dto.setSourceBaseYearPlus2(financialSrc.getSourceBaseYearPlus2());
+			dto.setSourceBaseYearPlus3(financialSrc.getSourceBaseYearPlus3());
+			dto.setSumSources123(financialSrc.getSumSources123());
+			dto.setListSourceRebalance(financialSrc.listRebDouble());
+			list.add(dto);
+		}
+		return list;
+	}
 
 	public DtoActivityProject buildActivityDTO() {
 		DtoActivityProject dto = new DtoActivityProject();

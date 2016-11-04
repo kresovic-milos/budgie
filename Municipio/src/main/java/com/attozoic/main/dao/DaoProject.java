@@ -30,7 +30,7 @@ public class DaoProject extends DaoEntity {
 		Project project = (Project) getRepoEntity().findOne(uid);
 		project.getFinancialSources().add(financialSource);
 		financialSource.getProject().add(project);		
-		financialSource.setSumSources123(financialSource.getSourceBaseYear() + financialSource.getSourceBaseYearPlus1() + financialSource.getSourceBaseYearPlus2() + financialSource.getSourceBaseYearPlus3());
+		financialSource.setSumSources123(financialSource.getSourceBaseYearPlus1() + financialSource.getSourceBaseYearPlus2() + financialSource.getSourceBaseYearPlus3());
 		return (ProjectFinancialSource) getRepoEntity().save(financialSource);
 	}
 
