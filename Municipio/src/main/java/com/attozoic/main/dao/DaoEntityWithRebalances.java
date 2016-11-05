@@ -75,11 +75,13 @@ public class DaoEntityWithRebalances {
 	}
 	
 	private void addProgrammeGoalIndicatorReb() {
+		System.out.println("jen");
 		List<ProgrammeGoalIndicator> l = repoProgrammeGoalIndicator.findAll();
+		System.out.println("dva");
 		for (ProgrammeGoalIndicator programmeGoalIndicator : l) {
 			try {
-			programmeGoalIndicator.getRebalances().add(new RebalanceOneField());
-			repoProgrammeGoalIndicator.save(programmeGoalIndicator);
+				programmeGoalIndicator.getRebalances().add(new RebalanceOneField());
+				repoProgrammeGoalIndicator.save(programmeGoalIndicator);
 			} catch (Exception ex) {
 				System.out.println("Ufacen Indikator");
 			}
