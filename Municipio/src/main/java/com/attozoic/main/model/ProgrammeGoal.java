@@ -14,9 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -36,12 +34,10 @@ public class ProgrammeGoal extends SuperEntity {
 	
     @ManyToOne
 	@JoinColumn(name="programme_uid")
-    //@JsonBackReference
     @NotFound(action=NotFoundAction.IGNORE)
     private Programme programme;
     
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="programmeGoal", orphanRemoval=true)
-	//@JsonManagedReference
     private List<ProgrammeGoalIndicator> programmeGoalIndicators = new ArrayList<>();
 	
 	public ProgrammeGoal() {}

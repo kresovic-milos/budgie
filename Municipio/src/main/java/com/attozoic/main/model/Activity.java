@@ -13,10 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -43,27 +43,23 @@ public class Activity extends SuperEntity {
 	private String responsibleAuthority;
 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
-	//@JsonManagedReference
     private List<ActivityGoal> activityGoals = new ArrayList<>();
 	
     @ManyToOne
 	@JoinColumn(name="programme_uid")
-	//@JsonBackReference
+    @NotFound(action=NotFoundAction.IGNORE)
     private Programme programme;
 	
     @ManyToOne
     @JoinColumn(name="function_id")
-    //@JsonIgnore
     private Function function;
     
     @ManyToOne
     @JoinColumn(name="head_id")
-    //@JsonIgnore
     private Head head;
     
     @ManyToOne
     @JoinColumn(name="authority_id")
-    //@JsonIgnore
     private Authority authority;
     
     @ManyToMany

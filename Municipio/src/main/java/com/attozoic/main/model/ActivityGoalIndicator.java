@@ -10,7 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -30,7 +32,7 @@ public class ActivityGoalIndicator extends SuperEntity {
 	
     @ManyToOne
 	@JoinColumn(name="activityGoal_uid")
-	//@JsonBackReference
+    @NotFound(action=NotFoundAction.IGNORE)
     private ActivityGoal activityGoal;
     
 	private String valueBase; // 2016

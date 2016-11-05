@@ -11,9 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -30,11 +31,10 @@ public class ProjectGoal extends SuperEntity {
 	
     @ManyToOne
 	@JoinColumn(name="project_uid")
-	//@JsonBackReference
+    @NotFound(action=NotFoundAction.IGNORE)
     private Project project;
     
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="projectGoal")
-	//@JsonManagedReference
     private List<ProjectGoalIndicator> projectGoalIndicators = new ArrayList<>();
 	
     public ProjectGoal() {}

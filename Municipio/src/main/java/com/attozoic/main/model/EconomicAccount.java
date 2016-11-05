@@ -12,7 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -70,11 +69,9 @@ public class EconomicAccount extends SuperEntity {
 	private List<RebalanceTwoFields> rebalances = new ArrayList<>();
 	
     @ManyToMany(cascade=CascadeType.ALL, mappedBy="activityEconomicalAccounts")
-    //@JsonIgnore
     private List<Activity> activities = new ArrayList<>();
     
     @ManyToMany(cascade=CascadeType.ALL, mappedBy="projectEconomicalAccounts")
-    //@JsonIgnore
     private List<Project> projects = new ArrayList<>(); 
     
     public EconomicAccount() {}

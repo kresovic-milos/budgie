@@ -12,7 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -31,7 +30,6 @@ public class ProgrammeFinancialSource extends SuperEntity {
 	private String name;
 
     @ManyToMany(cascade=CascadeType.ALL, mappedBy="programmeFinancialSources")
-    //@JsonIgnore
     private List<Programme> programmes = new ArrayList<>();
     
 	private double sourceBaseYear; // 2016

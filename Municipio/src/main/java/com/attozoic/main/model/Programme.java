@@ -14,9 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -49,19 +50,16 @@ public class Programme extends SuperEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="sector_uid")
-	//@JsonBackReference
+	@NotFound(action=NotFoundAction.IGNORE)
     private Sector sector;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    //@JsonManagedReference
 	private List<ProgrammeGoal> programmeGoals = new ArrayList<>();
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    //@JsonManagedReference
     private List<Activity> activities = new ArrayList<>();
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    //@JsonManagedReference
     private List<Project> projects = new ArrayList<>();
 	
     @ManyToMany

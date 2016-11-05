@@ -12,7 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -37,7 +36,6 @@ public class ProjectFinancialSource extends SuperEntity {
 	private double sumSources123;
 	
 	@ManyToMany(cascade=CascadeType.ALL, mappedBy="financialSources")
-	//@JsonIgnore
     private List<Project> project = new ArrayList<>();
 	
 	@ElementCollection
