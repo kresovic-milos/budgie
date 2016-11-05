@@ -22,7 +22,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="programme_financial_source")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
 public class ProgrammeFinancialSource extends SuperEntity {
 	
 	private Long categoryID;

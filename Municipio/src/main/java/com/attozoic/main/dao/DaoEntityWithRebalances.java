@@ -77,8 +77,12 @@ public class DaoEntityWithRebalances {
 	private void addProgrammeGoalIndicatorReb() {
 		List<ProgrammeGoalIndicator> l = repoProgrammeGoalIndicator.findAll();
 		for (ProgrammeGoalIndicator programmeGoalIndicator : l) {
+			try {
 			programmeGoalIndicator.getRebalances().add(new RebalanceOneField());
 			repoProgrammeGoalIndicator.save(programmeGoalIndicator);
+			} catch (Exception ex) {
+				System.out.println("Ufacen Indikator");
+			}
 		}
 	}
 	
@@ -92,8 +96,12 @@ public class DaoEntityWithRebalances {
 	private void addProgrammeFinancialSourceReb() {
 		List<ProgrammeFinancialSource> l = repoProgrammeFinancialSource.findAll();
 		for (ProgrammeFinancialSource programmeFinancialSource : l) {
+			try {
 			programmeFinancialSource.getRebalances().add(new RebalanceOneField());
 			repoProgrammeFinancialSource.save(programmeFinancialSource);
+			} catch (Exception ex) {
+				System.out.println("Ufacen Izvor");
+			}
 		}
 	}
 	
@@ -107,8 +115,12 @@ public class DaoEntityWithRebalances {
 	private void addActivityGoalIndicatorReb() {
 		List<ActivityGoalIndicator> l = repoActivityGoalIndicator.findAll();
 		for (ActivityGoalIndicator activityGoalIndicator : l) {
-			activityGoalIndicator.getRebalances().add(new RebalanceOneField());
-			repoActivityGoalIndicator.save(activityGoalIndicator);
+			try {
+				activityGoalIndicator.getRebalances().add(new RebalanceOneField());
+				repoActivityGoalIndicator.save(activityGoalIndicator);
+			} catch (Exception ex) {
+				System.out.println();
+			}
 		}
 	}
 	
@@ -122,8 +134,12 @@ public class DaoEntityWithRebalances {
 	private void addActivityFinancialSourceReb() {
 		List<ActivityFinancialSource> l = repoActivityFinancialSource.findAll();
 		for (ActivityFinancialSource activityFinancialSource : l) {
+			try {
 			activityFinancialSource.getRebalances().add(new RebalanceOneField());
 			repoActivityFinancialSource.save(activityFinancialSource);
+			} catch (Exception ex) {
+				System.out.println();
+			}
 		}
 	}
 	
@@ -137,8 +153,12 @@ public class DaoEntityWithRebalances {
 	private void addProjectGoalIndicatorReb() {
 		List<ProjectGoalIndicator> l = repoProjectGoalIndicator.findAll();
 		for (ProjectGoalIndicator projectGoalIndicator : l) {
-			projectGoalIndicator.getRebalances().add(new RebalanceOneField());
-			repoProjectGoalIndicator.save(projectGoalIndicator);
+			try {
+				projectGoalIndicator.getRebalances().add(new RebalanceOneField());
+				repoProjectGoalIndicator.save(projectGoalIndicator);
+			} catch (Exception ex) {
+				System.out.println();
+			}
 		}
 	}
 	
@@ -152,8 +172,12 @@ public class DaoEntityWithRebalances {
 	private void addProjectFinancialSourceReb() {
 		List<ProjectFinancialSource> l = repoProjectFinancialSource.findAll();
 		for (ProjectFinancialSource projectFinancialSource : l) {
-			projectFinancialSource.getRebalances().add(new RebalanceOneField());
-			repoProjectFinancialSource.save(projectFinancialSource);
+			try {
+				projectFinancialSource.getRebalances().add(new RebalanceOneField());
+				repoProjectFinancialSource.save(projectFinancialSource);
+			} catch (Exception ex) {
+				System.out.println();
+			}
 		}
 	}
 	
@@ -167,8 +191,12 @@ public class DaoEntityWithRebalances {
 	private void addEconomicAccountReb() {
 		List<EconomicAccount> l = repoEconomicAccount.findAll();
 		for (EconomicAccount economicAccount : l) {
-			economicAccount.getRebalances().add(new RebalanceTwoFields());
-			repoEconomicAccount.save(economicAccount);
+			try {
+				economicAccount.getRebalances().add(new RebalanceTwoFields());
+				repoEconomicAccount.save(economicAccount);
+			} catch (Exception ex) {
+				System.out.println();
+			}
 		}
 	}
 	

@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "authorities")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
 public class Authority extends SuperEntity {
 
 	private Long categoryID;

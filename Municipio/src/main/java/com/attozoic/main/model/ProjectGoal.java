@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="project_goals")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
 public class ProjectGoal extends SuperEntity {
 	
 	private String name;

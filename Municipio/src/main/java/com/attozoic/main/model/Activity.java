@@ -26,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="activities")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
 public class Activity extends SuperEntity { 
 	
 	private Long categoryID;
