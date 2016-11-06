@@ -43,6 +43,7 @@ public class EconomicAccount extends SuperEntity {
 	private double expenseBaseYearPlus1Budget4;
 	
 	private double sumExpensesBaseYearPlus1Budget;
+	private String financialSourceBaseYearPlus1Budget;
 	
 	private double expenseBaseYearPlus1Others1;
 	private double expenseBaseYearPlus1Others2;
@@ -50,6 +51,7 @@ public class EconomicAccount extends SuperEntity {
 	private double expenseBaseYearPlus1Others4;
 	
 	private double sumExpensesBaseYearPlus1Others;
+	private String financialSourceBaseYearPlus1Others;
 	
 	// 2018
 	private double expenseBaseYearPlus2Budget;
