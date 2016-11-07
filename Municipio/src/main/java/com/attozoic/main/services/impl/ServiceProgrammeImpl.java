@@ -12,7 +12,6 @@ import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
 import com.attozoic.main.model.DtoProgrammeFinancialSource;
-import com.attozoic.main.model.ProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.services.ServiceProgramme;
@@ -58,11 +57,6 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	}
 
 	@Override
-	public ProgrammeFinancialSource addProgrammeFinancialSource(Long uid, ProgrammeFinancialSource programmeFinancialSource) {
-		return ((DaoProgramme) getDaoEntity()).addProgrammeFinancialSource(uid, programmeFinancialSource);
-	}
-
-	@Override
 	public List<DtoActivityProject> getProgrammeDTOs(Long uid) {
 		return getDaoDto().getProgrammeDTOs(uid);
 	}
@@ -72,11 +66,4 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 		return getDaoDtoFinance().getProgrammeFinanceDto(uid);
 	}
 
-	
-	
-//	@Override
-//	public ProgrammeFinancialSource addProgrammeFinancialSource(Long uid,
-//			ProgrammeFinancialSource programmeFinancialSource) {
-//		return ((DaoProgramme) getDaoEntity()).addProgrammeFinancialSource(uid, programmeFinancialSource);
-//	}
 }

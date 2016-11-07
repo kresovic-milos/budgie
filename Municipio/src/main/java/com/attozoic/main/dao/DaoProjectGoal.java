@@ -43,6 +43,7 @@ public class DaoProjectGoal extends DaoEntity {
 		} catch(NullPointerException ex) {}
 		ProjectGoal goal = (ProjectGoal) getRepoEntity().findOne(uid);
 		goalIndicator.setProjectGoal(goal);
+		getRepoEntity().save(goal);
 		return (ProjectGoalIndicator) getRepoEntity().save(goalIndicator);
 	}
 

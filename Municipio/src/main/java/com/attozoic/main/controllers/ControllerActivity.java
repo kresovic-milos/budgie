@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.main.model.Activity;
+import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
-import com.attozoic.main.model.Authority;
-import com.attozoic.main.model.EconomicAccount;
-import com.attozoic.main.model.Function;
-import com.attozoic.main.model.Head;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceActivity;
 
@@ -63,34 +60,15 @@ public class ControllerActivity {
 	// addFinancialSource to Activity
 	@RequestMapping(value="/{uid}/activityFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ActivityFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource activityFinancialSource) {
-		return serviceActivity.addFinancialSource(uid, activityFinancialSource);
-	}
-	
-	// addFunction to Activity 
-	@RequestMapping(value="/{uid}/functions", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Function addFunction(@PathVariable(value="uid") Long uid, @RequestBody Function function) {
-//		Activity a = (Activity)serviceActivity.findOne(uid);
-//		System.out.println(a.getName());
-//		System.err.println(a.getName());
-		return serviceActivity.addFunction(uid, function);
-	}
-	
-	@RequestMapping(value="/{uid}/heads", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Head addHead(@PathVariable(value="uid") Long uid, @RequestBody Head head) {
-		return serviceActivity.addHead(uid, head);
-	}
-	
-	@RequestMapping(value="/{uid}/authorities", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Authority addAuthority(@PathVariable(value="uid") Long uid, @RequestBody Authority authority) {
-		return serviceActivity.addAuthority(uid, authority);
+		return serviceActivity.addActivityFinancialSource(uid, activityFinancialSource);
 	}
 	
 	// addEconimcalAccount to Activity
 	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public EconomicAccount addEconomic(@PathVariable(value="uid") Long uid, @RequestBody EconomicAccount economicAccount) {
+	public ActivityEconomicAccount addEconomic(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount) {
 		//Activity a = (Activity)serviceActivity.findOne(uid);
 		//System.err.println(a.getName());
-		return serviceActivity.addEconomicAccount(uid, economicAccount);
+		return serviceActivity.addActivityEconomicAccount(uid, activityEconomicAccount);
 	}
 	
 	// updateActivity
@@ -116,19 +94,5 @@ public class ControllerActivity {
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceActivity.unarchive(uid);
 	}
-	
 
-	
-//	@RequestMapping(value="/{uid}/finsrc", method = RequestMethod.PUT)
-//	public ActivityFinancialSource addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource financialSource) {
-//		Activity a = serviceActivity.findOneById(financialSource.getActivities().get(0).getUid());
-//		List<Activity> aList = new ArrayList<>();
-//		aList.add(a);
-//		financialSource.setActivities(aList);
-//		ActivityFinancialSource finSrc = serviceFinSrc.save(financialSource);
-//		a.getActivityFinancialSources().add(finSrc);
-//		serviceActivity.save(a);
-//		
-//		return finSrc;
-//	}
 }

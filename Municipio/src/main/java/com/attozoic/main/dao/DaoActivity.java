@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Activity;
+import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
-import com.attozoic.main.model.Authority;
-import com.attozoic.main.model.EconomicAccount;
-import com.attozoic.main.model.Function;
-import com.attozoic.main.model.Head;
 import com.attozoic.main.model.RebalanceOneField;
 import com.attozoic.main.model.RebalanceTwoFields;
 import com.attozoic.main.model.RebalancesCount;
@@ -23,15 +20,15 @@ import com.attozoic.main.repositories.RepositoryRebalancesCount;
 public class DaoActivity extends DaoEntity {
 
 	@Autowired
-	private RepositoryActivity repo;
+	private RepositoryActivity repoActivity;
 	
 	@Autowired
-	private RepositoryRebalancesCount repoReb;
+	private RepositoryRebalancesCount repoRebalanceCount;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
-		return repo;
+		return repoActivity;
 	}
 	
 	// addActivityGoal
@@ -39,6 +36,7 @@ public class DaoActivity extends DaoEntity {
 	public ActivityGoal addActivityGoal(Long uid, ActivityGoal activityGoal) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		activityGoal.setActivity(activity);
+		getRepoEntity().save(activity);
 		return (ActivityGoal) getRepoEntity().save(activityGoal);
 	}
 	
@@ -46,7 +44,7 @@ public class DaoActivity extends DaoEntity {
 	@SuppressWarnings("unchecked")
 	public ActivityFinancialSource addActivityFinancialSource(Long uid, ActivityFinancialSource activityFinancialSource) {
 		try {
-			RebalancesCount rc = repoReb.findOne(new Long(1));
+			RebalancesCount rc = repoRebalanceCount.findOne(new Long(1));
 			int numReb = rc.getRebalancesCount();
 			if (numReb > 0) {
 				List<RebalanceOneField> l = activityFinancialSource.getRebalances();
@@ -57,9 +55,9 @@ public class DaoActivity extends DaoEntity {
 			}
 		} catch (NullPointerException ex) {}
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
-		activityFinancialSource.getActivities().add(activity);
-		activity.getActivityFinancialSources().add(activityFinancialSource);
+		activityFinancialSource.setActivity(activity);
 		activityFinancialSource.setSumSources123(activityFinancialSource.getSourceBaseYearPlus1() + activityFinancialSource.getSourceBaseYearPlus2() + activityFinancialSource.getSourceBaseYearPlus3());
+		getRepoEntity().save(activity);
 		return (ActivityFinancialSource) getRepoEntity().save(activityFinancialSource);
 	}
 	
@@ -92,26 +90,26 @@ public class DaoActivity extends DaoEntity {
 	
 	// addActivityEconomicAccount
 	@SuppressWarnings("unchecked")
-	public EconomicAccount addActivityEconomicAccount(Long uid, EconomicAccount ecAcc) {
+	public ActivityEconomicAccount addActivityEconomicAccount(Long uid, ActivityEconomicAccount activityEconomicAccount) {
 		try {
-			RebalancesCount rc = repoReb.findOne(new Long(1));
+			RebalancesCount rc = repoRebalanceCount.findOne(new Long(1));
 			int numReb = rc.getRebalancesCount();
 			if (numReb > 0) {
-				List<RebalanceTwoFields> l = ecAcc.getRebalances();
+				List<RebalanceTwoFields> l = activityEconomicAccount.getRebalances();
 				for (int i = 0; i < numReb; i++) {
 					l.add(new RebalanceTwoFields());
 				}
-				ecAcc.setRebalances(l);
+				activityEconomicAccount.setRebalances(l);
 			}
 		} catch (NullPointerException ex) {}
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
-		ecAcc.getActivities().add(activity);
-		activity.getActivityEconomicalAccounts().add(ecAcc);
-		ecAcc.setSumExpenses123Budget(ecAcc.getExpenseBaseYearPlus1Budget1() + ecAcc.getExpenseBaseYearPlus1Budget2() + ecAcc.getExpenseBaseYearPlus1Budget3() + ecAcc.getExpenseBaseYearPlus1Budget4() + ecAcc.getExpenseBaseYearPlus2Budget() + ecAcc.getExpenseBaseYearPlus3Budget());
-		ecAcc.setSumExpenses123Others(ecAcc.getExpenseBaseYearPlus1Others1() + ecAcc.getExpenseBaseYearPlus1Others2() + ecAcc.getExpenseBaseYearPlus1Others3() + ecAcc.getExpenseBaseYearPlus1Others4() + ecAcc.getExpenseBaseYearPlus2Others() + ecAcc.getExpenseBaseYearPlus3Others());
-		ecAcc.setSumExpensesBaseYearPlus1Budget(ecAcc.getExpenseBaseYearPlus1Budget1() + ecAcc.getExpenseBaseYearPlus1Budget2() + ecAcc.getExpenseBaseYearPlus1Budget3() + ecAcc.getExpenseBaseYearPlus1Budget4());
-		ecAcc.setSumExpensesBaseYearPlus1Others(ecAcc.getExpenseBaseYearPlus1Others1() + ecAcc.getExpenseBaseYearPlus1Others2() + ecAcc.getExpenseBaseYearPlus1Others3() + ecAcc.getExpenseBaseYearPlus1Others4());
-		return (EconomicAccount) getRepoEntity().save(ecAcc);
+		activityEconomicAccount.setActivity(activity);
+		activityEconomicAccount.setSumExpenses123Budget(activityEconomicAccount.getExpenseBaseYearPlus1Budget1() + activityEconomicAccount.getExpenseBaseYearPlus1Budget2() + activityEconomicAccount.getExpenseBaseYearPlus1Budget3() + activityEconomicAccount.getExpenseBaseYearPlus1Budget4() + activityEconomicAccount.getExpenseBaseYearPlus2Budget() + activityEconomicAccount.getExpenseBaseYearPlus3Budget());
+		activityEconomicAccount.setSumExpenses123Others(activityEconomicAccount.getExpenseBaseYearPlus1Others1() + activityEconomicAccount.getExpenseBaseYearPlus1Others2() + activityEconomicAccount.getExpenseBaseYearPlus1Others3() + activityEconomicAccount.getExpenseBaseYearPlus1Others4() + activityEconomicAccount.getExpenseBaseYearPlus2Others() + activityEconomicAccount.getExpenseBaseYearPlus3Others());
+		activityEconomicAccount.setSumExpensesBaseYearPlus1Budget(activityEconomicAccount.getExpenseBaseYearPlus1Budget1() + activityEconomicAccount.getExpenseBaseYearPlus1Budget2() + activityEconomicAccount.getExpenseBaseYearPlus1Budget3() + activityEconomicAccount.getExpenseBaseYearPlus1Budget4());
+		activityEconomicAccount.setSumExpensesBaseYearPlus1Others(activityEconomicAccount.getExpenseBaseYearPlus1Others1() + activityEconomicAccount.getExpenseBaseYearPlus1Others2() + activityEconomicAccount.getExpenseBaseYearPlus1Others3() + activityEconomicAccount.getExpenseBaseYearPlus1Others4());
+		getRepoEntity().save(activity);
+		return (ActivityEconomicAccount) getRepoEntity().save(activityEconomicAccount);
 	}
 	
 }

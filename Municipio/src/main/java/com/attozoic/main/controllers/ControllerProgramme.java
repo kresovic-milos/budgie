@@ -16,7 +16,6 @@ import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
 import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.Programme;
-import com.attozoic.main.model.ProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.SuperEntity;
@@ -36,10 +35,10 @@ public class ControllerProgramme {
 	}
 	
 	// Vraca DTO objekte FINANCIALSOURCES Akivnosti i Projekata
-		@RequestMapping(value="/{uid}/dtoFinances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-		public List<DtoProgrammeFinancialSource> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
-			return serviceProgramme.getProgrammeFinanceDto(uid);
-		}
+	@RequestMapping(value="/{uid}/dtoFinances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeFinanceDto(uid);
+	}
 	
 	// Vraca listu svih programa
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
@@ -111,10 +110,5 @@ public class ControllerProgramme {
 	public Project addProject(@PathVariable(value="uid") Long uid, @RequestBody Project project) {
 		return serviceProgramme.addProject(uid, project);
 	}
-	
-	// Ubacuje izvor finansiranja za program
-	@RequestMapping(value="/{uid}/programmeFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProgrammeFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeFinancialSource financialSource) {
-		return serviceProgramme.addProgrammeFinancialSource(uid, financialSource);
-	}
+
 }

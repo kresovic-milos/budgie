@@ -24,6 +24,7 @@ public class DaoSector extends DaoEntity {
 	public Programme addProgramme(Long uid, Programme programme) {
 		Sector sector = (Sector) getRepoEntity().findOne(uid);
 		programme.setSector(sector);
+		//getRepoEntity().save(sector);
 		return (Programme) getRepoEntity().save(programme);
 	}
 	

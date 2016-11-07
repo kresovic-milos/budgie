@@ -8,8 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,7 +25,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="programmes")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class Programme extends SuperEntity {
 	
 	private Long categoryID;
@@ -62,14 +60,20 @@ public class Programme extends SuperEntity {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
     private List<Project> projects = new ArrayList<>();
 	
-    @ManyToMany
-    @JoinTable(
-    		name="programme_finance",
-    		joinColumns={@JoinColumn(name="programme_id")},
-    		inverseJoinColumns={@JoinColumn(name="programmeFinancialSource_id")}
-    		)
-    private List<ProgrammeFinancialSource> programmeFinancialSources = new ArrayList<>();
-	
 	public Programme() {}
 
+	public Programme(Long categoryID, String code, String ordNumber, String name, String purpose, String rudiment,
+			String description, String budgetUser, String responsibleAuthority) {
+		super();
+		this.categoryID = categoryID;
+		this.code = code;
+		this.ordNumber = ordNumber;
+		this.name = name;
+		this.purpose = purpose;
+		this.rudiment = rudiment;
+		this.description = description;
+		this.budgetUser = budgetUser;
+		this.responsibleAuthority = responsibleAuthority;
+	}
+	
 }

@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attozoic.main.model.Authority;
-import com.attozoic.main.model.EconomicAccount;
-import com.attozoic.main.model.Function;
-import com.attozoic.main.model.Head;
 import com.attozoic.main.model.Project;
+import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.SuperEntity;
@@ -71,35 +68,20 @@ public class ControllerProject {
 		serviceProject.unarchive(uid);
 	}
 	
-	@RequestMapping(value="/{uid}/goals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProjectGoal addGoal(@PathVariable(value="uid") Long uid, @RequestBody ProjectGoal goal) {
-		return serviceProject.addGoal(uid, goal);
+	@RequestMapping(value="/{uid}/projectGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ProjectGoal addProjectGoal(@PathVariable(value="uid") Long uid, @RequestBody ProjectGoal goal) {
+		return serviceProject.addProjectGoal(uid, goal);
 	}
 	
 	@RequestMapping(value="/{uid}/financialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProjectFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProjectFinancialSource financialSource) {
-		return serviceProject.addFinancialSource(uid, financialSource);
-	}
-	
-	@RequestMapping(value="/{uid}/functions", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Function addFunction(@PathVariable(value="uid") Long uid, @RequestBody Function function) {
-		return serviceProject.addFunction(uid, function);
-	}
-	
-	@RequestMapping(value="/{uid}/heads", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Head addHead(@PathVariable(value="uid") Long uid, @RequestBody Head head) {
-		return serviceProject.addHead(uid, head);
-	}
-	
-	@RequestMapping(value="/{uid}/authorities", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Authority addAuthority(@PathVariable(value="uid") Long uid, @RequestBody Authority authority) {
-		return serviceProject.addAuthority(uid, authority);
+	public ProjectFinancialSource addProjectFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProjectFinancialSource financialSource) {
+		return serviceProject.addProjectFinancialSource(uid, financialSource);
 	}
 	
 	// addEconimcalAccount to Project
 	@RequestMapping(value="/{uid}/projectEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public EconomicAccount addEconomic(@PathVariable(value="uid") Long uid, @RequestBody EconomicAccount economicAccount) {
-		return serviceProject.addEconomicAccount(uid, economicAccount);
+	public ProjectEconomicAccount addProjectEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ProjectEconomicAccount projectEconomicAccount) {
+		return serviceProject.addProjectEconomicAccount(uid, projectEconomicAccount);
 	}
 	
 }

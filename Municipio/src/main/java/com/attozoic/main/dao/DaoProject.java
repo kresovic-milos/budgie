@@ -5,11 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.attozoic.main.model.Authority;
-import com.attozoic.main.model.EconomicAccount;
-import com.attozoic.main.model.Function;
-import com.attozoic.main.model.Head;
 import com.attozoic.main.model.Project;
+import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.RebalanceOneField;
@@ -23,86 +20,69 @@ import com.attozoic.main.repositories.RepositoryRebalancesCount;
 public class DaoProject extends DaoEntity {
 
 	@Autowired
-	private RepositoryProject repo;
+	private RepositoryProject repoProject;
 	
 	@Autowired
-	private RepositoryRebalancesCount repoReb;
+	private RepositoryRebalancesCount repoRebalanceCount;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
-		return repo;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public ProjectFinancialSource addFinancialSource(Long uid, ProjectFinancialSource financialSource) {
-		try {
-			RebalancesCount rc = repoReb.findOne(new Long(1));
-			int numReb = rc.getRebalancesCount();
-			if (numReb > 0) {
-				List<RebalanceOneField> l = financialSource.getRebalances();
-				for (int i = 0; i < numReb; i++) {
-					l.add(new RebalanceOneField());
-				}
-				financialSource.setRebalances(l);
-			}
-		} catch(NullPointerException ex) {}
-		Project project = (Project) getRepoEntity().findOne(uid);
-		project.getFinancialSources().add(financialSource);
-		financialSource.getProject().add(project);		
-		financialSource.setSumSources123(financialSource.getSourceBaseYearPlus1() + financialSource.getSourceBaseYearPlus2() + financialSource.getSourceBaseYearPlus3());
-		return (ProjectFinancialSource) getRepoEntity().save(financialSource);
+		return repoProject;
 	}
 
+	// addProjectGoal
 	@SuppressWarnings("unchecked")
 	public ProjectGoal addGoal(Long uid, ProjectGoal goal) {
 		Project project = (Project) getRepoEntity().findOne(uid);
 		goal.setProject(project);
+		getRepoEntity().save(project);
 		return (ProjectGoal) getRepoEntity().save(goal);
 	}
 	
+	// addProjectFinancialSource
 	@SuppressWarnings("unchecked")
-	public Function addFunction(Long uid, Function function) {
-		Project project = (Project) getRepoEntity().findOne(uid);
-		function.getProjects().add(project);
-		return (Function) getRepoEntity().save(function);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Head addHead(Long uid, Head head) {
-		Project project = (Project) getRepoEntity().findOne(uid);
-		head.getProjects().add(project);
-		return (Head) getRepoEntity().save(head);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Authority addAuthority(Long uid, Authority authority) {
-		Project project = (Project) getRepoEntity().findOne(uid);
-		authority.getProjects().add(project);
-		return (Authority) getRepoEntity().save(authority);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public EconomicAccount addProjectEconomicAccount(Long uid, EconomicAccount ecAcc) {
+	public ProjectFinancialSource addProjectFinancialSource(Long uid, ProjectFinancialSource projectFinancialSource) {
 		try {
-			RebalancesCount rc = repoReb.findOne(new Long(1));
+			RebalancesCount rc = repoRebalanceCount.findOne(new Long(1));
 			int numReb = rc.getRebalancesCount();
 			if (numReb > 0) {
-				List<RebalanceTwoFields> l = ecAcc.getRebalances();
+				List<RebalanceOneField> l = projectFinancialSource.getRebalances();
 				for (int i = 0; i < numReb; i++) {
-					l.add(new RebalanceTwoFields());
+					l.add(new RebalanceOneField());
 				}
-				ecAcc.setRebalances(l);
+				projectFinancialSource.setRebalances(l);
 			}
 		} catch(NullPointerException ex) {}
 		Project project = (Project) getRepoEntity().findOne(uid);
-		ecAcc.getProjects().add(project);
-		project.getProjectEconomicalAccounts().add(ecAcc);
-		ecAcc.setSumExpenses123Budget(ecAcc.getExpenseBaseYearPlus1Budget1() + ecAcc.getExpenseBaseYearPlus1Budget2() + ecAcc.getExpenseBaseYearPlus1Budget3() + ecAcc.getExpenseBaseYearPlus1Budget4() + ecAcc.getExpenseBaseYearPlus2Budget() + ecAcc.getExpenseBaseYearPlus3Budget());
-		ecAcc.setSumExpenses123Others(ecAcc.getExpenseBaseYearPlus1Others1() + ecAcc.getExpenseBaseYearPlus1Others2() + ecAcc.getExpenseBaseYearPlus1Others3() + ecAcc.getExpenseBaseYearPlus1Others4() + ecAcc.getExpenseBaseYearPlus2Others() + ecAcc.getExpenseBaseYearPlus3Others());
-		ecAcc.setSumExpensesBaseYearPlus1Budget(ecAcc.getExpenseBaseYearPlus1Budget1() + ecAcc.getExpenseBaseYearPlus1Budget2() + ecAcc.getExpenseBaseYearPlus1Budget3() + ecAcc.getExpenseBaseYearPlus1Budget4());
-		ecAcc.setSumExpensesBaseYearPlus1Others(ecAcc.getExpenseBaseYearPlus1Others1() + ecAcc.getExpenseBaseYearPlus1Others2() + ecAcc.getExpenseBaseYearPlus1Others3() + ecAcc.getExpenseBaseYearPlus1Others4());
-		return (EconomicAccount) getRepoEntity().save(ecAcc);
+		projectFinancialSource.setProject(project);		
+		projectFinancialSource.setSumSources123(projectFinancialSource.getSourceBaseYearPlus1() + projectFinancialSource.getSourceBaseYearPlus2() + projectFinancialSource.getSourceBaseYearPlus3());
+		getRepoEntity().save(project);
+		return (ProjectFinancialSource) getRepoEntity().save(projectFinancialSource);
+	}
+	
+	// addProjectEconomicAccount
+	@SuppressWarnings("unchecked")
+	public ProjectEconomicAccount addProjectEconomicAccount(Long uid, ProjectEconomicAccount projectEconomicAccount) {
+		try {
+			RebalancesCount rc = repoRebalanceCount.findOne(new Long(1));
+			int numReb = rc.getRebalancesCount();
+			if (numReb > 0) {
+				List<RebalanceTwoFields> l = projectEconomicAccount.getRebalances();
+				for (int i = 0; i < numReb; i++) {
+					l.add(new RebalanceTwoFields());
+				}
+				projectEconomicAccount.setRebalances(l);
+			}
+		} catch(NullPointerException ex) {}
+		Project project = (Project) getRepoEntity().findOne(uid);
+		projectEconomicAccount.setProject(project);
+		projectEconomicAccount.setSumExpenses123Budget(projectEconomicAccount.getExpenseBaseYearPlus1Budget1() + projectEconomicAccount.getExpenseBaseYearPlus1Budget2() + projectEconomicAccount.getExpenseBaseYearPlus1Budget3() + projectEconomicAccount.getExpenseBaseYearPlus1Budget4() + projectEconomicAccount.getExpenseBaseYearPlus2Budget() + projectEconomicAccount.getExpenseBaseYearPlus3Budget());
+		projectEconomicAccount.setSumExpenses123Others(projectEconomicAccount.getExpenseBaseYearPlus1Others1() + projectEconomicAccount.getExpenseBaseYearPlus1Others2() + projectEconomicAccount.getExpenseBaseYearPlus1Others3() + projectEconomicAccount.getExpenseBaseYearPlus1Others4() + projectEconomicAccount.getExpenseBaseYearPlus2Others() + projectEconomicAccount.getExpenseBaseYearPlus3Others());
+		projectEconomicAccount.setSumExpensesBaseYearPlus1Budget(projectEconomicAccount.getExpenseBaseYearPlus1Budget1() + projectEconomicAccount.getExpenseBaseYearPlus1Budget2() + projectEconomicAccount.getExpenseBaseYearPlus1Budget3() + projectEconomicAccount.getExpenseBaseYearPlus1Budget4());
+		projectEconomicAccount.setSumExpensesBaseYearPlus1Others(projectEconomicAccount.getExpenseBaseYearPlus1Others1() + projectEconomicAccount.getExpenseBaseYearPlus1Others2() + projectEconomicAccount.getExpenseBaseYearPlus1Others3() + projectEconomicAccount.getExpenseBaseYearPlus1Others4());
+		getRepoEntity().save(project);
+		return (ProjectEconomicAccount) getRepoEntity().save(projectEconomicAccount);
 	}
 	
 }
