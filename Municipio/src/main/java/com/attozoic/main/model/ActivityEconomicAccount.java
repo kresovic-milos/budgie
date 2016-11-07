@@ -3,13 +3,16 @@ package com.attozoic.main.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -18,11 +21,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name="economic_accounts")
+@Table(name="activity_economic_accounts")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
-public class EconomicAccount extends SuperEntity {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
+public class ActivityEconomicAccount extends SuperEntity {
 	
 	private Long categoryID;
 
@@ -67,16 +70,16 @@ public class EconomicAccount extends SuperEntity {
 	private double sumExpenses123Others;
 
 	@ElementCollection
-	@CollectionTable(name = "economicAccount_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	@CollectionTable(name = "activityEconomicAccount_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	@OrderColumn
 	private List<RebalanceTwoFields> rebalances = new ArrayList<>();
 	
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="activityEconomicalAccounts")
-    private List<Activity> activities = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name="activity_uid")
+    @NotFound(action=NotFoundAction.IGNORE)
+    private Activity activity;
     
-    @ManyToMany(cascade=CascadeType.ALL, mappedBy="projectEconomicalAccounts")
-    private List<Project> projects = new ArrayList<>(); 
-    
-    public EconomicAccount() {}
+    public ActivityEconomicAccount() {}
 	
 	public List<Double> listRebBudget(){
 		List<Double> listB = new ArrayList<>();

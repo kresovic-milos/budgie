@@ -64,7 +64,7 @@ public class DtoActivityProject {
 		return sum;
 	}
 	
-	public void DtoPlusDto(DtoActivityProject dto) {
+	public void dtoPlusDto(DtoActivityProject dto) {
 		this.setExpenseBaseYearBudget(this.getExpenseBaseYearBudget() + dto.getExpenseBaseYearBudget());
 		this.setExpenseBaseYearOthers(this.getExpenseBaseYearOthers() + dto.getExpenseBaseYearOthers());
 		this.setExpenseBaseYearPlus1Budget1(this.getExpenseBaseYearPlus1Budget1() + dto.getExpenseBaseYearPlus1Budget1());

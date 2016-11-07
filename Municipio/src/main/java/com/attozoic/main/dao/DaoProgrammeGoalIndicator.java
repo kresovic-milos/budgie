@@ -18,16 +18,4 @@ public class DaoProgrammeGoalIndicator extends DaoEntity {
 		return repo;
 	}
 
-//	@Autowired
-//	private RepositoryProgrameGoalIndicator repoProgrammeGoalIndicator;
-//	
-//	public Page<ProgrammeGoalIndicator> findAll() {
-//		Page<ProgrammeGoalIndicator> page = new PageImpl<>(repoProgrammeGoalIndicator.findAll());
-//		return page;
-//	}
-//	
-//	public ProgrammeGoalIndicator save(ProgrammeGoalIndicator programmeGoalIndicator) {
-//		return repoProgrammeGoalIndicator.save(programmeGoalIndicator);
-//	}
-
 }

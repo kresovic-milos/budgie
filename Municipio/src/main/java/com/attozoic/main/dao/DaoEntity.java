@@ -42,7 +42,6 @@ public abstract class DaoEntity {
 	// Cuva objekat
 	@SuppressWarnings("unchecked")
 	public SuperEntity save(SuperEntity superEntity) {
-		System.out.println("ABSTRACT");
 		return getRepoEntity().save(superEntity);	
 	}
 	

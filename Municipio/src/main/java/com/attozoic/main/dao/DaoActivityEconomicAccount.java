@@ -3,19 +3,19 @@ package com.attozoic.main.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.attozoic.main.repositories.RepositoryActivityEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
-import com.attozoic.main.repositories.RepositoryHead;
 
 @Repository
-public class DaoHead extends DaoEntity {
+public class DaoActivityEconomicAccount extends DaoEntity {
 
 	@Autowired
-	private RepositoryHead repoHead;
-	
+	private RepositoryActivityEconomicAccount repoActivityEconomicAccount;
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
-		return repoHead;
+		return repoActivityEconomicAccount;
 	}
-
+	
 }

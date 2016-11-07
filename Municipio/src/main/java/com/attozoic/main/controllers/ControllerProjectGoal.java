@@ -15,7 +15,7 @@ import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceProjectGoal;
 
 @RestController
-@RequestMapping("/projectsGoals")
+@RequestMapping("/projectGoals")
 public class ControllerProjectGoal {
 
 	@Autowired
@@ -66,7 +66,7 @@ public class ControllerProjectGoal {
 		serviceProjectGoal.unarchive(uid);
 	}
 	
-	@RequestMapping(value="/{uid}/indicators", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/projectGoalIndicators", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProjectGoalIndicator addIndicator(@PathVariable(value="uid") Long uid, @RequestBody ProjectGoalIndicator indicator) {
 		return serviceProjectGoal.addIndicator(uid, indicator);
 	}

@@ -8,6 +8,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
@@ -23,25 +24,26 @@ import lombok.EqualsAndHashCode;
 @Table(name="project_goal_indicators")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class ProjectGoalIndicator extends SuperEntity {
 
 	private String name;
 	
-    @ManyToOne
-	@JoinColumn(name="projectGoal_uid")
-    @NotFound(action=NotFoundAction.IGNORE)
-    private ProjectGoal projectGoal;
-    
 	private String valueBase; // 2016
 	private String targetValuePlus1; // 2017
 	private String targetValuePlus2; // 2018
 	private String targetValuePlus3; // 2019
 	
 	private String verificationSource;
+
+    @ManyToOne
+	@JoinColumn(name="projectGoal_uid")
+    @NotFound(action=NotFoundAction.IGNORE)
+    private ProjectGoal projectGoal;
 	
 	@ElementCollection
 	@CollectionTable(name = "projectGoalIndicator_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	@OrderColumn
 	private List<RebalanceOneField> rebalances = new ArrayList<>(); 
 	
 	public ProjectGoalIndicator() {}

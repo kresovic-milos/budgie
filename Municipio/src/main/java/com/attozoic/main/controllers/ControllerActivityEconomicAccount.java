@@ -9,55 +9,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attozoic.main.model.Head;
+import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
-import com.attozoic.main.services.ServiceHead;
+import com.attozoic.main.services.ServiceActivityEconomicAccount;
 
 @RestController
-@RequestMapping("/heads")
-public class ControllerHead {
+@RequestMapping("/activityEconomicAccounts")
+public class ControllerActivityEconomicAccount {
 
 	@Autowired
-	private ServiceHead serviceHead;
+	private ServiceActivityEconomicAccount serviceActivityEconomicAccount;
 	
-	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getAllHeads(){
-		return serviceHead.findAll();
+	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public Page<SuperEntity> getAllEconomicAccounts() {
+		return serviceActivityEconomicAccount.findAll();
 	}
+	
 	// Vraca izabrani cilj programa po uid-u
 	@RequestMapping(value="/{uid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public SuperEntity getHead(@PathVariable(value="uid") Long uid) {
-		return serviceHead.findOne(uid);
+	public SuperEntity getEconomicAccount(@PathVariable(value="uid") Long uid) {
+		return serviceActivityEconomicAccount.findOne(uid);
 	}
 	
 	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getActiveHeads() {
-		return serviceHead.findActive();
+	public Page<SuperEntity> getActiveSectors() {
+		return serviceActivityEconomicAccount.findActive();
 	}
 	
 	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getArchivedHeads() {
-		return serviceHead.findArchived();
+	public Page<SuperEntity> getArchivedSectors() {
+		return serviceActivityEconomicAccount.findArchived();
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Head update(@RequestBody Head head) {
-		return (Head) serviceHead.save(head);
+	public ActivityEconomicAccount update(@RequestBody ActivityEconomicAccount activityEconomicAccount) {
+		return (ActivityEconomicAccount) serviceActivityEconomicAccount.save(activityEconomicAccount);
 	}
 	
 	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void delete(@PathVariable(value="uid") Long uid) {
-		serviceHead.delete(uid);
+		serviceActivityEconomicAccount.delete(uid);
 	}
 	
 	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void archive(@PathVariable(value="uid") Long uid) {
-		serviceHead.archive(uid);
+		serviceActivityEconomicAccount.archive(uid);
 	}
 	
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
-		serviceHead.unarchive(uid);
+		serviceActivityEconomicAccount.unarchive(uid);
 	}
 	
 }

@@ -7,8 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="activities")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class Activity extends SuperEntity { 
 	
 	private Long categoryID;
@@ -42,45 +40,33 @@ public class Activity extends SuperEntity {
 	private String anex;
 	private String responsibleAuthority;
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
-    private List<ActivityGoal> activityGoals = new ArrayList<>();
-	
+	// Function
+	Long categoryFunctionID;
+	String function;
+	// Head
+	Long categoryHeadID;
+	String head;
+	// Authority
+	Long categoryAuthorityID;
+	String authority;
+    
     @ManyToOne
 	@JoinColumn(name="programme_uid")
     @NotFound(action=NotFoundAction.IGNORE)
     private Programme programme;
+
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
+    private List<ActivityGoal> activityGoals = new ArrayList<>();
+    
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
+    private List<ActivityEconomicAccount> activityEconomicAccounts = new ArrayList<>();
 	
-    @ManyToOne
-    @JoinColumn(name="function_id")
-    private Function function;
-    
-    @ManyToOne
-    @JoinColumn(name="head_id")
-    private Head head;
-    
-    @ManyToOne
-    @JoinColumn(name="authority_id")
-    private Authority authority;
-    
-    @ManyToMany
-    @JoinTable(
-    		name="activity_finance",
-    		joinColumns={@JoinColumn(name="activity_id")},
-    		inverseJoinColumns={@JoinColumn(name="activityFinancialSource_id")}
-    		)
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
     private List<ActivityFinancialSource> activityFinancialSources = new ArrayList<>();
     
-    @ManyToMany
-    @JoinTable(
-    		name="activity_economicalAcc",
-    		joinColumns={@JoinColumn(name="activity_id")},
-    		inverseJoinColumns={@JoinColumn(name="economicalAcc_id")}
-    		)
-    private List<EconomicAccount> activityEconomicalAccounts = new ArrayList<>();
-	
 	public Activity() {}
 	
-	public List<DtoProgrammeFinancialSource> buildDtoFinanceList() {
+		public List<DtoProgrammeFinancialSource> buildDtoFinanceList() {
 		List<DtoProgrammeFinancialSource> list = new ArrayList<>();
 		for (ActivityFinancialSource financialSrc : activityFinancialSources) {
 			DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
@@ -100,35 +86,59 @@ public class Activity extends SuperEntity {
 		DtoActivityProject dto = new DtoActivityProject();
 		dto.setType("Активност");
 		dto.setName(getCategoryName());
-		for (EconomicAccount economicAccount : activityEconomicalAccounts) {
-			dto.setExpenseBaseYearBudget(dto.getExpenseBaseYearBudget() + economicAccount.getExpenseBaseYearBudget()); 
-			dto.setExpenseBaseYearOthers(dto.getExpenseBaseYearOthers() + economicAccount.getExpenseBaseYearOthers());
-			dto.setExpenseBaseYearPlus1Budget1(dto.getExpenseBaseYearPlus1Budget1() + economicAccount.getExpenseBaseYearPlus1Budget1());
-			dto.setExpenseBaseYearPlus1Budget2(dto.getExpenseBaseYearPlus1Budget2() + economicAccount.getExpenseBaseYearPlus1Budget2());
-			dto.setExpenseBaseYearPlus1Budget3(dto.getExpenseBaseYearPlus1Budget3() + economicAccount.getExpenseBaseYearPlus1Budget3());
-			dto.setExpenseBaseYearPlus1Budget4(dto.getExpenseBaseYearPlus1Budget4() + economicAccount.getExpenseBaseYearPlus1Budget4());
-			dto.setSumExpensesBaseYearPlus1Budget(dto.getSumExpensesBaseYearPlus1Budget() + economicAccount.getSumExpensesBaseYearPlus1Budget());
-			dto.setExpenseBaseYearPlus1Others1(dto.getExpenseBaseYearPlus1Others1() + economicAccount.getExpenseBaseYearPlus1Others1());
-			dto.setExpenseBaseYearPlus1Others2(dto.getExpenseBaseYearPlus1Others2() + economicAccount.getExpenseBaseYearPlus1Others2());
-			dto.setExpenseBaseYearPlus1Others3(dto.getExpenseBaseYearPlus1Others3() + economicAccount.getExpenseBaseYearPlus1Others3());
-			dto.setExpenseBaseYearPlus1Others4(dto.getExpenseBaseYearPlus1Others4() + economicAccount.getExpenseBaseYearPlus1Others4());
-			dto.setSumExpensesBaseYearPlus1Others(dto.getSumExpensesBaseYearPlus1Others() + economicAccount.getSumExpensesBaseYearPlus1Others());
-			List<Double> ldb = economicAccount.listRebBudget();
+		for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccounts) {
+			dto.setExpenseBaseYearBudget(dto.getExpenseBaseYearBudget() + activityEconomicAccount.getExpenseBaseYearBudget()); 
+			dto.setExpenseBaseYearOthers(dto.getExpenseBaseYearOthers() + activityEconomicAccount.getExpenseBaseYearOthers());
+			dto.setExpenseBaseYearPlus1Budget1(dto.getExpenseBaseYearPlus1Budget1() + activityEconomicAccount.getExpenseBaseYearPlus1Budget1());
+			dto.setExpenseBaseYearPlus1Budget2(dto.getExpenseBaseYearPlus1Budget2() + activityEconomicAccount.getExpenseBaseYearPlus1Budget2());
+			dto.setExpenseBaseYearPlus1Budget3(dto.getExpenseBaseYearPlus1Budget3() + activityEconomicAccount.getExpenseBaseYearPlus1Budget3());
+			dto.setExpenseBaseYearPlus1Budget4(dto.getExpenseBaseYearPlus1Budget4() + activityEconomicAccount.getExpenseBaseYearPlus1Budget4());
+			dto.setSumExpensesBaseYearPlus1Budget(dto.getSumExpensesBaseYearPlus1Budget() + activityEconomicAccount.getSumExpensesBaseYearPlus1Budget());
+			dto.setExpenseBaseYearPlus1Others1(dto.getExpenseBaseYearPlus1Others1() + activityEconomicAccount.getExpenseBaseYearPlus1Others1());
+			dto.setExpenseBaseYearPlus1Others2(dto.getExpenseBaseYearPlus1Others2() + activityEconomicAccount.getExpenseBaseYearPlus1Others2());
+			dto.setExpenseBaseYearPlus1Others3(dto.getExpenseBaseYearPlus1Others3() + activityEconomicAccount.getExpenseBaseYearPlus1Others3());
+			dto.setExpenseBaseYearPlus1Others4(dto.getExpenseBaseYearPlus1Others4() + activityEconomicAccount.getExpenseBaseYearPlus1Others4());
+			dto.setSumExpensesBaseYearPlus1Others(dto.getSumExpensesBaseYearPlus1Others() + activityEconomicAccount.getSumExpensesBaseYearPlus1Others());
+			List<Double> ldb = activityEconomicAccount.listRebBudget();
 			for (Double value : ldb) {
 				dto.getListSumRebBudget().add(value);
 			}
-			List<Double> ldo = economicAccount.listRebOthers();
+			List<Double> ldo = activityEconomicAccount.listRebOthers();
 			for (Double value : ldo) {
 				dto.getListSumRebOthers().add(value);
 			}
-			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + economicAccount.getExpenseBaseYearPlus2Budget());
-			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + economicAccount.getExpenseBaseYearPlus2Budget());
-			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + economicAccount.getExpenseBaseYearPlus3Budget());
-			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + economicAccount.getExpenseBaseYearPlus3Budget());
-			dto.setSumExpenses123Budget(dto.getSumExpenses123Budget() + economicAccount.getSumExpenses123Budget());
-			dto.setSumExpenses123Others(dto.getSumExpenses123Others() + economicAccount.getSumExpenses123Others());
+			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + activityEconomicAccount.getExpenseBaseYearPlus2Budget());
+			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + activityEconomicAccount.getExpenseBaseYearPlus2Budget());
+			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + activityEconomicAccount.getExpenseBaseYearPlus3Budget());
+			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + activityEconomicAccount.getExpenseBaseYearPlus3Budget());
+			dto.setSumExpenses123Budget(dto.getSumExpenses123Budget() + activityEconomicAccount.getSumExpenses123Budget());
+			dto.setSumExpenses123Others(dto.getSumExpenses123Others() + activityEconomicAccount.getSumExpenses123Others());
 		}
 		return dto;
+	}
+
+
+
+	public Activity(Long categoryID, String code, String ordNumber, String categoryName, String name, String purpose,
+			String rudiment, String description, String anex, String responsibleAuthority, Long categoryFunctionID,
+			String function, Long categoryHeadID, String head, Long categoryAuthorityID, String authority) {
+		super();
+		this.categoryID = categoryID;
+		this.code = code;
+		this.ordNumber = ordNumber;
+		this.categoryName = categoryName;
+		this.name = name;
+		this.purpose = purpose;
+		this.rudiment = rudiment;
+		this.description = description;
+		this.anex = anex;
+		this.responsibleAuthority = responsibleAuthority;
+		this.categoryFunctionID = categoryFunctionID;
+		this.function = function;
+		this.categoryHeadID = categoryHeadID;
+		this.head = head;
+		this.categoryAuthorityID = categoryAuthorityID;
+		this.authority = authority;
 	}
 	
 }

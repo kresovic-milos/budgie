@@ -16,14 +16,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @MappedSuperclass
+@EqualsAndHashCode(of="uid")
 @Data
 public abstract class SuperEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long uid;
+	protected Long uid;
 	
 	@Enumerated(EnumType.ORDINAL)
 	private ActiveState activeState = ActiveState.ACTIVE;

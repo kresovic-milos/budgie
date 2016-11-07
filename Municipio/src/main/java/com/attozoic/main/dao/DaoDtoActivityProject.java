@@ -26,7 +26,7 @@ public class DaoDtoActivityProject {
 		for (Activity activity : acivities) {
 			DtoActivityProject dto = activity.buildActivityDTO();			
 			if (dtoMap.containsKey(activity.getCategoryName())) {
-				dtoMap.get(activity.getCategoryName()).DtoPlusDto(dto);
+				dtoMap.get(activity.getCategoryName()).dtoPlusDto(dto);
 			} else {
 				dtoMap.put(activity.getCategoryName(), dto);
 			}

@@ -8,6 +8,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NotFound;
@@ -23,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="programme_goal_indicators")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class ProgrammeGoalIndicator extends SuperEntity {
 
 	private Long categoryID;
@@ -44,8 +45,25 @@ public class ProgrammeGoalIndicator extends SuperEntity {
 	
 	@ElementCollection
 	@CollectionTable(name = "programmeGoalIndicator_rebalances", joinColumns = @JoinColumn(name = "rebalance_uid"))
+	@OrderColumn
 	private List<RebalanceOneField> rebalances = new ArrayList<>();  
 	
 	public ProgrammeGoalIndicator() {}
+
+	public ProgrammeGoalIndicator(Long categoryID, String name, String valueBase, String targetValuePlus1,
+			String targetValuePlus2, String targetValuePlus3, String verificationSource,
+			List<RebalanceOneField> rebalances) {
+		super();
+		this.categoryID = categoryID;
+		this.name = name;
+		this.valueBase = valueBase;
+		this.targetValuePlus1 = targetValuePlus1;
+		this.targetValuePlus2 = targetValuePlus2;
+		this.targetValuePlus3 = targetValuePlus3;
+		this.verificationSource = verificationSource;
+		this.rebalances = rebalances;
+	}
+	
+	
 	
 }
