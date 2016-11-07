@@ -47,8 +47,8 @@ public class DaoActivity extends DaoEntity {
 	@SuppressWarnings("unchecked")
 	public Function addFunction(Long uid, Function function) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
+		activity.setFunction(function);
 		function.getActivities().add(activity);
-		//System.err.println(activity.getName());
 		return (Function) getRepoEntity().save(function);
 	}
 	
@@ -56,6 +56,7 @@ public class DaoActivity extends DaoEntity {
 	@SuppressWarnings("unchecked")
 	public Head addHead(Long uid, Head head) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
+		activity.setHead(head);
 		head.getActivities().add(activity);
 		return (Head) getRepoEntity().save(head);
 	}
@@ -64,6 +65,7 @@ public class DaoActivity extends DaoEntity {
 	@SuppressWarnings("unchecked")
 	public Authority addAuthority(Long uid, Authority authority) {
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
+		activity.setAuthority(authority);
 		authority.getActivities().add(activity);
 		return (Authority) getRepoEntity().save(authority);
 	}
