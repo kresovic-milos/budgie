@@ -1,5 +1,7 @@
 package com.attozoic.main.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,14 +12,21 @@ import com.attozoic.main.model.Authority;
 import com.attozoic.main.model.EconomicAccount;
 import com.attozoic.main.model.Function;
 import com.attozoic.main.model.Head;
+import com.attozoic.main.model.RebalanceOneField;
+import com.attozoic.main.model.RebalanceTwoFields;
+import com.attozoic.main.model.RebalancesCount;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryEntity;
+import com.attozoic.main.repositories.RepositoryRebalancesCount;
 
 @Repository
 public class DaoActivity extends DaoEntity {
 
 	@Autowired
 	private RepositoryActivity repo;
+	
+	@Autowired
+	private RepositoryRebalancesCount repoReb;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -36,6 +45,15 @@ public class DaoActivity extends DaoEntity {
 	// addActivityFinancialSource
 	@SuppressWarnings("unchecked")
 	public ActivityFinancialSource addActivityFinancialSource(Long uid, ActivityFinancialSource activityFinancialSource) {
+		RebalancesCount rc = repoReb.findOne(new Long(1));
+		int numReb = rc.getRebalancesCount();
+		if (numReb > 0) {
+			List<RebalanceOneField> l = activityFinancialSource.getRebalances();
+			for (int i = 0; i < numReb; i++) {
+				l.add(new RebalanceOneField());
+			}
+			activityFinancialSource.setRebalances(l);
+		}
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		activityFinancialSource.getActivities().add(activity);
 		activity.getActivityFinancialSources().add(activityFinancialSource);
@@ -73,6 +91,15 @@ public class DaoActivity extends DaoEntity {
 	// addActivityEconomicAccount
 	@SuppressWarnings("unchecked")
 	public EconomicAccount addActivityEconomicAccount(Long uid, EconomicAccount ecAcc) {
+		RebalancesCount rc = repoReb.findOne(new Long(1));
+		int numReb = rc.getRebalancesCount();
+		if (numReb > 0) {
+			List<RebalanceTwoFields> l = ecAcc.getRebalances();
+			for (int i = 0; i < numReb; i++) {
+				l.add(new RebalanceTwoFields());
+			}
+			ecAcc.setRebalances(l);
+		}
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		ecAcc.getActivities().add(activity);
 		activity.getActivityEconomicalAccounts().add(ecAcc);

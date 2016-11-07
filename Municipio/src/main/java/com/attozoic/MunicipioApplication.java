@@ -10,13 +10,4 @@ public class MunicipioApplication {
 		SpringApplication.run(MunicipioApplication.class, args);
 	}
 	
-//	@Bean  
-//	public SessionFactory sessionFactory(HibernateEntityManagerFactory hemf){  
-//	    return hemf.getSessionFactory();  
-//	}
-//	
-//	@Bean  
-//	public SessionFactory sessionFactory(org.hibernate.ejb.HibernateEntityManagerFactory hemf){  
-//	    return hemf.getSessionFactory();  
-//	}
 }

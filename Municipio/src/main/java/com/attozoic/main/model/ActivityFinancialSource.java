@@ -24,6 +24,8 @@ import lombok.EqualsAndHashCode;
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "uid")
 public class ActivityFinancialSource extends SuperEntity {
 	
+	private transient RebalancesCount rc;
+	
 	private Long categoryID;
 
 	private String code;

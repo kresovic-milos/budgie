@@ -1,5 +1,7 @@
 package com.attozoic.main.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,14 +12,21 @@ import com.attozoic.main.model.Head;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoal;
+import com.attozoic.main.model.RebalanceOneField;
+import com.attozoic.main.model.RebalanceTwoFields;
+import com.attozoic.main.model.RebalancesCount;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProject;
+import com.attozoic.main.repositories.RepositoryRebalancesCount;
 
 @Repository
 public class DaoProject extends DaoEntity {
 
 	@Autowired
 	private RepositoryProject repo;
+	
+	@Autowired
+	private RepositoryRebalancesCount repoReb;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -27,6 +36,15 @@ public class DaoProject extends DaoEntity {
 	
 	@SuppressWarnings("unchecked")
 	public ProjectFinancialSource addFinancialSource(Long uid, ProjectFinancialSource financialSource) {
+		RebalancesCount rc = repoReb.findOne(new Long(1));
+		int numReb = rc.getRebalancesCount();
+		if (numReb > 0) {
+			List<RebalanceOneField> l = financialSource.getRebalances();
+			for (int i = 0; i < numReb; i++) {
+				l.add(new RebalanceOneField());
+			}
+			financialSource.setRebalances(l);
+		}
 		Project project = (Project) getRepoEntity().findOne(uid);
 		project.getFinancialSources().add(financialSource);
 		financialSource.getProject().add(project);		
@@ -64,6 +82,15 @@ public class DaoProject extends DaoEntity {
 	
 	@SuppressWarnings("unchecked")
 	public EconomicAccount addProjectEconomicAccount(Long uid, EconomicAccount ecAcc) {
+		RebalancesCount rc = repoReb.findOne(new Long(1));
+		int numReb = rc.getRebalancesCount();
+		if (numReb > 0) {
+			List<RebalanceTwoFields> l = ecAcc.getRebalances();
+			for (int i = 0; i < numReb; i++) {
+				l.add(new RebalanceTwoFields());
+			}
+			ecAcc.setRebalances(l);
+		}
 		Project project = (Project) getRepoEntity().findOne(uid);
 		ecAcc.getProjects().add(project);
 		project.getProjectEconomicalAccounts().add(ecAcc);
