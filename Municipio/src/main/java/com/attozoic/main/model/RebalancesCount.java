@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class RebalancesCount extends SuperEntity {
 	
-	private int rebalancesCount;
+	private int rebalancesCount = 0;
 	
 	public RebalancesCount() {
 		rebalancesCount = 0;
