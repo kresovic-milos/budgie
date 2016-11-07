@@ -1,0 +1,150 @@
+Manifest-Version: 1.0
+Export-Package: org.springframework.security;version="3.1.0.RELEASE",o
+ rg.springframework.security.access;version="3.1.0.RELEASE";uses:="org
+ .springframework.aop.framework,org.springframework.security.authentic
+ ation,org.springframework.security.core",org.springframework.security
+ .access.annotation;version="3.1.0.RELEASE";uses:="org.springframework
+ .security.access,org.springframework.security.access.method,org.sprin
+ gframework.security.core",org.springframework.security.access.event;v
+ ersion="3.1.0.RELEASE";uses:="org.springframework.context,org.springf
+ ramework.security.access,org.springframework.security.authentication,
+ org.springframework.security.core",org.springframework.security.acces
+ s.expression;version="3.1.0.RELEASE";uses:="org.springframework.aop.f
+ ramework,org.springframework.context,org.springframework.expression,o
+ rg.springframework.expression.spel.support,org.springframework.securi
+ ty.access,org.springframework.security.access.hierarchicalroles,org.s
+ pringframework.security.authentication,org.springframework.security.c
+ ore",org.springframework.security.access.expression.method;version="3
+ .1.0.RELEASE";uses:="org.aopalliance.intercept,org.springframework.co
+ re,org.springframework.expression,org.springframework.expression.spel
+ .support,org.springframework.security.access,org.springframework.secu
+ rity.access.expression,org.springframework.security.access.prepost,or
+ g.springframework.security.core",org.springframework.security.access.
+ hierarchicalroles;version="3.1.0.RELEASE";uses:="org.springframework.
+ security.core.authority.mapping,org.springframework.security.core.use
+ rdetails",org.springframework.security.access.intercept;version="3.1.
+ 0.RELEASE";uses:="org.aopalliance.intercept,org.springframework.beans
+ .factory,org.springframework.context,org.springframework.security.acc
+ ess,org.springframework.security.authentication,org.springframework.s
+ ecurity.core,org.springframework.security.core.context",org.springfra
+ mework.security.access.intercept.aopalliance;version="3.1.0.RELEASE";
+ uses:="org.aopalliance.aop,org.aopalliance.intercept,org.springframew
+ ork.aop,org.springframework.aop.support,org.springframework.beans,org
+ .springframework.beans.factory,org.springframework.security.access,or
+ g.springframework.security.access.intercept,org.springframework.secur
+ ity.access.method",org.springframework.security.access.intercept.aspe
+ ctj;version="3.1.0.RELEASE";uses:="org.aopalliance.intercept,org.aspe
+ ctj.lang,org.springframework.security.access.intercept.aopalliance",o
+ rg.springframework.security.access.method;version="3.1.0.RELEASE";use
+ s:="org.springframework.beans.factory,org.springframework.security.ac
+ cess",org.springframework.security.access.prepost;version="3.1.0.RELE
+ ASE";uses:="org.aopalliance.intercept,org.springframework.aop.framewo
+ rk,org.springframework.security.access,org.springframework.security.a
+ ccess.method,org.springframework.security.core",org.springframework.s
+ ecurity.access.vote;version="3.1.0.RELEASE";uses:="org.aopalliance.in
+ tercept,org.springframework.beans.factory,org.springframework.context
+ ,org.springframework.security.access,org.springframework.security.acc
+ ess.hierarchicalroles,org.springframework.security.authentication,org
+ .springframework.security.core",org.springframework.security.authenti
+ cation;version="3.1.0.RELEASE";uses:="org.springframework.beans.facto
+ ry,org.springframework.context,org.springframework.security.core,org.
+ springframework.security.core.userdetails",org.springframework.securi
+ ty.authentication.dao;version="3.1.0.RELEASE";uses:="org.springframew
+ ork.beans.factory,org.springframework.context,org.springframework.sec
+ urity.authentication,org.springframework.security.authentication.enco
+ ding,org.springframework.security.core,org.springframework.security.c
+ ore.authority.mapping,org.springframework.security.core.userdetails,o
+ rg.springframework.security.crypto.password",org.springframework.secu
+ rity.authentication.encoding;version="3.1.0.RELEASE",org.springframew
+ ork.security.authentication.event;version="3.1.0.RELEASE";uses:="org.
+ springframework.context,org.springframework.security.core",org.spring
+ framework.security.authentication.jaas;version="3.1.0.RELEASE";uses:=
+ "javax.security.auth,javax.security.auth.callback,javax.security.auth
+ .login,javax.security.auth.spi,org.springframework.beans.factory,org.
+ springframework.context,org.springframework.core.io,org.springframewo
+ rk.security.authentication,org.springframework.security.core,org.spri
+ ngframework.security.core.session",org.springframework.security.authe
+ ntication.jaas.event;version="3.1.0.RELEASE";uses:="org.springframewo
+ rk.context,org.springframework.security.core",org.springframework.sec
+ urity.authentication.jaas.memory;version="3.1.0.RELEASE";uses:="javax
+ .security.auth.login",org.springframework.security.authentication.rcp
+ ;version="3.1.0.RELEASE";uses:="org.springframework.beans.factory,org
+ .springframework.core,org.springframework.security.authentication,org
+ .springframework.security.core",org.springframework.security.core;ver
+ sion="3.1.0.RELEASE";uses:="org.springframework.context.support",org.
+ springframework.security.core.authority;version="3.1.0.RELEASE";uses:
+ ="org.springframework.security.core",org.springframework.security.cor
+ e.authority.mapping;version="3.1.0.RELEASE";uses:="org.springframewor
+ k.beans.factory",org.springframework.security.core.context;version="3
+ .1.0.RELEASE";uses:="org.springframework.security.core",org.springfra
+ mework.security.core.session;version="3.1.0.RELEASE";uses:="org.sprin
+ gframework.context",org.springframework.security.core.token;version="
+ 3.1.0.RELEASE";uses:="org.springframework.beans.factory,org.springfra
+ mework.core.io",org.springframework.security.core.userdetails;version
+ ="3.1.0.RELEASE";uses:="org.springframework.beans.factory,org.springf
+ ramework.security.core",org.springframework.security.core.userdetails
+ .cache;version="3.1.0.RELEASE";uses:="net.sf.ehcache,org.springframew
+ ork.beans.factory,org.springframework.security.core.userdetails",org.
+ springframework.security.core.userdetails.jdbc;version="3.1.0.RELEASE
+ ";uses:="org.springframework.context,org.springframework.jdbc.core,or
+ g.springframework.jdbc.core.support,org.springframework.security.core
+ ,org.springframework.security.core.userdetails",org.springframework.s
+ ecurity.core.userdetails.memory;version="3.1.0.RELEASE";uses:="org.sp
+ ringframework.beans.factory,org.springframework.security.core,org.spr
+ ingframework.security.core.userdetails",org.springframework.security.
+ crypto.bcrypt;version="3.1.0.RELEASE";uses:="org.springframework.secu
+ rity.crypto.password",org.springframework.security.crypto.codec;versi
+ on="3.1.0.RELEASE",org.springframework.security.crypto.encrypt;versio
+ n="3.1.0.RELEASE";uses:="javax.crypto,javax.crypto.spec,org.springfra
+ mework.security.crypto.keygen",org.springframework.security.crypto.ke
+ ygen;version="3.1.0.RELEASE",org.springframework.security.crypto.pass
+ word;version="3.1.0.RELEASE",org.springframework.security.crypto.util
+ ;version="3.1.0.RELEASE",org.springframework.security.provisioning;ve
+ rsion="3.1.0.RELEASE";uses:="org.springframework.context,org.springfr
+ amework.jdbc.core,org.springframework.security.authentication,org.spr
+ ingframework.security.core,org.springframework.security.core.userdeta
+ ils,org.springframework.security.core.userdetails.jdbc",org.springfra
+ mework.security.util;version="3.1.0.RELEASE";uses:="org.aopalliance.i
+ ntercept,org.springframework.core.io"
+Bundle-Vendor: SpringSource
+Implementation-Title: org.springframework.security.core
+Implementation-Version: 3.1.0.RELEASE
+Bundle-Version: 3.1.0.RELEASE
+Tool: Bundlor 1.0.0.RELEASE
+Bundle-Name: Spring Security Core
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.springframework.security.core
+Import-Package: javax.annotation.security;version="0";resolution:="opt
+ ional",javax.crypto;version="0";resolution:="optional",javax.crypto.s
+ pec;version="0";resolution:="optional",javax.security.auth;version="0
+ ";resolution:="optional",javax.security.auth.callback;version="0";res
+ olution:="optional",javax.security.auth.login;version="0";resolution:
+ ="optional",javax.security.auth.spi;version="0";resolution:="optional
+ ",net.sf.ehcache;version="[1.4.1, 2.5.0)";resolution:="optional",org.
+ aopalliance.aop;version="[1.0.0, 2.0.0)",org.aopalliance.intercept;ve
+ rsion="[1.0.0, 2.0.0)",org.apache.commons.logging;version="[1.0.4, 2.
+ 0.0)",org.aspectj.lang;version="[1.6.0, 1.7.0)";resolution:="optional
+ ",org.aspectj.lang.reflect;version="[1.6.0, 1.7.0)";resolution:="opti
+ onal",org.springframework.aop;version="[3.0.6.RELEASE, 3.2.0)";resolu
+ tion:="optional",org.springframework.aop.framework;version="[3.0.6.RE
+ LEASE, 3.2.0)";resolution:="optional",org.springframework.aop.support
+ ;version="[3.0.6.RELEASE, 3.2.0)";resolution:="optional",org.springfr
+ amework.beans;version="[3.0.6.RELEASE, 3.2.0)",org.springframework.be
+ ans.factory;version="[3.0.6.RELEASE, 3.2.0)",org.springframework.bean
+ s.propertyeditors;version="[3.0.6.RELEASE, 3.2.0)",org.springframewor
+ k.context;version="[3.0.6.RELEASE, 3.2.0)",org.springframework.contex
+ t.expression;version="[3.0.6.RELEASE, 3.2.0)",org.springframework.con
+ text.support;version="[3.0.6.RELEASE, 3.2.0)",org.springframework.cor
+ e;version="[3.0.6.RELEASE, 3.2.0)",org.springframework.core.annotatio
+ n;version="[3.0.6.RELEASE, 3.2.0)",org.springframework.core.io;versio
+ n="[3.0.6.RELEASE, 3.2.0)",org.springframework.dao;version="[3.0.6.RE
+ LEASE, 3.2.0)";resolution:="optional",org.springframework.expression;
+ version="[3.0.6.RELEASE, 3.2.0)";resolution:="optional",org.springfra
+ mework.expression.spel.standard;version="[3.0.6.RELEASE, 3.2.0)";reso
+ lution:="optional",org.springframework.expression.spel.support;versio
+ n="[3.0.6.RELEASE, 3.2.0)";resolution:="optional",org.springframework
+ .jdbc.core;version="[3.0.6.RELEASE, 3.2.0)";resolution:="optional",or
+ g.springframework.jdbc.core.support;version="[3.0.6.RELEASE, 3.2.0)";
+ resolution:="optional",org.springframework.util;version="[3.0.6.RELEA
+ SE, 3.2.0)"
+
