@@ -30,15 +30,17 @@ public class DaoActivityGoal extends DaoEntity {
 	
 	@SuppressWarnings("unchecked")
 	public ActivityGoalIndicator addActivityGoalIndicator(Long uid, ActivityGoalIndicator activityGoalIndicator) {
-		RebalancesCount rc = repoReb.findOne(new Long(1));
-		int numReb = rc.getRebalancesCount();
-		if (numReb > 0) {
-			List<RebalanceOneField> l = activityGoalIndicator.getRebalances();
-			for (int i = 0; i < numReb; i++) {
-				l.add(new RebalanceOneField());
+		try {
+			RebalancesCount rc = repoReb.findOne(new Long(1));
+			int numReb = rc.getRebalancesCount();
+			if (numReb > 0) {
+				List<RebalanceOneField> l = activityGoalIndicator.getRebalances();
+				for (int i = 0; i < numReb; i++) {
+					l.add(new RebalanceOneField());
+				}
+				activityGoalIndicator.setRebalances(l);
 			}
-			activityGoalIndicator.setRebalances(l);
-		}
+		} catch(NullPointerException ex) {}
 		ActivityGoal activityGoal = (ActivityGoal) getRepoEntity().findOne(uid);
 		activityGoalIndicator.setActivityGoal(activityGoal);
 		return (ActivityGoalIndicator) getRepoEntity().save(activityGoalIndicator);

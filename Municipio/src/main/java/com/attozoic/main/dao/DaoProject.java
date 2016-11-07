@@ -36,15 +36,17 @@ public class DaoProject extends DaoEntity {
 	
 	@SuppressWarnings("unchecked")
 	public ProjectFinancialSource addFinancialSource(Long uid, ProjectFinancialSource financialSource) {
-		RebalancesCount rc = repoReb.findOne(new Long(1));
-		int numReb = rc.getRebalancesCount();
-		if (numReb > 0) {
-			List<RebalanceOneField> l = financialSource.getRebalances();
-			for (int i = 0; i < numReb; i++) {
-				l.add(new RebalanceOneField());
+		try {
+			RebalancesCount rc = repoReb.findOne(new Long(1));
+			int numReb = rc.getRebalancesCount();
+			if (numReb > 0) {
+				List<RebalanceOneField> l = financialSource.getRebalances();
+				for (int i = 0; i < numReb; i++) {
+					l.add(new RebalanceOneField());
+				}
+				financialSource.setRebalances(l);
 			}
-			financialSource.setRebalances(l);
-		}
+		} catch(NullPointerException ex) {}
 		Project project = (Project) getRepoEntity().findOne(uid);
 		project.getFinancialSources().add(financialSource);
 		financialSource.getProject().add(project);		
@@ -82,15 +84,17 @@ public class DaoProject extends DaoEntity {
 	
 	@SuppressWarnings("unchecked")
 	public EconomicAccount addProjectEconomicAccount(Long uid, EconomicAccount ecAcc) {
-		RebalancesCount rc = repoReb.findOne(new Long(1));
-		int numReb = rc.getRebalancesCount();
-		if (numReb > 0) {
-			List<RebalanceTwoFields> l = ecAcc.getRebalances();
-			for (int i = 0; i < numReb; i++) {
-				l.add(new RebalanceTwoFields());
+		try {
+			RebalancesCount rc = repoReb.findOne(new Long(1));
+			int numReb = rc.getRebalancesCount();
+			if (numReb > 0) {
+				List<RebalanceTwoFields> l = ecAcc.getRebalances();
+				for (int i = 0; i < numReb; i++) {
+					l.add(new RebalanceTwoFields());
+				}
+				ecAcc.setRebalances(l);
 			}
-			ecAcc.setRebalances(l);
-		}
+		} catch(NullPointerException ex) {}
 		Project project = (Project) getRepoEntity().findOne(uid);
 		ecAcc.getProjects().add(project);
 		project.getProjectEconomicalAccounts().add(ecAcc);

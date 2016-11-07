@@ -45,15 +45,17 @@ public class DaoActivity extends DaoEntity {
 	// addActivityFinancialSource
 	@SuppressWarnings("unchecked")
 	public ActivityFinancialSource addActivityFinancialSource(Long uid, ActivityFinancialSource activityFinancialSource) {
-		RebalancesCount rc = repoReb.findOne(new Long(1));
-		int numReb = rc.getRebalancesCount();
-		if (numReb > 0) {
-			List<RebalanceOneField> l = activityFinancialSource.getRebalances();
-			for (int i = 0; i < numReb; i++) {
-				l.add(new RebalanceOneField());
+		try {
+			RebalancesCount rc = repoReb.findOne(new Long(1));
+			int numReb = rc.getRebalancesCount();
+			if (numReb > 0) {
+				List<RebalanceOneField> l = activityFinancialSource.getRebalances();
+				for (int i = 0; i < numReb; i++) {
+					l.add(new RebalanceOneField());
+				}
+				activityFinancialSource.setRebalances(l);
 			}
-			activityFinancialSource.setRebalances(l);
-		}
+		} catch (NullPointerException ex) {}
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		activityFinancialSource.getActivities().add(activity);
 		activity.getActivityFinancialSources().add(activityFinancialSource);
@@ -91,15 +93,17 @@ public class DaoActivity extends DaoEntity {
 	// addActivityEconomicAccount
 	@SuppressWarnings("unchecked")
 	public EconomicAccount addActivityEconomicAccount(Long uid, EconomicAccount ecAcc) {
-		RebalancesCount rc = repoReb.findOne(new Long(1));
-		int numReb = rc.getRebalancesCount();
-		if (numReb > 0) {
-			List<RebalanceTwoFields> l = ecAcc.getRebalances();
-			for (int i = 0; i < numReb; i++) {
-				l.add(new RebalanceTwoFields());
+		try {
+			RebalancesCount rc = repoReb.findOne(new Long(1));
+			int numReb = rc.getRebalancesCount();
+			if (numReb > 0) {
+				List<RebalanceTwoFields> l = ecAcc.getRebalances();
+				for (int i = 0; i < numReb; i++) {
+					l.add(new RebalanceTwoFields());
+				}
+				ecAcc.setRebalances(l);
 			}
-			ecAcc.setRebalances(l);
-		}
+		} catch (NullPointerException ex) {}
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		ecAcc.getActivities().add(activity);
 		activity.getActivityEconomicalAccounts().add(ecAcc);
