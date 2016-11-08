@@ -10,6 +10,7 @@ import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.RebalanceOneField;
 import com.attozoic.main.model.RebalanceTwoFields;
 import com.attozoic.main.model.RebalancesCount;
@@ -35,6 +36,11 @@ public class DaoActivity extends DaoEntity {
 	// buildActivityDTO
 	public DtoActivityProject buildActivityDto(Long uid) {
 		return repoActivity.findOne(uid).buildActivityDTO();
+	}
+	
+	// buildActivityFinanceDTO
+	public DtoProgrammeFinancialSource buildActivityFinanceDto(Long uid, int num) {
+		return repoActivity.findOne(uid).buildActivityFinanceDto(num);
 	}
 	
 	// addActivityGoal

@@ -9,7 +9,10 @@ import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeFinancialSource;
+import com.attozoic.main.model.RebalancesCount;
 import com.attozoic.main.services.ServiceActivity;
+import com.attozoic.main.services.ServiceRebalancesCount;
 
 @Service
 public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceActivity {
@@ -21,7 +24,10 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	public DaoEntity getDaoEntity() {
 		return daoActivity;
 	}
-
+	
+	@Autowired
+	private ServiceRebalancesCount serviceRebalanceCount;
+	
 	@Override
 	public ActivityGoal addActivityGoal(Long uid, ActivityGoal activityGoal) {
 		return ((DaoActivity) getDaoEntity()).addActivityGoal(uid, activityGoal);
@@ -42,4 +48,10 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 		return ((DaoActivity) getDaoEntity()).buildActivityDto(uid);
 	}
 
+	@Override
+	public DtoProgrammeFinancialSource buildActivityFinanceDto(Long uid) {
+		int num = ((RebalancesCount)serviceRebalanceCount.findOne(new Long(1))).getRebalancesCount();
+		return ((DaoActivity) getDaoEntity()).buildActivityFinanceDto(uid, num);
+	}
+	
 }

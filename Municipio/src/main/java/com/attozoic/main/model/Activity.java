@@ -81,6 +81,22 @@ public class Activity extends SuperEntity {
 		}
 		return list;
 	}
+	
+	public DtoProgrammeFinancialSource buildActivityFinanceDto(int num) {
+		DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
+		List<DtoProgrammeFinancialSource> list = buildDtoFinanceList();
+		if (num > 0) {
+			List<Double> l = new ArrayList<>();
+			for (int i = 0; i < num; i++) {
+				l.add(new Double(0));
+			}
+			dto.setListSourceRebalance(l);
+		}
+		for (DtoProgrammeFinancialSource dtoProgrammeFinancialSource : list) {
+			dto.dtoFinancePlusDtoFinance(dtoProgrammeFinancialSource);
+		}
+		return dto;
+	}
 
 	public DtoActivityProject buildActivityDTO() {
 		DtoActivityProject dto = new DtoActivityProject();
