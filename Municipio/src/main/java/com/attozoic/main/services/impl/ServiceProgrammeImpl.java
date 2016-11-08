@@ -11,6 +11,7 @@ import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeChartObject;
 import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
@@ -61,6 +62,16 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 		return getDaoDto().getProgrammeDTOs(uid);
 	}
 
+	@Override
+	public DtoActivityProject getDtoProgramme(Long uid) {
+		return getDaoDto().getDtoProgramme(uid);
+	}
+
+	@Override
+	public List<DtoProgrammeChartObject> getProgrammeChartObjectList() {
+		return getDaoDto().getProgrammeChartObjectList();
+	}
+	
 	@Override
 	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDto(Long uid) {
 		return getDaoDtoFinance().getProgrammeFinanceDto(uid);

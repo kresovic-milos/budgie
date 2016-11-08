@@ -84,7 +84,6 @@ public class DtoActivityProject {
 		this.setExpenseBaseYearPlus1Others2(this.getExpenseBaseYearPlus1Others2() + dto.getExpenseBaseYearPlus1Others2());
 		this.setExpenseBaseYearPlus1Others3(this.getExpenseBaseYearPlus1Others3() + dto.getExpenseBaseYearPlus1Others3());
 		this.setExpenseBaseYearPlus1Others4(this.getExpenseBaseYearPlus1Others4() + dto.getExpenseBaseYearPlus1Others4());
-		this.setListDtoRebalances(this.listPlusListDtoRebalance(dto.getListDtoRebalances()));
 		this.setExpenseBaseYearPlus2Budget(this.getExpenseBaseYearPlus2Budget() + dto.getExpenseBaseYearPlus2Budget());
 		this.setExpenseBaseYearPlus2Others(this.getExpenseBaseYearPlus2Others() + dto.getExpenseBaseYearPlus2Others());
 		this.setExpenseBaseYearPlus3Budget(this.getExpenseBaseYearPlus3Budget() + dto.getExpenseBaseYearPlus3Others());
@@ -93,6 +92,7 @@ public class DtoActivityProject {
 		this.setSumExpenses123Others(this.getSumExpenses123Others() + dto.getSumExpenses123Others());
 		this.setSumExpensesBaseYearPlus1Budget(this.getSumExpensesBaseYearPlus1Budget() + dto.getSumExpensesBaseYearPlus1Budget());
 		this.setSumExpensesBaseYearPlus1Others(this.getSumExpensesBaseYearPlus1Others() + dto.getSumExpensesBaseYearPlus1Others());
+		this.setListDtoRebalances(this.listPlusListDtoRebalance(dto.getListDtoRebalances()));
 	}
 	
 //	public void plusRebBudget(List<Double> list) {

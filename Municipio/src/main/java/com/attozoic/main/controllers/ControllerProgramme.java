@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeChartObject;
 import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeGoal;
@@ -28,7 +29,11 @@ public class ControllerProgramme {
 	@Autowired
 	private ServiceProgramme serviceProgramme;
 	
-	//getProgrammesChart
+	//getDtoProgramme{uid} - One ProgrammeDTO
+	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoActivityProject getDTOProgramme(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getDtoProgramme(uid);
+	}
 	
 	//getProgramme{uid}DTOs - ActivityDTOs & ProjectDTOs
 	@RequestMapping(value="/{uid}/dtos", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,6 +45,12 @@ public class ControllerProgramme {
 	@RequestMapping(value="/{uid}/dtoFinances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
 		return serviceProgramme.getProgrammeFinanceDto(uid);
+	}
+	
+	//getProgrammeChartObjectList
+	@RequestMapping(value="/dtoChart", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoProgrammeChartObject> getProgrammeChartObjectList() {
+		return serviceProgramme.getProgrammeChartObjectList();
 	}
 	
 	//getAllProgrammes

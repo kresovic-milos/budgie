@@ -41,7 +41,8 @@ public class DaoDtoActivityProject {
 		return new ArrayList<DtoActivityProject>(dtoMap.values());
 	}
 	
-	public DtoActivityProject dtoProgramme(Long uid) {
+	// DTO PROGRAMA - SUMA DTO OBJEKATA AKTIVNOSTI I PROJEKATA
+	public DtoActivityProject getDtoProgramme(Long uid) {
 		Programme programme = repoProgramme.findOne(uid);
 		DtoActivityProject dto = new DtoActivityProject();
 		dto.setType("Програм");
@@ -52,18 +53,9 @@ public class DaoDtoActivityProject {
 		}
 		return dto;
 	}
-	
-	public List<DtoActivityProject> getAllProgrammeDTOs() {
-		List<DtoActivityProject> programmeDTOs = new ArrayList<>();
-		List<Programme> list = repoProgramme.findAll();
-		for (Programme programme : list) {
-			DtoActivityProject dto = dtoProgramme(programme.getUid());
-			programmeDTOs.add(dto);
-		}
-		return programmeDTOs;
-	}
-	
-	public List<DtoProgrammeChartObject> ProgrammeChartObjectList() {
+
+	// LISTA DTO OBJEKATA PROGRAMA ZA PRIKAZ U ZBIRNOJ TABELI
+	public List<DtoProgrammeChartObject> getProgrammeChartObjectList() {
 		List<DtoProgrammeChartObject> list = new ArrayList<>();
 		List<DtoProgrammeChartObject> l = fillProgrammeChartObjectList();
 		double sum = sumValues100Percent(l);
@@ -72,6 +64,16 @@ public class DaoDtoActivityProject {
 			list.add(dtoProgrammeChartObject);
 		}
 		return list;
+	}
+	
+	private List<DtoActivityProject> getAllProgrammeDTOs() {
+		List<DtoActivityProject> programmeDTOs = new ArrayList<>();
+		List<Programme> list = repoProgramme.findAll();
+		for (Programme programme : list) {
+			DtoActivityProject dto = getDtoProgramme(programme.getUid());
+			programmeDTOs.add(dto);
+		}
+		return programmeDTOs;
 	}
 	
 	private List<DtoProgrammeChartObject> fillProgrammeChartObjectList() {
@@ -98,18 +100,5 @@ public class DaoDtoActivityProject {
 		}
 		return sum;
 	}
-	
-//	public void programmesChart() {
-//		List<DtoProgrammeChart> dtoProgrammesChart = new ArrayList<>();
-//		List<Programme> list = repoProgramme.findAll();
-//		for (Programme programme : list) {
-//			DtoProgrammeChart dtoP = new DtoProgrammeChart();
-//			dtoP.setName(programme.getName());
-//			List<DtoActivityProject> listDaoPAs = getProgrammeDTOs(programme.getUid());
-//			for (DtoActivityProject dtoActivityProject : listDaoPAs) {
-//				dtoActivityProject.getS
-//			}
-//		}
-//	}
 	
 }
