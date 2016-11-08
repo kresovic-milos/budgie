@@ -48,13 +48,13 @@ public class DtoActivityProject {
 	public DtoActivityProject() {}
 	
 	public List<DtoActivityProjectRebalanceObject> listPlusListDtoRebalance(List<DtoActivityProjectRebalanceObject> l) {
-		List<DtoActivityProjectRebalanceObject> newList = new ArrayList<>();
-		for (int i = 0; i < listDtoRebalances.size(); i++) {
-			DtoActivityProjectRebalanceObject d1 = this.getListDtoRebalances().get(i);
-			DtoActivityProjectRebalanceObject d2 = l.get(i);
-			newList.add(d1.sum(d2));
+		List<DtoActivityProjectRebalanceObject> list = new ArrayList<>();
+		for (int i = 0; i < l.size(); i++) {
+			DtoActivityProjectRebalanceObject dto2 = new DtoActivityProjectRebalanceObject();
+			dto2 = this.listDtoRebalances.get(i).sum(l.get(i));
+			list.add(dto2);
 		}
-		return newList;
+		return list;
 	}
 	
 //	public double sumRebBudget() {

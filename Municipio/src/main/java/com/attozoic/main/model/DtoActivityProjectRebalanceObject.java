@@ -46,16 +46,16 @@ public class DtoActivityProjectRebalanceObject {
 	
 	public DtoActivityProjectRebalanceObject sum(DtoActivityProjectRebalanceObject dto) {
 		DtoActivityProjectRebalanceObject newDto = new DtoActivityProjectRebalanceObject();
-		newDto.setValueB1(this.getValueB1() + dto.getValueB1());
-		newDto.setValueB2(this.getValueB2() + dto.getValueB2());
-		newDto.setValueB3(this.getValueB3() + dto.getValueB3());
-		newDto.setValueB4(this.getValueB4() + dto.getValueB4());
-		newDto.setSumValueB(this.getSumValueB() + dto.getSumValueB());
-		newDto.setValueO1(this.getValueO1() + dto.getValueO1());
-		newDto.setValueO2(this.getValueO2() + dto.getValueO2());
-		newDto.setValueO3(this.getValueO3() + dto.getValueO3());
-		newDto.setValueO4(this.getValueO4() + dto.getValueO4());
-		newDto.setSumValueO(this.getSumValueO() + dto.getSumValueO());
+		this.setValueB1(this.getValueB1() + dto.getValueB1());
+		this.setValueB2(this.getValueB2() + dto.getValueB2());
+		this.setValueB3(this.getValueB3() + dto.getValueB3());
+		this.setValueB4(this.getValueB4() + dto.getValueB4());
+		this.setSumValueB(this.getSumValueB() + dto.getSumValueB());
+		this.setValueO1(this.getValueO1() + dto.getValueO1());
+		this.setValueO2(this.getValueO2() + dto.getValueO2());
+		this.setValueO3(this.getValueO3() + dto.getValueO3());
+		this.setValueO4(this.getValueO4() + dto.getValueO4());
+		this.setSumValueO(this.getSumValueO() + dto.getSumValueO());
 		return newDto;
 	}
 }
