@@ -43,6 +43,8 @@ public class DaoActivityEconomicAccount extends DaoEntity {
 				for (int i = 0; i < l.size(); i++) {
 					l.get(i).setSumValueB(l.get(i).sumValueBudget());
 					l.get(i).setSumValueO(l.get(i).sumValueOthers());
+					activityEconomicAccount.setSumExpenses123Budget(activityEconomicAccount.getSumExpenses123Budget() + l.get(i).getSumValueB());
+					activityEconomicAccount.setSumExpenses123Others(activityEconomicAccount.getSumExpenses123Others() + l.get(i).getSumValueO());
 				}
 				activityEconomicAccount.setRebalances(l);
 			}
