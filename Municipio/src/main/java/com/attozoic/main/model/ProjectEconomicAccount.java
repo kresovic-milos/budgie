@@ -81,10 +81,10 @@ public class ProjectEconomicAccount extends SuperEntity {
     
     public ProjectEconomicAccount() {}
 	
-	public List<DtoActivityProjectRebalanceObject> buildProjectEcAccDtoRebList(){
-		List<DtoActivityProjectRebalanceObject> list = new ArrayList<>();
+	public List<DtoRebalanceTwoFields> buildProjectEcAccDtoRebList(){
+		List<DtoRebalanceTwoFields> list = new ArrayList<>();
 		for (RebalanceTwoFields rtf : rebalances) {
-			DtoActivityProjectRebalanceObject dto = new DtoActivityProjectRebalanceObject();
+			DtoRebalanceTwoFields dto = new DtoRebalanceTwoFields();
 			dto.setValueB1(rtf.getValueB1());
 			dto.setValueB2(rtf.getValueB2());
 			dto.setValueB3(rtf.getValueB3());

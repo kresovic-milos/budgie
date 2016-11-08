@@ -81,10 +81,11 @@ public class ActivityEconomicAccount extends SuperEntity {
     
     public ActivityEconomicAccount() {}
 	
-	public List<DtoActivityProjectRebalanceObject> buildActivityEcAccDtoRebList(){
-		List<DtoActivityProjectRebalanceObject> list = new ArrayList<>();
+    // Kreira DTO objekat za prikaz od RebalanceTwoFields objekta
+	public List<DtoRebalanceTwoFields> buildActivityEcAccDtoRebList(){
+		List<DtoRebalanceTwoFields> list = new ArrayList<>();
 		for (RebalanceTwoFields rtf : rebalances) {
-			DtoActivityProjectRebalanceObject dto = new DtoActivityProjectRebalanceObject();
+			DtoRebalanceTwoFields dto = new DtoRebalanceTwoFields();
 			dto.setValueB1(rtf.getValueB1());
 			dto.setValueB2(rtf.getValueB2());
 			dto.setValueB3(rtf.getValueB3());
@@ -99,30 +100,5 @@ public class ActivityEconomicAccount extends SuperEntity {
 		}
 		return list;
 	}
-	
-//	public double sumRebBudget() {
-//		double sum = 0;
-//		for (double d : listRebBudget()) {
-//			sum += d;
-//		}
-//		return sum;
-//	}
-//	
-//	public List<Double> listRebOthers() {
-//		List<Double> listO = new ArrayList<>();
-//		for (RebalanceTwoFields rtf : rebalances) {
-//			double sumO = rtf.getValueO1() + rtf.getValueO2() + rtf.getValueO3() + rtf.getValueO4();
-//			listO.add(sumO);
-//		}
-//		return listO;
-//	}
-//	
-//	public double sumRebOthers() {
-//		double sum = 0;
-//		for (double d : listRebOthers()) {
-//			sum += d;
-//		}
-//		return sum;
-//	}
 	
 }

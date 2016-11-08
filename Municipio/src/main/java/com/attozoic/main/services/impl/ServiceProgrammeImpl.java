@@ -15,7 +15,9 @@ import com.attozoic.main.model.DtoProgrammeChartObject;
 import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
+import com.attozoic.main.model.RebalancesCount;
 import com.attozoic.main.services.ServiceProgramme;
+import com.attozoic.main.services.ServiceRebalancesCount;
 
 @Service
 public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServiceProgramme {
@@ -28,6 +30,9 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	
 	@Autowired
 	private DaoDtoProgrammeFinancialSource daoDtoFinance;
+	
+	@Autowired
+	private ServiceRebalancesCount serviceReabalanceCount;
 	
 	@Override
 	public DaoEntity getDaoEntity() {
@@ -64,7 +69,8 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 
 	@Override
 	public DtoActivityProject getDtoProgramme(Long uid) {
-		return getDaoDto().getDtoProgramme(uid);
+		int num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
+		return getDaoDto().getDtoProgramme(uid, num);
 	}
 
 	@Override

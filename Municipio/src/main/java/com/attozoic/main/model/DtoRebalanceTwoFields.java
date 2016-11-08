@@ -3,7 +3,7 @@ package com.attozoic.main.model;
 import lombok.Data;
 
 @Data
-public class DtoActivityProjectRebalanceObject {
+public class DtoRebalanceTwoFields {
 	
 	private double valueB1;
 	private double valueB2;
@@ -19,9 +19,9 @@ public class DtoActivityProjectRebalanceObject {
 	
 	private double sumValueO;
 	
-	public DtoActivityProjectRebalanceObject() {}
+	public DtoRebalanceTwoFields() {}
 
-	public DtoActivityProjectRebalanceObject(double valueB1, double valueB2, double valueB3, double valueB4,
+	public DtoRebalanceTwoFields(double valueB1, double valueB2, double valueB3, double valueB4,
 			double sumValueB, double valueO1, double valueO2, double valueO3, double valueO4, double sumValueO) {
 		super();
 		this.valueB1 = valueB1;
@@ -44,8 +44,7 @@ public class DtoActivityProjectRebalanceObject {
 		return this.valueO1 + this.valueO2 + this.valueO3 + this.valueO4;
 	}
 	
-	public DtoActivityProjectRebalanceObject sum(DtoActivityProjectRebalanceObject dto) {
-		DtoActivityProjectRebalanceObject newDto = new DtoActivityProjectRebalanceObject();
+	public void sum(DtoRebalanceTwoFields dto) {
 		this.setValueB1(this.getValueB1() + dto.getValueB1());
 		this.setValueB2(this.getValueB2() + dto.getValueB2());
 		this.setValueB3(this.getValueB3() + dto.getValueB3());
@@ -56,6 +55,5 @@ public class DtoActivityProjectRebalanceObject {
 		this.setValueO3(this.getValueO3() + dto.getValueO3());
 		this.setValueO4(this.getValueO4() + dto.getValueO4());
 		this.setSumValueO(this.getSumValueO() + dto.getSumValueO());
-		return newDto;
 	}
 }

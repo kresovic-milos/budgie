@@ -99,21 +99,13 @@ public class Activity extends SuperEntity {
 			dto.setExpenseBaseYearPlus1Others3(dto.getExpenseBaseYearPlus1Others3() + activityEconomicAccount.getExpenseBaseYearPlus1Others3());
 			dto.setExpenseBaseYearPlus1Others4(dto.getExpenseBaseYearPlus1Others4() + activityEconomicAccount.getExpenseBaseYearPlus1Others4());
 			dto.setSumExpensesBaseYearPlus1Others(dto.getSumExpensesBaseYearPlus1Others() + activityEconomicAccount.getSumExpensesBaseYearPlus1Others());
-			List<DtoActivityProjectRebalanceObject> l = activityEconomicAccount.buildActivityEcAccDtoRebList();
+			List<DtoRebalanceTwoFields> l = activityEconomicAccount.buildActivityEcAccDtoRebList();
 			if (dto.getListDtoRebalances().isEmpty()) {
 				dto.setListDtoRebalances(l);
 			} else {
-				List<DtoActivityProjectRebalanceObject> l1 = dto.listPlusListDtoRebalance(l);
+				List<DtoRebalanceTwoFields> l1 = dto.listPlusListDtoRebalance(l);
 				dto.setListDtoRebalances(l1);
 			}
-			//			List<Double> ldb = activityEconomicAccount.listRebBudget();
-//			for (Double value : ldb) {
-//				dto.getListSumRebBudget().add(value);
-//			}
-//			List<Double> ldo = activityEconomicAccount.listRebOthers();
-//			for (Double value : ldo) {
-//				dto.getListSumRebOthers().add(value);
-//			}
 			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + activityEconomicAccount.getExpenseBaseYearPlus2Budget());
 			dto.setExpenseBaseYearPlus2Others(dto.getExpenseBaseYearPlus2Others() + activityEconomicAccount.getExpenseBaseYearPlus2Others());
 			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + activityEconomicAccount.getExpenseBaseYearPlus3Budget());
@@ -123,8 +115,6 @@ public class Activity extends SuperEntity {
 		}
 		return dto;
 	}
-
-
 
 	public Activity(Long categoryID, String code, String ordNumber, String categoryName, String name, String purpose,
 			String rudiment, String description, String anex, String responsibleAuthority, Long categoryFunctionID,

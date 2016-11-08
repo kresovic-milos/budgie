@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
-import com.attozoic.main.model.DtoActivityProjectRebalanceObject;
+import com.attozoic.main.model.DtoRebalanceTwoFields;
 import com.attozoic.main.model.DtoProgrammeChartObject;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.Project;
@@ -42,11 +42,16 @@ public class DaoDtoActivityProject {
 	}
 	
 	// DTO PROGRAMA - SUMA DTO OBJEKATA AKTIVNOSTI I PROJEKATA
-	public DtoActivityProject getDtoProgramme(Long uid) {
+	public DtoActivityProject getDtoProgramme(Long uid, int num) {
 		Programme programme = repoProgramme.findOne(uid);
 		DtoActivityProject dto = new DtoActivityProject();
 		dto.setType("Програм");
 		dto.setName(programme.getName());
+		List<DtoRebalanceTwoFields> l = new ArrayList<>();
+		for (int i = 0; i < num; i++) {
+			l.add(new DtoRebalanceTwoFields(0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+		}
+		dto.setListDtoRebalances(l);
 		List<DtoActivityProject> list = getProgrammeDTOs(uid);
 		for (DtoActivityProject dtoActivityProject : list) {
 			dto.dtoPlusDto(dtoActivityProject);
@@ -70,7 +75,7 @@ public class DaoDtoActivityProject {
 		List<DtoActivityProject> programmeDTOs = new ArrayList<>();
 		List<Programme> list = repoProgramme.findAll();
 		for (Programme programme : list) {
-			DtoActivityProject dto = getDtoProgramme(programme.getUid());
+			DtoActivityProject dto = getDtoProgramme(programme.getUid(), 0);
 			programmeDTOs.add(dto);
 		}
 		return programmeDTOs;
@@ -85,7 +90,7 @@ public class DaoDtoActivityProject {
 			if (dto.getListDtoRebalances().isEmpty()) {
 				dpc.setValue(dto.getSumExpensesBaseYearPlus1Budget());
 			} else {
-				List<DtoActivityProjectRebalanceObject> l = dto.getListDtoRebalances();
+				List<DtoRebalanceTwoFields> l = dto.getListDtoRebalances();
 				dpc.setValue(l.get(l.size()-1).getSumValueB());
 			}
 			lpc.add(dpc);

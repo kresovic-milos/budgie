@@ -41,37 +41,22 @@ public class DtoActivityProject {
 	private double sumExpenses123Budget;
 	private double sumExpenses123Others;
 	
-	//private List<RebalanceTwoFields> rebalances;
-	
-	private List<DtoActivityProjectRebalanceObject> listDtoRebalances = new ArrayList<>();
+	private List<DtoRebalanceTwoFields> listDtoRebalances = new ArrayList<>();
 	
 	public DtoActivityProject() {}
 	
-	public List<DtoActivityProjectRebalanceObject> listPlusListDtoRebalance(List<DtoActivityProjectRebalanceObject> l) {
-		List<DtoActivityProjectRebalanceObject> list = new ArrayList<>();
+	public List<DtoRebalanceTwoFields> listPlusListDtoRebalance(List<DtoRebalanceTwoFields> l) {
+		List<DtoRebalanceTwoFields> list = new ArrayList<>();
 		for (int i = 0; i < l.size(); i++) {
-			DtoActivityProjectRebalanceObject dto2 = new DtoActivityProjectRebalanceObject();
-			dto2 = this.listDtoRebalances.get(i).sum(l.get(i));
-			list.add(dto2);
+			if (listDtoRebalances.isEmpty()) {
+				list = l;
+			} else {
+				this.listDtoRebalances.get(i).sum(l.get(i));
+				list.add(this.listDtoRebalances.get(i));
+			}
 		}
 		return list;
 	}
-	
-//	public double sumRebBudget() {
-//		double sum = 0;
-//		for (Double value : listSumRebBudget) {
-//			sum += value;
-//		}
-//		return sum;
-//	}
-//	
-//	public double sumRebOthers() {
-//		double sum = 0;
-//		for (Double value : listSumRebOthers) {
-//			sum += value;
-//		}
-//		return sum;
-//	}
 	
 	public void dtoPlusDto(DtoActivityProject dto) {
 		this.setExpenseBaseYearBudget(this.getExpenseBaseYearBudget() + dto.getExpenseBaseYearBudget());
@@ -94,17 +79,5 @@ public class DtoActivityProject {
 		this.setSumExpensesBaseYearPlus1Others(this.getSumExpensesBaseYearPlus1Others() + dto.getSumExpensesBaseYearPlus1Others());
 		this.setListDtoRebalances(this.listPlusListDtoRebalance(dto.getListDtoRebalances()));
 	}
-	
-//	public void plusRebBudget(List<Double> list) {
-//		for (int i = 0; i < this.getListSumRebBudget().size(); i++) {
-//			this.getListSumRebBudget().set(i, (this.getListSumRebBudget().get(i) + list.get(i)));
-//		}
-//	}
-//	
-//	public void plusRebOthers(List<Double> list) {
-//		for (int i = 0; i < this.getListSumRebOthers().size(); i++) {
-//			this.getListSumRebOthers().set(i, (this.getListSumRebOthers().get(i) + list.get(i)));
-//		}
-//	}
 	
 }
