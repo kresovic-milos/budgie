@@ -25,13 +25,13 @@ public class ControllerActivity {
 	@Autowired
 	private ServiceActivity serviceActivity;
 	
-	//getDtoActivity{uid} - One ProgrammeDTO
+	//getDtoActivity{uid} - One ActivityDTO
 	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoProgrammeFinancialSource getActivityFinanceDto(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.buildActivityFinanceDto(uid);
 	}
 	
-	//getDtoActivity{uid} - One ProgrammeDTO
+	//getDtoActivity{uid} - One ActivityFinanceDTO
 	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoActivityProject getDTOProgramme(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.buildActivityDto(uid);
