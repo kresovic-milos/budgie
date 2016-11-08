@@ -42,6 +42,12 @@ public class ControllerProgramme {
 	}
 	
 	//getProgramme{uid}FinanceDTOs - ActivityFinSrcDTOs & ProjectFinSrcDTOs
+	@RequestMapping(value="/{uid}/programmeFinanceFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoProgrammeFinancialSource programmeFinanceFooterDto(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeFinanceFooterDto(uid);
+	}
+	
+	//programmeFinanceFooterDto
 	@RequestMapping(value="/{uid}/programmeFinanceDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
 		return serviceProgramme.getProgrammeFinanceDto(uid);

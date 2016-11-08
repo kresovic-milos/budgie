@@ -90,6 +90,4 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 		return getDaoDtoFinance().getProgrammeFinanceFooterDto(uid, num);
 	}
 
-	//DtoProgrammeFinancialSource getProgrammeFinanceFooterDto(Long uid, int num);
-	
 }

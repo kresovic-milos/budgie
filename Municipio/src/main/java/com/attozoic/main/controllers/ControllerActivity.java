@@ -13,6 +13,7 @@ import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.DtoActivityProject;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceActivity;
 
@@ -22,6 +23,12 @@ public class ControllerActivity {
 
 	@Autowired
 	private ServiceActivity serviceActivity;
+	
+	//getDtoActivity{uid} - One ProgrammeDTO
+	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoActivityProject getDTOProgramme(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.buildActivityDto(uid);
+	}
 	
 	//getAllActivities
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 

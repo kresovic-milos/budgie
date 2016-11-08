@@ -8,6 +8,7 @@ import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.DtoActivityProject;
 import com.attozoic.main.services.ServiceActivity;
 
 @Service
@@ -34,6 +35,11 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	@Override
 	public ActivityEconomicAccount addActivityEconomicAccount(Long uid, ActivityEconomicAccount activityEconomicAccount) {
 		return ((DaoActivity) getDaoEntity()).addActivityEconomicAccount(uid, activityEconomicAccount);
+	}
+
+	@Override
+	public DtoActivityProject buildActivityDto(Long uid) {
+		return ((DaoActivity) getDaoEntity()).buildActivityDto(uid);
 	}
 
 }

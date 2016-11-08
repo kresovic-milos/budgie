@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoProgrammeFinancialSource;
-import com.attozoic.main.model.DtoRebalanceTwoFields;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.repositories.RepositoryProgramme;
