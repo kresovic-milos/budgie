@@ -20,46 +20,49 @@ public class ControllerProjectFinancialSource {
 	@Autowired
 	private ServiceProjectFinancialSource serviceProjectFinancialSource;
 	
+	//getAllProjectFinancialSources
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getAllSectors() {
+	public Page<SuperEntity> getAllProjectFinancialSources() {
 		return serviceProjectFinancialSource.findAll();
 	}
 	
+	//getProjectFinancialSource{uid}
 	@RequestMapping(value="/{uid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProjectFinancialSource getSector(@PathVariable(value="uid") Long uid) {
+	public ProjectFinancialSource getProjectFinancialSource(@PathVariable(value="uid") Long uid) {
 		return (ProjectFinancialSource) serviceProjectFinancialSource.findOne(uid);
 	}
 	
+	//getActiveProjectFinancialSources
 	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getActiveSectors() {
+	public Page<SuperEntity> getActiveProjectFinancialSources() {
 		return serviceProjectFinancialSource.findActive();
 	}
 	
+	//getArchivedProjectFinancialSources
 	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getArchivedSectors() {
+	public Page<SuperEntity> getArchivedProjectFinancialSources() {
 		return serviceProjectFinancialSource.findArchived();
 	}
-
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProjectFinancialSource save(@RequestBody ProjectFinancialSource financialSource) {
-		return (ProjectFinancialSource) serviceProjectFinancialSource.save(financialSource);
-	}
 	
+	//updateProjectFinancialSource
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProjectFinancialSource update(@RequestBody ProjectFinancialSource financialSource) {
-		return (ProjectFinancialSource) serviceProjectFinancialSource.save(financialSource);
+		return (ProjectFinancialSource) serviceProjectFinancialSource.update(financialSource);
 	}
 	
+	//deleteProjectFinancialSource{uid}
 	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void delete(@PathVariable(value="uid") Long uid) {
 		serviceProjectFinancialSource.delete(uid);
 	}
 	
+	//archiveProjectFinancialSource{uid}
 	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void archive(@PathVariable(value="uid") Long uid) {
 		serviceProjectFinancialSource.archive(uid);
 	}
 	
+	//unarchiveProjectFinancialSource{uid}
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceProjectFinancialSource.unarchive(uid);

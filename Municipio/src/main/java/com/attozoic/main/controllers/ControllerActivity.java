@@ -23,76 +23,76 @@ public class ControllerActivity {
 	@Autowired
 	private ServiceActivity serviceActivity;
 	
-	// getAll
+	//getAllActivities
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
-	public Page<SuperEntity> getAll() {
+	public Page<SuperEntity> getAllActivities() {
 		return serviceActivity.findAll();
 	}
 	
-	// getOne
+	//getActivity{uid}
 	@RequestMapping(value="/{uid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public SuperEntity getOne(@PathVariable(value="uid") Long uid) {
+	public SuperEntity getActivity(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.findOne(uid);
 	}
 	
+	//getActiveActivities
 	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getActiveSectors() {
+	public Page<SuperEntity> getActiveActivities() {
 		return serviceActivity.findActive();
 	}
 	
+	//getArchivedActivities
 	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getArchivedSectors() {
+	public Page<SuperEntity> getArchivedActivities() {
 		return serviceActivity.findArchived();
 	}
 	
-	// addOne
-	@RequestMapping(method = RequestMethod.POST)
-	public SuperEntity save(@RequestBody Activity activity) {
-		return serviceActivity.save(activity);
-	}
+//	//saveActivity
+//	@RequestMapping(method = RequestMethod.POST)
+//	public SuperEntity save(@RequestBody Activity activity) {
+//		return serviceActivity.save(activity);
+//	}
 	
-	// addGoal to Activity
-	@RequestMapping(value="/{uid}/activityGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityGoal addActivityGoal(@PathVariable(value="uid") Long uid, @RequestBody ActivityGoal activityGoal) {
-		return serviceActivity.addActivityGoal(uid, activityGoal);
-	}
-	
-	// addFinancialSource to Activity
-	@RequestMapping(value="/{uid}/activityFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource activityFinancialSource) {
-		return serviceActivity.addActivityFinancialSource(uid, activityFinancialSource);
-	}
-	
-	// addEconimcalAccount to Activity
-	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityEconomicAccount addEconomic(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount) {
-		//Activity a = (Activity)serviceActivity.findOne(uid);
-		//System.err.println(a.getName());
-		return serviceActivity.addActivityEconomicAccount(uid, activityEconomicAccount);
-	}
-	
-	// updateActivity
+	//updateActivity
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Activity update(@RequestBody Activity activity) {
-		return (Activity) serviceActivity.save(activity);
+		return (Activity) serviceActivity.update(activity);
 	}
 	
-	// deleteActivity
+	//deleteActivity{uid}
 	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void delete(@PathVariable(value="uid") Long uid) {
 		serviceActivity.delete(uid);
 	}
 	
-	// archiveActivity
+	//archiveActivity{uid}
 	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void archive(@PathVariable(value="uid") Long uid) {
 		serviceActivity.archive(uid);
 	}
 	
-	// unarchiveActivity
+	//unarchiveActivity{uid}
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceActivity.unarchive(uid);
+	}
+	
+	//addActivityGoal to Activity{uid}
+	@RequestMapping(value="/{uid}/activityGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ActivityGoal addActivityGoal(@PathVariable(value="uid") Long uid, @RequestBody ActivityGoal activityGoal) {
+		return serviceActivity.addActivityGoal(uid, activityGoal);
+	}
+	
+	//addActivityFinancialSource to Activity{uid}
+	@RequestMapping(value="/{uid}/activityFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ActivityFinancialSource addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource activityFinancialSource) {
+		return serviceActivity.addActivityFinancialSource(uid, activityFinancialSource);
+	}
+	
+	//addActivityEconomicAccount to Activity{uid}
+	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ActivityEconomicAccount addActivityEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount) {
+		return serviceActivity.addActivityEconomicAccount(uid, activityEconomicAccount);
 	}
 
 }

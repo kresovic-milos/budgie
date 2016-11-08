@@ -22,6 +22,7 @@ public class ControllerRebalance {
 	@Autowired
 	private ServiceRebalancesCount serviceRebalanceCount;
 
+	//getRebalancesCount
 	@RequestMapping(value="/count", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public int getRebalancesCount() {
 		if (!getAllCounts().hasContent()) {
@@ -31,12 +32,14 @@ public class ControllerRebalance {
 		return ((RebalancesCount)serviceRebalanceCount.findOne(new Long(1))).getRebalancesCount();
 	}
 	
+	//addRebalance(+1 column with empty values)
 	@RequestMapping(value="/add", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public int addRebalance() {
 		serviceEntityWithRebalances.addRebalance();
 		return serviceRebalanceCount.rebalancePlus();
 	}
 	
+	//removeRebalance(last one)
 	@RequestMapping(value="/remove", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public int removeRebalance() {
 		serviceEntityWithRebalances.removeRebalance();

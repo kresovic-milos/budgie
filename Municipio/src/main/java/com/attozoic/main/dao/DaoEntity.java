@@ -47,6 +47,8 @@ public abstract class DaoEntity {
 	
 	@SuppressWarnings("unchecked")
 	public SuperEntity update(SuperEntity superEntity) {
+		SuperEntity se = getRepoEntity().findOne(superEntity.getUid());
+		superEntity.setCreateDate(se.getCreateDate());
 		return getRepoEntity().save(superEntity);
 	}
 	

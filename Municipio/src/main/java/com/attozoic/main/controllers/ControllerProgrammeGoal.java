@@ -21,49 +21,55 @@ public class ControllerProgrammeGoal {
 	@Autowired
 	private ServiceProgrammeGoal serviceProgrammeGoal;
 	
-	// Vraca listu svih ciljeva programa
+	//getAllProgrammeGoals
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public Page<SuperEntity> getAllProgrammeGoals() {
 		return serviceProgrammeGoal.findAll();
 	}
 	
-	// Vraca izabrani cilj programa po uid-u
+	//getProgrammeGoal{uid}
 	@RequestMapping(value="/{uid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public SuperEntity getProgrammeGoal(@PathVariable(value="uid") Long uid) {
 		return serviceProgrammeGoal.findOne(uid);
 	}
 	
+	//getActiveProgrammeGoals
 	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getActiveSectors() {
+	public Page<SuperEntity> getActiveProgrammeGoals() {
 		return serviceProgrammeGoal.findActive();
 	}
 	
+	//getArchivedProgrammeGoals
 	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getArchivedSectors() {
+	public Page<SuperEntity> getArchivedProgrammeGoals() {
 		return serviceProgrammeGoal.findArchived();
 	}
 	
+	//updateProgrammeGoal
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProgrammeGoal update(@RequestBody ProgrammeGoal programmeGoal) {
-		return (ProgrammeGoal) serviceProgrammeGoal.save(programmeGoal);
+		return (ProgrammeGoal) serviceProgrammeGoal.update(programmeGoal);
 	}
 	
+	//deleteProgrammeGoal{uid}
 	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void delete(@PathVariable(value="uid") Long uid) {
 		serviceProgrammeGoal.delete(uid);
 	}
 	
+	//archiveProgrammeGoal{uid}
 	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void archive(@PathVariable(value="uid") Long uid) {
 		serviceProgrammeGoal.archive(uid);
 	}
 	
+	//unarchiveProgrammeGoal{uid}
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceProgrammeGoal.unarchive(uid);
 	}
 
-	// Dodeljuje indicator izabranom cilju
+	//addProgrammeGoalIndicator to ProgrammeGoal{uid}
 	@RequestMapping(value="/{uid}/programmeGoalIndicators", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProgrammeGoalIndicator addProgrammeGoalIndicator(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeGoalIndicator programmeGoalIndicator) {
 		return serviceProgrammeGoal.addProgrammeGoalIndicator(uid, programmeGoalIndicator);

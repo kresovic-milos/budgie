@@ -81,38 +81,48 @@ public class ActivityEconomicAccount extends SuperEntity {
     
     public ActivityEconomicAccount() {}
 	
-	public List<Double> listRebBudget(){
-		List<Double> listB = new ArrayList<>();
+	public List<DtoActivityProjectRebalanceObject> buildActivityEcAccDtoRebList(){
+		List<DtoActivityProjectRebalanceObject> list = new ArrayList<>();
 		for (RebalanceTwoFields rtf : rebalances) {
-			double sumB = rtf.getValueB1() + rtf.getValueB2() + rtf.getValueB3() + rtf.getValueB4();
-			listB.add(sumB);
+			DtoActivityProjectRebalanceObject dto = new DtoActivityProjectRebalanceObject();
+			dto.setValueB1(rtf.getValueB1());
+			dto.setValueB2(rtf.getValueB2());
+			dto.setValueB3(rtf.getValueB3());
+			dto.setValueB4(rtf.getValueB4());
+			dto.setSumValueB(dto.sumValueBudget());
+			dto.setValueO1(rtf.getValueO1());
+			dto.setValueO2(rtf.getValueO2());
+			dto.setValueO3(rtf.getValueO3());
+			dto.setValueO4(rtf.getValueO4());
+			dto.setSumValueO(dto.sumValueOthers());
+			list.add(dto);
 		}
-		return listB;
+		return list;
 	}
 	
-	public double sumRebBudget() {
-		double sum = 0;
-		for (double d : listRebBudget()) {
-			sum += d;
-		}
-		return sum;
-	}
-	
-	public List<Double> listRebOthers() {
-		List<Double> listO = new ArrayList<>();
-		for (RebalanceTwoFields rtf : rebalances) {
-			double sumO = rtf.getValueO1() + rtf.getValueO2() + rtf.getValueO3() + rtf.getValueO4();
-			listO.add(sumO);
-		}
-		return listO;
-	}
-	
-	public double sumRebOthers() {
-		double sum = 0;
-		for (double d : listRebOthers()) {
-			sum += d;
-		}
-		return sum;
-	}
+//	public double sumRebBudget() {
+//		double sum = 0;
+//		for (double d : listRebBudget()) {
+//			sum += d;
+//		}
+//		return sum;
+//	}
+//	
+//	public List<Double> listRebOthers() {
+//		List<Double> listO = new ArrayList<>();
+//		for (RebalanceTwoFields rtf : rebalances) {
+//			double sumO = rtf.getValueO1() + rtf.getValueO2() + rtf.getValueO3() + rtf.getValueO4();
+//			listO.add(sumO);
+//		}
+//		return listO;
+//	}
+//	
+//	public double sumRebOthers() {
+//		double sum = 0;
+//		for (double d : listRebOthers()) {
+//			sum += d;
+//		}
+//		return sum;
+//	}
 	
 }

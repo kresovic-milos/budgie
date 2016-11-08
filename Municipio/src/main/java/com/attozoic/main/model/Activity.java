@@ -66,7 +66,7 @@ public class Activity extends SuperEntity {
     
 	public Activity() {}
 	
-		public List<DtoProgrammeFinancialSource> buildDtoFinanceList() {
+	public List<DtoProgrammeFinancialSource> buildDtoFinanceList() {
 		List<DtoProgrammeFinancialSource> list = new ArrayList<>();
 		for (ActivityFinancialSource financialSrc : activityFinancialSources) {
 			DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
@@ -99,14 +99,21 @@ public class Activity extends SuperEntity {
 			dto.setExpenseBaseYearPlus1Others3(dto.getExpenseBaseYearPlus1Others3() + activityEconomicAccount.getExpenseBaseYearPlus1Others3());
 			dto.setExpenseBaseYearPlus1Others4(dto.getExpenseBaseYearPlus1Others4() + activityEconomicAccount.getExpenseBaseYearPlus1Others4());
 			dto.setSumExpensesBaseYearPlus1Others(dto.getSumExpensesBaseYearPlus1Others() + activityEconomicAccount.getSumExpensesBaseYearPlus1Others());
-			List<Double> ldb = activityEconomicAccount.listRebBudget();
-			for (Double value : ldb) {
-				dto.getListSumRebBudget().add(value);
+			List<DtoActivityProjectRebalanceObject> l = activityEconomicAccount.buildActivityEcAccDtoRebList();
+			if (dto.getListDtoRebalances().isEmpty()) {
+				dto.setListDtoRebalances(l);
+			} else {
+				List<DtoActivityProjectRebalanceObject> l1 = dto.listPlusListDtoRebalance(l);
+				dto.setListDtoRebalances(l1);
 			}
-			List<Double> ldo = activityEconomicAccount.listRebOthers();
-			for (Double value : ldo) {
-				dto.getListSumRebOthers().add(value);
-			}
+			//			List<Double> ldb = activityEconomicAccount.listRebBudget();
+//			for (Double value : ldb) {
+//				dto.getListSumRebBudget().add(value);
+//			}
+//			List<Double> ldo = activityEconomicAccount.listRebOthers();
+//			for (Double value : ldo) {
+//				dto.getListSumRebOthers().add(value);
+//			}
 			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + activityEconomicAccount.getExpenseBaseYearPlus2Budget());
 			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + activityEconomicAccount.getExpenseBaseYearPlus2Budget());
 			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + activityEconomicAccount.getExpenseBaseYearPlus3Budget());

@@ -20,42 +20,49 @@ public class ControllerProjectEconomicAccount {
 	@Autowired
 	private ServiceProjectEconomicAccount serviceProjectEconomicAccount;
 	
+	//getAllProjectEconomicAccounts
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
-	public Page<SuperEntity> getAllEconomicAccounts() {
+	public Page<SuperEntity> getAllProjectEconomicAccounts() {
 		return serviceProjectEconomicAccount.findAll();
 	}
 	
-	// Vraca izabrani cilj programa po uid-u
+	//getProjectEconomicAccount{uid}
 	@RequestMapping(value="/{uid}", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public SuperEntity getEconomicAccount(@PathVariable(value="uid") Long uid) {
+	public SuperEntity getProjectEconomicAccount(@PathVariable(value="uid") Long uid) {
 		return serviceProjectEconomicAccount.findOne(uid);
 	}
 	
+	//getActiveProjectEconomicAccounts
 	@RequestMapping(value="/active", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getActiveSectors() {
+	public Page<SuperEntity> getActiveProjectEconomicAccounts() {
 		return serviceProjectEconomicAccount.findActive();
 	}
 	
+	//getArchivedProjectEconomicAccounts
 	@RequestMapping(value="/archived", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Page<SuperEntity> getArchivedSectors() {
+	public Page<SuperEntity> getArchivedProjectEconomicAccounts() {
 		return serviceProjectEconomicAccount.findArchived();
 	}
 	
+	//updateProjectEconomicAccount
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProjectEconomicAccount update(@RequestBody ProjectEconomicAccount projectEconomicAccount) {
-		return (ProjectEconomicAccount) serviceProjectEconomicAccount.save(projectEconomicAccount);
+		return (ProjectEconomicAccount) serviceProjectEconomicAccount.update(projectEconomicAccount);
 	}
 	
+	//deleteProjectEconomicAccount{uid}
 	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void delete(@PathVariable(value="uid") Long uid) {
 		serviceProjectEconomicAccount.delete(uid);
 	}
 	
+	//archiveProjectEconomicAccount{uid}
 	@RequestMapping(value="{uid}/archive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void archive(@PathVariable(value="uid") Long uid) {
 		serviceProjectEconomicAccount.archive(uid);
 	}
 	
+	//unarchiveProjectEconomicAccount{uid}
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceProjectEconomicAccount.unarchive(uid);

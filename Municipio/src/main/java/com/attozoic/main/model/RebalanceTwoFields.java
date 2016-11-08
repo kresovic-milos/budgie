@@ -31,13 +31,24 @@ public class RebalanceTwoFields {
 		this.valueB2 = 0;
 		this.valueB3 = 0;
 		this.valueB4 = 0;
-		this.setSumValueB(this.getValueB1() + this.getValueB2() + this.getValueB3() + this.getValueB4());
+		this.sumValueB = sumValueBudget();
 		this.financialSourceValueBudget = "";
 		this.valueO1 = 0;
 		this.valueO2 = 0;
 		this.valueO3 = 0;
 		this.valueO4 = 0;
-		this.setSumValueO(this.getValueO1() + this.getValueO2() + this.getValueO3() + this.getValueO4());
+		this.sumValueO = sumValueOthers();
 		this.financialSourceValueOthers = "";
 	}
+	
+	public double sumValueBudget() {
+		double sum = this.getValueB1() + this.getValueB2() + this.getValueB3() + this.getValueB4();
+		return sum;
+	}
+	
+	public double sumValueOthers() {
+		double sum = this.getValueO1() + this.getValueO2() + this.getValueO3() + this.getValueO4();
+		return sum;
+	}
+	
 }

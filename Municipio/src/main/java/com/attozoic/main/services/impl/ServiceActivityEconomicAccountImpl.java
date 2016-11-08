@@ -18,6 +18,4 @@ public class ServiceActivityEconomicAccountImpl extends ServiceEntityImpl implem
 		return daoActivityEconomicAccount;
 	}
 	
-
-	
 }
