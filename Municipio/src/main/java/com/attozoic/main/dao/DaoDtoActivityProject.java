@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeChart;
 import com.attozoic.main.model.DtoRebalanceTwoFields;
 import com.attozoic.main.model.DtoProgrammeChartObject;
 import com.attozoic.main.model.Programme;
@@ -47,11 +48,13 @@ public class DaoDtoActivityProject {
 		DtoActivityProject dto = new DtoActivityProject();
 		dto.setType("Програм");
 		dto.setName(programme.getName());
-		List<DtoRebalanceTwoFields> l = new ArrayList<>();
-		for (int i = 0; i < num; i++) {
-			l.add(new DtoRebalanceTwoFields(0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+		if (num > 0) {
+			List<DtoRebalanceTwoFields> l = new ArrayList<>();
+			for (int i = 0; i < num; i++) {
+				l.add(new DtoRebalanceTwoFields(0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+			}
+			dto.setListDtoRebalances(l);
 		}
-		dto.setListDtoRebalances(l);
 		List<DtoActivityProject> list = getProgrammeDTOs(uid);
 		for (DtoActivityProject dtoActivityProject : list) {
 			dto.dtoPlusDto(dtoActivityProject);
@@ -59,8 +62,9 @@ public class DaoDtoActivityProject {
 		return dto;
 	}
 
-	// LISTA DTO OBJEKATA PROGRAMA ZA PRIKAZ U ZBIRNOJ TABELI
-	public List<DtoProgrammeChartObject> getProgrammeChartObjectList() {
+	// DTO PROGRAMMECHART ZA SUMU SVIH PROGRAMA
+	public DtoProgrammeChart getProgrammeChart() {
+		DtoProgrammeChart dtoProgrammeChart = new DtoProgrammeChart();
 		List<DtoProgrammeChartObject> list = new ArrayList<>();
 		List<DtoProgrammeChartObject> l = fillProgrammeChartObjectList();
 		double sum = sumValues100Percent(l);
@@ -68,7 +72,9 @@ public class DaoDtoActivityProject {
 			dtoProgrammeChartObject.setPercnetage((dtoProgrammeChartObject.getValue()/sum)*100);
 			list.add(dtoProgrammeChartObject);
 		}
-		return list;
+		dtoProgrammeChart.setSum(sum);
+		dtoProgrammeChart.setList(list);
+		return dtoProgrammeChart;
 	}
 	
 	private List<DtoActivityProject> getAllProgrammeDTOs() {

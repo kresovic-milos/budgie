@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoProgrammeFinancialSource;
+import com.attozoic.main.model.DtoRebalanceTwoFields;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.repositories.RepositoryProgramme;
@@ -47,5 +48,21 @@ public class DaoDtoProgrammeFinancialSource {
 		return new ArrayList<DtoProgrammeFinancialSource>(dtoMap.values());
 	}
 	
+	public DtoProgrammeFinancialSource getProgrammeFinanceFooterDto(Long uid, int num) {
+		DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
+		dto.setName(repoProgramme.findOne(uid).getName());
+		if (num > 0) {
+			List<Double> l = new ArrayList<>();
+			for (int i = 0; i < num; i++) {
+				l.add(new Double(0));
+			}
+			dto.setListSourceRebalance(l);
+		}
+		List<DtoProgrammeFinancialSource> list = getProgrammeFinanceDto(uid);
+		for (DtoProgrammeFinancialSource dtoProgrammeFinancialSource : list) {
+			dto.dtoFinancePlusDtoFinance(dtoProgrammeFinancialSource);
+		}
+		return dto;
+	}
 	
 }

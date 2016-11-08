@@ -11,7 +11,7 @@ import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.DtoActivityProject;
-import com.attozoic.main.model.DtoProgrammeChartObject;
+import com.attozoic.main.model.DtoProgrammeChart;
 import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
@@ -74,13 +74,22 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	}
 
 	@Override
-	public List<DtoProgrammeChartObject> getProgrammeChartObjectList() {
-		return getDaoDto().getProgrammeChartObjectList();
+	public DtoProgrammeChart getProgrammeChart() {
+		return getDaoDto().getProgrammeChart();
 	}
-	
+
 	@Override
 	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDto(Long uid) {
+		// TODO Auto-generated method stub
 		return getDaoDtoFinance().getProgrammeFinanceDto(uid);
 	}
 
+	@Override
+	public DtoProgrammeFinancialSource getProgrammeFinanceFooterDto(Long uid) {
+		int num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
+		return getDaoDtoFinance().getProgrammeFinanceFooterDto(uid, num);
+	}
+
+	//DtoProgrammeFinancialSource getProgrammeFinanceFooterDto(Long uid, int num);
+	
 }
