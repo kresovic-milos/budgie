@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="project_goal_indicators")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=ProjectGoalIndicator.class)
 public class ProjectGoalIndicator extends SuperEntity {
 
 	private String name;

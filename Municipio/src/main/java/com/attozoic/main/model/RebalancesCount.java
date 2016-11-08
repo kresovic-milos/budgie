@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "rebalances_count")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=RebalancesCount.class)
 public class RebalancesCount extends SuperEntity {
 	
 	private int rebalancesCount = 0;
