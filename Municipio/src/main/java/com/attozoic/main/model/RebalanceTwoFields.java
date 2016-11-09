@@ -8,23 +8,23 @@ import lombok.Data;
 @Embeddable
 public class RebalanceTwoFields {
 
-	private double valueB1;
-	private double valueB2;
-	private double valueB3;
-	private double valueB4;
+	private double valueB1 = 0;
+	private double valueB2 = 0;
+	private double valueB3 = 0;
+	private double valueB4 = 0;
 	
-	private double sumValueB;
+	private double sumValueB = 0;
 	
-	private String financialSourceValueBudget;
+	private String financialSourceValueBudget = "";
 	
-	private double valueO1;
-	private double valueO2;
-	private double valueO3;
-	private double valueO4;
+	private double valueO1 = 0;
+	private double valueO2 = 0;
+	private double valueO3 = 0;
+	private double valueO4 = 0;
 	
-	private double sumValueO;
+	private double sumValueO = 0;
 	
-	private String financialSourceValueOthers;
+	private String financialSourceValueOthers = "";
 	
 	public RebalanceTwoFields() {
 		this.valueB1 = 0;

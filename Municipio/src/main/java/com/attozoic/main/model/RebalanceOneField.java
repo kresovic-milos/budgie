@@ -8,7 +8,7 @@ import lombok.Data;
 @Embeddable
 public class RebalanceOneField {
 
-	private double value;
+	private double value = 0;
 	
 	public RebalanceOneField() {
 		this.value = 0;
