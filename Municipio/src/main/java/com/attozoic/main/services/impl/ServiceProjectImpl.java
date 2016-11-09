@@ -50,7 +50,10 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	
 	@Override
 	public DtoProgrammeFinancialSource buildProjectFinanceDto(Long uid) {
-		int num = ((RebalancesCount)serviceRebalanceCount.findOne(new Long(1))).getRebalancesCount();
+		int num = 0;
+		try {
+			num = ((RebalancesCount)serviceRebalanceCount.findOne(new Long(1))).getRebalancesCount();
+		} catch (NullPointerException ex) {}
 		return ((DaoProject) getDaoEntity()).buildProjectFinanceDto(uid, num);
 	}
 	

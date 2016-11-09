@@ -46,10 +46,13 @@ public class Activity extends SuperEntity {
 	String function;
 	// Head
 	Long categoryHeadID;
+	String headCode;
 	String head;
 	// Authority
 	Long categoryAuthorityID;
+	String authorityCode;
 	String authority;
+	String authorityJbbk;
     
     @ManyToOne
 	@JoinColumn(name="programme_uid")

@@ -29,31 +29,29 @@ public class ControllerProgramme {
 	@Autowired
 	private ServiceProgramme serviceProgramme;
 	
-	//getDtoProgramme{uid} - One ProgrammeDTO
+	//getProgramme{uid}(A/P)ExpencesDTOs
+	@RequestMapping(value="/{uid}/programeDtos", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoActivityProject> getProgrammeDTOs(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeDTOs(uid);
+	}
+	//getProgramme{uid}(A/P)ExpencesDTO FOOTER
 	@RequestMapping(value="/{uid}/programmeFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoActivityProject getDTOProgramme(@PathVariable(value="uid") Long uid) {
 		return serviceProgramme.getDtoProgramme(uid);
 	}
 	
-	//getProgramme{uid}DTOs - ActivityDTOs & ProjectDTOs
-	@RequestMapping(value="/{uid}/programeDtos", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoActivityProject> getProgrammeDTOs(@PathVariable(value="uid") Long uid) {
-		return serviceProgramme.getProgrammeDTOs(uid);
+	//getProgramme{uid}FinanceDTOs
+	@RequestMapping(value="/{uid}/programmeFinanceDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeFinanceDto(uid);
 	}
-	
-	//getProgramme{uid}FinanceDTOs - ActivityFinSrcDTOs & ProjectFinSrcDTOs
+	//getProgramme{uid}FinanceDTO FOOTER
 	@RequestMapping(value="/{uid}/programmeFinanceFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoProgrammeFinancialSource programmeFinanceFooterDto(@PathVariable(value="uid") Long uid) {
 		return serviceProgramme.getProgrammeFinanceFooterDto(uid);
 	}
 	
-	//programmeFinanceFooterDto
-	@RequestMapping(value="/{uid}/programmeFinanceDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
-		return serviceProgramme.getProgrammeFinanceDto(uid);
-	}
-	
-	//getProgrammeChart
+	//getProgrammeChart (Objects for Programmes Percentages Table)
 	@RequestMapping(value="/dtoChart", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoProgrammeChart getProgrammeChart() {
 		return serviceProgramme.getProgrammeChart();

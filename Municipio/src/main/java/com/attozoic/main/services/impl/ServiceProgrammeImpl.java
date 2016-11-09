@@ -69,7 +69,10 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 
 	@Override
 	public DtoActivityProject getDtoProgramme(Long uid) {
-		int num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
+		int num = 0;
+		try {
+			num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
+		} catch (NullPointerException ex) {}
 		return getDaoDto().getDtoProgramme(uid, num);
 	}
 
@@ -80,13 +83,15 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 
 	@Override
 	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDto(Long uid) {
-		// TODO Auto-generated method stub
 		return getDaoDtoFinance().getProgrammeFinanceDto(uid);
 	}
 
 	@Override
 	public DtoProgrammeFinancialSource getProgrammeFinanceFooterDto(Long uid) {
-		int num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
+		int num = 0;
+		try {
+			num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
+		} catch (NullPointerException ex) {}
 		return getDaoDtoFinance().getProgrammeFinanceFooterDto(uid, num);
 	}
 

@@ -50,7 +50,10 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 
 	@Override
 	public DtoProgrammeFinancialSource buildActivityFinanceDto(Long uid) {
-		int num = ((RebalancesCount)serviceRebalanceCount.findOne(new Long(1))).getRebalancesCount();
+		int num = 0;
+		try {
+			num = ((RebalancesCount)serviceRebalanceCount.findOne(new Long(1))).getRebalancesCount();
+		} catch (NullPointerException ex) {}
 		return ((DaoActivity) getDaoEntity()).buildActivityFinanceDto(uid, num);
 	}
 	
