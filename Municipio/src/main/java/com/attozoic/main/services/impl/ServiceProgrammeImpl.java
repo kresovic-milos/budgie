@@ -69,11 +69,12 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 
 	@Override
 	public DtoActivityProject getDtoProgramme(Long uid) {
-		int num = 0;
-		try {
-			num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
-		} catch (NullPointerException ex) {}
-		return getDaoDto().getDtoProgramme(uid, num);
+//		int num = 0;
+//		try {
+//			num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
+//		} catch (NullPointerException ex) {}
+//		return getDaoDto().getDtoProgramme(uid, num);
+		return getDaoDto().getActivityProjectFooter(uid);
 	}
 
 	@Override

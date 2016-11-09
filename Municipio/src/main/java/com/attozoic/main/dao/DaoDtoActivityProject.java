@@ -42,6 +42,22 @@ public class DaoDtoActivityProject {
 		return new ArrayList<DtoActivityProject>(dtoMap.values());
 	}
 	
+	public DtoActivityProject getActivityProjectFooter(Long uid) {
+		Programme programme = repoProgramme.findOne(uid);
+		List<Activity> acivities = programme.getActivities();
+		DtoActivityProject dtoFooter = new DtoActivityProject();
+		for (Activity activity : acivities) {
+			DtoActivityProject dto = activity.buildActivityDTO();			
+			dtoFooter.dtoPlusDto(dto);
+			
+		}
+		List<Project> projects = programme.getProjects();
+		for (Project project : projects) {
+			DtoActivityProject dto = project.buildProjectDTO();
+			dtoFooter.dtoPlusDto(dto);
+		}
+		return dtoFooter;
+	}
 	// DTO PROGRAMA - SUMA DTO OBJEKATA AKTIVNOSTI I PROJEKATA
 	public DtoActivityProject getDtoProgramme(Long uid, int num) {
 		Programme programme = repoProgramme.findOne(uid);

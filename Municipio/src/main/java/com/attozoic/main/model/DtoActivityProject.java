@@ -45,8 +45,24 @@ public class DtoActivityProject {
 	
 	public DtoActivityProject() {}
 	
+//	public List<DtoRebalanceTwoFields> listPlusListDtoRebalance(List<DtoRebalanceTwoFields> l) {
+//		List<DtoRebalanceTwoFields> list = new ArrayList<>();
+//		for (int i = 0; i < l.size(); i++) {
+//			if (listDtoRebalances.isEmpty()) {
+//				list = l;
+//			} else {
+//				this.listDtoRebalances.get(i).sum(l.get(i));
+//				list.add(this.listDtoRebalances.get(i));
+//			}
+//		}
+//		return list;
+//	}
+	
 	public List<DtoRebalanceTwoFields> listPlusListDtoRebalance(List<DtoRebalanceTwoFields> l) {
 		List<DtoRebalanceTwoFields> list = new ArrayList<>();
+		if(l.isEmpty()) {
+			return this.listDtoRebalances;
+		}
 		for (int i = 0; i < l.size(); i++) {
 			if (listDtoRebalances.isEmpty()) {
 				list = l;
@@ -57,6 +73,7 @@ public class DtoActivityProject {
 		}
 		return list;
 	}
+	
 	
 	public void dtoPlusDto(DtoActivityProject dto) {
 		this.setExpenseBaseYearBudget(this.getExpenseBaseYearBudget() + dto.getExpenseBaseYearBudget());
