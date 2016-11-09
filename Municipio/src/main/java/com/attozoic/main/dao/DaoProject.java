@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectFinancialSource;
@@ -29,6 +31,16 @@ public class DaoProject extends DaoEntity {
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repoProject;
+	}
+	
+	// buildProjectDTO
+	public DtoActivityProject buildProjectDto(Long uid) {
+		return repoProject.findOne(uid).buildProjectDTO();
+	}
+	
+	// buildProjectFinanceDTO
+	public DtoProgrammeFinancialSource buildProjectFinanceDto(Long uid, int num) {
+		return repoProject.findOne(uid).buildProjectFinanceDto(num);
 	}
 
 	// addProjectGoal

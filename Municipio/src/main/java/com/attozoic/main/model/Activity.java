@@ -131,27 +131,5 @@ public class Activity extends SuperEntity {
 		}
 		return dto;
 	}
-
-	public Activity(Long categoryID, String code, String ordNumber, String categoryName, String name, String purpose,
-			String rudiment, String description, String anex, String responsibleAuthority, Long categoryFunctionID,
-			String function, Long categoryHeadID, String head, Long categoryAuthorityID, String authority) {
-		super();
-		this.categoryID = categoryID;
-		this.code = code;
-		this.ordNumber = ordNumber;
-		this.categoryName = categoryName;
-		this.name = name;
-		this.purpose = purpose;
-		this.rudiment = rudiment;
-		this.description = description;
-		this.anex = anex;
-		this.responsibleAuthority = responsibleAuthority;
-		this.categoryFunctionID = categoryFunctionID;
-		this.function = function;
-		this.categoryHeadID = categoryHeadID;
-		this.head = head;
-		this.categoryAuthorityID = categoryAuthorityID;
-		this.authority = authority;
-	}
 	
 }

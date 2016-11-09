@@ -77,6 +77,22 @@ public class Project extends SuperEntity {
 		}
 		return list;
 	}
+	
+	public DtoProgrammeFinancialSource buildProjectFinanceDto(int num) {
+		DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
+		List<DtoProgrammeFinancialSource> list = buildDtoFinanceList();
+		if (num > 0) {
+			List<Double> l = new ArrayList<>();
+			for (int i = 0; i < num; i++) {
+				l.add(new Double(0));
+			}
+			dto.setListSourceRebalance(l);
+		}
+		for (DtoProgrammeFinancialSource dtoProgrammeFinancialSource : list) {
+			dto.dtoFinancePlusDtoFinance(dtoProgrammeFinancialSource);
+		}
+		return dto;
+	}
 
 	public DtoActivityProject buildProjectDTO() {
 		DtoActivityProject dto = new DtoActivityProject();
@@ -103,9 +119,9 @@ public class Project extends SuperEntity {
 				dto.setListDtoRebalances(l1);
 			}
 			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + projectEconomicAccounts.getExpenseBaseYearPlus2Budget());
-			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + projectEconomicAccounts.getExpenseBaseYearPlus2Budget());
+			dto.setExpenseBaseYearPlus2Others(dto.getExpenseBaseYearPlus2Others() + projectEconomicAccounts.getExpenseBaseYearPlus2Others());
 			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + projectEconomicAccounts.getExpenseBaseYearPlus3Budget());
-			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + projectEconomicAccounts.getExpenseBaseYearPlus3Budget());
+			dto.setExpenseBaseYearPlus3Others(dto.getExpenseBaseYearPlus3Others() + projectEconomicAccounts.getExpenseBaseYearPlus3Others());
 			dto.setSumExpenses123Budget(dto.getSumExpenses123Budget() + projectEconomicAccounts.getSumExpenses123Budget());
 			dto.setSumExpenses123Others(dto.getSumExpenses123Others() + projectEconomicAccounts.getSumExpenses123Others());
 		}

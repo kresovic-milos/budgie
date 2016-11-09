@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectFinancialSource;
@@ -22,6 +24,18 @@ public class ControllerProject {
 
 	@Autowired
 	private ServiceProject serviceProject;
+	
+	//getProjectFinanceDto{uid}
+	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoProgrammeFinancialSource getProjectFinanceDto(@PathVariable(value="uid") Long uid) {
+		return serviceProject.buildProjectFinanceDto(uid);
+	}
+	
+	//getActivityDto{uid}
+	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoActivityProject getProjectDto(@PathVariable(value="uid") Long uid) {
+		return serviceProject.buildProjectDto(uid);
+	}
 	
 	//getAllProjects
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)

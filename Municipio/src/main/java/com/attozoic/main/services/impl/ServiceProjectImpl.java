@@ -5,10 +5,14 @@ import org.springframework.stereotype.Service;
 
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProject;
+import com.attozoic.main.model.DtoActivityProject;
+import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoal;
+import com.attozoic.main.model.RebalancesCount;
 import com.attozoic.main.services.ServiceProject;
+import com.attozoic.main.services.ServiceRebalancesCount;
 
 @Service
 public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProject {
@@ -20,6 +24,9 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	public DaoEntity getDaoEntity() {
 		return daoProject;
 	}
+	
+	@Autowired
+	private ServiceRebalancesCount serviceRebalanceCount;
 	
 	@Override
 	public ProjectFinancialSource addProjectFinancialSource(Long uid, ProjectFinancialSource financialSource) {		
@@ -36,4 +43,15 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 		return ((DaoProject) getDaoEntity()).addProjectEconomicAccount(uid, projectEconomicAccount);
 	}
 
+	@Override
+	public DtoActivityProject buildProjectDto(Long uid) {
+		return ((DaoProject) getDaoEntity()).buildProjectDto(uid);
+	}
+	
+	@Override
+	public DtoProgrammeFinancialSource buildProjectFinanceDto(Long uid) {
+		int num = ((RebalancesCount)serviceRebalanceCount.findOne(new Long(1))).getRebalancesCount();
+		return ((DaoProject) getDaoEntity()).buildProjectFinanceDto(uid, num);
+	}
+	
 }
