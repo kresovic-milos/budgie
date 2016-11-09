@@ -42,6 +42,7 @@ public class Activity extends SuperEntity {
 
 	// Function
 	Long categoryFunctionID;
+	String functionCode;
 	String function;
 	// Head
 	Long categoryHeadID;
