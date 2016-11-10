@@ -80,6 +80,7 @@ public class Project extends SuperEntity {
 	
 	public DtoProgrammeFinancialSource buildProjectFinanceDto(int num) {
 		DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
+		dto.setName(this.name);
 		List<DtoProgrammeFinancialSource> list = buildDtoFinanceList();
 		if (num > 0) {
 			List<Double> l = new ArrayList<>();

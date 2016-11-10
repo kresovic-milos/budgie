@@ -88,6 +88,7 @@ public class Activity extends SuperEntity {
 	
 	public DtoProgrammeFinancialSource buildActivityFinanceDto(int num) {
 		DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
+		dto.setName(this.name);
 		List<DtoProgrammeFinancialSource> list = buildDtoFinanceList();
 		if (num > 0) {
 			List<Double> l = new ArrayList<>();

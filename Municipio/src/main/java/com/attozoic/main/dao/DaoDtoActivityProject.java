@@ -46,6 +46,8 @@ public class DaoDtoActivityProject {
 		Programme programme = repoProgramme.findOne(uid);
 		List<Activity> acivities = programme.getActivities();
 		DtoActivityProject dtoFooter = new DtoActivityProject();
+		dtoFooter.setName(programme.getName());
+		dtoFooter.setType("Програм");
 		for (Activity activity : acivities) {
 			DtoActivityProject dto = activity.buildActivityDTO();			
 			dtoFooter.dtoPlusDto(dto);
