@@ -98,7 +98,7 @@ public class ControllerProject {
 	}
 	
 	//addProjectFinancialSource to Project{uid}
-	@RequestMapping(value="/{uid}/projectfinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/projectFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ProjectFinancialSource addProjectFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProjectFinancialSource financialSource) {
 		return serviceProject.addProjectFinancialSource(uid, financialSource);
 	}

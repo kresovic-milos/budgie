@@ -49,7 +49,6 @@ public class DaoDtoActivityProject {
 		for (Activity activity : acivities) {
 			DtoActivityProject dto = activity.buildActivityDTO();			
 			dtoFooter.dtoPlusDto(dto);
-			
 		}
 		List<Project> projects = programme.getProjects();
 		for (Project project : projects) {
@@ -58,25 +57,25 @@ public class DaoDtoActivityProject {
 		}
 		return dtoFooter;
 	}
-	// DTO PROGRAMA - SUMA DTO OBJEKATA AKTIVNOSTI I PROJEKATA
-	public DtoActivityProject getDtoProgramme(Long uid, int num) {
-		Programme programme = repoProgramme.findOne(uid);
-		DtoActivityProject dto = new DtoActivityProject();
-		dto.setType("Програм");
-		dto.setName(programme.getName());
-		if (num > 0) {
-			List<DtoRebalanceTwoFields> l = new ArrayList<>();
-			for (int i = 0; i < num; i++) {
-				l.add(new DtoRebalanceTwoFields(0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-			}
-			dto.setListDtoRebalances(l);
-		}
-		List<DtoActivityProject> list = getProgrammeDTOs(uid);
-		for (DtoActivityProject dtoActivityProject : list) {
-			dto.dtoPlusDto(dtoActivityProject);
-		}
-		return dto;
-	}
+//	// DTO PROGRAMA - SUMA DTO OBJEKATA AKTIVNOSTI I PROJEKATA
+//	public DtoActivityProject getDtoProgramme(Long uid, int num) {
+//		Programme programme = repoProgramme.findOne(uid);
+//		DtoActivityProject dto = new DtoActivityProject();
+//		dto.setType("Програм");
+//		dto.setName(programme.getName());
+//		if (num > 0) {
+//			List<DtoRebalanceTwoFields> l = new ArrayList<>();
+//			for (int i = 0; i < num; i++) {
+//				l.add(new DtoRebalanceTwoFields(0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+//			}
+//			dto.setListDtoRebalances(l);
+//		}
+//		List<DtoActivityProject> list = getProgrammeDTOs(uid);
+//		for (DtoActivityProject dtoActivityProject : list) {
+//			dto.dtoPlusDto(dtoActivityProject);
+//		}
+//		return dto;
+//	}
 
 	// DTO PROGRAMMECHART ZA SUMU SVIH PROGRAMA
 	public DtoProgrammeChart getProgrammeChart() {
@@ -97,7 +96,8 @@ public class DaoDtoActivityProject {
 		List<DtoActivityProject> programmeDTOs = new ArrayList<>();
 		List<Programme> list = repoProgramme.findAll();
 		for (Programme programme : list) {
-			DtoActivityProject dto = getDtoProgramme(programme.getUid(), 0);
+			//DtoActivityProject dto = getDtoProgramme(programme.getUid(), 0);
+			DtoActivityProject dto = getActivityProjectFooter(programme.getUid());
 			programmeDTOs.add(dto);
 		}
 		return programmeDTOs;
