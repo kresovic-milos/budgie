@@ -9,6 +9,7 @@ import lombok.Data;
 public class DtoActivityProject {
 
 	private String type;
+	private String categoryName;
 	private String name;
 
 	// 2016

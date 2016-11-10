@@ -31,7 +31,10 @@ public class DtoProgrammeFinancialSource {
 
 	public void plusRebBudget(List<Double> list) {
 		for (int i = 0; i < this.getListSourceRebalance().size(); i++) {
-			this.getListSourceRebalance().set(i, (this.getListSourceRebalance().get(i) + list.get(i)));
+			double d = this.getListSourceRebalance().get(i) + list.get(i);
+			this.getListSourceRebalance().set(i, d);
+			//this.getListSourceRebalance().set(i, (this.getListSourceRebalance().get(i) + list.get(i)));
+			
 		}
 	}
 

@@ -98,6 +98,7 @@ public class Project extends SuperEntity {
 	public DtoActivityProject buildProjectDTO() {
 		DtoActivityProject dto = new DtoActivityProject();
 		dto.setType("Пројекат");
+		dto.setCategoryName(getName());
 		dto.setName(getName());
 		for (ProjectEconomicAccount projectEconomicAccounts : projectEconomicAccounts) {
 			dto.setExpenseBaseYearBudget(dto.getExpenseBaseYearBudget() + projectEconomicAccounts.getExpenseBaseYearBudget()); 

@@ -86,6 +86,7 @@ public class Activity extends SuperEntity {
 		return list;
 	}
 	
+	// OVO
 	public DtoProgrammeFinancialSource buildActivityFinanceDto(int num) {
 		DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
 		dto.setName(this.name);
@@ -106,7 +107,8 @@ public class Activity extends SuperEntity {
 	public DtoActivityProject buildActivityDTO() {
 		DtoActivityProject dto = new DtoActivityProject();
 		dto.setType("Активност");
-		dto.setName(getCategoryName());
+		dto.setCategoryName(getCategoryName());
+		dto.setName(getName());
 		for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccounts) {
 			dto.setExpenseBaseYearBudget(dto.getExpenseBaseYearBudget() + activityEconomicAccount.getExpenseBaseYearBudget()); 
 			dto.setExpenseBaseYearOthers(dto.getExpenseBaseYearOthers() + activityEconomicAccount.getExpenseBaseYearOthers());
