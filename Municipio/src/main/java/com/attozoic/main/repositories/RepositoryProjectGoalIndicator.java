@@ -6,5 +6,4 @@ import com.attozoic.main.model.ProjectGoalIndicator;
 
 @Repository
 public interface RepositoryProjectGoalIndicator extends RepositoryEntity<ProjectGoalIndicator> {
-	
 }

@@ -28,11 +28,10 @@ import lombok.EqualsAndHashCode;
 public class ProgrammeGoal extends SuperEntity {
 	
 	private Long categoryID;
-	
 	private String code;
 	private String name;
 	
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="programme_uid")
     @NotFound(action=NotFoundAction.IGNORE)
     private Programme programme;
@@ -41,12 +40,5 @@ public class ProgrammeGoal extends SuperEntity {
     private List<ProgrammeGoalIndicator> programmeGoalIndicators = new ArrayList<>();
 	
 	public ProgrammeGoal() {}
-
-	public ProgrammeGoal(Long categoryID, String code, String name) {
-		super();
-		this.categoryID = categoryID;
-		this.code = code;
-		this.name = name;
-	}
 	
 }

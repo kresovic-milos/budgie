@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 public abstract class SuperEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	protected Long uid;
 	
 	@Enumerated(EnumType.ORDINAL)

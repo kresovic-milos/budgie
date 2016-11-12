@@ -1,11 +1,6 @@
 package com.attozoic.main.services;
 
-import java.util.List;
-
 import com.attozoic.main.model.Activity;
-import com.attozoic.main.model.DtoActivityProject;
-import com.attozoic.main.model.DtoProgrammeChart;
-import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 
@@ -14,9 +9,9 @@ public interface ServiceProgramme extends ServiceEntity {
 	ProgrammeGoal addProgrammeGoal(Long uid, ProgrammeGoal programmeGoal);
 	Activity addActivity(Long uid, Activity activity);
 	Project addProject(Long uid, Project project);
-	List<DtoActivityProject> getProgrammeDTOs(Long uid);
-	DtoActivityProject getDtoProgramme(Long uid);
-	DtoProgrammeChart getProgrammeChart();
-	List<DtoProgrammeFinancialSource> getProgrammeFinanceDto(Long uid);
-	DtoProgrammeFinancialSource getProgrammeFinanceFooterDto(Long uid);
+	//List<DtoProgrammeExpencesItem> getProgrammeDTOs(Long uid);
+	//DtoProgrammeExpencesItem getDtoProgramme(Long uid);
+	//DtoChartProgrammes getProgrammeChart();
+	//List<DtoProgrammeFinancialSource> getProgrammeFinanceDto(Long uid);
+	//DtoProgrammeFinancialSource getProgrammeFinanceFooterDto(Long uid);
 }

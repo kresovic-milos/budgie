@@ -1,4 +1,4 @@
-package com.attozoic.main.model;
+package com.attozoic.main.model.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,9 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class DtoActivityProject {
-
+public class DtoProgrammeExpencesItem {
+// Activity || Project ExpencesDto
+	
 	private String type;
 	private String categoryName;
 	private String name;
@@ -42,27 +43,29 @@ public class DtoActivityProject {
 	private double sumExpenses123Budget;
 	private double sumExpenses123Others;
 	
-	private List<DtoRebalanceTwoFields> listDtoRebalances = new ArrayList<>();
+	private List<DtoRebalanceTwoFields> dtoRebalanceTwoFieldsList = new ArrayList<>();
 	
-	public DtoActivityProject() {}
+	public DtoProgrammeExpencesItem() {}
 	
-	public List<DtoRebalanceTwoFields> listPlusListDtoRebalance(List<DtoRebalanceTwoFields> l) {
+	// List<DtoRebalanceTwoFields> + List<DtoRebalanceTwoFields>
+	public List<DtoRebalanceTwoFields> sumDtoRebalancesTwoFieldsLists(List<DtoRebalanceTwoFields> l) {
 		List<DtoRebalanceTwoFields> list = new ArrayList<>();
 		if(l.isEmpty()) {
-			return this.listDtoRebalances;
+			return this.dtoRebalanceTwoFieldsList;
 		}
 		for (int i = 0; i < l.size(); i++) {
-			if (listDtoRebalances.isEmpty()) {
+			if (this.dtoRebalanceTwoFieldsList.isEmpty()) {
 				list = l;
 			} else {
-				this.listDtoRebalances.get(i).sum(l.get(i));
-				list.add(this.listDtoRebalances.get(i));
+				this.dtoRebalanceTwoFieldsList.get(i).sum(l.get(i));
+				list.add(this.dtoRebalanceTwoFieldsList.get(i));
 			}
 		}
 		return list;
 	}
 	
-	public void dtoPlusDto(DtoActivityProject dto) {
+	// DtoProgrammeExpencesItem + DtoProgrammeExpencesItem
+	public void sumDtoProgrammeExpencesItems(DtoProgrammeExpencesItem dto) {
 		this.setExpenseBaseYearBudget(this.getExpenseBaseYearBudget() + dto.getExpenseBaseYearBudget());
 		this.setExpenseBaseYearOthers(this.getExpenseBaseYearOthers() + dto.getExpenseBaseYearOthers());
 		this.setExpenseBaseYearPlus1Budget1(this.getExpenseBaseYearPlus1Budget1() + dto.getExpenseBaseYearPlus1Budget1());
@@ -81,7 +84,7 @@ public class DtoActivityProject {
 		this.setSumExpenses123Others(this.getSumExpenses123Others() + dto.getSumExpenses123Others());
 		this.setSumExpensesBaseYearPlus1Budget(this.getSumExpensesBaseYearPlus1Budget() + dto.getSumExpensesBaseYearPlus1Budget());
 		this.setSumExpensesBaseYearPlus1Others(this.getSumExpensesBaseYearPlus1Others() + dto.getSumExpensesBaseYearPlus1Others());
-		this.setListDtoRebalances(this.listPlusListDtoRebalance(dto.getListDtoRebalances()));
+		this.setDtoRebalanceTwoFieldsList(this.sumDtoRebalancesTwoFieldsLists(dto.getDtoRebalanceTwoFieldsList()));
 	}
 	
 }

@@ -1,7 +1,5 @@
 package com.attozoic.main.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -13,9 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Activity;
-import com.attozoic.main.model.DtoActivityProject;
-import com.attozoic.main.model.DtoProgrammeChart;
-import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
@@ -29,33 +24,33 @@ public class ControllerProgramme {
 	@Autowired
 	private ServiceProgramme serviceProgramme;
 	
-	//getProgramme{uid}(A/P)ExpencesDTOs
-	@RequestMapping(value="/{uid}/programeDtos", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoActivityProject> getProgrammeDTOs(@PathVariable(value="uid") Long uid) {
-		return serviceProgramme.getProgrammeDTOs(uid);
-	}
-	//getProgramme{uid}(A/P)ExpencesDTO FOOTER
-	@RequestMapping(value="/{uid}/programmeFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoActivityProject getDTOProgramme(@PathVariable(value="uid") Long uid) {
-		return serviceProgramme.getDtoProgramme(uid);
-	}
+//	//getProgramme{uid}(A/P)ExpencesDTOs
+//	@RequestMapping(value="/{uid}/programeDtos", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public List<DtoProgrammeExpencesItem> getProgrammeDTOs(@PathVariable(value="uid") Long uid) {
+//		return serviceProgramme.getProgrammeDTOs(uid);
+//	}
+//	//getProgramme{uid}(A/P)ExpencesDTO FOOTER
+//	@RequestMapping(value="/{uid}/programmeFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public DtoProgrammeExpencesItem getDTOProgramme(@PathVariable(value="uid") Long uid) {
+//		return serviceProgramme.getDtoProgramme(uid);
+//	}
 	
-	//getProgramme{uid}FinanceDTOs
-	@RequestMapping(value="/{uid}/programmeFinanceDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
-		return serviceProgramme.getProgrammeFinanceDto(uid);
-	}
-	//getProgramme{uid}FinanceDTO FOOTER
-	@RequestMapping(value="/{uid}/programmeFinanceFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoProgrammeFinancialSource programmeFinanceFooterDto(@PathVariable(value="uid") Long uid) {
-		return serviceProgramme.getProgrammeFinanceFooterDto(uid);
-	}
+//	//getProgramme{uid}FinanceDTOs
+//	@RequestMapping(value="/{uid}/programmeFinanceDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public List<DtoProgrammeFinancialSourceItem> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
+//		return serviceProgramme.getProgrammeFinanceDto(uid);
+//	}
+//	//getProgramme{uid}FinanceDTO FOOTER
+//	@RequestMapping(value="/{uid}/programmeFinanceFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public DtoProgrammeFinancialSource programmeFinanceFooterDto(@PathVariable(value="uid") Long uid) {
+//		return serviceProgramme.getProgrammeFinanceFooterDto(uid);
+//	}
 	
-	//getProgrammeChart (Objects for Programmes Percentages Table)
-	@RequestMapping(value="/dtoChart", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoProgrammeChart getProgrammeChart() {
-		return serviceProgramme.getProgrammeChart();
-	}
+//	//getProgrammeChart (Objects for Programmes Percentages Table)
+//	@RequestMapping(value="/dtoChart", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public DtoChartProgrammes getProgrammeChart() {
+//		return serviceProgramme.getProgrammeChart();
+//	}
 	
 	//getAllProgrammes
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 

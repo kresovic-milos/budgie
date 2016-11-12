@@ -1,5 +1,8 @@
 package com.attozoic.main.controllers;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -11,10 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
-import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
-import com.attozoic.main.model.DtoActivityProject;
-import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceActivity;
 
@@ -26,16 +26,16 @@ public class ControllerActivity {
 	private ServiceActivity serviceActivity;
 	
 	//getActivityFinanceDto{uid}
-	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoProgrammeFinancialSource getActivityFinanceDto(@PathVariable(value="uid") Long uid) {
-		return serviceActivity.buildActivityFinanceDto(uid);
-	}
+//	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public DtoProgrammeFinancialSource getActivityFinanceDto(@PathVariable(value="uid") Long uid) {
+//		return serviceActivity.buildActivityFinanceDto(uid);
+//	}
 	
-	//getActivityDto{uid}
-	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoActivityProject getActivityDto(@PathVariable(value="uid") Long uid) {
-		return serviceActivity.buildActivityDto(uid);
-	}
+//	//getActivityDto{uid}
+//	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public DtoProgrammeExpencesItem getActivityDto(@PathVariable(value="uid") Long uid) {
+//		return serviceActivity.buildActivityDto(uid);
+//	}
 	
 	//getAllActivities
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
@@ -98,15 +98,20 @@ public class ControllerActivity {
 	}
 	
 	//addActivityFinancialSource to Activity{uid}
-	@RequestMapping(value="/{uid}/activityFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityFinancialSource addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource activityFinancialSource) {
-		return serviceActivity.addActivityFinancialSource(uid, activityFinancialSource);
-	}
+//	@RequestMapping(value="/{uid}/activityFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public ActivityFinancialSource addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource activityFinancialSource) {
+//		return serviceActivity.addActivityFinancialSource(uid, activityFinancialSource);
+//	}
 	
 	//addActivityEconomicAccount to Activity{uid}
 	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ActivityEconomicAccount addActivityEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount) {
 		return serviceActivity.addActivityEconomicAccount(uid, activityEconomicAccount);
+	}
+	
+	@RequestMapping(value="{uid}/economicAccountsMap", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityEconomicAccountMap(uid);
 	}
 
 }

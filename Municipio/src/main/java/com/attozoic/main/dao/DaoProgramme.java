@@ -14,19 +14,18 @@ import com.attozoic.main.repositories.RepositoryProgramme;
 public class DaoProgramme extends DaoEntity {
 	
 	@Autowired
-	private RepositoryProgramme repo;
+	private RepositoryProgramme repoProgramme;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
-		return repo;
+		return repoProgramme;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public ProgrammeGoal addProgrammeGoal(Long uid, ProgrammeGoal programmeGoal) {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		programmeGoal.setProgramme(programme);
-		//getRepoEntity().save(programme);
 		return (ProgrammeGoal) getRepoEntity().save(programmeGoal);
 	}
 	
@@ -34,7 +33,6 @@ public class DaoProgramme extends DaoEntity {
 	public Activity addActivity(Long uid, Activity activity) {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		activity.setProgramme(programme);
-		//getRepoEntity().save(programme);
 		return (Activity) getRepoEntity().save(activity);
 	}
 	
@@ -42,7 +40,6 @@ public class DaoProgramme extends DaoEntity {
 	public Project addProject(Long uid, Project project) {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		project.setProgramme(programme);
-		//getRepoEntity().save(programme);
 		return (Project) getRepoEntity().save(project);
 	}
 	

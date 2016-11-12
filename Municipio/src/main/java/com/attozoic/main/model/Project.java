@@ -38,15 +38,19 @@ public class Project extends SuperEntity {
 	
 	// Function
 	Long categoryFunctionID;
+	String functionCode;
 	String function;
 	// Head
 	Long categoryHeadID;
+	String headCode;
 	String head;
 	// Authority
 	Long categoryAuthorityID;
+	String authorityCode;
 	String authority;
+	String authorityJbbk;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="programme_uid")
     @NotFound(action=NotFoundAction.IGNORE)
     private Programme programme;
@@ -57,79 +61,6 @@ public class Project extends SuperEntity {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
     private List<ProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
-    private List<ProjectFinancialSource> financialSources = new ArrayList<>();
-	
 	public Project() {}
-
-	public List<DtoProgrammeFinancialSource> buildDtoFinanceList() {
-		List<DtoProgrammeFinancialSource> list = new ArrayList<>();
-		for (ProjectFinancialSource financialSrc : financialSources) {
-			DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
-			dto.setName(financialSrc.getName());
-			dto.setSourceBaseYear(financialSrc.getSourceBaseYear());
-			dto.setSourceBaseYearPlus1(financialSrc.getSourceBaseYearPlus1());
-			dto.setSourceBaseYearPlus2(financialSrc.getSourceBaseYearPlus2());
-			dto.setSourceBaseYearPlus3(financialSrc.getSourceBaseYearPlus3());
-			dto.setSumSources123(financialSrc.getSumSources123());
-			dto.setListSourceRebalance(financialSrc.listRebDouble());
-			list.add(dto);
-		}
-		return list;
-	}
-	
-	public DtoProgrammeFinancialSource buildProjectFinanceDto(int num) {
-		DtoProgrammeFinancialSource dto = new DtoProgrammeFinancialSource();
-		dto.setName(this.name);
-		List<DtoProgrammeFinancialSource> list = buildDtoFinanceList();
-		if (num > 0) {
-			List<Double> l = new ArrayList<>();
-			for (int i = 0; i < num; i++) {
-				l.add(new Double(0));
-			}
-			dto.setListSourceRebalance(l);
-		}
-		for (DtoProgrammeFinancialSource dtoProgrammeFinancialSource : list) {
-			dto.dtoFinancePlusDtoFinance(dtoProgrammeFinancialSource);
-		}
-		return dto;
-	}
-
-	public DtoActivityProject buildProjectDTO() {
-		DtoActivityProject dto = new DtoActivityProject();
-		dto.setType("Пројекат");
-		dto.setCategoryName(getName());
-		dto.setName(getName());
-		for (ProjectEconomicAccount projectEconomicAccounts : projectEconomicAccounts) {
-			dto.setExpenseBaseYearBudget(dto.getExpenseBaseYearBudget() + projectEconomicAccounts.getExpenseBaseYearBudget()); 
-			dto.setExpenseBaseYearOthers(dto.getExpenseBaseYearOthers() + projectEconomicAccounts.getExpenseBaseYearOthers());
-			dto.setExpenseBaseYearPlus1Budget1(dto.getExpenseBaseYearPlus1Budget1() + projectEconomicAccounts.getExpenseBaseYearPlus1Budget1());
-			dto.setExpenseBaseYearPlus1Budget2(dto.getExpenseBaseYearPlus1Budget2() + projectEconomicAccounts.getExpenseBaseYearPlus1Budget2());
-			dto.setExpenseBaseYearPlus1Budget3(dto.getExpenseBaseYearPlus1Budget3() + projectEconomicAccounts.getExpenseBaseYearPlus1Budget3());
-			dto.setExpenseBaseYearPlus1Budget4(dto.getExpenseBaseYearPlus1Budget4() + projectEconomicAccounts.getExpenseBaseYearPlus1Budget4());
-			dto.setSumExpensesBaseYearPlus1Budget(dto.getSumExpensesBaseYearPlus1Budget() + projectEconomicAccounts.getSumExpensesBaseYearPlus1Budget());
-			dto.setExpenseBaseYearPlus1Others1(dto.getExpenseBaseYearPlus1Others1() + projectEconomicAccounts.getExpenseBaseYearPlus1Others1());
-			dto.setExpenseBaseYearPlus1Others2(dto.getExpenseBaseYearPlus1Others2() + projectEconomicAccounts.getExpenseBaseYearPlus1Others2());
-			dto.setExpenseBaseYearPlus1Others3(dto.getExpenseBaseYearPlus1Others3() + projectEconomicAccounts.getExpenseBaseYearPlus1Others3());
-			dto.setExpenseBaseYearPlus1Others4(dto.getExpenseBaseYearPlus1Others4() + projectEconomicAccounts.getExpenseBaseYearPlus1Others4());
-			dto.setSumExpensesBaseYearPlus1Others(dto.getSumExpensesBaseYearPlus1Others() + projectEconomicAccounts.getSumExpensesBaseYearPlus1Others());
-			List<DtoRebalanceTwoFields> l = projectEconomicAccounts.buildProjectEcAccDtoRebList();
-				if (!l.isEmpty()) {
-				if (dto.getListDtoRebalances().isEmpty()) {
-					dto.setListDtoRebalances(l);
-				} else {
-					List<DtoRebalanceTwoFields> l1 = dto.listPlusListDtoRebalance(l);
-					dto.setListDtoRebalances(l1);
-				}
-			}
-			dto.setExpenseBaseYearPlus2Budget(dto.getExpenseBaseYearPlus2Budget() + projectEconomicAccounts.getExpenseBaseYearPlus2Budget());
-			dto.setExpenseBaseYearPlus2Others(dto.getExpenseBaseYearPlus2Others() + projectEconomicAccounts.getExpenseBaseYearPlus2Others());
-			dto.setExpenseBaseYearPlus3Budget(dto.getExpenseBaseYearPlus3Budget() + projectEconomicAccounts.getExpenseBaseYearPlus3Budget());
-			dto.setExpenseBaseYearPlus3Others(dto.getExpenseBaseYearPlus3Others() + projectEconomicAccounts.getExpenseBaseYearPlus3Others());
-			dto.setSumExpenses123Budget(dto.getSumExpenses123Budget() + projectEconomicAccounts.getSumExpenses123Budget());
-			dto.setSumExpenses123Others(dto.getSumExpenses123Others() + projectEconomicAccounts.getSumExpenses123Others());
-		}
-		return dto;
-	}
     
 }

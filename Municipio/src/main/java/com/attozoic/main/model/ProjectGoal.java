@@ -29,12 +29,12 @@ public class ProjectGoal extends SuperEntity {
 	
 	private String name;
 	
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="project_uid")
     @NotFound(action=NotFoundAction.IGNORE)
     private Project project;
     
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="projectGoal")
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="projectGoal")
     private List<ProjectGoalIndicator> projectGoalIndicators = new ArrayList<>();
 	
     public ProjectGoal() {}

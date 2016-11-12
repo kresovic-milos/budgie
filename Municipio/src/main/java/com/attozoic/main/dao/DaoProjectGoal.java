@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.ProjectGoalIndicator;
-import com.attozoic.main.model.RebalanceOneField;
 import com.attozoic.main.model.RebalancesCount;
+import com.attozoic.main.model.balance.BalanceText;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProjectGoal;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
@@ -17,34 +17,33 @@ import com.attozoic.main.repositories.RepositoryRebalancesCount;
 public class DaoProjectGoal extends DaoEntity {
 
 	@Autowired
-	private RepositoryProjectGoal repo;
+	private RepositoryProjectGoal repoProjectGoal;
 	
 	@Autowired
-	private RepositoryRebalancesCount repoReb;
+	private RepositoryRebalancesCount repoRebCount;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
-		return repo;
+		return repoProjectGoal;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ProjectGoalIndicator addIndicator(Long uid, ProjectGoalIndicator goalIndicator) {
+	public ProjectGoalIndicator addIndicator(Long uid, ProjectGoalIndicator projectGoalIndicator) {
 		try {
-			RebalancesCount rc = repoReb.findOne(new Long(1));
-			int numReb = rc.getRebalancesCount();
-			if (numReb > 0) {
-				List<RebalanceOneField> l = goalIndicator.getRebalances();
-				for (int i = 0; i < numReb; i++) {
-					l.add(new RebalanceOneField());
+			RebalancesCount rc = repoRebCount.findOne(new Long(1));
+			int numRebalances = rc.getRebalancesCount();
+			if (numRebalances > 0) {
+				List<BalanceText> indicatorValues = projectGoalIndicator.getBalancesText();
+				for (int i = 0; i < numRebalances; i++) {
+					indicatorValues.add((indicatorValues.size()-3), new BalanceText());
 				}
-				goalIndicator.setRebalances(l);
+				projectGoalIndicator.setBalancesText(indicatorValues);
 			}
 		} catch(NullPointerException ex) {}
-		ProjectGoal goal = (ProjectGoal) getRepoEntity().findOne(uid);
-		goalIndicator.setProjectGoal(goal);
-		getRepoEntity().save(goal);
-		return (ProjectGoalIndicator) getRepoEntity().save(goalIndicator);
+		ProjectGoal projectGoal = (ProjectGoal) getRepoEntity().findOne(uid);
+		projectGoalIndicator.setProjectGoal(projectGoal);
+		return (ProjectGoalIndicator) getRepoEntity().save(projectGoalIndicator);
 	}
 
 }

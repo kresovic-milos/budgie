@@ -1,4 +1,4 @@
-package com.attozoic.main.model;
+package com.attozoic.main.model.dto;
 
 import lombok.Data;
 

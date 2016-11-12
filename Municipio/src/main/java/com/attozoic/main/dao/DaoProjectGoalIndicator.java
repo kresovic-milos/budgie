@@ -10,12 +10,12 @@ import com.attozoic.main.repositories.RepositoryProjectGoalIndicator;
 public class DaoProjectGoalIndicator extends DaoEntity {
 
 	@Autowired
-	private RepositoryProjectGoalIndicator repo;
+	private RepositoryProjectGoalIndicator repoProjectGoalIndicator;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
-		return repo;
+		return repoProjectGoalIndicator;
 	}
 
 }

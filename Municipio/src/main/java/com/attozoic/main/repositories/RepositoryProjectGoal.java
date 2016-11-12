@@ -5,6 +5,5 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.ProjectGoal;
 
 @Repository
-public interface RepositoryProjectGoal extends RepositoryEntity<ProjectGoal> {
-	
+public interface RepositoryProjectGoal extends RepositoryEntity<ProjectGoal> {	
 }

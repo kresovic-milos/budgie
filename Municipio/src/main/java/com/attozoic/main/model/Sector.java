@@ -34,11 +34,5 @@ public class Sector extends SuperEntity {
     private List<Programme> programmes = new ArrayList<>(); 
 	
 	public Sector() {}
-
-	public Sector(Long categoryID, String name) {
-		super();
-		this.categoryID = categoryID;
-		this.name = name;
-	}
 	
 }

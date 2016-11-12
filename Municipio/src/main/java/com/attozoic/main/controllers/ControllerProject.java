@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attozoic.main.model.DtoActivityProject;
-import com.attozoic.main.model.DtoProgrammeFinancialSource;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
-import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceProject;
@@ -26,16 +23,16 @@ public class ControllerProject {
 	private ServiceProject serviceProject;
 	
 	//getProjectFinanceDto{uid}
-	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoProgrammeFinancialSource getProjectFinanceDto(@PathVariable(value="uid") Long uid) {
-		return serviceProject.buildProjectFinanceDto(uid);
-	}
+//	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public DtoProgrammeFinancialSource getProjectFinanceDto(@PathVariable(value="uid") Long uid) {
+//		return serviceProject.buildProjectFinanceDto(uid);
+//	}
 	
-	//getActivityDto{uid}
-	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoActivityProject getProjectDto(@PathVariable(value="uid") Long uid) {
-		return serviceProject.buildProjectDto(uid);
-	}
+//	//getProjectDto{uid}
+//	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public DtoProgrammeExpencesItem getProjectDto(@PathVariable(value="uid") Long uid) {
+//		return serviceProject.buildProjectDto(uid);
+//	}
 	
 	//getAllProjects
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -98,10 +95,10 @@ public class ControllerProject {
 	}
 	
 	//addProjectFinancialSource to Project{uid}
-	@RequestMapping(value="/{uid}/projectFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProjectFinancialSource addProjectFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProjectFinancialSource financialSource) {
-		return serviceProject.addProjectFinancialSource(uid, financialSource);
-	}
+//	@RequestMapping(value="/{uid}/projectFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public ProjectFinancialSource addProjectFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProjectFinancialSource financialSource) {
+//		return serviceProject.addProjectFinancialSource(uid, financialSource);
+//	}
 	
 	//addProjectEconomicAccount to Project{uid}
 	@RequestMapping(value="/{uid}/projectEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

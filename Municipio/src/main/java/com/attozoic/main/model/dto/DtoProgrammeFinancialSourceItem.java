@@ -1,12 +1,13 @@
-package com.attozoic.main.model;
+package com.attozoic.main.model.dto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
 
+// 1 DTO FinancialSource of Activity/Project (sum financial sources from expences) // MAP<name, dto>
 @Data
-public class DtoProgrammeFinancialSource {
+public class DtoProgrammeFinancialSourceItem {
 
 	private String name;
 	
@@ -16,11 +17,12 @@ public class DtoProgrammeFinancialSource {
 	private double sourceBaseYearPlus3; // 2019
 	private double sumSources123;
 	
-	private List<Double> listSourceRebalance = new ArrayList<>();
+	private List<Double> rebalanceOneFieldDoubleList = new ArrayList<>();
 
-	public DtoProgrammeFinancialSource() {}
+	public DtoProgrammeFinancialSourceItem() {}
 	
-	public void dtoFinancePlusDtoFinance(DtoProgrammeFinancialSource dtoFinance) {
+	// DtoProgrammeFinancialSource
+	public void sumDtoProgrammeItemFinancialSources(DtoProgrammeFinancialSource dtoFinance) {
 		this.setSourceBaseYear(this.getSourceBaseYear() + dtoFinance.getSourceBaseYear());
 		this.setSourceBaseYearPlus1(this.getSourceBaseYearPlus1() + dtoFinance.getSourceBaseYearPlus1());
 		this.setSourceBaseYearPlus2(this.getSourceBaseYearPlus2() + dtoFinance.getSourceBaseYearPlus2());
@@ -29,13 +31,13 @@ public class DtoProgrammeFinancialSource {
 		plusRebBudget(dtoFinance.getListSourceRebalance());
 	}
 
+	// List<Double> rebalanceOneFieldDoubleList + List<Double> rebalanceOneFieldDoubleList
 	public void plusRebBudget(List<Double> list) {
-		for (int i = 0; i < this.getListSourceRebalance().size(); i++) {
-			double d = this.getListSourceRebalance().get(i) + list.get(i);
-			this.getListSourceRebalance().set(i, d);
-			//this.getListSourceRebalance().set(i, (this.getListSourceRebalance().get(i) + list.get(i)));
-			
+		for (int i = 0; i < this.getRebalanceOneFieldDoubleList().size(); i++) {
+			double d = this.getRebalanceOneFieldDoubleList().get(i) + list.get(i);
+			this.getRebalanceOneFieldDoubleList().set(i, d);
 		}
 	}
 
 }
+

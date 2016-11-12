@@ -1,26 +1,26 @@
 package com.attozoic.main.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.ActivityEconomicAccount;
-import com.attozoic.main.model.RebalanceTwoFields;
-import com.attozoic.main.model.RebalancesCount;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.balance.BalanceContainer;
+import com.attozoic.main.model.balance.BalanceEconomicAccount;
+import com.attozoic.main.model.balance.BalanceWithQuarters;
 import com.attozoic.main.repositories.RepositoryActivityEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
-import com.attozoic.main.repositories.RepositoryRebalancesCount;
 
 @Repository
 public class DaoActivityEconomicAccount extends DaoEntity {
 
 	@Autowired
 	private RepositoryActivityEconomicAccount repoActivityEconomicAccount;
-
-	@Autowired
-	private RepositoryRebalancesCount repoRebalanceCount;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -30,26 +30,16 @@ public class DaoActivityEconomicAccount extends DaoEntity {
 	
 	@Override
 	public SuperEntity update(SuperEntity superEntity) {
+		// Uzmes broj rebalansa pa tako
 		ActivityEconomicAccount activityEconomicAccount = (ActivityEconomicAccount) superEntity;
-		activityEconomicAccount.setSumExpenses123Budget(activityEconomicAccount.getExpenseBaseYearPlus1Budget1() + activityEconomicAccount.getExpenseBaseYearPlus1Budget2() + activityEconomicAccount.getExpenseBaseYearPlus1Budget3() + activityEconomicAccount.getExpenseBaseYearPlus1Budget4() + activityEconomicAccount.getExpenseBaseYearPlus2Budget() + activityEconomicAccount.getExpenseBaseYearPlus3Budget());
-		activityEconomicAccount.setSumExpenses123Others(activityEconomicAccount.getExpenseBaseYearPlus1Others1() + activityEconomicAccount.getExpenseBaseYearPlus1Others2() + activityEconomicAccount.getExpenseBaseYearPlus1Others3() + activityEconomicAccount.getExpenseBaseYearPlus1Others4() + activityEconomicAccount.getExpenseBaseYearPlus2Others() + activityEconomicAccount.getExpenseBaseYearPlus3Others());
-		activityEconomicAccount.setSumExpensesBaseYearPlus1Budget(activityEconomicAccount.getExpenseBaseYearPlus1Budget1() + activityEconomicAccount.getExpenseBaseYearPlus1Budget2() + activityEconomicAccount.getExpenseBaseYearPlus1Budget3() + activityEconomicAccount.getExpenseBaseYearPlus1Budget4());
-		activityEconomicAccount.setSumExpensesBaseYearPlus1Others(activityEconomicAccount.getExpenseBaseYearPlus1Others1() + activityEconomicAccount.getExpenseBaseYearPlus1Others2() + activityEconomicAccount.getExpenseBaseYearPlus1Others3() + activityEconomicAccount.getExpenseBaseYearPlus1Others4());
-		try {
-			RebalancesCount rc = repoRebalanceCount.findOne(new Long(1));
-			int numReb = rc.getRebalancesCount();
-			if (numReb > 0) {
-				List<RebalanceTwoFields> l = activityEconomicAccount.getRebalances();
-				for (int i = 0; i < l.size(); i++) {
-					l.get(i).setSumValueB(l.get(i).sumValueBudget());
-					l.get(i).setSumValueO(l.get(i).sumValueOthers());
-					activityEconomicAccount.setSumExpenses123Budget(activityEconomicAccount.getSumExpenses123Budget() + l.get(i).getSumValueB());
-					activityEconomicAccount.setSumExpenses123Others(activityEconomicAccount.getSumExpenses123Others() + l.get(i).getSumValueO());
-				}
-				activityEconomicAccount.setRebalances(l);
-			}
-		} catch (NullPointerException ex) {}
+		activityEconomicAccount.setSumExpenses123Budget(activityEconomicAccount.sumExpenses123Budget());
+		activityEconomicAccount.setSumExpenses123Others(activityEconomicAccount.sumExpenses123Others());
+		List<BalanceContainer> balanceContainers = activityEconomicAccount.getBalanceContainers();
+		BalanceContainer balanceContainer = balanceContainers.get(1);
+		List<BalanceEconomicAccount> accounts = balanceContainer.getBalances();
+		BalanceWithQuarters bwq = (BalanceWithQuarters)accounts.get(1);
+		bwq.sumQuarters(); //SETUJ
 		return super.update(activityEconomicAccount);
 	}
-	
+		
 }

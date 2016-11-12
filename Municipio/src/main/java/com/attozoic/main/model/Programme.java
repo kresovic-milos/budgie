@@ -46,7 +46,7 @@ public class Programme extends SuperEntity {
     @Column(length = 2048)
 	private String responsibleAuthority;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="sector_uid")
 	@NotFound(action=NotFoundAction.IGNORE)
     private Sector sector;
@@ -61,19 +61,5 @@ public class Programme extends SuperEntity {
     private List<Project> projects = new ArrayList<>();
 	
 	public Programme() {}
-
-	public Programme(Long categoryID, String code, String ordNumber, String name, String purpose, String rudiment,
-			String description, String budgetUser, String responsibleAuthority) {
-		super();
-		this.categoryID = categoryID;
-		this.code = code;
-		this.ordNumber = ordNumber;
-		this.name = name;
-		this.purpose = purpose;
-		this.rudiment = rudiment;
-		this.description = description;
-		this.budgetUser = budgetUser;
-		this.responsibleAuthority = responsibleAuthority;
-	}
 	
 }

@@ -6,5 +6,4 @@ import com.attozoic.main.model.Project;
 
 @Repository
 public interface RepositoryProject extends RepositoryEntity<Project> {
-	
 }

@@ -6,215 +6,187 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.ActivityEconomicAccount;
-import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoalIndicator;
 import com.attozoic.main.model.ProgrammeGoalIndicator;
 import com.attozoic.main.model.ProjectEconomicAccount;
-import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoalIndicator;
-import com.attozoic.main.model.RebalanceOneField;
-import com.attozoic.main.model.RebalanceTwoFields;
-import com.attozoic.main.repositories.RepositoryActivityFinancialSource;
-import com.attozoic.main.repositories.RepositoryActivityGoalIndicator;
+import com.attozoic.main.model.RebalancesCount;
+import com.attozoic.main.model.balance.BalanceText;
 import com.attozoic.main.repositories.RepositoryActivityEconomicAccount;
-import com.attozoic.main.repositories.RepositoryProgrameGoalIndicator;
+import com.attozoic.main.repositories.RepositoryActivityGoalIndicator;
+import com.attozoic.main.repositories.RepositoryProgrammeGoalIndicator;
 import com.attozoic.main.repositories.RepositoryProjectEconomicAccount;
-import com.attozoic.main.repositories.RepositoryProjectFinancialSource;
 import com.attozoic.main.repositories.RepositoryProjectGoalIndicator;
+import com.attozoic.main.repositories.RepositoryRebalancesCount;
 
 @Repository
 public class DaoEntityWithRebalances {
 
+	// UPDATE/SAVE AFTER ADD/REMOVE ???
+	
 	@Autowired
-	private RepositoryProgrameGoalIndicator repoProgrammeGoalIndicator;
+	private RepositoryProgrammeGoalIndicator repoProgrammeGoalIndicator;
 	
 	@Autowired
 	private RepositoryActivityGoalIndicator repoActivityGoalIndicator;
-	
-	@Autowired
-	private RepositoryActivityFinancialSource repoActivityFinancialSource;
 
 	@Autowired
 	private RepositoryActivityEconomicAccount repoActivityEconomicAccount;
 	
 	@Autowired
 	private RepositoryProjectGoalIndicator repoProjectGoalIndicator;
-	
-	@Autowired
-	private RepositoryProjectFinancialSource repoProjectFinancialSource;
 
 	@Autowired
 	private RepositoryProjectEconomicAccount repoProjectEconomicAccount;
 	
+	@Autowired
+	private RepositoryRebalancesCount repoRebCount;
+	
 	public void addRebalance() {
-		addProgrammeGoalIndicatorReb();
-		addActivityGoalIndicatorReb();
-		addActivityFinancialSourceReb();
-		addActivityEconomicAccountReb();
-		addProjectGoalIndicatorReb();
-		addProjectFinancialSourceReb();
-		addProjectEconomicAccountReb();
+		addProgrammeGoalIndicatorRebalance();
+		addActivityGoalIndicatorRebalance();
+		addActivityEconomicAccountRebalance();
+		addProjectGoalIndicatorRebalance();
+		addProjectEconomicAccountRebalance();
 	}
 	
 	public void removeRebalance() {
 		try{
-			removeProgrammeGoalIndicatorReb();
-			removeActivityGoalIndicatorReb();
-			removeActivityFinancialSourceReb();
-			removeActivityEcconomicAccountReb();
-			removeProjectGoalIndicatorReb();
-			removeProjectFinancialSourceReb();
-			removeProjectEcconomicAccountReb();
+			RebalancesCount rc = repoRebCount.findOne(new Long(1));
+			int numRebalances = rc.getRebalancesCount();
+			if (numRebalances > 0) {
+				removeProgrammeGoalIndicatorRebalance();
+				removeActivityGoalIndicatorRebalance();
+				removeActivityEcconomicAccountRebalance();
+				removeProjectGoalIndicatorRebalance();
+				removeProjectEcconomicAccountRebalance();
+			} else {
+				System.err.println("0 rebalances");
+			}
 		} catch (Exception ex) {
 			System.err.println("Zero rebalances");
 		}
 	}
 	
-	private void addProgrammeGoalIndicatorReb() {
-		List<ProgrammeGoalIndicator> l = repoProgrammeGoalIndicator.findAll();
-		for (ProgrammeGoalIndicator programmeGoalIndicator : l) {
+	private void addProgrammeGoalIndicatorRebalance() {
+		List<ProgrammeGoalIndicator> indicators = repoProgrammeGoalIndicator.findAll();
+		for (ProgrammeGoalIndicator programmeGoalIndicator : indicators) {
 			try {
-				List<RebalanceOneField> list = programmeGoalIndicator.getRebalances();
-				list.add(new RebalanceOneField());
-				programmeGoalIndicator.setRebalances(list);
+				List<BalanceText> indicatorValues = programmeGoalIndicator.getBalancesText();
+				indicatorValues.add((indicatorValues.size()-3), new BalanceText());
+				programmeGoalIndicator.setBalancesText(indicatorValues);
 				repoProgrammeGoalIndicator.save(programmeGoalIndicator);
-			} catch (Exception ex) {
-				System.out.println("Ufacen Indikator");
-			}
+			} catch (Exception ex) {}
 		}
 	}
 	
-	private void removeProgrammeGoalIndicatorReb() {
-		List<ProgrammeGoalIndicator> l = repoProgrammeGoalIndicator.findAll();
-		for (ProgrammeGoalIndicator programmeGoalIndicator : l) {
-			programmeGoalIndicator.getRebalances().remove(programmeGoalIndicator.getRebalances().size()-1);
+	private void removeProgrammeGoalIndicatorRebalance() {
+		List<ProgrammeGoalIndicator> indicators = repoProgrammeGoalIndicator.findAll();
+		for (ProgrammeGoalIndicator programmeGoalIndicator : indicators) {
+			List<BalanceText> indicatorValues = programmeGoalIndicator.getBalancesText();
+			indicatorValues.remove((indicatorValues.size()-4));
+			programmeGoalIndicator.setBalancesText(indicatorValues);
+			repoProgrammeGoalIndicator.save(programmeGoalIndicator);
 		}
 	}
 	
-	private void addActivityGoalIndicatorReb() {
-		List<ActivityGoalIndicator> l = repoActivityGoalIndicator.findAll();
-		for (ActivityGoalIndicator activityGoalIndicator : l) {
+	private void addActivityGoalIndicatorRebalance() {
+		List<ActivityGoalIndicator> indicators = repoActivityGoalIndicator.findAll();
+		for (ActivityGoalIndicator activityGoalIndicator : indicators) {
 			try {
-				List<RebalanceOneField> list = activityGoalIndicator.getRebalances();
-				list.add(new RebalanceOneField());
-				activityGoalIndicator.setRebalances(list);
+				List<BalanceText> indicatorValues = activityGoalIndicator.getBalancesText();
+				indicatorValues.add((indicatorValues.size()-3), new BalanceText());
+				activityGoalIndicator.setBalancesText(indicatorValues);
 				repoActivityGoalIndicator.save(activityGoalIndicator);
-			} catch (Exception ex) {
-				System.out.println();
-			}
+			} catch (Exception ex) {}
 		}
 	}
 	
-	private void removeActivityGoalIndicatorReb() {
-		List<ActivityGoalIndicator> l = repoActivityGoalIndicator.findAll();
-		for (ActivityGoalIndicator activityGoalIndicator : l) {
-			activityGoalIndicator.getRebalances().remove(activityGoalIndicator.getRebalances().size()-1);
+	private void removeActivityGoalIndicatorRebalance() {
+		List<ActivityGoalIndicator> indicators = repoActivityGoalIndicator.findAll();
+		for (ActivityGoalIndicator activityGoalIndicator : indicators) {
+			List<BalanceText> indicatorValues = activityGoalIndicator.getBalancesText();
+			indicatorValues.remove((indicatorValues.size()-4));
+			activityGoalIndicator.setBalancesText(indicatorValues);
+			repoActivityGoalIndicator.save(activityGoalIndicator);
 		}
 	}
 	
-	private void addActivityFinancialSourceReb() {
-		List<ActivityFinancialSource> l = repoActivityFinancialSource.findAll();
-		for (ActivityFinancialSource activityFinancialSource : l) {
+	// OK
+	private void addActivityEconomicAccountRebalance() {
+		List<ActivityEconomicAccount> activityEconomicAccounts = repoActivityEconomicAccount.findAll();
+		for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccounts) {
+			activityEconomicAccount.addRebalance();
+			repoActivityEconomicAccount.save(activityEconomicAccount);
+		}
+	}
+	
+	private void removeActivityEcconomicAccountRebalance() {
+		List<ActivityEconomicAccount> economicAccounts = repoActivityEconomicAccount.findAll();
+		for (ActivityEconomicAccount activityEconomicAccount : economicAccounts) {
+			activityEconomicAccount.removeRebalance();
+			repoActivityEconomicAccount.save(activityEconomicAccount);
+		}
+	}
+	
+	private void addProjectGoalIndicatorRebalance() {
+		List<ProjectGoalIndicator> indicators = repoProjectGoalIndicator.findAll();
+		for (ProjectGoalIndicator projectGoalIndicator : indicators) {
 			try {
-				List<RebalanceOneField> list = activityFinancialSource.getRebalances();
-				list.add(new RebalanceOneField());
-				activityFinancialSource.setRebalances(list);
-				repoActivityFinancialSource.save(activityFinancialSource);
-			} catch (Exception ex) {
-				System.out.println();
-			}
-		}
-	}
-	
-	private void removeActivityFinancialSourceReb() {
-		List<ActivityFinancialSource> l = repoActivityFinancialSource.findAll();
-		for (ActivityFinancialSource activityFinancialSource : l) {
-			activityFinancialSource.getRebalances().remove(activityFinancialSource.getRebalances().size()-1);
-		}
-	}
-	
-	private void addActivityEconomicAccountReb() {
-		List<ActivityEconomicAccount> l = repoActivityEconomicAccount.findAll();
-		for (ActivityEconomicAccount activityEconomicAccount : l) {
-			try {
-				List<RebalanceTwoFields> list = activityEconomicAccount.getRebalances();
-				list.add(new RebalanceTwoFields());
-				activityEconomicAccount.setRebalances(list);
-				repoActivityEconomicAccount.save(activityEconomicAccount);
-			} catch (Exception ex) {
-				System.out.println();
-			}
-		}
-	}
-	
-	private void removeActivityEcconomicAccountReb() {
-		List<ActivityEconomicAccount> l = repoActivityEconomicAccount.findAll();
-		for (ActivityEconomicAccount activityEconomicAccount : l) {
-			activityEconomicAccount.getRebalances().remove(activityEconomicAccount.getRebalances().size()-1);
-		}
-	}
-	
-	private void addProjectGoalIndicatorReb() {
-		List<ProjectGoalIndicator> l = repoProjectGoalIndicator.findAll();
-		for (ProjectGoalIndicator projectGoalIndicator : l) {
-			try {
-				List<RebalanceOneField> list = projectGoalIndicator.getRebalances();
-				list.add(new RebalanceOneField());
-				projectGoalIndicator.setRebalances(list);
+				List<BalanceText> indicatorValues = projectGoalIndicator.getBalancesText();
+				indicatorValues.add((indicatorValues.size()-3), new BalanceText());
+				projectGoalIndicator.setBalancesText(indicatorValues);
 				repoProjectGoalIndicator.save(projectGoalIndicator);
-			} catch (Exception ex) {
-				System.out.println();
-			}
+			} catch (Exception ex) {}
 		}
 	}
 	
-	private void removeProjectGoalIndicatorReb() {
-		List<ProjectGoalIndicator> l = repoProjectGoalIndicator.findAll();
-		for (ProjectGoalIndicator projectGoalIndicator : l) {
-			projectGoalIndicator.getRebalances().remove(projectGoalIndicator.getRebalances().size()-1);
+	private void removeProjectGoalIndicatorRebalance() {
+		List<ProjectGoalIndicator> indicators = repoProjectGoalIndicator.findAll();
+		for (ProjectGoalIndicator projectGoalIndicator : indicators) {
+			List<BalanceText> indicatorValues = projectGoalIndicator.getBalancesText();
+			indicatorValues.remove((indicatorValues.size()-4));
+			projectGoalIndicator.setBalancesText(indicatorValues);
+			repoProjectGoalIndicator.save(projectGoalIndicator);
 		}
 	}
 	
-	private void addProjectFinancialSourceReb() {
-		List<ProjectFinancialSource> l = repoProjectFinancialSource.findAll();
-		for (ProjectFinancialSource projectFinancialSource : l) {
-			try {
-				List<RebalanceOneField> list = projectFinancialSource.getRebalances();
-				list.add(new RebalanceOneField());
-				projectFinancialSource.setRebalances(list);
-				repoProjectFinancialSource.save(projectFinancialSource);
-			} catch (Exception ex) {
-				System.out.println();
-			}
+	// OK
+	private void addProjectEconomicAccountRebalance() {
+		List<ProjectEconomicAccount> economicAccounts = repoProjectEconomicAccount.findAll();
+		for (ProjectEconomicAccount projectEconomicAccount : economicAccounts) {
+			projectEconomicAccount.addRebalance();
+			repoProjectEconomicAccount.save(projectEconomicAccount);
 		}
 	}
 	
-	private void removeProjectFinancialSourceReb() {
-		List<ProjectFinancialSource> l = repoProjectFinancialSource.findAll();
-		for (ProjectFinancialSource projectFinancialSource : l) {
-			projectFinancialSource.getRebalances().remove(projectFinancialSource.getRebalances().size()-1);
+	private void removeProjectEcconomicAccountRebalance() {
+		List<ProjectEconomicAccount> economicAccounts = repoProjectEconomicAccount.findAll();
+		for (ProjectEconomicAccount projectEconomicAccount : economicAccounts) {
+			projectEconomicAccount.removeRebalance();
+			repoProjectEconomicAccount.save(projectEconomicAccount);
 		}
 	}
 	
-	private void addProjectEconomicAccountReb() {
-		List<ProjectEconomicAccount> l = repoProjectEconomicAccount.findAll();
-		for (ProjectEconomicAccount projectEconomicAccount : l) {
-			try {
-				List<RebalanceTwoFields> list = projectEconomicAccount.getRebalances();
-				list.add(new RebalanceTwoFields());
-				projectEconomicAccount.setRebalances(list);
-				repoProjectEconomicAccount.save(projectEconomicAccount);
-			} catch (Exception ex) {
-				System.out.println();
-			}
-		}
-	}
-	
-	private void removeProjectEcconomicAccountReb() {
-		List<ProjectEconomicAccount> l = repoProjectEconomicAccount.findAll();
-		for (ProjectEconomicAccount projectEconomicAccount : l) {
-			projectEconomicAccount.getRebalances().remove(projectEconomicAccount.getRebalances().size()-1);
-		}
-	}
+//	private void addActivityFinancialSourceReb() {
+//		List<ActivityFinancialSource> l = repoActivityFinancialSource.findAll();
+//		for (ActivityFinancialSource activityFinancialSource : l) {
+//			try {
+//				List<RebalanceOneField> list = activityFinancialSource.getRebalances();
+//				list.add(new RebalanceOneField());
+//				activityFinancialSource.setRebalances(list);
+//				repoActivityFinancialSource.save(activityFinancialSource);
+//			} catch (Exception ex) {
+//				System.out.println();
+//			}
+//		}
+//	}
+//	
+//	private void removeActivityFinancialSourceReb() {
+//		List<ActivityFinancialSource> l = repoActivityFinancialSource.findAll();
+//		for (ActivityFinancialSource activityFinancialSource : l) {
+//			activityFinancialSource.getRebalances().remove(activityFinancialSource.getRebalances().size()-1);
+//		}
+//	}
 	
 }
