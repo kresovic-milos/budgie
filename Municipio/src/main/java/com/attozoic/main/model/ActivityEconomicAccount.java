@@ -42,7 +42,7 @@ public class ActivityEconomicAccount extends SuperEntity {
 	private String financialSrc;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activityEconomicAccount")
-	List<BalanceContainer> balanceContainers = new ArrayList<>(4);
+	List<BalanceContainer> balanceContainers = new ArrayList<>();
 
 	private double sumExpenses123Budget = sumExpenses123Budget();
 	private double sumExpenses123Others = sumExpenses123Others();

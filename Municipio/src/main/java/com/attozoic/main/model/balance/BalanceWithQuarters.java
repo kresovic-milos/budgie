@@ -22,14 +22,14 @@ import lombok.EqualsAndHashCode;
 @Table(name = "balance_with_quarters")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=RebalancesCount.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=BalanceEconomicAccount.class)
 @JsonTypeName("balanceWithQuarters")
 public class BalanceWithQuarters extends BalanceEconomicAccount {
 	
 	@ElementCollection
 	@CollectionTable(name = "balanceWithQuarters_values", joinColumns = @JoinColumn(name = "balanceWithQuarters_id"))
 	@OrderColumn
-	private List<Double> values = new ArrayList<>(4);
+	private List<Double> values = new ArrayList<>();
 	
 	private double sumQuarters = sumQuarters(); 
 	

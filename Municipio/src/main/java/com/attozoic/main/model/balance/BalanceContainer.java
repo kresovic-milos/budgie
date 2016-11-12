@@ -28,7 +28,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "balance_container")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=RebalancesCount.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=BalanceContainer.class)
 public class BalanceContainer extends SuperEntity {
 
 //	@ElementCollection

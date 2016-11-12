@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "balance_numeric")
 @Data
 @EqualsAndHashCode(callSuper=true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=RebalancesCount.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=BalanceEconomicAccount.class)
 @JsonTypeName("balanceNumeric")
 public class BalanceNumeric extends BalanceEconomicAccount {
 
