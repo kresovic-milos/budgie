@@ -15,6 +15,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -32,6 +33,7 @@ public class ProjectGoal extends SuperEntity {
     @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="project_uid")
     @NotFound(action=NotFoundAction.IGNORE)
+    @JsonIgnoreProperties({"code", "name", "purpose", "rudiment", "description", "anex", "responsibleAuthority", "categoryFunctionID", "functionCode", "function", "categoryHeadID", "headCode", "head", "categoryAuthorityID", "authorityCode", "authority", "authorityJbbk", "programme", "projectGoals", "projectEconomicAccounts"})
     private Project project;
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="projectGoal")

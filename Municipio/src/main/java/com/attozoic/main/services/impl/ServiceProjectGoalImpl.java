@@ -20,8 +20,8 @@ public class ServiceProjectGoalImpl extends ServiceEntityImpl implements Service
 	}
 	
 	@Override
-	public ProjectGoalIndicator addIndicator(Long uid, ProjectGoalIndicator goalIndicator) {		
-		return ((DaoProjectGoal) getDaoEntity()).addIndicator(uid, goalIndicator);
+	public ProjectGoalIndicator addIndicator(Long uid, ProjectGoalIndicator projectGoalIndicator) {		
+		return ((DaoProjectGoal) getDaoEntity()).addProjectGoalIndicator(uid, projectGoalIndicator);
 	}
 	
 }

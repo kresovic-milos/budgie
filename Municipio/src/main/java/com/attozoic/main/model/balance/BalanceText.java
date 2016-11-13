@@ -9,12 +9,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import com.attozoic.main.model.ActivityGoalIndicator;
-import com.attozoic.main.model.ProgrammeGoalIndicator;
-import com.attozoic.main.model.ProjectGoalIndicator;
 import com.attozoic.main.model.RebalancesCount;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.SuperGoalIndicator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -28,22 +27,20 @@ import lombok.EqualsAndHashCode;
 public class BalanceText extends SuperEntity {
 
 	private String value;
+	private double year;
 	
     @ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="programmeGoalIndicator_uid")
+	@JoinColumn(name="superGoalIndicator_uid")
     @NotFound(action=NotFoundAction.IGNORE)
-    private ProgrammeGoalIndicator programmeGoalIndicator;
-	
-    @ManyToOne
-	@JoinColumn(name="activityGoalIndicator_uid")
-    @NotFound(action=NotFoundAction.IGNORE)
-    private ActivityGoalIndicator activityGoalIndicator;
-    
-    @ManyToOne
-	@JoinColumn(name="projectGoalIndicator_uid")
-    @NotFound(action=NotFoundAction.IGNORE)
-    private ProjectGoalIndicator projectGoalIndicator;
+    @JsonIgnoreProperties({"categoryID", "name", "programmeGoal", "activityGoal", "projectGoal"})
+    private SuperGoalIndicator superGoalIndicator;
     
     public BalanceText() {}
+    
+    public BalanceText(String value, double year, SuperGoalIndicator superGoalIndicator) {
+    	this.value = value;
+    	this.year = year;
+    	this.superGoalIndicator = superGoalIndicator;
+    }
     
 }

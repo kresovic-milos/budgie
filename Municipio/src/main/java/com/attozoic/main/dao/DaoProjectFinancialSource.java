@@ -10,12 +10,12 @@ import com.attozoic.main.repositories.RepositoryProjectFinancialSource;
 public class DaoProjectFinancialSource extends DaoEntity {
 
 	@Autowired
-	private RepositoryProjectFinancialSource repo;
+	private RepositoryProjectFinancialSource repositoryProjectFinancialSource;
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
-		return repo;
+		return repositoryProjectFinancialSource;
 	}
 	
 }

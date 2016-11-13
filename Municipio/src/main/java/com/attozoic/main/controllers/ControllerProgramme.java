@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeGoal;
@@ -51,6 +50,24 @@ public class ControllerProgramme {
 //	public DtoChartProgrammes getProgrammeChart() {
 //		return serviceProgramme.getProgrammeChart();
 //	}
+	
+	//addProgrammeGoal to Programme{uid}
+	@RequestMapping(value="/{uid}/programmeGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ProgrammeGoal addProgrammeGoal(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeGoal programmeGoal) {
+		return serviceProgramme.addProgrammeGoal(uid, programmeGoal);
+	}
+	
+	//addActivity to Programme{uid}
+	@RequestMapping(value="/{uid}/activities", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Activity addActivity(@PathVariable(value="uid") Long uid, @RequestBody Activity activity) {
+		return serviceProgramme.addActivity(uid, activity);
+	}
+	
+	//addProject to Programme{uid}
+	@RequestMapping(value="/{uid}/projects", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Project addProject(@PathVariable(value="uid") Long uid, @RequestBody Project project) {
+		return serviceProgramme.addProject(uid, project);
+	}
 	
 	//getAllProgrammes
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
@@ -104,25 +121,6 @@ public class ControllerProgramme {
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceProgramme.unarchive(uid);
-	}
-	
-	//addProgrammeGoal to Programme{uid}
-	@RequestMapping(value="/{uid}/programmeGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProgrammeGoal addProgrammeGoal(@PathVariable(value="uid") Long uid, @RequestBody ProgrammeGoal programmeGoal) {
-		programmeGoal.setActiveState(ActiveState.ACTIVE);
-		return serviceProgramme.addProgrammeGoal(uid, programmeGoal);
-	}
-	
-	//addActivity to Programme{uid}
-	@RequestMapping(value="/{uid}/activities", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Activity addActivity(@PathVariable(value="uid") Long uid, @RequestBody Activity activity) {
-		return serviceProgramme.addActivity(uid, activity);
-	}
-	
-	//addProject to Programme{uid}
-	@RequestMapping(value="/{uid}/projects", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Project addProject(@PathVariable(value="uid") Long uid, @RequestBody Project project) {
-		return serviceProgramme.addProject(uid, project);
 	}
 
 }

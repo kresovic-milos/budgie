@@ -21,6 +21,12 @@ public class ControllerActivityGoal {
 	@Autowired
 	private ServiceActivityGoal serviceActivityGoal;
 	
+	//addActivityGoalIndicator to ActivityGoal{uid}
+	@RequestMapping(value="/{uid}/activityGoalIndicators", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ActivityGoalIndicator addActivityGoalIndicator(@PathVariable(value="uid") Long uid, @RequestBody ActivityGoalIndicator activityGoalIndicator) {
+		return serviceActivityGoal.addActivityGoalIndicator(uid, activityGoalIndicator);
+	}
+	
 	//getAllActivityGoals
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public Page<SuperEntity> getAllActivityGoals() {
@@ -67,12 +73,6 @@ public class ControllerActivityGoal {
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceActivityGoal.unarchive(uid);
-	}
-
-	//addActivityGoalIndicator to ActivityGoal{uid}
-	@RequestMapping(value="/{uid}/activityGoalIndicators", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityGoalIndicator addActivityGoalIndicator(@PathVariable(value="uid") Long uid, @RequestBody ActivityGoalIndicator activityGoalIndicator) {
-		return serviceActivityGoal.addActivityGoalIndicator(uid, activityGoalIndicator);
 	}
 
 }

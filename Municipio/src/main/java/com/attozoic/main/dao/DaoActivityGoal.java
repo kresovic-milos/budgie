@@ -1,14 +1,10 @@
 package com.attozoic.main.dao;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.ActivityGoalIndicator;
-import com.attozoic.main.model.RebalancesCount;
-import com.attozoic.main.model.balance.BalanceText;
 import com.attozoic.main.repositories.RepositoryActivityGoal;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
@@ -20,7 +16,7 @@ public class DaoActivityGoal extends DaoEntity {
 	private RepositoryActivityGoal repoActivityGoal;
 	
 	@Autowired
-	private RepositoryRebalancesCount repoRebCount;
+	private RepositoryRebalancesCount repoRebalanceCount;
 	
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -30,19 +26,13 @@ public class DaoActivityGoal extends DaoEntity {
 	
 	@SuppressWarnings("unchecked")
 	public ActivityGoalIndicator addActivityGoalIndicator(Long uid, ActivityGoalIndicator activityGoalIndicator) {
-		try {
-			RebalancesCount rc = repoRebCount.findOne(new Long(1));
-			int numRebalances = rc.getRebalancesCount();
-			if (numRebalances > 0) {
-				List<BalanceText> indicatorValues = activityGoalIndicator.getBalancesText();
-				for (int i = 0; i < numRebalances; i++) {
-					indicatorValues.add((indicatorValues.size()-3), new BalanceText());
-				}
-				activityGoalIndicator.setBalancesText(indicatorValues);
-			}
-		} catch(NullPointerException ex) {}
 		ActivityGoal activityGoal = (ActivityGoal) getRepoEntity().findOne(uid);
 		activityGoalIndicator.setActivityGoal(activityGoal);
+		int numRebalances = 0;
+		try {
+			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+		} catch (NullPointerException ex) {}
+		activityGoalIndicator.generateBalancesText(numRebalances);
 		return (ActivityGoalIndicator) getRepoEntity().save(activityGoalIndicator);
 	}
 

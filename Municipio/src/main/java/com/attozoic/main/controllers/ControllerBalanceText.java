@@ -67,6 +67,5 @@ public class ControllerBalanceText {
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceBalanceText.unarchive(uid);
 	}
-
 	
 }

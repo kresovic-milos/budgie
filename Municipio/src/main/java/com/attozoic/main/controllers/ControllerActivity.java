@@ -1,8 +1,5 @@
 package com.attozoic.main.controllers;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -36,6 +33,18 @@ public class ControllerActivity {
 //	public DtoProgrammeExpencesItem getActivityDto(@PathVariable(value="uid") Long uid) {
 //		return serviceActivity.buildActivityDto(uid);
 //	}
+
+	//addActivityGoal to Activity{uid}
+	@RequestMapping(value="/{uid}/activityGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ActivityGoal addActivityGoal(@PathVariable(value="uid") Long uid, @RequestBody ActivityGoal activityGoal) {
+		return serviceActivity.addActivityGoal(uid, activityGoal);
+	}
+	
+	//addActivityEconomicAccount to Activity{uid}
+	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ActivityEconomicAccount addActivityEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount) {
+		return serviceActivity.addActivityEconomicAccount(uid, activityEconomicAccount);
+	}
 	
 	//getAllActivities
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
@@ -91,27 +100,9 @@ public class ControllerActivity {
 		serviceActivity.unarchive(uid);
 	}
 	
-	//addActivityGoal to Activity{uid}
-	@RequestMapping(value="/{uid}/activityGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityGoal addActivityGoal(@PathVariable(value="uid") Long uid, @RequestBody ActivityGoal activityGoal) {
-		return serviceActivity.addActivityGoal(uid, activityGoal);
-	}
-	
-	//addActivityFinancialSource to Activity{uid}
-//	@RequestMapping(value="/{uid}/activityFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public ActivityFinancialSource addActivityFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ActivityFinancialSource activityFinancialSource) {
-//		return serviceActivity.addActivityFinancialSource(uid, activityFinancialSource);
+//	@RequestMapping(value="{uid}/economicAccountsMap", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(@PathVariable(value="uid") Long uid) {
+//		return serviceActivity.getActivityEconomicAccountMap(uid);
 //	}
-	
-	//addActivityEconomicAccount to Activity{uid}
-	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityEconomicAccount addActivityEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount) {
-		return serviceActivity.addActivityEconomicAccount(uid, activityEconomicAccount);
-	}
-	
-	@RequestMapping(value="{uid}/economicAccountsMap", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(@PathVariable(value="uid") Long uid) {
-		return serviceActivity.getActivityEconomicAccountMap(uid);
-	}
 
 }

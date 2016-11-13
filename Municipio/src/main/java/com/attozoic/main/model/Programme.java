@@ -16,6 +16,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -49,6 +50,7 @@ public class Programme extends SuperEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="sector_uid")
 	@NotFound(action=NotFoundAction.IGNORE)
+	@JsonIgnoreProperties({"categoryID", "name", "programmes"}) 
     private Sector sector;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")

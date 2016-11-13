@@ -1,10 +1,5 @@
 package com.attozoic.main.dao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +16,6 @@ public class DaoActivity extends DaoEntity {
 	@Autowired
 	private RepositoryActivity repoActivity;
 	
-	@SuppressWarnings("unused")
 	@Autowired
 	private RepositoryRebalancesCount repoRebalanceCount;
 	
@@ -42,68 +36,52 @@ public class DaoActivity extends DaoEntity {
 	// addActivityEconomicAccount
 	@SuppressWarnings("unchecked")
 	public ActivityEconomicAccount addActivityEconomicAccount(Long uid, ActivityEconomicAccount activityEconomicAccount) {
-
-		//		List<BalanceContainer> balanceContainers = activityEconomicAccount.getBalanceContainers();
-//		int numRebalances = 0;
-//		try {
-//			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-//		} catch (NullPointerException ex) {}
-//		for (int i = 0; i < (balanceContainers.size() + numRebalances); i++) {
-//			balanceContainers.add(new BalanceContainer());
-//		}
-		
 		Activity activity = (Activity) getRepoEntity().findOne(uid);
 		activityEconomicAccount.setActivity(activity);
+		int numRebalances = 0;
+		try {
+			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+		} catch (NullPointerException ex) {}
+			activityEconomicAccount.generateBalances(numRebalances);
 		return (ActivityEconomicAccount) getRepoEntity().save(activityEconomicAccount);
 	}
 	
-	public Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(Long uid) {
-		Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> activityEconomicAccountMap = new HashMap<>();
-		Activity activity = (Activity)getRepoEntity().findOne(uid);
-		List<ActivityEconomicAccount> activityEconomicAccountList = activity.getActivityEconomicAccounts();
-		for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccountList) {
-			String threeDigits = activityEconomicAccount.getCode().substring(0, 2).concat("000");
-//			ActivityEconomicAccount oldKey = new ActivityEconomicAccount();
-//			oldKey.setCode(threeDigits);
-			if (containsCode(activityEconomicAccountMap, threeDigits)) {
-				ActivityEconomicAccount key = getSearchedKey(activityEconomicAccountMap, threeDigits);
-				activityEconomicAccountMap.get(key).add(activityEconomicAccount);
-				ActivityEconomicAccount newKey = new ActivityEconomicAccount();
-				List<ActivityEconomicAccount> newList = activityEconomicAccountMap.get(key);
-				for (ActivityEconomicAccount activityEconomicAccount2 : newList) {
-					newKey.sumActivityEconomicAccounts(activityEconomicAccount2);
-				}
-				activityEconomicAccountMap.remove(key);
-				activityEconomicAccountMap.put(newKey, newList);
-			} else {
-				List<ActivityEconomicAccount> newList = new ArrayList<>();
-				newList.add(activityEconomicAccount);
-				ActivityEconomicAccount newKey = activityEconomicAccount;
-				newKey.setCode(threeDigits);
-				activityEconomicAccountMap.put(newKey, newList);
-			}
-		}
-		return null;
-	}
+//	public Map<String, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(Long uid) {
+//		Map<String, List<ActivityEconomicAccount>> activityEconomicAccountMap = new HashMap<>();
+//		Activity activity = (Activity)getRepoEntity().findOne(uid);
+//		List<ActivityEconomicAccount> activityEconomicAccountList = activity.getActivityEconomicAccounts();
+//		for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccountList) {
+//			String threeDigits = activityEconomicAccount.getCode().substring(0, 3).concat("000");
+//			if (activityEconomicAccountMap.containsKey(threeDigits)) {
+//				List<ActivityEconomicAccount> newActivityEconomicAccountList = activityEconomicAccountMap.get(threeDigits);
+//				newActivityEconomicAccountList.add(activityEconomicAccount);
+//				activityEconomicAccountMap.put(threeDigits, newActivityEconomicAccountList);
+//			} else {
+//				List<ActivityEconomicAccount> newActivityEconomicAccountList = new ArrayList<>();
+//				newActivityEconomicAccountList.add(activityEconomicAccount);
+//				activityEconomicAccountMap.put(threeDigits, newActivityEconomicAccountList);
+//			}
+//		}
+//		return activityEconomicAccountMap;
+//	}
 	
-	private boolean containsCode(Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> map, String code) {
-		boolean contains = false;
-		for (ActivityEconomicAccount activityEconomicAccount : map.keySet()) {
-			if (activityEconomicAccount.getCode().equals(code)) {
-				contains = true;
-			}
-		}
-		return contains;
-	}
-
-	private ActivityEconomicAccount getSearchedKey(Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> map, String code) {
-		for (ActivityEconomicAccount activityEconomicAccount : map.keySet()) {
-			if (activityEconomicAccount.getCode().equals(code)) {
-				return activityEconomicAccount;
-			}
-		}
-		return null;
-	}
+//	public List<ActivityEconomicAccount> getActivityEconomicAccountList(Long uid) {
+//		List<ActivityEconomicAccount> activityEconomicAccountList = new ArrayList<>();
+//		Map<String, List<ActivityEconomicAccount>> activityEconomicAccountMap = getActivityEconomicAccountMap(uid);
+//		for (Map.Entry<String, List<ActivityEconomicAccount>> entry : activityEconomicAccountMap.entrySet()) {
+//		    ActivityEconomicAccount activityEconomicAccount = new ActivityEconomicAccount();
+//		    for (ActivityEconomicAccount activityEconomicAccount2 : entry.getValue()) {
+//				activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
+//			}
+//		    activityEconomicAccount.setCode(entry.getKey());
+//			activityEconomicAccountList.add(activityEconomicAccount);
+//			for (ActivityEconomicAccount activityEconomicAccount2 : entry.getValue()) {
+//				activityEconomicAccountList.add(activityEconomicAccount2);
+//			}
+//		    
+//		}
+//		return activityEconomicAccountList;
+//	}
 
 	
 	// buildActivityDTO

@@ -11,10 +11,10 @@ import com.attozoic.main.services.ServiceProjectFinancialSource;
 public class ServiceProjectFinancialSourceImpl extends ServiceEntityImpl implements ServiceProjectFinancialSource {
 
 	@Autowired
-	private DaoProjectFinancialSource dao;
+	private DaoProjectFinancialSource daoProjectFinancialSource;
 	
 	@Override
 	public DaoEntity getDaoEntity() {
-		return dao;
+		return daoProjectFinancialSource;
 	}
 }
