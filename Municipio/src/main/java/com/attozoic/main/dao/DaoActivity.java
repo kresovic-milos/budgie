@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
-import com.attozoic.main.model.dto.DtoActivityEconomicAccountThreeDigitsCollection;
+import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
@@ -28,13 +28,13 @@ public class DaoActivity extends DaoEntity {
 		return repoActivity;
 	}
 	
-	public List<DtoActivityEconomicAccountThreeDigitsCollection> getDto(Long uid) {
+	public List<DtoActivityEconomicAccount> getDto(Long uid) {
 		Activity activity = (Activity)getRepoEntity().findOne(uid);
 		int numRebalances = 0;
 		try {
 			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
 		} catch (NullPointerException ex) {}
-		return activity.generateThreeDigitsActivityEconomicAccountsDTOList(numRebalances);
+		return activity.generateActivityEconomicAccountDTOsList(numRebalances);
 	}
 	
 	// addActivityGoal

@@ -1,7 +1,9 @@
 package com.attozoic.main.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -65,4 +68,37 @@ public class Project extends SuperEntity {
 	
 	public Project() {}
     
+	public List<DtoProjectEconomicAccount> generateProjectEconomicAccountDTOsList(int numRebalances) {
+		Map<String, List<ProjectEconomicAccount>> map = generateThreeDigitsProjectEconomicAccountsMap();
+		List<DtoProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
+		for (Map.Entry<String, List<ProjectEconomicAccount>> entry : map.entrySet()) {
+			ProjectEconomicAccount projectEconomicAccount = new ProjectEconomicAccount();
+			projectEconomicAccount.generateBalances(numRebalances);
+			List<ProjectEconomicAccount> list = entry.getValue();
+			for (ProjectEconomicAccount projectEconomicAccount2 : list) {
+				projectEconomicAccount.sumProjectEconomicAccounts(projectEconomicAccount2);
+			}
+			projectEconomicAccount.setCode(entry.getKey());
+			projectEconomicAccounts.add(new DtoProjectEconomicAccount(projectEconomicAccount, entry.getValue()));
+		}
+		return projectEconomicAccounts;
+	}
+
+	public Map<String, List<ProjectEconomicAccount>> generateThreeDigitsProjectEconomicAccountsMap() {
+		Map<String, List<ProjectEconomicAccount>> map = new HashMap<>();
+		for (ProjectEconomicAccount projectEconomicAccount : projectEconomicAccounts) {
+			String threeDigits = projectEconomicAccount.getCode().substring(0, 3).concat("000");
+			if (map.containsKey(threeDigits)) {
+				List<ProjectEconomicAccount> projectEconomicAccounts = map.get(threeDigits);
+				projectEconomicAccounts.add(projectEconomicAccount);
+				map.put(threeDigits, projectEconomicAccounts);
+			} else {
+				List<ProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
+				projectEconomicAccounts.add(projectEconomicAccount);
+				map.put(threeDigits, projectEconomicAccounts);
+			}
+		}
+		return map;
+	}
+	
 }

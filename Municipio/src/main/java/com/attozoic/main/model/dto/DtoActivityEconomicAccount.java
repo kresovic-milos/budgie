@@ -7,15 +7,15 @@ import com.attozoic.main.model.ActivityEconomicAccount;
 import lombok.Data;
 
 @Data
-public class DtoActivityEconomicAccountThreeDigitsCollection {
+public class DtoActivityEconomicAccount {
 
 	private ActivityEconomicAccount activityEconomicAccount;
 	
 	private List<ActivityEconomicAccount> activityEconomicAccounts;
 	
-	public DtoActivityEconomicAccountThreeDigitsCollection() {}
+	public DtoActivityEconomicAccount() {}
 	
-	public DtoActivityEconomicAccountThreeDigitsCollection(ActivityEconomicAccount activityEconomicAccount, List<ActivityEconomicAccount> activityEconomicAccounts) {
+	public DtoActivityEconomicAccount(ActivityEconomicAccount activityEconomicAccount, List<ActivityEconomicAccount> activityEconomicAccounts) {
 		this.activityEconomicAccount = activityEconomicAccount;
 		this.activityEconomicAccounts = activityEconomicAccounts;
 	}

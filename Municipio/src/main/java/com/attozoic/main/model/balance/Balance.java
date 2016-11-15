@@ -123,11 +123,6 @@ public class Balance extends SuperEntity {
 	
 	// SUM ActivityFinancialSource Lists !
 	public void sumActivityFinancialSourceBalances(Balance balance) {
-		this.setQuarter1_amount(this.getQuarter1_amount() + balance.getQuarter1_amount());
-		this.setQuarter2_amount(this.getQuarter2_amount() + balance.getQuarter2_amount());
-		this.setQuarter3_amount(this.getQuarter3_amount() + balance.getQuarter3_amount());
-		this.setQuarter4_amount(this.getQuarter4_amount() + balance.getQuarter4_amount());
-		this.setBalance_amount(this.balance_amount + balance.balance_amount);
 		Map<String, Double> map_q1 = sumFinancialSourceLists(this.getQuarter1(), balance.getQuarter1());
 		List<SuperFinancialSource> q1 = new ArrayList<>();
 		for (Map.Entry<String, Double> entry : map_q1.entrySet()) {
@@ -135,6 +130,7 @@ public class Balance extends SuperEntity {
 			q1.add(activityFinancialSource);
 		}
 		this.setQuarter1(q1);
+		
 		Map<String, Double> map_q2 = sumFinancialSourceLists(this.getQuarter2(), balance.getQuarter2());
 		List<SuperFinancialSource> q2 = new ArrayList<>();
 		for (Map.Entry<String, Double> entry : map_q2.entrySet()) {
@@ -156,6 +152,11 @@ public class Balance extends SuperEntity {
 			q1.add(activityFinancialSource);
 		}
 		this.setQuarter4(q4);
+		this.setQuarter1_amount(this.getQuarter1_amount() + balance.getQuarter1_amount());
+		this.setQuarter2_amount(this.getQuarter2_amount() + balance.getQuarter2_amount());
+		this.setQuarter3_amount(this.getQuarter3_amount() + balance.getQuarter3_amount());
+		this.setQuarter4_amount(this.getQuarter4_amount() + balance.getQuarter4_amount());
+		this.setBalance_amount(this.balance_amount + balance.balance_amount);
 	}
 	
 	// SUM ProjectFinancialSource Lists !
@@ -192,18 +193,22 @@ public class Balance extends SuperEntity {
 	
 	private Map<String, Double> sumFinancialSourceLists(List<SuperFinancialSource> listFinancialSources1, List<SuperFinancialSource> listFinancialSources2) {
 		Map<String, Double> map = new HashMap<>();
-		for (int i = 0; i < listFinancialSources1.size(); i++) {
-			if (map.containsKey(listFinancialSources1.get(i).getName())) {
-				map.put(listFinancialSources1.get(i).getName(), map.get(listFinancialSources1.get(i).getName()) + listFinancialSources1.get(i).getAmount());
-			} else {
-				map.put(listFinancialSources1.get(i).getName(), listFinancialSources1.get(i).getAmount());
+		if (!listFinancialSources1.isEmpty()) {
+			for (int i = 0; i < listFinancialSources1.size(); i++) {
+				if (map.containsKey(listFinancialSources1.get(i).getName())) {
+					map.put(listFinancialSources1.get(i).getName(), map.get(listFinancialSources1.get(i).getName()) + listFinancialSources1.get(i).getAmount());
+				} else {
+					map.put(listFinancialSources1.get(i).getName(), listFinancialSources1.get(i).getAmount());
+				}
 			}
 		}
-		for (int i = 0; i < listFinancialSources2.size(); i++) {
-			if (map.containsKey(listFinancialSources2.get(i).getName())) {
-				map.put(listFinancialSources2.get(i).getName(), map.get(listFinancialSources2.get(i).getName()) + listFinancialSources2.get(i).getAmount());
-			} else {
-				map.put(listFinancialSources2.get(i).getName(), listFinancialSources2.get(i).getAmount());
+		if (!listFinancialSources2.isEmpty()) {
+			for (int i = 0; i < listFinancialSources2.size(); i++) {
+				if (map.containsKey(listFinancialSources2.get(i).getName())) {
+					map.put(listFinancialSources2.get(i).getName(), map.get(listFinancialSources2.get(i).getName()) + listFinancialSources2.get(i).getAmount());
+				} else {
+					map.put(listFinancialSources2.get(i).getName(), listFinancialSources2.get(i).getAmount());
+				}
 			}
 		}
 		return map;

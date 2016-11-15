@@ -37,10 +37,10 @@ public class DaoBalance extends DaoEntity {
 		balance_q1.generateBalanceAmountValue();
 		SuperEconomicAccount superEconomicAccount = balance_q1.getSuperEconomicAccount(); 
 		if (superEconomicAccount instanceof ActivityEconomicAccount) {
-			System.out.println("Ja sam aktivnost");
+			//System.out.println("Im Activity");
 			((ActivityEconomicAccount)superEconomicAccount).sumExpences123();
 		} else {
-			System.out.println("Ja sam projekat");
+			//System.out.println("Im Project");
 			((ProjectEconomicAccount)superEconomicAccount).sumExpences123();
 		}
 		superFinancialSource.setBalance_q1(balance_q1);

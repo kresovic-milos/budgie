@@ -20,9 +20,12 @@ public class ActivityFinancialSource extends SuperFinancialSource {
 	
 	private Long categoryID;
 
+	private String type;
+	
 	private String code;
 	
     public ActivityFinancialSource() {
+    	this.type = "activityFinancialSource";
     	this.setAmount(0);
     }
     

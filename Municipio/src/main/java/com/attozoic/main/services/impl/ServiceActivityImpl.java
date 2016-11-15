@@ -9,7 +9,7 @@ import com.attozoic.main.dao.DaoActivity;
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
-import com.attozoic.main.model.dto.DtoActivityEconomicAccountThreeDigitsCollection;
+import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.services.ServiceActivity;
 
 @Service
@@ -24,7 +24,7 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	}
 	
 	@Override
-	public List<DtoActivityEconomicAccountThreeDigitsCollection> getDto(Long uid) {
+	public List<DtoActivityEconomicAccount> getDto(Long uid) {
 		return ((DaoActivity) getDaoEntity()).getDto(uid);
 	}
 	

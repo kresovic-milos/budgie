@@ -27,7 +27,7 @@ import lombok.EqualsAndHashCode;
 @JsonTypeName("projectEconomicAccount")
 public class ProjectEconomicAccount extends SuperEconomicAccount {
 	
-	// SAM SEBI DODAJE REBALANS!!!!!!!!!!!
+	private String type;
 	
 	private String code;
 	private String name;
@@ -42,7 +42,9 @@ public class ProjectEconomicAccount extends SuperEconomicAccount {
 	@JsonIgnoreProperties({"code", "name", "purpose", "rudiment", "description", "anex", "responsibleAuthority", "categoryFunctionID", "functionCode", "function", "categoryHeadID", "headCode", "head", "categoryAuthorityID", "authorityCode", "authority", "authorityJbbk", "programme", "projectGoals", "projectEconomicAccounts"})
     private Project project;
     
-	public ProjectEconomicAccount() {}
+	public ProjectEconomicAccount() {
+		this.type = "projectEconomicAccount";
+	}
 	
 	public void generateBalances(int numRebalances) {
 		this.balances.add(new Balance(BalanceType.BUDGET, 2016, this));
@@ -83,6 +85,14 @@ public class ProjectEconomicAccount extends SuperEconomicAccount {
     			this.setSumExpenses123Others(this.getSumExpenses123Others() + this.balances.get(i).getBalance_amount());
     		}
     	}
+    }
+    
+    public void sumProjectEconomicAccounts(ProjectEconomicAccount projectEconomicAccount) {
+//    	this.setSumExpenses123Budget(this.getSumExpenses123Budget() + activityEconomicAccount.getSumExpenses123Budget());
+//    	this.setSumExpenses123Others(this.getSumExpenses123Others() + activityEconomicAccount.getSumExpenses123Others());
+//    	for (int i = 1; i < this.balances.size(); i++) {
+//    		this.balances.get(i).sumActivityFinancialSourceBalances(activityEconomicAccount.getBalances().get(i));
+//    	}
     }
     
 }

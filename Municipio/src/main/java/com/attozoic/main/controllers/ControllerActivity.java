@@ -15,7 +15,7 @@ import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEntity;
-import com.attozoic.main.model.dto.DtoActivityEconomicAccountThreeDigitsCollection;
+import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.services.ServiceActivity;
 
 @RestController
@@ -33,7 +33,7 @@ public class ControllerActivity {
 	
 	//getActivityDto{uid}
 	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoActivityEconomicAccountThreeDigitsCollection> getActivityDto(@PathVariable(value="uid") Long uid) {
+	public List<DtoActivityEconomicAccount> getActivityDto(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.getDto(uid);
 	}
 

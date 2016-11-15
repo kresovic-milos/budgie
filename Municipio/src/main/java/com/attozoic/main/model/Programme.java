@@ -50,7 +50,7 @@ public class Programme extends SuperEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="sector_uid")
 	@NotFound(action=NotFoundAction.IGNORE)
-	@JsonIgnoreProperties({"categoryID", "name", "programmes"}) 
+	@JsonIgnoreProperties({"categoryID", "programmes"}) 
     private Sector sector;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")

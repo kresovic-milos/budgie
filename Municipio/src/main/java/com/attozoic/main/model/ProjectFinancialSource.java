@@ -18,9 +18,12 @@ import lombok.EqualsAndHashCode;
 @JsonTypeName("projectFinancialSource")
 public class ProjectFinancialSource extends SuperFinancialSource {
 	
+	private String type;
+	
 	private String code;
 	
     public ProjectFinancialSource() {
+    	this.type = "projectFinancialSource";
     	this.setAmount(0);
     }
     

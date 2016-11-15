@@ -31,6 +31,8 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
 	
 	private Long categoryID;
 
+	private String type;
+	
 	private String code;
 	private String categoryName;
 	private String name;
@@ -45,7 +47,9 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
 	@JsonIgnoreProperties({"categoryID", "code", "ordNumber", "categoryName", "name", "purpose", "rudiment", "description", "anex", "responsibleAuthority", "categoryFunctionID", "functionCode", "function", "categoryHeadID", "headCode", "head", "categoryAuthorityID", "authorityCode", "authority", "authorityJbbk", "programme", "activityGoals", "activityEconomicAccounts"})
     private Activity activity;
 	
-	public ActivityEconomicAccount() {}
+	public ActivityEconomicAccount() {
+		this.type = "activityEconomicAccount";
+	}
 	
 	public void generateBalances(int numRebalances) {
 		this.balances.add(new Balance(BalanceType.BUDGET, 2016, this));
@@ -94,11 +98,11 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
     }
     
     public void sumActivityEconomicAccounts(ActivityEconomicAccount activityEconomicAccount) {
-    	this.setSumExpenses123Budget(this.getSumExpenses123Budget() + activityEconomicAccount.getSumExpenses123Budget());
-    	this.setSumExpenses123Others(this.getSumExpenses123Others() + activityEconomicAccount.getSumExpenses123Others());
-    	for (int i = 1; i < this.balances.size(); i++) {
+    	for (int i = 0; i < this.balances.size(); i++) {
     		this.balances.get(i).sumActivityFinancialSourceBalances(activityEconomicAccount.getBalances().get(i));
     	}
+    	this.setSumExpenses123Budget(this.getSumExpenses123Budget() + activityEconomicAccount.getSumExpenses123Budget());
+    	this.setSumExpenses123Others(this.getSumExpenses123Others() + activityEconomicAccount.getSumExpenses123Others());
     }
     
 }

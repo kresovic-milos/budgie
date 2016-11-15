@@ -27,6 +27,9 @@ import lombok.EqualsAndHashCode;
 public class ProgrammeGoalIndicator extends SuperGoalIndicator {
 
 	private Long categoryID;
+	
+	private String type;
+	
 	private String name;
 	
     @ManyToOne(fetch=FetchType.LAZY)
@@ -35,7 +38,9 @@ public class ProgrammeGoalIndicator extends SuperGoalIndicator {
     @JsonIgnoreProperties({"categoryID", "code", "name", "programme", "programmeGoalIndicators"})
     private ProgrammeGoal programmeGoal;
 	
-	public ProgrammeGoalIndicator() {}	
+	public ProgrammeGoalIndicator() {
+		this.type = "programmeGoalIndicator";
+	}	
 	
 	public void generateBalancesText(int numRebalances) {
 		this.balancesText.add(new BalanceText("", 2016, this));

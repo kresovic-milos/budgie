@@ -16,7 +16,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
-import com.attozoic.main.model.dto.DtoActivityEconomicAccountThreeDigitsCollection;
+import com.attozoic.main.model.balance.Balance;
+import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -72,18 +73,28 @@ public class Activity extends SuperEntity {
     
 	public Activity() {}
 	
-	public List<DtoActivityEconomicAccountThreeDigitsCollection> generateThreeDigitsActivityEconomicAccountsDTOList(int numRebalances) {
+	public List<DtoActivityEconomicAccount> generateActivityEconomicAccountDTOsList(int numRebalances) {
 		Map<String, List<ActivityEconomicAccount>> map = generateThreeDigitsActivityEconomicAccountsMap();
-		List<DtoActivityEconomicAccountThreeDigitsCollection> activityEconomicAccounts = new ArrayList<>();
+		List<DtoActivityEconomicAccount> activityEconomicAccounts = new ArrayList<>();
 		for (Map.Entry<String, List<ActivityEconomicAccount>> entry : map.entrySet()) {
 			ActivityEconomicAccount activityEconomicAccount = new ActivityEconomicAccount();
 			activityEconomicAccount.generateBalances(numRebalances);
-			List<ActivityEconomicAccount> list = entry.getValue();
-			for (ActivityEconomicAccount activityEconomicAccount2 : list) {
+			//List<ActivityEconomicAccount> list = entry.getValue();
+			for (ActivityEconomicAccount activityEconomicAccount2 : entry.getValue()) {
+
 				activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
+
 			}
 			activityEconomicAccount.setCode(entry.getKey());
-			activityEconomicAccounts.add(new DtoActivityEconomicAccountThreeDigitsCollection(activityEconomicAccount, entry.getValue()));
+			activityEconomicAccounts.add(new DtoActivityEconomicAccount(activityEconomicAccount, entry.getValue()));
+//			for (int i = 0; i < activityEconomicAccount.getBalances().size(); i++) {
+//				System.out.println(activityEconomicAccount.getBalances().get(i).getQuarter1_amount());
+//				System.err.println(activityEconomicAccount.getBalances().get(i).getQuarter1().get(0));
+//				System.out.println(activityEconomicAccount.getBalances().get(i).getQuarter2_amount());
+//				System.out.println(activityEconomicAccount.getBalances().get(i).getQuarter3_amount());
+//				System.out.println(activityEconomicAccount.getBalances().get(i).getQuarter4_amount());
+//			}
+			System.out.println(activityEconomicAccount.getBalances());
 		}
 		return activityEconomicAccounts;
 	}
@@ -102,20 +113,18 @@ public class Activity extends SuperEntity {
 				map.put(threeDigits, activityEconomicAccounts);
 			}
 		}
+		for (Map.Entry<String, List<ActivityEconomicAccount>> entry : map.entrySet()) {
+			System.err.println(entry.getKey());
+			for (ActivityEconomicAccount activityEconomicAccount : entry.getValue()) {
+				for (Balance balance : activityEconomicAccount.getBalances()) {
+					System.out.println(balance.getQuarter1_amount());
+					System.out.println(balance.getQuarter2_amount());
+					System.out.println(balance.getQuarter3_amount());
+					System.out.println(balance.getQuarter4_amount());
+				}
+			}
+		}
 		return map;
 	}
-	
-//	public Map<String, ActivityEconomicAccount> generateThreeDigitsActivityEconomicAccountsMap() {
-//		Map<String, ActivityEconomicAccount> map = new HashMap<>();
-//		for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccounts) {
-//			String threeDigits = activityEconomicAccount.getCode().substring(0, 3).concat("000");
-//			if (map.containsKey(threeDigits)) {
-//				map.put(threeDigits, map.get(threeDigits).sumActivityEconomicAccounts(activityEconomicAccount));
-//			} else {
-//				map.put(threeDigits, activityEconomicAccount);
-//			}
-//		}
-//		return map;
-//	}
 	
 }
