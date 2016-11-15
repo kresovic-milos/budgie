@@ -19,10 +19,14 @@ import lombok.EqualsAndHashCode;
 public class ProjectFinancialSource extends SuperFinancialSource {
 	
 	private String code;
-	private String name;
 	
     public ProjectFinancialSource() {
     	this.setAmount(0);
+    }
+    
+    public ProjectFinancialSource(String name, double amount) {
+    	this.setName(name);
+    	this.setAmount(amount);
     }
     
 }

@@ -21,10 +21,14 @@ public class ActivityFinancialSource extends SuperFinancialSource {
 	private Long categoryID;
 
 	private String code;
-	private String name;
 	
     public ActivityFinancialSource() {
     	this.setAmount(0);
+    }
+    
+    public ActivityFinancialSource(String name, Double amount) {
+    	this.setName(name);
+    	this.setAmount(amount);
     }
 
 }

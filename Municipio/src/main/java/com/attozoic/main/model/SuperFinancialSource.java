@@ -31,6 +31,7 @@ import lombok.EqualsAndHashCode;
 public abstract class SuperFinancialSource extends SuperEntity {
 
 	private double amount;
+	private String name;
 
 	@ManyToOne
 	@JoinColumn(name = "balance_q1_id")

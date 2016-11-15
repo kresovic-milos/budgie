@@ -1,5 +1,7 @@
 package com.attozoic.main.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -13,6 +15,7 @@ import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.dto.DtoActivityEconomicAccountThreeDigitsCollection;
 import com.attozoic.main.services.ServiceActivity;
 
 @RestController
@@ -28,11 +31,11 @@ public class ControllerActivity {
 //		return serviceActivity.buildActivityFinanceDto(uid);
 //	}
 	
-//	//getActivityDto{uid}
-//	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public DtoProgrammeExpencesItem getActivityDto(@PathVariable(value="uid") Long uid) {
-//		return serviceActivity.buildActivityDto(uid);
-//	}
+	//getActivityDto{uid}
+	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoActivityEconomicAccountThreeDigitsCollection> getActivityDto(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getDto(uid);
+	}
 
 	//addActivityGoal to Activity{uid}
 	@RequestMapping(value="/{uid}/activityGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

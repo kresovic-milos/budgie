@@ -1,5 +1,7 @@
 package com.attozoic.main.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import com.attozoic.main.dao.DaoActivity;
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.dto.DtoActivityEconomicAccountThreeDigitsCollection;
 import com.attozoic.main.services.ServiceActivity;
 
 @Service
@@ -18,6 +21,11 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	@Override
 	public DaoEntity getDaoEntity() {
 		return daoActivity;
+	}
+	
+	@Override
+	public List<DtoActivityEconomicAccountThreeDigitsCollection> getDto(Long uid) {
+		return ((DaoActivity) getDaoEntity()).getDto(uid);
 	}
 	
 	@Override
@@ -34,6 +42,8 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	public ActivityEconomicAccount addActivityEconomicAccount(Long uid, ActivityEconomicAccount activityEconomicAccount) {
 		return ((DaoActivity) getDaoEntity()).addActivityEconomicAccount(uid, activityEconomicAccount);
 	}
+
+
 	
 //	@Override
 //	public Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(Long uid) {

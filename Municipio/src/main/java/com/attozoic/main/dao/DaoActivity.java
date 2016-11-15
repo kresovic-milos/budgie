@@ -1,11 +1,14 @@
 package com.attozoic.main.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.dto.DtoActivityEconomicAccountThreeDigitsCollection;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
@@ -23,6 +26,15 @@ public class DaoActivity extends DaoEntity {
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repoActivity;
+	}
+	
+	public List<DtoActivityEconomicAccountThreeDigitsCollection> getDto(Long uid) {
+		Activity activity = (Activity)getRepoEntity().findOne(uid);
+		int numRebalances = 0;
+		try {
+			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+		} catch (NullPointerException ex) {}
+		return activity.generateThreeDigitsActivityEconomicAccountsDTOList(numRebalances);
 	}
 	
 	// addActivityGoal
@@ -69,7 +81,8 @@ public class DaoActivity extends DaoEntity {
 //		List<ActivityEconomicAccount> activityEconomicAccountList = new ArrayList<>();
 //		Map<String, List<ActivityEconomicAccount>> activityEconomicAccountMap = getActivityEconomicAccountMap(uid);
 //		for (Map.Entry<String, List<ActivityEconomicAccount>> entry : activityEconomicAccountMap.entrySet()) {
-//		    ActivityEconomicAccount activityEconomicAccount = new ActivityEconomicAccount();
+//		    
+//			ActivityEconomicAccount activityEconomicAccount = new ActivityEconomicAccount();
 //		    for (ActivityEconomicAccount activityEconomicAccount2 : entry.getValue()) {
 //				activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
 //			}

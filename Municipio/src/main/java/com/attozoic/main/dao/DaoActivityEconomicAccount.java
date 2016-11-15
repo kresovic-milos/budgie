@@ -17,19 +17,5 @@ public class DaoActivityEconomicAccount extends DaoEntity {
 	public RepositoryEntity getRepoEntity() {
 		return repoActivityEconomicAccount;
 	}
-	
-//	@Override
-//	public SuperEntity update(SuperEntity superEntity) {
-//		// Uzmes broj rebalansa pa tako
-//		ActivityEconomicAccount activityEconomicAccount = (ActivityEconomicAccount) superEntity;
-//		activityEconomicAccount.setSumExpenses123Budget(activityEconomicAccount.sumExpenses123Budget());
-//		activityEconomicAccount.setSumExpenses123Others(activityEconomicAccount.sumExpenses123Others());
-//		List<BalanceContainer> balanceContainers = activityEconomicAccount.getBalanceContainers();
-//		BalanceContainer balanceContainer = balanceContainers.get(1);
-//		List<BalanceEconomicAccount> accounts = balanceContainer.getBalances();
-//		Balance bwq = (Balance)accounts.get(1);
-//		bwq.sumQuarters(); //SETUJ
-//		return super.update(activityEconomicAccount);
-//	}
 		
 }

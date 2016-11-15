@@ -1,5 +1,7 @@
 package com.attozoic.main.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -34,8 +36,8 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
 	private String name;
 	private String poz;
 
-	private double sumExpenses123Budget;
-	private double sumExpenses123Others;
+	private double sumExpenses123Budget = 0;
+	private double sumExpenses123Others = 0;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="activity_uid")
@@ -61,53 +63,42 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
 		this.balances.add(new Balance(BalanceType.BUDGET, 2019, this));
 		this.balances.add(new Balance(BalanceType.OTHERS, 2019, this));
 	}
-	
+
     public void addRebalance(int numRebalances) {
-    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.OTHERS, 2017 + (numRebalances + 1) * 0.1, this));
-    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.BUDGET, 2017 + (numRebalances + 1) * 0.1, this));
+    	List<Balance> list = this.getBalances();
+    	list.add(this.balances.size()-4, new Balance(BalanceType.BUDGET, 2017 + (numRebalances + 1) * 0.1, this));
+    	list.add(this.balances.size()-4, new Balance(BalanceType.OTHERS, 2017 + (numRebalances + 1) * 0.1, this));
+    	this.setBalances(list);
     }
+	
+//    public void addRebalance(int numRebalances) {
+//    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.BUDGET, 2017 + (numRebalances + 1) * 0.1, this));
+//    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.OTHERS, 2017 + (numRebalances + 1) * 0.1, this));
+//    }
     
     public void removeRebalance(int numRebalances) {
     	this.balances.remove(numRebalances-5);
     	this.balances.remove(numRebalances-5);
     }
 	
-//    public double sumExpenses123Budget() {
-//    	double sum = 0;
-//    	for (int i = 0; i < this.balanceContainers.size(); i+=2) {
-//    		BalanceContainer balanceContainer = this.balanceContainers.get(i);
-//    		for (int j = 0; j < balanceContainer.getBalances().size(); j++) {
-//    			BalanceEconomicAccount bec = balanceContainer.getBalances().get(j);
-//    			if (bec instanceof Balance) {
-//    				sum += ((Balance) bec).getSumQuarters();
-//    			} else if (bec instanceof BalanceNumeric) {
-//    				sum += ((BalanceNumeric) bec).getValue();
-//    			}
-//    		}
-//    	}
-//    	return sum;
-//    }
-//    
-//    public double sumExpenses123Others() {
-//    	double sum = 0;
-//    	for (int i = 1; i < this.balanceContainers.size(); i+=2) {
-//    		BalanceContainer balanceContainer = this.balanceContainers.get(i);
-//    		for (int j = 0; j < balanceContainer.getBalances().size(); j++) {
-//    			BalanceEconomicAccount bec = balanceContainer.getBalances().get(j);
-//    			if (bec instanceof Balance) {
-//    				sum += ((Balance) bec).getSumQuarters();
-//    			} else if (bec instanceof BalanceNumeric) {
-//    				sum += ((BalanceNumeric) bec).getValue();
-//    			}
-//    		}
-//    	}
-//    	return sum;
-//    }
-//    
-//    public void sumActivityEconomicAccounts(ActivityEconomicAccount activityEconomicAccount) {
-//    	for (int i = 0; i < this.balanceContainers.size(); i++) {
-//    		this.balanceContainers.get(i).sumBalanceContainers(activityEconomicAccount.getBalanceContainers().get(i));
-//    	}
-//    }
+    public void sumExpences123() {
+    	this.setSumExpenses123Budget(0);
+    	this.setSumExpenses123Others(0);
+		for (int i = 2; i < this.balances.size(); i++) {
+    		if (this.balances.get(i).getBalanceType() == BalanceType.BUDGET) {
+    			this.setSumExpenses123Budget(this.getSumExpenses123Budget() + this.balances.get(i).getBalance_amount());
+    		} else {
+    			this.setSumExpenses123Others(this.getSumExpenses123Others() + this.balances.get(i).getBalance_amount());
+    		}
+    	}
+    }
+    
+    public void sumActivityEconomicAccounts(ActivityEconomicAccount activityEconomicAccount) {
+    	this.setSumExpenses123Budget(this.getSumExpenses123Budget() + activityEconomicAccount.getSumExpenses123Budget());
+    	this.setSumExpenses123Others(this.getSumExpenses123Others() + activityEconomicAccount.getSumExpenses123Others());
+    	for (int i = 1; i < this.balances.size(); i++) {
+    		this.balances.get(i).sumActivityFinancialSourceBalances(activityEconomicAccount.getBalances().get(i));
+    	}
+    }
     
 }

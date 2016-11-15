@@ -70,37 +70,19 @@ public class ProjectEconomicAccount extends SuperEconomicAccount {
     	this.balances.remove(numRebalances-5);
     	this.balances.remove(numRebalances-5);
     }
-	
-//    public double sumExpenses123Budget() {
-//    	double sum = 0;
-//    	for (int i = 0; i < this.balanceContainers.size(); i+=2) {
-//    		BalanceContainer balanceContainer = this.balanceContainers.get(i);
-//    		for (int j = 0; j < balanceContainer.getBalances().size(); j++) {
-//    			BalanceEconomicAccount bec = balanceContainer.getBalances().get(j);
-//    			if (bec instanceof Balance) {
-//    				sum += ((Balance) bec).getSumQuarters();
-//    			} else if (bec instanceof BalanceNumeric) {
-//    				sum += ((BalanceNumeric) bec).getValue();
-//    			}
-//    		}
-//    	}
-//    	return sum;
-//    }
-//    
-//    public double sumExpenses123Others() {
-//    	double sum = 0;
-//    	for (int i = 1; i < this.balanceContainers.size(); i+=2) {
-//    		BalanceContainer balanceContainer = this.balanceContainers.get(i);
-//    		for (int j = 0; j < balanceContainer.getBalances().size(); j++) {
-//    			BalanceEconomicAccount bec = balanceContainer.getBalances().get(j);
-//    			if (bec instanceof Balance) {
-//    				sum += ((Balance) bec).getSumQuarters();
-//    			} else if (bec instanceof BalanceNumeric) {
-//    				sum += ((BalanceNumeric) bec).getValue();
-//    			}
-//    		}
-//    	}
-//    	return sum;
-//    }
+    
+    public void sumExpences123() {
+    	System.out.println("Ivan" + this.getName());
+    	for (int i = 0; i < this.balances.size(); i++) {
+    		System.out.println("Ivan" + this.getBalances().get(i).getBalance_amount());
+    	}
+		for (int i = 2; i < this.balances.size(); i++) {
+    		if (this.balances.get(i).getBalanceType() == BalanceType.BUDGET) {
+    			this.setSumExpenses123Budget(this.getSumExpenses123Budget() + this.balances.get(i).getBalance_amount());
+    		} else {
+    			this.setSumExpenses123Others(this.getSumExpenses123Others() + this.balances.get(i).getBalance_amount());
+    		}
+    	}
+    }
     
 }

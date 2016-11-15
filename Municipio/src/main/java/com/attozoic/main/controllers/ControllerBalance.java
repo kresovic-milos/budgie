@@ -19,7 +19,7 @@ import com.attozoic.main.services.ServiceBalance;
 public class ControllerBalance {
 
 	@Autowired
-	private ServiceBalance serviceBalance;
+	private ServiceBalance serviceBalance; 
 	
 	//addQuarter1 to Balance{uid}
 	@RequestMapping(value="/{uid}/quarter1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
