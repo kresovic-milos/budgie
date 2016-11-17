@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.services.ServiceActivity;
@@ -25,16 +26,16 @@ public class ControllerActivity {
 	@Autowired
 	private ServiceActivity serviceActivity;
 	
-	//getActivityFinanceDto{uid}
-//	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public DtoProgrammeFinancialSource getActivityFinanceDto(@PathVariable(value="uid") Long uid) {
-//		return serviceActivity.buildActivityFinanceDto(uid);
-//	}
+	//getActivityEconomicAccountFooter{uid}
+	@RequestMapping(value="/{uid}/dtoExpencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public SuperEconomicAccount getActivityEconomicAccountFooter(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityEconomicAccountFooter(uid);
+	}
 	
-	//getActivityDto{uid}
-	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoActivityEconomicAccount> getActivityDto(@PathVariable(value="uid") Long uid) {
-		return serviceActivity.getDto(uid);
+	//getActivityEconomicAccountDTOsList{uid}
+	@RequestMapping(value="/{uid}/dtoExpences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoActivityEconomicAccount> getActivityEconomicAccountDTOsList(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityEconomicAccountDTOsList(uid);
 	}
 
 	//addActivityGoal to Activity{uid}
@@ -102,10 +103,5 @@ public class ControllerActivity {
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceActivity.unarchive(uid);
 	}
-	
-//	@RequestMapping(value="{uid}/economicAccountsMap", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public Map<ActivityEconomicAccount, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(@PathVariable(value="uid") Long uid) {
-//		return serviceActivity.getActivityEconomicAccountMap(uid);
-//	}
 
 }

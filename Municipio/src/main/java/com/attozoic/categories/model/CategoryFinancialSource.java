@@ -19,9 +19,4 @@ public class CategoryFinancialSource extends CategorySuperEntity {
 
 	public CategoryFinancialSource() {}
 	
-	public CategoryFinancialSource(String code, String name) {
-		this.code = code;
-		this.name = name;
-	}
-	
 }

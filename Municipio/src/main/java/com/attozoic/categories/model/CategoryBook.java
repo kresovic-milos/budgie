@@ -7,14 +7,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "category_heads")
+@Table(name = "category_books")
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class CategoryHead extends CategorySuperEntity {
-
+public class CategoryBook extends CategorySuperEntity {
+	
 	private String code;
 	private String name;
 	
-	public CategoryHead() {}
-	
+	public CategoryBook() {}
+
 }

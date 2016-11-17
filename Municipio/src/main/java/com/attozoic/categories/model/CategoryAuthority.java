@@ -18,12 +18,5 @@ public class CategoryAuthority extends CategorySuperEntity {
 	private String authority;
 	
 	public CategoryAuthority() {}
-
-	public CategoryAuthority(String code, String jbbk, String name, String authority) {
-		this.code = code;
-		this.jbbk = jbbk;
-		this.name = name;
-		this.authority = authority;
-	}
 	
 }

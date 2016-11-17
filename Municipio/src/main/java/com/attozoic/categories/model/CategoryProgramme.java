@@ -47,14 +47,6 @@ public class CategoryProgramme extends CategorySuperEntity {
 	@JsonManagedReference	
 	private List<CategoryActivity> acivities;
 
-	public CategoryProgramme() {
-	}
-
-	public CategoryProgramme(String code, String ordNumber, String name, String purpose) {
-		this.code = code;
-		this.ordNumber = ordNumber;
-		this.name = name;
-		this.purpose = purpose;
-	}	
+	public CategoryProgramme() {}
 	
 }

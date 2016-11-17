@@ -31,8 +31,4 @@ public class CategoryActivityGoalIndicator extends CategorySuperEntity {
 	
 	public CategoryActivityGoalIndicator() {}
 	
-	public CategoryActivityGoalIndicator(String name) {
-		this.name = name;
-	}
-	
 }

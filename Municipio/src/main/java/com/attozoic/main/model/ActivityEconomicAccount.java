@@ -1,5 +1,6 @@
 package com.attozoic.main.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,13 +29,12 @@ import lombok.EqualsAndHashCode;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=ActivityEconomicAccount.class)
 @JsonTypeName("ativityEconomicAcount")
 public class ActivityEconomicAccount extends SuperEconomicAccount {
-	
-	private Long categoryID;
 
 	private String type;
 	
+	private Long categoryID;
+	
 	private String code;
-	private String categoryName;
 	private String name;
 	private String poz;
 
@@ -67,25 +67,18 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
 		this.balances.add(new Balance(BalanceType.BUDGET, 2019, this));
 		this.balances.add(new Balance(BalanceType.OTHERS, 2019, this));
 	}
-
-    public void addRebalance(int numRebalances) {
-    	List<Balance> list = this.getBalances();
-    	list.add(this.balances.size()-4, new Balance(BalanceType.BUDGET, 2017 + (numRebalances + 1) * 0.1, this));
-    	list.add(this.balances.size()-4, new Balance(BalanceType.OTHERS, 2017 + (numRebalances + 1) * 0.1, this));
-    	this.setBalances(list);
-    }
 	
-//    public void addRebalance(int numRebalances) {
-//    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.BUDGET, 2017 + (numRebalances + 1) * 0.1, this));
-//    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.OTHERS, 2017 + (numRebalances + 1) * 0.1, this));
-//    }
+    public void addRebalance(int numRebalances) {
+    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.BUDGET, 2017 + (numRebalances + 1) * 0.1, this));
+    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.OTHERS, 2017 + (numRebalances + 1) * 0.1, this));
+    }
     
     public void removeRebalance(int numRebalances) {
     	this.balances.remove(numRebalances-5);
     	this.balances.remove(numRebalances-5);
     }
 	
-    public void sumExpences123() {
+    public void generateSumExpences123() {
     	this.setSumExpenses123Budget(0);
     	this.setSumExpenses123Others(0);
 		for (int i = 2; i < this.balances.size(); i++) {
@@ -97,12 +90,38 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
     	}
     }
     
-    public void sumActivityEconomicAccounts(ActivityEconomicAccount activityEconomicAccount) {
+    public ActivityEconomicAccount sumActivityEconomicAccounts(ActivityEconomicAccount activityEconomicAccount) {
+    	ActivityEconomicAccount activityEconomicAccount2 = new ActivityEconomicAccount();
+    	List<Balance> list = new ArrayList<>();
     	for (int i = 0; i < this.balances.size(); i++) {
-    		this.balances.get(i).sumActivityFinancialSourceBalances(activityEconomicAccount.getBalances().get(i));
+    		list.add(this.balances.get(i).sumBalancesSameYearAndType(activityEconomicAccount.getBalances().get(i)));
     	}
-    	this.setSumExpenses123Budget(this.getSumExpenses123Budget() + activityEconomicAccount.getSumExpenses123Budget());
-    	this.setSumExpenses123Others(this.getSumExpenses123Others() + activityEconomicAccount.getSumExpenses123Others());
+    	activityEconomicAccount2.setBalances(list);
+    	activityEconomicAccount2.generateSumExpences123();
+    	return activityEconomicAccount2;
     }
+
+    
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+    //   O V A   M E T O D A   R A D I  ! ! ! 
+//    public List<DtoBalanceActivityFinancialSourceListObject> generateActivityEconomicAccountFinancialSourceLists() {
+//    	List<DtoBalanceActivityFinancialSourceListObject> list = new ArrayList<>();
+//    	for (Balance balance : balances) {
+//			list.add(new DtoBalanceActivityFinancialSourceListObject(balance.getYear(), balance.generateBalanceActivityFinancialSourcesList()));
+//		}
+//    	return list;
+//    }
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //    
+    
+//    public List<DtoBalanceActivityFinancialSourceListObject> sumActivityFinancialSourceBalancesLists(ActivityEconomicAccount activityEconomicAccount) {
+//    	List<DtoBalanceActivityFinancialSourceListObject> list = new ArrayList<>();
+//    	List<DtoBalanceActivityFinancialSourceListObject> list1 = this.generateActivityEconomicAccountFinancialSourceLists();
+//    	List<DtoBalanceActivityFinancialSourceListObject> list2 = activityEconomicAccount.generateActivityEconomicAccountFinancialSourceLists();
+//
+//    	for (int i = 0; i < this.balances.size(); i++) {
+//    		list.add(new DtoBalanceActivityFinancialSourceListObject(list1.get(i).getYear(), list1.get(i).sumLists(list2.get(i).getActivityFinancialSources())));
+//    	}    	
+//    	return list;
+//    }
     
 }

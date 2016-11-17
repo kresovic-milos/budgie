@@ -40,11 +40,6 @@ public class CategoryProgrammeGoal extends CategorySuperEntity {
 	@JsonManagedReference
 	private List<CategoryProgrammeGoalIndicator> categoryProgrameGoalIndicators;
 	
-	public CategoryProgrammeGoal(){}
-	
-	public CategoryProgrammeGoal(String code, String name) {
-		this.code = code;
-		this.name = name;
-	}
+	public CategoryProgrammeGoal() {}
 	
 }

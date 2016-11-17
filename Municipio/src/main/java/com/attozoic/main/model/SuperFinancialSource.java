@@ -30,31 +30,24 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public abstract class SuperFinancialSource extends SuperEntity {
 
-	private double amount;
 	private String name;
-
-	@ManyToOne
-	@JoinColumn(name = "balance_q1_id")
-	@NotFound(action=NotFoundAction.IGNORE)
-	@JsonIgnoreProperties({"balanceType", "year", "quarter1", "quarter2", "quarter3", "quarter4"})
-	private Balance balance_q1;
-
-	@ManyToOne
-	@JoinColumn(name = "balance_q2_id")
-	@NotFound(action=NotFoundAction.IGNORE)
-	@JsonIgnoreProperties({"balanceType", "year", "quarter1", "quarter2", "quarter3", "quarter4"})
-	private Balance balance_q2;
+	private double year;
+	
+	private double quarter1;
+	private double quarter2;
+	private double quarter3;
+	private double quarter4;
+	
+	private double amount;
 	
 	@ManyToOne
-	@JoinColumn(name = "balance_q3_id")
+	@JoinColumn(name = "balance_id")
 	@NotFound(action=NotFoundAction.IGNORE)
-	@JsonIgnoreProperties({"balanceType", "year", "quarter1", "quarter2", "quarter3", "quarter4"})
-	private Balance balance_q3;
+	@JsonIgnoreProperties({"balanceType", "quarter1", "quarter2", "quarter3", "quarter4"})
+	private Balance balance;
 	
-	@ManyToOne
-	@JoinColumn(name = "balance_q4_id")
-	@NotFound(action=NotFoundAction.IGNORE)
-	@JsonIgnoreProperties({"balanceType", "year", "quarter1", "quarter2", "quarter3", "quarter4"})
-	private Balance balance_q4;
-
+	public void generateFinancialSourceAmount() {
+		this.setAmount(this.getQuarter1() + this.getQuarter2() + this.getQuarter3() + this.getQuarter4());
+	}
+	
 }

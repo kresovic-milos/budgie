@@ -9,6 +9,9 @@ import lombok.Data;
 @Data
 public class DtoActivityEconomicAccount {
 
+	// Jedan red iz liste ActivityEconomicAccountDTOsList
+	// Jedan grupa - ThreeDigit ActivityEconomicAccount i njegovi ActivityEconomicAccount-i
+	
 	private ActivityEconomicAccount activityEconomicAccount;
 	
 	private List<ActivityEconomicAccount> activityEconomicAccounts;

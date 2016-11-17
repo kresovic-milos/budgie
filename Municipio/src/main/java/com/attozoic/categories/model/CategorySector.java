@@ -27,11 +27,6 @@ public class CategorySector extends CategorySuperEntity {
 	@JsonManagedReference
 	private List<CategoryProgramme> categoryProgrammes;
 	
-	public CategorySector() {
-	}
-	
-	public CategorySector(String name) {
-		this.name = name;
-	}
+	public CategorySector() {}
 	
 }

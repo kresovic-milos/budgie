@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryEntity;
@@ -27,8 +28,19 @@ public class DaoActivity extends DaoEntity {
 	public RepositoryEntity getRepoEntity() {
 		return repoActivity;
 	}
+
+	// getActivityEconomicAccountFooter
+	public SuperEconomicAccount getActivityEconomicAccountFooter(Long uid) {
+		Activity activity = (Activity)getRepoEntity().findOne(uid);
+		int numRebalances = 0;
+		try {
+			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+		} catch (NullPointerException ex) {}
+		return activity.generateActivityEconomicAccountFooter(numRebalances);
+	}
 	
-	public List<DtoActivityEconomicAccount> getDto(Long uid) {
+	// getActivityEconomicAccountDTOsList
+	public List<DtoActivityEconomicAccount> getActivityEconomicAccountDTOsList(Long uid) {
 		Activity activity = (Activity)getRepoEntity().findOne(uid);
 		int numRebalances = 0;
 		try {
@@ -57,6 +69,13 @@ public class DaoActivity extends DaoEntity {
 			activityEconomicAccount.generateBalances(numRebalances);
 		return (ActivityEconomicAccount) getRepoEntity().save(activityEconomicAccount);
 	}
+	
+	// O V O   
+//	public List<DtoBalanceActivityFinancialSourceListObject> generateActivityFinancialSourceDTO(Long uid) {
+//		Activity activity = (Activity)getRepoEntity().findOne(uid);
+//		return activity.generateActivityFinancialSourceDTO();
+//	}
+//	
 	
 //	public Map<String, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(Long uid) {
 //		Map<String, List<ActivityEconomicAccount>> activityEconomicAccountMap = new HashMap<>();

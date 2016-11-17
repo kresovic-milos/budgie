@@ -29,11 +29,7 @@ public class CategoryProgrammeGoalIndicator extends CategorySuperEntity {
 	@JsonBackReference
 	private CategoryProgrammeGoal categoryProgramGoal;
 	
-	public CategoryProgrammeGoalIndicator(){}
-	
-	public CategoryProgrammeGoalIndicator(String name) {
-		this.name = name;
-	}
+	public CategoryProgrammeGoalIndicator() {}
 	
 }
 

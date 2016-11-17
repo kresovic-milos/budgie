@@ -1,5 +1,7 @@
 package com.attozoic.main.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.services.ServiceProgramme;
 
 @RestController
@@ -22,17 +25,6 @@ public class ControllerProgramme {
 
 	@Autowired
 	private ServiceProgramme serviceProgramme;
-	
-//	//getProgramme{uid}(A/P)ExpencesDTOs
-//	@RequestMapping(value="/{uid}/programeDtos", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public List<DtoProgrammeExpencesItem> getProgrammeDTOs(@PathVariable(value="uid") Long uid) {
-//		return serviceProgramme.getProgrammeDTOs(uid);
-//	}
-//	//getProgramme{uid}(A/P)ExpencesDTO FOOTER
-//	@RequestMapping(value="/{uid}/programmeFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public DtoProgrammeExpencesItem getDTOProgramme(@PathVariable(value="uid") Long uid) {
-//		return serviceProgramme.getDtoProgramme(uid);
-//	}
 	
 //	//getProgramme{uid}FinanceDTOs
 //	@RequestMapping(value="/{uid}/programmeFinanceDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -50,6 +42,18 @@ public class ControllerProgramme {
 //	public DtoChartProgrammes getProgrammeChart() {
 //		return serviceProgramme.getProgrammeChart();
 //	}
+	
+	//getProgrammeEconomicAccountFooter
+	@RequestMapping(value="/{uid}/dtoExpencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoProgrammeEconomicAccount getProgrammeEconomicAccountFooter(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeEconomicAccountFooter(uid);
+	}
+	
+	//getProgramme{uid}(A/P)ExpencesDTOs
+	@RequestMapping(value="/{uid}/dtoExpences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoProgrammeEconomicAccount> getProgrammeEconomicAccountList(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeEconomicAccountList(uid);
+	}
 	
 	//addProgrammeGoal to Programme{uid}
 	@RequestMapping(value="/{uid}/programmeGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

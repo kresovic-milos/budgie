@@ -18,20 +18,40 @@ import lombok.EqualsAndHashCode;
 @JsonTypeName("activityFinancialSource")
 public class ActivityFinancialSource extends SuperFinancialSource {
 	
-	private Long categoryID;
-
 	private String type;
-	
+	private Long categoryID;
 	private String code;
 	
     public ActivityFinancialSource() {
     	this.type = "activityFinancialSource";
-    	this.setAmount(0);
+    	this.setQuarter1(0);
+    	this.setQuarter2(0);
+    	this.setQuarter3(0);
+    	this.setQuarter4(0);
+    	this.setAmount(this.sumQuarters());
     }
     
     public ActivityFinancialSource(String name, Double amount) {
     	this.setName(name);
     	this.setAmount(amount);
+    }
+    
+    public ActivityFinancialSource sumActivityFinancialSourcesSameName(ActivityFinancialSource activityFinancialSource) {
+    	ActivityFinancialSource sumActivityFinancialSource = new ActivityFinancialSource();
+    	sumActivityFinancialSource.setName(this.getName());
+    	sumActivityFinancialSource.setCode(this.getCode());
+    	sumActivityFinancialSource.setYear(this.getYear());
+    	sumActivityFinancialSource.setQuarter1(this.getQuarter1() + activityFinancialSource.getQuarter1());
+    	sumActivityFinancialSource.setQuarter2(this.getQuarter2() + activityFinancialSource.getQuarter2());
+    	sumActivityFinancialSource.setQuarter3(this.getQuarter3() + activityFinancialSource.getQuarter3());
+    	sumActivityFinancialSource.setQuarter4(this.getQuarter4() + activityFinancialSource.getQuarter4());
+    	sumActivityFinancialSource.setAmount(this.getAmount() + activityFinancialSource.getAmount());
+    	this.setAmount(this.getAmount() + activityFinancialSource.getAmount());
+    	return sumActivityFinancialSource;
+    }
+    
+    private double sumQuarters() {
+    	return this.getQuarter1() + this.getQuarter2() + this.getQuarter3() + this.getQuarter4();
     }
 
 }

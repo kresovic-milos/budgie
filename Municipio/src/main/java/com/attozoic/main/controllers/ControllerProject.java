@@ -1,5 +1,7 @@
 package com.attozoic.main.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
 
 @RestController
@@ -22,17 +26,29 @@ public class ControllerProject {
 	@Autowired
 	private ServiceProject serviceProject;
 	
-	//getProjectFinanceDto{uid}
-//	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public DtoProgrammeFinancialSource getProjectFinanceDto(@PathVariable(value="uid") Long uid) {
-//		return serviceProject.buildProjectFinanceDto(uid);
-//	}
+	//getProjectEconomicAccountFooter{uid}
+	@RequestMapping(value="/{uid}/dtoExpencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public SuperEconomicAccount getProjectEconomicAccountFooter(@PathVariable(value="uid") Long uid) {
+		return serviceProject.getProjectEconomicAccountFooter(uid);
+	}
 	
-//	//getProjectDto{uid}
-//	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public DtoProgrammeExpencesItem getProjectDto(@PathVariable(value="uid") Long uid) {
-//		return serviceProject.buildProjectDto(uid);
-//	}
+	//getProjectEconomicAccountDTOsList{uid}
+	@RequestMapping(value="/{uid}/dtoExpences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoProjectEconomicAccount> getProjectEconomicAccountDTOsList(@PathVariable(value="uid") Long uid) {
+		return serviceProject.getProjectEconomicAccountDTOsList(uid);
+	}
+	
+	//addProjectGoal to Project{uid}
+	@RequestMapping(value="/{uid}/projectGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ProjectGoal addProjectGoal(@PathVariable(value="uid") Long uid, @RequestBody ProjectGoal goal) {
+		return serviceProject.addProjectGoal(uid, goal);
+	}
+	
+	//addProjectEconomicAccount to Project{uid}
+	@RequestMapping(value="/{uid}/projectEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ProjectEconomicAccount addProjectEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ProjectEconomicAccount projectEconomicAccount) {
+		return serviceProject.addProjectEconomicAccount(uid, projectEconomicAccount);
+	}
 	
 	//getAllProjects
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -86,24 +102,6 @@ public class ControllerProject {
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceProject.unarchive(uid);
-	}
-	
-	//addProjectGoal to Project{uid}
-	@RequestMapping(value="/{uid}/projectGoals", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProjectGoal addProjectGoal(@PathVariable(value="uid") Long uid, @RequestBody ProjectGoal goal) {
-		return serviceProject.addProjectGoal(uid, goal);
-	}
-	
-	//addProjectFinancialSource to Project{uid}
-//	@RequestMapping(value="/{uid}/projectFinancialSources", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public ProjectFinancialSource addProjectFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody ProjectFinancialSource financialSource) {
-//		return serviceProject.addProjectFinancialSource(uid, financialSource);
-//	}
-	
-	//addProjectEconomicAccount to Project{uid}
-	@RequestMapping(value="/{uid}/projectEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProjectEconomicAccount addProjectEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ProjectEconomicAccount projectEconomicAccount) {
-		return serviceProject.addProjectEconomicAccount(uid, projectEconomicAccount);
 	}
 	
 }

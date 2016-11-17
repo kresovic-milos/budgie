@@ -18,21 +18,11 @@ public class ServiceBalanceImpl extends ServiceEntityImpl implements ServiceBala
 	public DaoEntity getDaoEntity() {
 		return daoBalanceWithQuarters;
 	}
-	
-	public SuperFinancialSource addQuarter1(Long uid, SuperFinancialSource superFinancialSource) {
-		return ((DaoBalance)getDaoEntity()).addQuarter1(uid, superFinancialSource);
-	}
-	
-	public SuperFinancialSource addQuarter2(Long uid, SuperFinancialSource superFinancialSource) {
-		return ((DaoBalance)getDaoEntity()).addQuarter2(uid, superFinancialSource);
-	}
-	
-	public SuperFinancialSource addQuarter3(Long uid, SuperFinancialSource superFinancialSource) {
-		return ((DaoBalance)getDaoEntity()).addQuarter3(uid, superFinancialSource);
-	}
-	
-	public SuperFinancialSource addQuarter4(Long uid, SuperFinancialSource superFinancialSource) {
-		return ((DaoBalance)getDaoEntity()).addQuarter4(uid, superFinancialSource);
+
+	@Override
+	public SuperFinancialSource addSuperFinancialSource(Long uid, SuperFinancialSource superFinancialSource) {
+		// TODO Auto-generated method stub
+		return ((DaoBalance)getDaoEntity()).addSuperFinancialSource(uid, superFinancialSource);
 	}
 
 }

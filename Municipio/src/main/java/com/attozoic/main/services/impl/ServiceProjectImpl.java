@@ -1,5 +1,7 @@
 package com.attozoic.main.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,8 @@ import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProject;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
+import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
 
 @Service
@@ -21,6 +25,16 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	}
 	
 	@Override
+	public SuperEconomicAccount getProjectEconomicAccountFooter(Long uid) {
+		return ((DaoProject) getDaoEntity()).getProjectEconomicAccountFooter(uid);
+	}
+
+	@Override
+	public List<DtoProjectEconomicAccount> getProjectEconomicAccountDTOsList(Long uid) {
+		return ((DaoProject) getDaoEntity()).getProjectEconomicAccountDTOsList(uid);
+	}
+	
+	@Override
 	public ProjectGoal addProjectGoal(Long uid, ProjectGoal goal) {
 		return ((DaoProject) getDaoEntity()).addGoal(uid, goal);
 	}
@@ -29,19 +43,5 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	public ProjectEconomicAccount addProjectEconomicAccount(Long uid, ProjectEconomicAccount projectEconomicAccount) {
 		return ((DaoProject) getDaoEntity()).addProjectEconomicAccount(uid, projectEconomicAccount);
 	}
-
-//	@Override
-//	public DtoProgrammeExpencesItem buildProjectDto(Long uid) {
-//		return ((DaoProject) getDaoEntity()).buildProjectDto(uid);
-//	}
-	
-//	@Override
-//	public DtoProgrammeFinancialSource buildProjectFinanceDto(Long uid) {
-//		int num = 0;
-//		try {
-//			num = ((RebalancesCount)serviceRebalanceCount.findOne(new Long(1))).getRebalancesCount();
-//		} catch (NullPointerException ex) {}
-//		return ((DaoProject) getDaoEntity()).buildProjectFinanceDto(uid, num);
-//	}
 	
 }

@@ -42,9 +42,4 @@ public class CategoryActivityGoal extends CategorySuperEntity {
 	
 	public CategoryActivityGoal() {}
 	
-	public CategoryActivityGoal(String code, String name) {
-		this.code = code;
-		this.name = name;
-	}
-	
 }

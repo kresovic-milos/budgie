@@ -42,11 +42,5 @@ public class CategoryActivity extends CategorySuperEntity {
 	private List<CategoryActivityGoal> categoryActivityGoals;
 	
 	public CategoryActivity() {}
-	
-	public CategoryActivity(String code, String ordNumber, String name) {
-		this.code = code;
-		this.ordNumber = ordNumber;
-		this.name = name;
-	}
 
 }

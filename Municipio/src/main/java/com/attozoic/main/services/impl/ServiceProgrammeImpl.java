@@ -1,5 +1,7 @@
 package com.attozoic.main.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
+import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.services.ServiceProgramme;
 
 @Service
@@ -16,24 +19,20 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	@Autowired
 	private DaoProgramme daoProgramme;
 	
-//	@Autowired
-//	private DaoDtoProgrammeItemExpences daoDto;
-//	
-//	@Autowired
-//	private DaoDtoProgrammeFinancialSource daoDtoFinance;
-	
 	@Override
 	public DaoEntity getDaoEntity() {
 		return daoProgramme;
 	}
 	
-//	public DaoDtoProgrammeItemExpences getDaoDto() {
-//		return daoDto;
-//	}
-//	
-//	public DaoDtoProgrammeFinancialSource getDaoDtoFinance() {
-//		return daoDtoFinance;
-//	}
+	@Override
+	public DtoProgrammeEconomicAccount getProgrammeEconomicAccountFooter(Long uid) {
+		return ((DaoProgramme) getDaoEntity()).getProgrammeEconomicAccountFooter(uid);
+	}
+
+	@Override
+	public List<DtoProgrammeEconomicAccount> getProgrammeEconomicAccountList(Long uid) {
+		return ((DaoProgramme) getDaoEntity()).getProgrammeEconomicAccountList(uid);
+	}
 
 	@Override	
 	public ProgrammeGoal addProgrammeGoal(Long uid, ProgrammeGoal programmeGoal) {
@@ -49,6 +48,8 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	public Project addProject(Long uid, Project project) {
 		return ((DaoProgramme) getDaoEntity()).addProject(uid, project);
 	}
+
+
 
 //	@Override
 //	public List<DtoProgrammeExpencesItem> getProgrammeDTOs(Long uid) {

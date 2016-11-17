@@ -29,7 +29,6 @@ import lombok.EqualsAndHashCode;
 public class ActivityGoal extends SuperEntity {
 	
 	private Long categoryID;
-	
 	private String code;
 	private String name;
 

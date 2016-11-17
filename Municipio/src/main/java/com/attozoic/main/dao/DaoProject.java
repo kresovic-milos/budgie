@@ -1,11 +1,15 @@
 package com.attozoic.main.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
+import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProject;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
@@ -16,7 +20,6 @@ public class DaoProject extends DaoEntity {
 	@Autowired
 	private RepositoryProject repoProject;
 	
-	@SuppressWarnings("unused")
 	@Autowired
 	private RepositoryRebalancesCount repoRebalanceCount;
 	
@@ -24,6 +27,26 @@ public class DaoProject extends DaoEntity {
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repoProject;
+	}
+	
+	// getProjectEconomicAccountFooter
+	public SuperEconomicAccount getProjectEconomicAccountFooter(Long uid) {
+		Project project = (Project)getRepoEntity().findOne(uid);
+		int numRebalances = 0;
+		try {
+			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+		} catch (NullPointerException ex) {}
+		return project.generateProjectEconomicAccountFooter(numRebalances);
+	}
+	
+	// getProjectEconomicAccountDTOsList
+	public List<DtoProjectEconomicAccount> getProjectEconomicAccountDTOsList(Long uid) {
+		Project project = (Project)getRepoEntity().findOne(uid);
+		int numRebalances = 0;
+		try {
+			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+		} catch (NullPointerException ex) {}
+		return project.generateProjectEconomicAccountDTOsList(numRebalances);
 	}
 	
 	// addProjectGoal
@@ -38,19 +61,13 @@ public class DaoProject extends DaoEntity {
 	// addProjectEconomicAccount
 	@SuppressWarnings("unchecked")
 	public ProjectEconomicAccount addProjectEconomicAccount(Long uid, ProjectEconomicAccount projectEconomicAccount) {
-
-//		List<BalanceContainer> balanceContainers = projectEconomicAccount.getBalanceContainers();
-//		int numContainers = 4;
-//		try {
-//			int numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-//			numContainers += (numRebalances);
-//		} catch (NullPointerException ex) {}
-//		for (int i = 0; i < numContainers; i++) {
-//			balanceContainers.add(new BalanceContainer());
-//		}
-		
 		Project project = (Project) getRepoEntity().findOne(uid);
 		projectEconomicAccount.setProject(project);
+		int numRebalances = 0;
+		try {
+			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+		} catch (NullPointerException ex) {}
+			projectEconomicAccount.generateBalances(numRebalances);
 		return (ProjectEconomicAccount) getRepoEntity().save(projectEconomicAccount);
 	}
 	

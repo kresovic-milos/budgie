@@ -30,6 +30,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 public abstract class SuperEconomicAccount extends SuperEntity {
 	
+	private String categoryName;
+	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="superEconomicAccount")
 	List<Balance> balances = new ArrayList<>();
 	

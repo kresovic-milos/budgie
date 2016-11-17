@@ -21,28 +21,10 @@ public class ControllerBalance {
 	@Autowired
 	private ServiceBalance serviceBalance; 
 	
-	//addQuarter1 to Balance{uid}
-	@RequestMapping(value="/{uid}/quarter1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public SuperFinancialSource addFinancialSource_q1(@PathVariable(value="uid") Long uid, @RequestBody SuperFinancialSource superFinancialSource) {
-		return serviceBalance.addQuarter1(uid, superFinancialSource);
-	}
-	
-	//addQuarter2 to Balance{uid}
-	@RequestMapping(value="/{uid}/quarter2", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public SuperFinancialSource addFinancialSource_q2(@PathVariable(value="uid") Long uid, @RequestBody SuperFinancialSource superFinancialSource) {
-		return serviceBalance.addQuarter2(uid, superFinancialSource);
-	}
-		
-	//addQuarter3 to Balance{uid}
-	@RequestMapping(value="/{uid}/quarter3", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public SuperFinancialSource addFinancialSource_q3(@PathVariable(value="uid") Long uid, @RequestBody SuperFinancialSource superFinancialSource) {
-		return serviceBalance.addQuarter3(uid, superFinancialSource);
-	}
-	
-	//addQuarter4 to Balance{uid}
-	@RequestMapping(value="/{uid}/quarter4", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public SuperFinancialSource addFinancialSource_q4(@PathVariable(value="uid") Long uid, @RequestBody SuperFinancialSource superFinancialSource) {
-		return serviceBalance.addQuarter4(uid, superFinancialSource);
+	//addFinancialSource to Balance{uid}
+	@RequestMapping(value="/{uid}/financialSource", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public SuperFinancialSource addFinancialSource(@PathVariable(value="uid") Long uid, @RequestBody SuperFinancialSource superFinancialSource) {
+		return serviceBalance.addSuperFinancialSource(uid, superFinancialSource);
 	}
 	
 	//getAllBalances

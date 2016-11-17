@@ -19,9 +19,4 @@ public class CategoryEconomicAccount extends CategorySuperEntity {
 	
 	public CategoryEconomicAccount() {}
 	
-	public CategoryEconomicAccount(String code, String name) {
-		this.code = code;
-		this.name = name;
-	}
-	
 }
