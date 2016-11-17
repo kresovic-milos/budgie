@@ -53,7 +53,11 @@ public class Project extends SuperEntity {
 	String authorityCode;
 	String authority;
 	String authorityJbbk;
-
+	// Book
+	Long categoryBookID;
+	String bookCode;
+	String book;
+	
     @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="programme_uid")
     @NotFound(action=NotFoundAction.IGNORE)
