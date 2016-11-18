@@ -29,27 +29,27 @@ public class ControllerProject {
 	private ServiceProject serviceProject;
 	
 	//getProgrammeFinancialSourceFooter{uid}
-	@RequestMapping(value="/{uid}/dtoFinanceFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/financesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoFinanceFooter getProjectFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
 		return serviceProject.getProjectFinancialSourceFooter(uid);
 	}
 	
 	//getProjectFinancialSourceMap{uid}
-	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/finances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, double[]> getProjectFinancialSourceMap(@PathVariable(value="uid") Long uid) {
 		return serviceProject.getProjectFinancialSourceMap(uid);
 	}
 	
 	//getProjectEconomicAccountFooter{uid}
-	@RequestMapping(value="/{uid}/dtoExpencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/expencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public SuperEconomicAccount getProjectEconomicAccountFooter(@PathVariable(value="uid") Long uid) {
 		return serviceProject.getProjectEconomicAccountFooter(uid);
 	}
 	
-	//getProjectEconomicAccountDTOsList{uid}
-	@RequestMapping(value="/{uid}/dtoExpences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoProjectEconomicAccount> getProjectEconomicAccountDTOsList(@PathVariable(value="uid") Long uid) {
-		return serviceProject.getProjectEconomicAccountDTOsList(uid);
+	//getProjectEconomicAccountsList{uid}
+	@RequestMapping(value="/{uid}/expences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoProjectEconomicAccount> getProjectEconomicAccountsList(@PathVariable(value="uid") Long uid) {
+		return serviceProject.getProjectEconomicAccountsList(uid);
 	}
 	
 	//addProjectGoal to Project{uid}

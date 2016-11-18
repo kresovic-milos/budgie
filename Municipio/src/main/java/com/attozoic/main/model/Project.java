@@ -93,7 +93,7 @@ public class Project extends SuperEntity {
 	}
 	
 	// List of GROUPS (ThreeDigits ProjectEconomicAccount i svi njegovi SixDigits)
-	public List<DtoProjectEconomicAccount> generateProjectEconomicAccountDTOsList(int numRebalances) {
+	public List<DtoProjectEconomicAccount> generateProjectEconomicAccountsList(int numRebalances) {
 		Map<String, List<ProjectEconomicAccount>> map = generateThreeDigitsProjectEconomicAccountsMap();
 		List<DtoProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
 		for (Map.Entry<String, List<ProjectEconomicAccount>> entry : map.entrySet()) {

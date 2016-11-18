@@ -97,7 +97,7 @@ public class Activity extends SuperEntity {
 	}
 	
 	// List of GROUPS (ThreeDigits ActivityEconomicAccount i svi njegovi SixDigits)
-	public List<DtoActivityEconomicAccount> generateActivityEconomicAccountDTOsList(int numRebalances) {
+	public List<DtoActivityEconomicAccount> generateActivityEconomicAccountsList(int numRebalances) {
 		Map<String, List<ActivityEconomicAccount>> map = generateThreeDigitsActivityEconomicAccountsMap();
 		List<DtoActivityEconomicAccount> activityEconomicAccounts = new ArrayList<>();
 		for (Map.Entry<String, List<ActivityEconomicAccount>> entry : map.entrySet()) {

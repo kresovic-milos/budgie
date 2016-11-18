@@ -14,7 +14,7 @@ public interface ServiceActivity extends ServiceEntity {
 	DtoFinanceFooter getActivityFinancialSourceFooter(Long uid);
 	Map<String, double[]> getActivityFinancialSourceMap(Long uid);
 	SuperEconomicAccount getActivityEconomicAccountFooter(Long uid);
-	List<DtoActivityEconomicAccount> getActivityEconomicAccountDTOsList(Long uid);
+	List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(Long uid);
 
 	ActivityGoal addActivityGoal(Long uid, ActivityGoal activityGoal);
 	ActivityEconomicAccount addActivityEconomicAccount(Long uid, ActivityEconomicAccount activityEconomicAccount);

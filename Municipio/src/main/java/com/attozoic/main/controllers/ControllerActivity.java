@@ -29,27 +29,27 @@ public class ControllerActivity {
 	private ServiceActivity serviceActivity;
 	
 	//getActivityFinancialSourceFooter{uid}
-	@RequestMapping(value="/{uid}/dtoFinanceFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/financesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoFinanceFooter getActivityFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.getActivityFinancialSourceFooter(uid);
 	}
 	
 	//getActivityFinancialSourceMap{uid}
-	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/finances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, double[]> getActivityFinancialSourceMap(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.getActivityFinancialSourceMap(uid);
 	}
 	
 	//getActivityEconomicAccountFooter{uid}
-	@RequestMapping(value="/{uid}/dtoExpencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{uid}/expencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public SuperEconomicAccount getActivityEconomicAccountFooter(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.getActivityEconomicAccountFooter(uid);
 	}
 	
-	//getActivityEconomicAccountDTOsList{uid}
-	@RequestMapping(value="/{uid}/dtoExpences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoActivityEconomicAccount> getActivityEconomicAccountDTOsList(@PathVariable(value="uid") Long uid) {
-		return serviceActivity.getActivityEconomicAccountDTOsList(uid);
+	//getActivityEconomicAccountsList{uid}
+	@RequestMapping(value="/{uid}/expences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityEconomicAccountsList(uid);
 	}
 
 	//addActivityGoal to Activity{uid}

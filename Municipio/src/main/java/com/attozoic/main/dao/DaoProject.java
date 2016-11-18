@@ -52,13 +52,13 @@ public class DaoProject extends DaoEntity {
 	}
 	
 	// getProjectEconomicAccountDTOsList
-	public List<DtoProjectEconomicAccount> getProjectEconomicAccountDTOsList(Long uid) {
+	public List<DtoProjectEconomicAccount> getProjectEconomicAccountsList(Long uid) {
 		Project project = (Project)getRepoEntity().findOne(uid);
 		int numRebalances = 0;
 		try {
 			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
 		} catch (NullPointerException ex) {}
-		return project.generateProjectEconomicAccountDTOsList(numRebalances);
+		return project.generateProjectEconomicAccountsList(numRebalances);
 	}
 	
 	// addProjectGoal

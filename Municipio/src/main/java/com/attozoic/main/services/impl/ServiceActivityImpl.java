@@ -42,8 +42,8 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	}
 
 	@Override
-	public List<DtoActivityEconomicAccount> getActivityEconomicAccountDTOsList(Long uid) {
-		return ((DaoActivity) getDaoEntity()).getActivityEconomicAccountDTOsList(uid);
+	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(Long uid) {
+		return ((DaoActivity) getDaoEntity()).getActivityEconomicAccountsList(uid);
 	}
 	
 	@Override

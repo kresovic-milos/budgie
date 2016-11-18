@@ -14,7 +14,7 @@ public interface ServiceProject extends ServiceEntity {
 	DtoFinanceFooter getProjectFinancialSourceFooter(Long uid);
 	Map<String, double[]> getProjectFinancialSourceMap(Long uid);
 	SuperEconomicAccount getProjectEconomicAccountFooter(Long uid);
-	List<DtoProjectEconomicAccount> getProjectEconomicAccountDTOsList(Long uid);
+	List<DtoProjectEconomicAccount> getProjectEconomicAccountsList(Long uid);
 	
 	ProjectGoal addProjectGoal(Long uid, ProjectGoal goal);
 	ProjectEconomicAccount addProjectEconomicAccount(Long uid, ProjectEconomicAccount projectEconomiAccount);

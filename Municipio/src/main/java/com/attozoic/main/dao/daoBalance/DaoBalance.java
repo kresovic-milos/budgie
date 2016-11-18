@@ -30,13 +30,10 @@ public class DaoBalance extends DaoEntity {
 	@SuppressWarnings("unchecked")
 	public SuperFinancialSource addSuperFinancialSource(Long uid, SuperFinancialSource superFinancialSource) {
 		Balance balance = (Balance)getRepoEntity().findOne(uid);
-		
 		List<SuperFinancialSource> superFinancialSources = balance.getFinancialSources();
 		superFinancialSources.add(superFinancialSource);
-		
 		balance.setFinancialSources(superFinancialSources);
 		balance.generateBalanceAmount();
-		
 		SuperEconomicAccount superEconomicAccount = balance.getSuperEconomicAccount(); 
 		if (superEconomicAccount instanceof ActivityEconomicAccount) {
 			((ActivityEconomicAccount)superEconomicAccount).generateSumExpences123();
