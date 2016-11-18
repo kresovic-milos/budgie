@@ -36,19 +36,19 @@ public class ActivityFinancialSource extends SuperFinancialSource {
     	this.setAmount(amount);
     }
     
-    public ActivityFinancialSource sumActivityFinancialSourcesSameName(ActivityFinancialSource activityFinancialSource) {
-    	ActivityFinancialSource sumActivityFinancialSource = new ActivityFinancialSource();
-    	sumActivityFinancialSource.setName(this.getName());
-    	sumActivityFinancialSource.setCode(this.getCode());
-    	sumActivityFinancialSource.setYear(this.getYear());
-    	sumActivityFinancialSource.setQuarter1(this.getQuarter1() + activityFinancialSource.getQuarter1());
-    	sumActivityFinancialSource.setQuarter2(this.getQuarter2() + activityFinancialSource.getQuarter2());
-    	sumActivityFinancialSource.setQuarter3(this.getQuarter3() + activityFinancialSource.getQuarter3());
-    	sumActivityFinancialSource.setQuarter4(this.getQuarter4() + activityFinancialSource.getQuarter4());
-    	sumActivityFinancialSource.setAmount(this.getAmount() + activityFinancialSource.getAmount());
-    	this.setAmount(this.getAmount() + activityFinancialSource.getAmount());
-    	return sumActivityFinancialSource;
-    }
+//    public ActivityFinancialSource sumActivityFinancialSourcesSameName(ActivityFinancialSource activityFinancialSource) {
+//    	ActivityFinancialSource sumActivityFinancialSource = new ActivityFinancialSource();
+//    	sumActivityFinancialSource.setName(this.getName());
+//    	sumActivityFinancialSource.setCode(this.getCode());
+//    	sumActivityFinancialSource.setYear(this.getYear());
+//    	sumActivityFinancialSource.setQuarter1(this.getQuarter1() + activityFinancialSource.getQuarter1());
+//    	sumActivityFinancialSource.setQuarter2(this.getQuarter2() + activityFinancialSource.getQuarter2());
+//    	sumActivityFinancialSource.setQuarter3(this.getQuarter3() + activityFinancialSource.getQuarter3());
+//    	sumActivityFinancialSource.setQuarter4(this.getQuarter4() + activityFinancialSource.getQuarter4());
+//    	sumActivityFinancialSource.setAmount(this.getAmount() + activityFinancialSource.getAmount());
+//    	this.setAmount(this.getAmount() + activityFinancialSource.getAmount());
+//    	return sumActivityFinancialSource;
+//    }
     
     private double sumQuarters() {
     	return this.getQuarter1() + this.getQuarter2() + this.getQuarter3() + this.getQuarter4();

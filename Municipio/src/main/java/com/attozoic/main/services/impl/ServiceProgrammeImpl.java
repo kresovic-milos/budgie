@@ -1,6 +1,7 @@
 package com.attozoic.main.services.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
+import com.attozoic.main.model.dto.DtoFinanceFooter;
+import com.attozoic.main.model.dto.DtoProgrammeChart;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.services.ServiceProgramme;
 
@@ -22,6 +25,21 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	@Override
 	public DaoEntity getDaoEntity() {
 		return daoProgramme;
+	}
+	
+	@Override
+	public DtoProgrammeChart getProgrammesChart() {
+		return ((DaoProgramme) getDaoEntity()).getProgrammesChart();
+	}
+	
+	@Override
+	public DtoFinanceFooter getProgrammeFinancialSourceFooter(Long uid) {
+		return ((DaoProgramme) getDaoEntity()).getProgrammeFinancialSourceFooter(uid);
+	}
+	
+	@Override
+	public Map<String, double[]> getProgrammeFinancialSourceMap(Long uid) {
+		return ((DaoProgramme) getDaoEntity()).getProgrammeFinancialSourceMap(uid);
 	}
 	
 	@Override
@@ -48,41 +66,5 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	public Project addProject(Long uid, Project project) {
 		return ((DaoProgramme) getDaoEntity()).addProject(uid, project);
 	}
-
-
-
-//	@Override
-//	public List<DtoProgrammeExpencesItem> getProgrammeDTOs(Long uid) {
-//		return getDaoDto().getProgrammeExpencesItems(uid);
-//	}
-//
-//	@Override
-//	public DtoProgrammeExpencesItem getDtoProgramme(Long uid) {
-////		int num = 0;
-////		try {
-////			num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
-////		} catch (NullPointerException ex) {}
-////		return getDaoDto().getDtoProgramme(uid, num);
-//		return getDaoDto().getProgrammeExpencesFooter(uid);
-//	}
-//
-//	@Override
-//	public DtoChartProgrammes getProgrammeChart() {
-//		return getDaoDto().getProgrammeChart();
-//	}
-
-//	@Override
-//	public List<DtoProgrammeFinancialSource> getProgrammeFinanceDto(Long uid) {
-//		return getDaoDtoFinance().getProgrammeFinanceDto(uid);
-//	}
-
-//	@Override
-//	public DtoProgrammeFinancialSource getProgrammeFinanceFooterDto(Long uid) {
-//		int num = 0;
-//		try {
-//			num = ((RebalancesCount)serviceReabalanceCount.findOne(new Long(1))).getRebalancesCount();
-//		} catch (NullPointerException ex) {}
-//		return getDaoDtoFinance().getProgrammeFinanceFooterDto(uid, num);
-//	}
 
 }

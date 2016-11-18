@@ -1,7 +1,9 @@
 package com.attozoic.main.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,8 @@ import org.hibernate.annotations.NotFoundAction;
 
 import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.balance.BalanceType;
+import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
+import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -29,6 +33,7 @@ import lombok.EqualsAndHashCode;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=ProjectEconomicAccount.class)
 @JsonTypeName("projectEconomicAccount")
 public class ProjectEconomicAccount extends SuperEconomicAccount {
+	
 	
 	
 	private String type;
@@ -68,8 +73,8 @@ public class ProjectEconomicAccount extends SuperEconomicAccount {
 	}
 	
     public void addRebalance(int numRebalances) {
-    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.OTHERS, 2017 + (numRebalances + 1) * 0.1, this));
     	this.balances.add(this.balances.size()-4, new Balance(BalanceType.BUDGET, 2017 + (numRebalances + 1) * 0.1, this));
+    	this.balances.add(this.balances.size()-4, new Balance(BalanceType.OTHERS, 2017 + (numRebalances + 1) * 0.1, this));
     }
     
     public void removeRebalance(int numRebalances) {
@@ -89,6 +94,8 @@ public class ProjectEconomicAccount extends SuperEconomicAccount {
     	}
     }
     
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+    
     public ProjectEconomicAccount sumProjectEconomicAccounts(ProjectEconomicAccount projectEconomicAccount) {
     	ProjectEconomicAccount projectEconomicAccount2 = new ProjectEconomicAccount();
     	List<Balance> list = new ArrayList<>();
@@ -100,12 +107,50 @@ public class ProjectEconomicAccount extends SuperEconomicAccount {
     	return projectEconomicAccount2;
     }
     
-//    public void sumProjectEconomicAccounts(ProjectEconomicAccount projectEconomicAccount) {
-//    	this.setSumExpenses123Budget(this.getSumExpenses123Budget() + activityEconomicAccount.getSumExpenses123Budget());
-//    	this.setSumExpenses123Others(this.getSumExpenses123Others() + activityEconomicAccount.getSumExpenses123Others());
-//    	for (int i = 1; i < this.balances.size(); i++) {
-//    		this.balances.get(i).sumActivityFinancialSourceBalances(activityEconomicAccount.getBalances().get(i));
-//    	}
-//    }
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //    
+    
+    // mergeProjectFinancialSourceBalancesLists
+    public List<DtoBalanceFinancialSourceObject> mergeProjectFinancialSourceBalancesLists(List<DtoBalanceFinancialSourceObject> list1, List<DtoBalanceFinancialSourceObject> list2) {
+    	List<DtoBalanceFinancialSourceObject> list = new ArrayList<>();
+    	for (int i = 0; i < this.balances.size(); i++) {
+    		list.add(new DtoBalanceFinancialSourceObject(list1.get(i).getYear(), mergeDtoFinancialSourceLists(list1.get(i).getDtoFinancialSources(), list2.get(i).getDtoFinancialSources())));
+    	}    	
+    	return list;
+    }
+    
+    // Vraca Listu Objekata sa godinom i listom FinSrcova za jedan EcAcc
+    public List<DtoBalanceFinancialSourceObject> generateProjectEconomicAccountDtoBalanceFinancialSourceObjectLists() {
+    	List<DtoBalanceFinancialSourceObject> list = new ArrayList<>();
+    	for (Balance balance : balances) {
+			list.add(new DtoBalanceFinancialSourceObject(balance.getYear(), balance.generateDtoFinancialSourceList()));
+		}
+    	return list;
+    }
+    
+    // Merge-uje BALANCE (Liste Finansijskih izvora tj DTO-ova)
+    private List<DtoFinancialSource> mergeDtoFinancialSourceLists(List<DtoFinancialSource> list1, List<DtoFinancialSource> list2) {
+    	List<DtoFinancialSource> list = new ArrayList<>();
+    	Map<String, DtoFinancialSource> map = new HashMap<>();
+    	for (DtoFinancialSource dtoFinancialSource : list1) {
+			if (map.containsKey(dtoFinancialSource.getName())) {
+				map.put(dtoFinancialSource.getName(), dtoFinancialSource.sumDtoFinancialSourcesReturnDTO(map.get(dtoFinancialSource.getName())));
+			} else {
+				map.put(dtoFinancialSource.getName(), dtoFinancialSource);
+			}
+		}
+    	for (DtoFinancialSource dtoFinancialSource : list2) {
+			if (map.containsKey(dtoFinancialSource.getName())) {
+				map.put(dtoFinancialSource.getName(), dtoFinancialSource.sumDtoFinancialSourcesReturnDTO(map.get(dtoFinancialSource.getName())));
+			} else {
+				map.put(dtoFinancialSource.getName(), dtoFinancialSource);
+			}
+		}
+    	for (Map.Entry<String, DtoFinancialSource> entry : map.entrySet()) {
+			list.add(entry.getValue());
+		}
+    	return list;
+    }
+    
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
     
 }

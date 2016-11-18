@@ -1,7 +1,9 @@
 package com.attozoic.main.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,8 @@ import org.hibernate.annotations.NotFoundAction;
 
 import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.balance.BalanceType;
+import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
+import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -44,7 +48,7 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="activity_uid")
     @NotFound(action=NotFoundAction.IGNORE)
-	@JsonIgnoreProperties({"categoryID", "code", "ordNumber", "categoryName", "name", "purpose", "rudiment", "description", "anex", "responsibleAuthority", "categoryFunctionID", "functionCode", "function", "categoryHeadID", "headCode", "head", "categoryAuthorityID", "authorityCode", "authority", "authorityJbbk", "programme", "activityGoals", "activityEconomicAccounts"})
+	@JsonIgnoreProperties({"categoryID", "code", "ordNumber", "categoryName", "name", "purpose", "rudiment", "description", "anex", "responsibleAuthority", "categoryFunctionID", "functionCode", "function", "categoryHeadID", "headCode", "head", "categoryAuthorityID", "authorityCode", "authority", "authorityJbbk", "categoryBookID", "bookCode", "book", "programme", "activityGoals", "activityEconomicAccounts"})
     private Activity activity;
 	
 	public ActivityEconomicAccount() {
@@ -90,6 +94,8 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
     	}
     }
     
+ // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+    
     public ActivityEconomicAccount sumActivityEconomicAccounts(ActivityEconomicAccount activityEconomicAccount) {
     	ActivityEconomicAccount activityEconomicAccount2 = new ActivityEconomicAccount();
     	List<Balance> list = new ArrayList<>();
@@ -100,28 +106,51 @@ public class ActivityEconomicAccount extends SuperEconomicAccount {
     	activityEconomicAccount2.generateSumExpences123();
     	return activityEconomicAccount2;
     }
-
     
-// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
-    //   O V A   M E T O D A   R A D I  ! ! ! 
-//    public List<DtoBalanceActivityFinancialSourceListObject> generateActivityEconomicAccountFinancialSourceLists() {
-//    	List<DtoBalanceActivityFinancialSourceListObject> list = new ArrayList<>();
-//    	for (Balance balance : balances) {
-//			list.add(new DtoBalanceActivityFinancialSourceListObject(balance.getYear(), balance.generateBalanceActivityFinancialSourcesList()));
-//		}
-//    	return list;
-//    }
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //    
     
-//    public List<DtoBalanceActivityFinancialSourceListObject> sumActivityFinancialSourceBalancesLists(ActivityEconomicAccount activityEconomicAccount) {
-//    	List<DtoBalanceActivityFinancialSourceListObject> list = new ArrayList<>();
-//    	List<DtoBalanceActivityFinancialSourceListObject> list1 = this.generateActivityEconomicAccountFinancialSourceLists();
-//    	List<DtoBalanceActivityFinancialSourceListObject> list2 = activityEconomicAccount.generateActivityEconomicAccountFinancialSourceLists();
-//
-//    	for (int i = 0; i < this.balances.size(); i++) {
-//    		list.add(new DtoBalanceActivityFinancialSourceListObject(list1.get(i).getYear(), list1.get(i).sumLists(list2.get(i).getActivityFinancialSources())));
-//    	}    	
-//    	return list;
-//    }
+    // mergeActivityFinancialSourceBalancesLists
+    public List<DtoBalanceFinancialSourceObject> mergeActivityFinancialSourceBalancesLists(List<DtoBalanceFinancialSourceObject> list1, List<DtoBalanceFinancialSourceObject> list2) {
+    	List<DtoBalanceFinancialSourceObject> list = new ArrayList<>();
+    	for (int i = 0; i < this.balances.size(); i++) {
+    		list.add(new DtoBalanceFinancialSourceObject(list1.get(i).getYear(), mergeDtoFinancialSourceLists(list1.get(i).getDtoFinancialSources(), list2.get(i).getDtoFinancialSources())));
+    	}    	
+    	return list;
+    }
+    
+    // Vraca Listu Objekata sa godinom i listom FinSrcova za jedan EcAcc
+    public List<DtoBalanceFinancialSourceObject> generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists() {
+    	List<DtoBalanceFinancialSourceObject> list = new ArrayList<>();
+    	for (Balance balance : balances) {
+			list.add(new DtoBalanceFinancialSourceObject(balance.getYear(), balance.generateDtoFinancialSourceList()));
+		}
+    	return list;
+    }
+    
+    // Merge-uje BALANCE (Liste Finansijskih izvora tj DTO-ova)
+    private List<DtoFinancialSource> mergeDtoFinancialSourceLists(List<DtoFinancialSource> list1, List<DtoFinancialSource> list2) {
+    	List<DtoFinancialSource> list = new ArrayList<>();
+    	Map<String, DtoFinancialSource> map = new HashMap<>();
+    	for (DtoFinancialSource dtoFinancialSource : list1) {
+			if (map.containsKey(dtoFinancialSource.getName())) {
+				map.put(dtoFinancialSource.getName(), dtoFinancialSource.sumDtoFinancialSourcesReturnDTO(map.get(dtoFinancialSource.getName())));
+			} else {
+				map.put(dtoFinancialSource.getName(), dtoFinancialSource);
+			}
+		}
+    	for (DtoFinancialSource dtoFinancialSource : list2) {
+			if (map.containsKey(dtoFinancialSource.getName())) {
+				map.put(dtoFinancialSource.getName(), dtoFinancialSource.sumDtoFinancialSourcesReturnDTO(map.get(dtoFinancialSource.getName())));
+			} else {
+				map.put(dtoFinancialSource.getName(), dtoFinancialSource);
+			}
+		}
+    	for (Map.Entry<String, DtoFinancialSource> entry : map.entrySet()) {
+			list.add(entry.getValue());
+		}
+    	return list;
+    }
+    
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //  
     
 }

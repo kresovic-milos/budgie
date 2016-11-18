@@ -1,6 +1,7 @@
 package com.attozoic.main.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
+import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.services.ServiceActivity;
 
 @RestController
@@ -25,6 +27,18 @@ public class ControllerActivity {
 
 	@Autowired
 	private ServiceActivity serviceActivity;
+	
+	//getActivityFinancialSourceFooter{uid}
+	@RequestMapping(value="/{uid}/dtoFinanceFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoFinanceFooter getActivityFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityFinancialSourceFooter(uid);
+	}
+	
+	//getActivityFinancialSourceMap{uid}
+	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, double[]> getActivityFinancialSourceMap(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityFinancialSourceMap(uid);
+	}
 	
 	//getActivityEconomicAccountFooter{uid}
 	@RequestMapping(value="/{uid}/dtoExpencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)

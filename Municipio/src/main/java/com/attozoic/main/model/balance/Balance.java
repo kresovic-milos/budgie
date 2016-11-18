@@ -17,6 +17,7 @@ import org.hibernate.annotations.NotFoundAction;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.SuperFinancialSource;
+import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -70,12 +71,12 @@ public class Balance extends SuperEntity {
 		return balance1;
 	}
 	
-//	public Balance sumBalancesSameYearAndType(Balance balance) {
-//		Balance balance1 = new Balance();
-//		balance1.setBalanceType(this.getBalanceType());
-//		balance1.setYear(this.getYear());
-//		this.setBalance_amount(this.getBalance_amount() + balance.getBalance_amount());
-//		return balance;
-//	}
+	public List<DtoFinancialSource> generateDtoFinancialSourceList() {
+		List<DtoFinancialSource> list = new ArrayList<>();
+		for (SuperFinancialSource superFinancialSource : financialSources) {
+			list.add(superFinancialSource.generateDtoFinancialSource());
+		}
+		return list;
+	}
 	
 }

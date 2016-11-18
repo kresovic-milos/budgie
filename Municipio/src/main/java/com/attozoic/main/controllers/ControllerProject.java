@@ -1,6 +1,7 @@
 package com.attozoic.main.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
 
@@ -25,6 +27,18 @@ public class ControllerProject {
 
 	@Autowired
 	private ServiceProject serviceProject;
+	
+	//getProgrammeFinancialSourceFooter{uid}
+	@RequestMapping(value="/{uid}/dtoFinanceFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoFinanceFooter getProjectFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
+		return serviceProject.getProjectFinancialSourceFooter(uid);
+	}
+	
+	//getProjectFinancialSourceMap{uid}
+	@RequestMapping(value="/{uid}/dtoFinance", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, double[]> getProjectFinancialSourceMap(@PathVariable(value="uid") Long uid) {
+		return serviceProject.getProjectFinancialSourceMap(uid);
+	}
 	
 	//getProjectEconomicAccountFooter{uid}
 	@RequestMapping(value="/{uid}/dtoExpencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)

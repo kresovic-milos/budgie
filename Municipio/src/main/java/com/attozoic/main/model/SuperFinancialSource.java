@@ -10,6 +10,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import com.attozoic.main.model.balance.Balance;
+import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -49,5 +50,9 @@ public abstract class SuperFinancialSource extends SuperEntity {
 	public void generateFinancialSourceAmount() {
 		this.setAmount(this.getQuarter1() + this.getQuarter2() + this.getQuarter3() + this.getQuarter4());
 	}
+	
+    public DtoFinancialSource generateDtoFinancialSource() {
+    	return new DtoFinancialSource(this.getName(), this.getYear(), this.getAmount());
+    }
 	
 }

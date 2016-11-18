@@ -1,6 +1,7 @@
 package com.attozoic.main.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
+import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
@@ -28,7 +30,17 @@ public class DaoActivity extends DaoEntity {
 	public RepositoryEntity getRepoEntity() {
 		return repoActivity;
 	}
-
+	
+	// getActivityFinancialSourceFooter()
+	public DtoFinanceFooter getActivityFinancialSourceFooter(Long uid) {
+		return repoActivity.findOne(uid).generateActivityFinancialSourceFooter();
+	}
+	
+	// getActivityFinancialSourceMap
+	public Map<String, double[]> getActivityFinancialSourceMap(Long uid) {
+		return repoActivity.findOne(uid).generateActivityFinancialSourceMap();
+	}
+	
 	// getActivityEconomicAccountFooter
 	public SuperEconomicAccount getActivityEconomicAccountFooter(Long uid) {
 		Activity activity = (Activity)getRepoEntity().findOne(uid);
@@ -69,82 +81,5 @@ public class DaoActivity extends DaoEntity {
 			activityEconomicAccount.generateBalances(numRebalances);
 		return (ActivityEconomicAccount) getRepoEntity().save(activityEconomicAccount);
 	}
-	
-	// O V O   
-//	public List<DtoBalanceActivityFinancialSourceListObject> generateActivityFinancialSourceDTO(Long uid) {
-//		Activity activity = (Activity)getRepoEntity().findOne(uid);
-//		return activity.generateActivityFinancialSourceDTO();
-//	}
-//	
-	
-//	public Map<String, List<ActivityEconomicAccount>> getActivityEconomicAccountMap(Long uid) {
-//		Map<String, List<ActivityEconomicAccount>> activityEconomicAccountMap = new HashMap<>();
-//		Activity activity = (Activity)getRepoEntity().findOne(uid);
-//		List<ActivityEconomicAccount> activityEconomicAccountList = activity.getActivityEconomicAccounts();
-//		for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccountList) {
-//			String threeDigits = activityEconomicAccount.getCode().substring(0, 3).concat("000");
-//			if (activityEconomicAccountMap.containsKey(threeDigits)) {
-//				List<ActivityEconomicAccount> newActivityEconomicAccountList = activityEconomicAccountMap.get(threeDigits);
-//				newActivityEconomicAccountList.add(activityEconomicAccount);
-//				activityEconomicAccountMap.put(threeDigits, newActivityEconomicAccountList);
-//			} else {
-//				List<ActivityEconomicAccount> newActivityEconomicAccountList = new ArrayList<>();
-//				newActivityEconomicAccountList.add(activityEconomicAccount);
-//				activityEconomicAccountMap.put(threeDigits, newActivityEconomicAccountList);
-//			}
-//		}
-//		return activityEconomicAccountMap;
-//	}
-	
-//	public List<ActivityEconomicAccount> getActivityEconomicAccountList(Long uid) {
-//		List<ActivityEconomicAccount> activityEconomicAccountList = new ArrayList<>();
-//		Map<String, List<ActivityEconomicAccount>> activityEconomicAccountMap = getActivityEconomicAccountMap(uid);
-//		for (Map.Entry<String, List<ActivityEconomicAccount>> entry : activityEconomicAccountMap.entrySet()) {
-//		    
-//			ActivityEconomicAccount activityEconomicAccount = new ActivityEconomicAccount();
-//		    for (ActivityEconomicAccount activityEconomicAccount2 : entry.getValue()) {
-//				activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
-//			}
-//		    activityEconomicAccount.setCode(entry.getKey());
-//			activityEconomicAccountList.add(activityEconomicAccount);
-//			for (ActivityEconomicAccount activityEconomicAccount2 : entry.getValue()) {
-//				activityEconomicAccountList.add(activityEconomicAccount2);
-//			}
-//		    
-//		}
-//		return activityEconomicAccountList;
-//	}
-
-	
-	// buildActivityDTO
-//	public DtoProgrammeExpencesItem buildActivityDto(Long uid) {
-//		return repoActivity.findOne(uid).buildDtoActivityExpences();
-//	}
-	
-	// buildActivityFinanceDTO
-//	public DtoProgrammeFinancialSource buildActivityFinanceDto(Long uid, int num) {
-//		return repoActivity.findOne(uid).buildActivityFinanceDto(num);
-//	}
-	
-	// addActivityFinancialSource
-//	@SuppressWarnings("unchecked")
-//	public ActivityFinancialSource addActivityFinancialSource(Long uid, ActivityFinancialSource activityFinancialSource) {
-//		try {
-//			RebalancesCount rc = repoRebalanceCount.findOne(new Long(1));
-//			int numReb = rc.getRebalancesCount();
-//			if (numReb > 0) {
-//				List<RebalanceOneField> l = activityFinancialSource.getRebalances();
-//				for (int i = 0; i < numReb; i++) {
-//					l.add(new RebalanceOneField());
-//				}
-//				activityFinancialSource.setRebalances(l);
-//			}
-//		} catch (NullPointerException ex) {}
-//		Activity activity = (Activity) getRepoEntity().findOne(uid);
-//		activityFinancialSource.setActivity(activity);
-//		activityFinancialSource.setSumSources123(activityFinancialSource.getSourceBaseYearPlus1() + activityFinancialSource.getSourceBaseYearPlus2() + activityFinancialSource.getSourceBaseYearPlus3());
-//		getRepoEntity().save(activity);
-//		return (ActivityFinancialSource) getRepoEntity().save(activityFinancialSource);
-//	}
 	
 }

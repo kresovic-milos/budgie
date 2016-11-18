@@ -1,8 +1,12 @@
 package com.attozoic.main.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.attozoic.main.model.ActivityEconomicAccount;
+import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
 import com.attozoic.main.repositories.RepositoryActivityEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
 
@@ -16,6 +20,11 @@ public class DaoActivityEconomicAccount extends DaoEntity {
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repoActivityEconomicAccount;
+	}
+	
+	public List<DtoBalanceFinancialSourceObject> getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(Long uid) {
+		ActivityEconomicAccount activityEconomicAccount = (ActivityEconomicAccount)getRepoEntity().findOne(uid);
+		return activityEconomicAccount.generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists();
 	}
 		
 }

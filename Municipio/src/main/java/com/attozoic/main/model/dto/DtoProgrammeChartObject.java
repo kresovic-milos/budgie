@@ -3,15 +3,15 @@ package com.attozoic.main.model.dto;
 import lombok.Data;
 
 @Data
-public class DtoChartProgramme {
+public class DtoProgrammeChartObject {
 
 	private String name;
 	private double value;
 	private double percnetage = 0;
 
-	public DtoChartProgramme() {}
+	public DtoProgrammeChartObject() {}
 	
-	public DtoChartProgramme(String name, double value, double percentage) {
+	public DtoProgrammeChartObject(String name, double value, double percentage) {
 		this.name = name;
 		this.value = value;
 		this.percnetage = percentage;

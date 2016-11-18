@@ -1,6 +1,7 @@
 package com.attozoic.main.services.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.attozoic.main.dao.DaoProject;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
+import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
 
@@ -22,6 +24,16 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	@Override
 	public DaoEntity getDaoEntity() {
 		return daoProject;
+	}
+	
+	@Override
+	public DtoFinanceFooter getProjectFinancialSourceFooter(Long uid) {
+		return ((DaoProject) getDaoEntity()).getProjectFinancialSourceFooter(uid);
+	}
+	
+	@Override
+	public Map<String, double[]> getProjectFinancialSourceMap(Long uid) {
+		return ((DaoProject) getDaoEntity()).getProjectFinancialSourceMap(uid);
 	}
 	
 	@Override

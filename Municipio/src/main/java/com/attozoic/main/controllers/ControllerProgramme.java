@@ -1,6 +1,7 @@
 package com.attozoic.main.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,8 @@ import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.dto.DtoFinanceFooter;
+import com.attozoic.main.model.dto.DtoProgrammeChart;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.services.ServiceProgramme;
 
@@ -26,31 +29,32 @@ public class ControllerProgramme {
 	@Autowired
 	private ServiceProgramme serviceProgramme;
 	
-//	//getProgramme{uid}FinanceDTOs
-//	@RequestMapping(value="/{uid}/programmeFinanceDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public List<DtoProgrammeFinancialSourceItem> getProgrammeFinanceDTOs(@PathVariable(value="uid") Long uid) {
-//		return serviceProgramme.getProgrammeFinanceDto(uid);
-//	}
-//	//getProgramme{uid}FinanceDTO FOOTER
-//	@RequestMapping(value="/{uid}/programmeFinanceFooterDto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public DtoProgrammeFinancialSource programmeFinanceFooterDto(@PathVariable(value="uid") Long uid) {
-//		return serviceProgramme.getProgrammeFinanceFooterDto(uid);
-//	}
+	//getProgrammesChart
+	@RequestMapping(value="/chart", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoProgrammeChart getProgrammesChart() {
+		return serviceProgramme.getProgrammesChart();
+	}
 	
-//	//getProgrammeChart (Objects for Programmes Percentages Table)
-//	@RequestMapping(value="/dtoChart", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public DtoChartProgrammes getProgrammeChart() {
-//		return serviceProgramme.getProgrammeChart();
-//	}
+	//getProgrammeFinancialSourceFooter{uid}
+	@RequestMapping(value="/{uid}/financesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public DtoFinanceFooter getProgrammeFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeFinancialSourceFooter(uid);
+	}
 	
-	//getProgrammeEconomicAccountFooter
-	@RequestMapping(value="/{uid}/dtoExpencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	//getProgrammeFinancialSourceMap{uid}
+	@RequestMapping(value="/{uid}/finances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, double[]> getProgrammeFinancialSourceMap(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeFinancialSourceMap(uid);
+	}
+	
+	//getProgrammeEconomicAccountFooter{uid}
+	@RequestMapping(value="/{uid}/expencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoProgrammeEconomicAccount getProgrammeEconomicAccountFooter(@PathVariable(value="uid") Long uid) {
 		return serviceProgramme.getProgrammeEconomicAccountFooter(uid);
 	}
 	
-	//getProgramme{uid}(A/P)ExpencesDTOs
-	@RequestMapping(value="/{uid}/dtoExpences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	//getProgrammeEconomicAccountList{uid}
+	@RequestMapping(value="/{uid}/expences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<DtoProgrammeEconomicAccount> getProgrammeEconomicAccountList(@PathVariable(value="uid") Long uid) {
 		return serviceProgramme.getProgrammeEconomicAccountList(uid);
 	}

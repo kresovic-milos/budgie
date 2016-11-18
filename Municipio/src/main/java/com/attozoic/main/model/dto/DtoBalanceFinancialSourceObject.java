@@ -2,21 +2,19 @@ package com.attozoic.main.model.dto;
 
 import java.util.List;
 
-import com.attozoic.main.model.ActivityFinancialSource;
-
 import lombok.Data;
 
 @Data
-public class DtoBalanceActivityFinancialSourceListObject {
+public class DtoBalanceFinancialSourceObject {
 
 	private double year;
-	private List<ActivityFinancialSource> activityFinancialSources;
+	private List<DtoFinancialSource> dtoFinancialSources;
 	
-	public DtoBalanceActivityFinancialSourceListObject() {}
+	public DtoBalanceFinancialSourceObject() {}
 	
-	public DtoBalanceActivityFinancialSourceListObject(double year, List<ActivityFinancialSource> activityFinancialSources) {
+	public DtoBalanceFinancialSourceObject(double year, List<DtoFinancialSource> dtoFinancialSources) {
 		this.year = year;
-		this.activityFinancialSources = activityFinancialSources;
+		this.dtoFinancialSources = dtoFinancialSources;
 	}
 	
 	// Sabira 2 ovakva objekta, zadrzava podatke THIS objekta i sabira im liste List<ActivityFinancialSource> metodom ispod

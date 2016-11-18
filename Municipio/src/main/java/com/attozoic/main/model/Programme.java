@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.attozoic.main.model.dto.DtoFinanceFooter;
+import com.attozoic.main.model.dto.DtoProgrammeChartObject;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -66,6 +68,10 @@ public class Programme extends SuperEntity {
     private List<Project> projects = new ArrayList<>();
 	
 	public Programme() {}
+	
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+	
+	// ProgrammeEconomicAccount LIST and FOOTER	
 	
 	// FOOTER of List of ProgrammeEconomicAccounts
 	public DtoProgrammeEconomicAccount generateProgrammeEconomicAccountFooter(int numRebalances) {
@@ -138,6 +144,87 @@ public class Programme extends SuperEntity {
 			}
 		}
 		return map;
+	}
+	
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+	
+	// ProgrammeFinancialSource LIST and FOOTER
+	
+	// generateProgrammeFinancialSourceMap
+	public DtoFinanceFooter generateProgrammeFinancialSourceFooter() {
+		Map<String, double[]> map = this.generateProgrammeFinancialSourceMap();
+		try {
+			int numBalances = this.getActivities().get(0).getActivityEconomicAccounts().get(0).getBalances().size();
+			double[] array = new double[numBalances];
+			for (Map.Entry<String, double[]> entry : map.entrySet()) {
+				for (int i = 0; i < array.length; i++) {
+					array[i] += entry.getValue()[i];
+				}
+			}
+		return new DtoFinanceFooter(this.getName(), array);
+		} catch (IndexOutOfBoundsException ex) {}
+		return null;
+	} 
+	
+	// generateProgrammeFinancialSourceMap
+	public Map<String, double[]> generateProgrammeFinancialSourceMap() {
+		Map<String, double[]> map = new HashMap<>();
+		if (!this.getActivities().isEmpty()) {
+			List<Activity> activities = this.getActivities();
+			for (Activity activity : activities) {
+				Map<String, double[]> activityMap = activity.generateActivityFinancialSourceMap();
+				for (Map.Entry<String, double[]> entry : activityMap.entrySet()) {
+					if (map.containsKey(entry.getKey())) {
+						double[] array1 = map.get(entry.getKey());
+						double[] array2 = entry.getValue();
+						for (int i = 0; i < array1.length; i++) {
+							array1[i] += array2[i];
+						}
+						map.put(entry.getKey(), array1);
+					} else {
+						map.put(entry.getKey(), entry.getValue());
+					}
+				}
+			}
+		}
+		if (!this.getProjects().isEmpty()) {
+			List<Project> projects = this.getProjects();
+			for (Project project : projects) {
+				Map<String, double[]> projectMap = project.generateProjectFinancialSourceMap();
+				for (Map.Entry<String, double[]> entry : projectMap.entrySet()) {
+					if (map.containsKey(entry.getKey())) {
+						double[] array1 = map.get(entry.getKey());
+						double[] array2 = entry.getValue();
+						for (int i = 0; i < array1.length; i++) {
+							array1[i] += array2[i];
+						}
+						map.put(entry.getKey(), array1);
+					} else {
+						map.put(entry.getKey(), entry.getValue());
+					}
+				}
+			}
+		}
+		return map;
+ 	}
+	
+// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+	
+	// C H A R T 
+	
+	public DtoProgrammeChartObject generateProgrammeChart() {
+		DtoProgrammeChartObject dtoProgrammeChartObject = new DtoProgrammeChartObject();
+		dtoProgrammeChartObject.setName(name);
+		dtoProgrammeChartObject.setValue(this.generateProgrammeValue());
+		return dtoProgrammeChartObject;
+	}
+	
+	public double generateProgrammeValue() {
+		DtoFinanceFooter dtoFinanceFooter = this.generateProgrammeFinancialSourceFooter();
+		if (dtoFinanceFooter != null) {
+			return dtoFinanceFooter.getAmounts()[dtoFinanceFooter.getAmounts().length-6];
+		}
+		return 0;
 	}
 	
 }

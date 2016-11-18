@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
+import com.attozoic.main.model.dto.DtoFinanceFooter;
+import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -122,40 +125,51 @@ public class Project extends SuperEntity {
 		return map;
 	}
 	
-// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
+	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
 	
+	// ProjectFinancialSource LIST and FOOTER
 	
-//	public List<DtoProjectEconomicAccount> generateProjectEconomicAccountDTOsList(int numRebalances) {
-//		Map<String, List<ProjectEconomicAccount>> map = generateThreeDigitsProjectEconomicAccountsMap();
-//		List<DtoProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
-//		for (Map.Entry<String, List<ProjectEconomicAccount>> entry : map.entrySet()) {
-//			ProjectEconomicAccount projectEconomicAccount = new ProjectEconomicAccount();
-//			projectEconomicAccount.generateBalances(numRebalances);
-//			List<ProjectEconomicAccount> list = entry.getValue();
-//			for (ProjectEconomicAccount projectEconomicAccount2 : list) {
-//				projectEconomicAccount.sumProjectEconomicAccounts(projectEconomicAccount2);
-//			}
-//			projectEconomicAccount.setCode(entry.getKey());
-//			projectEconomicAccounts.add(new DtoProjectEconomicAccount(projectEconomicAccount, entry.getValue()));
-//		}
-//		return projectEconomicAccounts;
-//	}
-//
-//	public Map<String, List<ProjectEconomicAccount>> generateThreeDigitsProjectEconomicAccountsMap() {
-//		Map<String, List<ProjectEconomicAccount>> map = new HashMap<>();
-//		for (ProjectEconomicAccount projectEconomicAccount : projectEconomicAccounts) {
-//			String threeDigits = projectEconomicAccount.getCode().substring(0, 3).concat("000");
-//			if (map.containsKey(threeDigits)) {
-//				List<ProjectEconomicAccount> projectEconomicAccounts = map.get(threeDigits);
-//				projectEconomicAccounts.add(projectEconomicAccount);
-//				map.put(threeDigits, projectEconomicAccounts);
-//			} else {
-//				List<ProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
-//				projectEconomicAccounts.add(projectEconomicAccount);
-//				map.put(threeDigits, projectEconomicAccounts);
-//			}
-//		}
-//		return map;
-//	}
+	// generateProjectFinancialSourceMap
+	public DtoFinanceFooter generateProjectFinancialSourceFooter() {
+		Map<String, double[]> map = this.generateProjectFinancialSourceMap();
+		int numBalances = this.getProjectEconomicAccounts().get(0).getBalances().size();
+		double[] array = new double[numBalances];
+		for (Map.Entry<String, double[]> entry : map.entrySet()) {
+			for (int i = 0; i < array.length; i++) {
+				array[i] += entry.getValue()[i];
+			}
+		}
+		return new DtoFinanceFooter(this.getName(), array);
+	}
+	
+	// generateProjectFinancialSourceMap
+	public Map<String, double[]> generateProjectFinancialSourceMap() {
+		Map<String, double[]> map = new HashMap<>();
+		try {
+			List<DtoBalanceFinancialSourceObject> list = this.getProjectEconomicAccounts().get(0).generateProjectEconomicAccountDtoBalanceFinancialSourceObjectLists();
+			for (int i = 1; i < this.projectEconomicAccounts.size(); i++) {
+				list = this.projectEconomicAccounts.get(i).mergeProjectFinancialSourceBalancesLists(list, this.projectEconomicAccounts.get(i).generateProjectEconomicAccountDtoBalanceFinancialSourceObjectLists());
+			}		
+			int numBalances = this.getProjectEconomicAccounts().get(0).getBalances().size();
+			for (int i = 0; i < list.size(); i++) {
+				List<DtoFinancialSource> dtoFinancialSources = list.get(i).getDtoFinancialSources();
+				for (DtoFinancialSource dtoFinancialSource : dtoFinancialSources) {
+					if (map.containsKey(dtoFinancialSource.getName())) {
+						double[] dtoFinancialSourceArray = map.get(dtoFinancialSource.getName());
+						dtoFinancialSourceArray[i] = dtoFinancialSource.getAmount();
+						map.put(dtoFinancialSource.getName(), dtoFinancialSourceArray);
+					} else {
+						double[] dtoFinancialSourceArray = new double[numBalances];
+						for (int j = 0; j < numBalances; j++) {
+							dtoFinancialSourceArray[i] = 0.0;
+						}
+						dtoFinancialSourceArray[i] = dtoFinancialSource.getAmount();
+						map.put(dtoFinancialSource.getName(), dtoFinancialSourceArray);
+					}
+				}
+			}
+		} catch(IndexOutOfBoundsException ex) {}
+		return map;
+	}
 	
 }
