@@ -38,7 +38,7 @@ public class ProgrammeGoal extends SuperEntity {
     @JsonIgnoreProperties({"categoryID", "code", "ordNumber", "name", "purpose", "rudiment", "description", "budgetUser", "responsibleAuthority", "programmeGoals", "activities", "projects"})
     private Programme programme;
     
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="programmeGoal", orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programmeGoal", orphanRemoval=true)
     private List<ProgrammeGoalIndicator> programmeGoalIndicators = new ArrayList<>();
 	
 	public ProgrammeGoal() {}

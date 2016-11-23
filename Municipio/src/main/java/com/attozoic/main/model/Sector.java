@@ -28,7 +28,7 @@ public class Sector extends SuperEntity {
 	@Column(length = 512)
 	private String name;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="sector")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy="sector")
     private List<Programme> programmes = new ArrayList<>(); 
 	
 	public Sector() {}

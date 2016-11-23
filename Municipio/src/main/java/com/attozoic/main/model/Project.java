@@ -21,6 +21,7 @@ import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -71,6 +72,7 @@ public class Project extends SuperEntity {
     private List<ProjectGoal> projectGoals = new ArrayList<>();
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
+	@JsonIgnore
     private List<ProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
 	
 	public Project() {}

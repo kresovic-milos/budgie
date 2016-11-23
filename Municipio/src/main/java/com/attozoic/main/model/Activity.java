@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -21,6 +22,7 @@ import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -39,12 +41,18 @@ public class Activity extends SuperEntity {
 	private String ordNumber; 
 	private String categoryName;
 	private String code; 
+	@Column(length = 512)
 	private String name;
     
+	@Column(length = 2048)
     private String purpose;
+    @Column(length = 2048)
 	private String rudiment;
+	@Column(length = 2048)
 	private String description;
+	@Column(length = 2048)
 	private String anex;
+	@Column(length = 2048)
 	private String responsibleAuthority;
 
 	// Function
@@ -75,6 +83,7 @@ public class Activity extends SuperEntity {
     private List<ActivityGoal> activityGoals = new ArrayList<>();
     
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
+    @JsonIgnore
     private List<ActivityEconomicAccount> activityEconomicAccounts = new ArrayList<>();
     
 	public Activity() {}
@@ -138,11 +147,13 @@ public class Activity extends SuperEntity {
 		Map<String, double[]> map = this.generateActivityFinancialSourceMap();
 		int numBalances = this.getActivityEconomicAccounts().get(0).getBalances().size();
 		double[] array = new double[numBalances];
-		for (Map.Entry<String, double[]> entry : map.entrySet()) {
-			for (int i = 0; i < array.length; i++) {
-				array[i] += entry.getValue()[i];
+		try {
+			for (Map.Entry<String, double[]> entry : map.entrySet()) {
+				for (int i = 0; i < array.length; i++) {
+					array[i] += entry.getValue()[i];
+				}
 			}
-		}
+		} catch(IndexOutOfBoundsException ex) {}
 		return new DtoFinanceFooter(this.getName(), array);
 	}
 	

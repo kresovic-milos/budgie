@@ -1,6 +1,7 @@
 package com.attozoic.main.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -41,7 +42,7 @@ public abstract class SuperFinancialSource extends SuperEntity {
 	
 	private double amount;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "balance_id")
 	@NotFound(action=NotFoundAction.IGNORE)
 	@JsonIgnoreProperties({"balanceType", "quarter1", "quarter2", "quarter3", "quarter4"})

@@ -62,10 +62,10 @@ public class Programme extends SuperEntity {
 	private List<ProgrammeGoal> programmeGoals = new ArrayList<>();
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    private List<Activity> activities = new ArrayList<>();
+	private List<Activity> activities = new ArrayList<>();
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
-    private List<Project> projects = new ArrayList<>();
+	private List<Project> projects = new ArrayList<>();
 	
 	public Programme() {}
 	
