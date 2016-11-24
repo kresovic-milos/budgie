@@ -67,4 +67,9 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 		return ((DaoProgramme) getDaoEntity()).addProject(uid, project);
 	}
 
+	@Override
+	public void generateBalancesAmounts(Long uid) {
+		((DaoProgramme) getDaoEntity()).generateBalancesAmounts(uid);
+	}
+
 }

@@ -23,5 +23,6 @@ public interface ServiceProgramme extends ServiceEntity {
 	Project addProject(Long uid, Project project);
 	ProgrammeGoal addProgrammeGoal(Long uid, ProgrammeGoal programmeGoal);
 
+	void generateBalancesAmounts(Long uid);
 	
 }

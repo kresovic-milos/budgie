@@ -29,6 +29,12 @@ public class ControllerProgramme {
 	@Autowired
 	private ServiceProgramme serviceProgramme;
 	
+	//GENERATE AMOUNTS
+	@RequestMapping(value="/{uid}/generateBalances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void generateBalancesAmounts(@PathVariable(value="uid") Long uid) {
+		serviceProgramme.generateBalancesAmounts(uid);
+	}
+	
 	//getProgrammesChart
 	@RequestMapping(value="/chart", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public DtoProgrammeChart getProgrammesChart() {
