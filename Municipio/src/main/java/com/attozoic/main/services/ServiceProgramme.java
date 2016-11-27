@@ -25,4 +25,6 @@ public interface ServiceProgramme extends ServiceEntity {
 
 	void generateBalancesAmounts(Long uid);
 	
+	List<ProgrammeGoal> getProgrammeGoals(Long uid);
+	
 }

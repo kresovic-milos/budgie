@@ -21,6 +21,7 @@ import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProgrammeChartObject;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -59,6 +60,7 @@ public class Programme extends SuperEntity {
     private Sector sector;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
+	@JsonIgnore
 	private List<ProgrammeGoal> programmeGoals = new ArrayList<>();
     
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")

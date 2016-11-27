@@ -82,6 +82,7 @@ public class Activity extends SuperEntity {
     private Programme programme;
 
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
+    @JsonIgnore
     private List<ActivityGoal> activityGoals = new ArrayList<>();
     
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
@@ -174,10 +175,14 @@ public class Activity extends SuperEntity {
 	// generateActivityFinancialSourceMap
 	public Map<String, double[]> generateActivityFinancialSourceMap() {
 		Map<String, double[]> map = new HashMap<>();
+		
 		try { // D I L E M A ! ! ! - ako prvi nije ACTIVE!!!
+			
 			List<DtoBalanceFinancialSourceObject> list = this.getActivityEconomicAccounts().get(0).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists();
+			Collections.sort(list);
 			for (int i = 1; i < this.activityEconomicAccounts.size(); i++) {
 				if (activityEconomicAccounts.get(i).getActiveState()==ActiveState.ACTIVE) {
+					//Collections.sort(this.activityEconomicAccounts.get(i).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists());
 					list = this.activityEconomicAccounts.get(i).mergeActivityFinancialSourceBalancesLists(list, this.activityEconomicAccounts.get(i).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists());
 				}
 			}		
@@ -199,6 +204,7 @@ public class Activity extends SuperEntity {
 					}
 				}
 			}
+			
 		} catch(IndexOutOfBoundsException ex){} 
 		return map;
 	}

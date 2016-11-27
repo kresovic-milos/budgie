@@ -10,7 +10,6 @@ import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProject;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
-import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
@@ -37,9 +36,14 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	}
 	
 	@Override
-	public SuperEconomicAccount getProjectEconomicAccountFooter(Long uid) {
-		return ((DaoProject) getDaoEntity()).getProjectEconomicAccountFooter(uid);
+	public List<Double> getProjectExpencesFooter(Long uid) {
+		return ((DaoProject) getDaoEntity()).getProjectExpencesFooter(uid);
 	}
+	
+//	@Override
+//	public SuperEconomicAccount getProjectEconomicAccountFooter(Long uid) {
+//		return ((DaoProject) getDaoEntity()).getProjectEconomicAccountFooter(uid);
+//	}
 
 	@Override
 	public List<DtoProjectEconomicAccount> getProjectEconomicAccountsList(Long uid) {
@@ -54,6 +58,11 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	@Override
 	public ProjectEconomicAccount addProjectEconomicAccount(Long uid, ProjectEconomicAccount projectEconomicAccount) {
 		return ((DaoProject) getDaoEntity()).addProjectEconomicAccount(uid, projectEconomicAccount);
+	}
+
+	@Override
+	public List<ProjectGoal> getProjectGoals(Long uid) {
+		return ((DaoProject) getDaoEntity()).getProjectGoals(uid);
 	}
 	
 }

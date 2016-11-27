@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
-import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.repositories.RepositoryActivity;
@@ -31,6 +30,10 @@ public class DaoActivity extends DaoEntity {
 		return repoActivity;
 	}
 	
+	public List<ActivityGoal> getActivityGoals(Long uid) {
+		return repoActivity.getActivityGoals(uid);
+	}
+	
 	// getActivityFinancialSourceFooter()
 	public DtoFinanceFooter getActivityFinancialSourceFooter(Long uid) {
 		return repoActivity.findOne(uid).generateActivityFinancialSourceFooter();
@@ -41,15 +44,20 @@ public class DaoActivity extends DaoEntity {
 		return repoActivity.findOne(uid).generateActivityFinancialSourceMap();
 	}
 	
-	// getActivityEconomicAccountFooter
-	public SuperEconomicAccount getActivityEconomicAccountFooter(Long uid) {
-		Activity activity = (Activity)getRepoEntity().findOne(uid);
-		int numRebalances = 0;
-		try {
-			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-		} catch (NullPointerException ex) {}
-		return activity.generateActivityEconomicAccountFooter(numRebalances);
+	// getActivityExpencesFooter
+	public List<Double> getActivityExpencesFooter(Long uid) {
+		return ((RepositoryActivity)getRepoEntity()).getActivityExpencesFooter(uid);
 	}
+	
+	// getActivityEconomicAccountFooter
+//	public SuperEconomicAccount getActivityEconomicAccountFooter(Long uid) {
+//		Activity activity = (Activity)getRepoEntity().findOne(uid);
+//		int numRebalances = 0;
+//		try {
+//			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+//		} catch (NullPointerException ex) {}
+//		return activity.generateActivityEconomicAccountFooter(numRebalances);
+//	}
 	
 	// getActivityEconomicAccountDTOsList
 	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(Long uid) {

@@ -17,10 +17,5 @@ public class DaoActivityEconomicAccount extends DaoEntity {
 	public RepositoryEntity getRepoEntity() {
 		return repoActivityEconomicAccount;
 	}
-	
-//	public List<DtoBalanceFinancialSourceObject> getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(Long uid) {
-//		ActivityEconomicAccount activityEconomicAccount = (ActivityEconomicAccount)getRepoEntity().findOne(uid);
-//		return activityEconomicAccount.generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists();
-//	}
 		
 }

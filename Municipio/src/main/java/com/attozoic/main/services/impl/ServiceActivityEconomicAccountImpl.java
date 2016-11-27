@@ -18,9 +18,4 @@ public class ServiceActivityEconomicAccountImpl extends ServiceEntityImpl implem
 		return daoActivityEconomicAccount;
 	}
 
-//	@Override
-//	public List<DtoBalanceFinancialSourceObject> getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(Long uid) {
-//		return ((DaoActivityEconomicAccount)getDaoEntity()).getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(uid);
-//	}
-	
 }

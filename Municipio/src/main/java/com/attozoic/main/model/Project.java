@@ -82,6 +82,7 @@ public class Project extends SuperEntity {
     private Programme programme;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
+	@JsonIgnore
     private List<ProjectGoal> projectGoals = new ArrayList<>();
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")

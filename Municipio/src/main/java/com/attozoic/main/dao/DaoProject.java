@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
-import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
@@ -31,6 +30,10 @@ public class DaoProject extends DaoEntity {
 		return repoProject;
 	}
 	
+	public List<ProjectGoal> getProjectGoals(Long uid) {
+		return repoProject.getProjectGoals(uid);
+	}
+	
 	// getProjectFinancialSourceFooter()
 	public DtoFinanceFooter getProjectFinancialSourceFooter(Long uid) {
 		return repoProject.findOne(uid).generateProjectFinancialSourceFooter();
@@ -41,15 +44,20 @@ public class DaoProject extends DaoEntity {
 		return repoProject.findOne(uid).generateProjectFinancialSourceMap();
 	}
 	
-	// getProjectEconomicAccountFooter
-	public SuperEconomicAccount getProjectEconomicAccountFooter(Long uid) {
-		Project project = (Project)getRepoEntity().findOne(uid);
-		int numRebalances = 0;
-		try {
-			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-		} catch (NullPointerException ex) {}
-		return project.generateProjectEconomicAccountFooter(numRebalances);
+	// getProjectExpencesFooter
+	public List<Double> getProjectExpencesFooter(Long uid) {
+		return ((RepositoryProject)getRepoEntity()).getProjectExpencesFooter(uid);
 	}
+	
+	// getProjectEconomicAccountFooter
+//	public SuperEconomicAccount getProjectEconomicAccountFooter(Long uid) {
+//		Project project = (Project)getRepoEntity().findOne(uid);
+//		int numRebalances = 0;
+//		try {
+//			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+//		} catch (NullPointerException ex) {}
+//		return project.generateProjectEconomicAccountFooter(numRebalances);
+//	}
 	
 	// getProjectEconomicAccountDTOsList
 	public List<DtoProjectEconomicAccount> getProjectEconomicAccountsList(Long uid) {

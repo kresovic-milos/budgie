@@ -20,10 +20,10 @@ public class ControllerActivityEconomicAccount {
 	@Autowired
 	private ServiceActivityEconomicAccount serviceActivityEconomicAccount;
 	
-//	//TEST{uid}
-//	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public List<DtoBalanceFinancialSourceObject> getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(@PathVariable(value="uid") Long uid) {
-//		return serviceActivityEconomicAccount.getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(uid);
+	//getAllActivityEconomicAccounts
+//	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+//	public Page<SuperEntity> getAllActivityEconomicAccounts() {
+//		return serviceActivityEconomicAccount.findAll();
 //	}
 	
 	//getAllActivityEconomicAccounts

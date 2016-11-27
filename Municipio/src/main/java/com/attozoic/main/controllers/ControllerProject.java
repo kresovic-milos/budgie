@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
-import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
 
@@ -28,10 +26,16 @@ public class ControllerProject {
 	@Autowired
 	private ServiceProject serviceProject;
 	
+	//getActivityGoals{uid}
+	@RequestMapping(value="/{uid}/goals", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<ProjectGoal> getProjectGoals(@PathVariable(value="uid") Long uid) {
+		return serviceProject.getProjectGoals(uid);
+	}
+	
 	//getProgrammeFinancialSourceFooter{uid}
 	@RequestMapping(value="/{uid}/financesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoFinanceFooter getProjectFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
-		return serviceProject.getProjectFinancialSourceFooter(uid);
+	public List<Double> getProjectFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
+		return serviceProject.getProjectExpencesFooter(uid);
 	}
 	
 	//getProjectFinancialSourceMap{uid}
@@ -42,8 +46,8 @@ public class ControllerProject {
 	
 	//getProjectEconomicAccountFooter{uid}
 	@RequestMapping(value="/{uid}/expencesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public SuperEconomicAccount getProjectEconomicAccountFooter(@PathVariable(value="uid") Long uid) {
-		return serviceProject.getProjectEconomicAccountFooter(uid);
+	public List<Double> getProjectEconomicAccountFooter(@PathVariable(value="uid") Long uid) {
+		return serviceProject.getProjectExpencesFooter(uid);
 	}
 	
 	//getProjectEconomicAccountsList{uid}

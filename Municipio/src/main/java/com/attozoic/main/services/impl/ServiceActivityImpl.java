@@ -10,7 +10,6 @@ import com.attozoic.main.dao.DaoActivity;
 import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
-import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.services.ServiceActivity;
@@ -37,9 +36,14 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	}
 	
 	@Override
-	public SuperEconomicAccount getActivityEconomicAccountFooter(Long uid) {
-		return ((DaoActivity) getDaoEntity()).getActivityEconomicAccountFooter(uid);
+	public List<Double> getActivityExpencesFooter(Long uid) {
+		return ((DaoActivity) getDaoEntity()).getActivityExpencesFooter(uid);
 	}
+	
+//	@Override
+//	public SuperEconomicAccount getActivityEconomicAccountFooter(Long uid) {
+//		return ((DaoActivity) getDaoEntity()).getActivityEconomicAccountFooter(uid);
+//	}
 
 	@Override
 	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(Long uid) {
@@ -54,6 +58,11 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	@Override
 	public ActivityEconomicAccount addActivityEconomicAccount(Long uid, ActivityEconomicAccount activityEconomicAccount) {
 		return ((DaoActivity) getDaoEntity()).addActivityEconomicAccount(uid, activityEconomicAccount);
+	}
+
+	@Override
+	public List<ActivityGoal> getActivityGoals(Long uid) {
+		return ((DaoActivity) getDaoEntity()).getActivityGoals(uid);
 	}
 	
 }

@@ -40,6 +40,24 @@ public class DaoProgramme extends DaoEntity {
 		return repoProgramme;
 	}
 	
+	public List<ProgrammeGoal> getProgrammeGoals(Long uid) {
+		return repoProgramme.getProgrammeGoals(uid);
+	}
+	
+//	public List<Double> getProgrammeExpencesFooter(Long uid) {
+//		List<Double> list = new ArrayList<>();
+//		Programme programme = repoProgramme.findOne(uid);
+//		return list;
+//	}
+//	
+//	private List<Double> sumLists(List<Double> l1, List<Double> l2) {
+//		List<Double> list = new ArrayList<>();
+//		for (int i = 0; i < l1.size(); i++) {
+//			list.add(l1.get(i) + l2.get(i));
+//		}
+//		return list;
+//	}
+	
 	//GENERATE BALANCES AMOUNTS
 	public void generateBalancesAmounts(Long uid) {
 		Programme programme = (Programme)repoProgramme.findOne(uid);

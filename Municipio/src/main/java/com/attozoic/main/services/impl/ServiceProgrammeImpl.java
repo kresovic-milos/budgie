@@ -72,4 +72,9 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 		((DaoProgramme) getDaoEntity()).generateBalancesAmounts(uid);
 	}
 
+	@Override
+	public List<ProgrammeGoal> getProgrammeGoals(Long uid) {
+		return ((DaoProgramme) getDaoEntity()).getProgrammeGoals(uid);
+	}
+
 }
