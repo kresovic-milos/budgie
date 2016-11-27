@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceProjectEconomicAccount;
 
@@ -43,10 +45,10 @@ public class ControllerProjectEconomicAccount {
 	}
 	
 	//updateProjectEconomicAccount
-//	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public ProjectEconomicAccount update(@RequestBody ProjectEconomicAccount projectEconomicAccount) {
-//		return (ProjectEconomicAccount) serviceProjectEconomicAccount.update(projectEconomicAccount);
-//	}
+	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ProjectEconomicAccount update(@RequestBody ProjectEconomicAccount projectEconomicAccount) {
+		return (ProjectEconomicAccount) serviceProjectEconomicAccount.update(projectEconomicAccount);
+	}
 	
 	//deleteProjectEconomicAccount{uid}
 	@RequestMapping(value="{uid}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)

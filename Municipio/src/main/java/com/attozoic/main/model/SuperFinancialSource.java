@@ -12,7 +12,7 @@ import org.hibernate.annotations.NotFoundAction;
 
 import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.dto.DtoFinancialSource;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
@@ -45,7 +45,8 @@ public abstract class SuperFinancialSource extends SuperEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "balance_id")
 	@NotFound(action=NotFoundAction.IGNORE)
-	@JsonIgnoreProperties({"balanceType", "quarter1", "quarter2", "quarter3", "quarter4"})
+	//@JsonIgnoreProperties({"balanceType", "quarter1", "quarter2", "quarter3", "quarter4"})
+	@JsonIdentityReference(alwaysAsId = true)
 	private Balance balance;
 	
 	public void generateFinancialSourceAmount() {

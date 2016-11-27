@@ -1,11 +1,13 @@
 package com.attozoic.main.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoFinancialSource;
@@ -35,13 +38,23 @@ import lombok.EqualsAndHashCode;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=Project.class)
 public class Project extends SuperEntity {
 
+	
+	
+
+	
 	private String code;
+	@Column(length = 512)
 	private String name;
 
+	@Column(length = 2048)
     private String purpose;
+	@Column(length = 2048)
 	private String rudiment;
+	@Column(length = 2048)
 	private String description;
+	@Column(length = 2048)
 	private String anex;
+	@Column(length = 2048)
 	private String responsibleAuthority;
 	
 	// Function
@@ -86,7 +99,12 @@ public class Project extends SuperEntity {
 		ProjectEconomicAccount projectEconomicAccount = new ProjectEconomicAccount();
 		projectEconomicAccount.generateBalances(numRebalances);
 		for (ProjectEconomicAccount projectEconomicAccount2 : this.projectEconomicAccounts) {
-			projectEconomicAccount.sumProjectEconomicAccounts(projectEconomicAccount2);
+			List<Balance> balances = projectEconomicAccount2.getBalances();
+			Collections.sort(balances);
+			projectEconomicAccount2.setBalances(balances);
+			if (projectEconomicAccount2.getActiveState()==ActiveState.ACTIVE) {
+				projectEconomicAccount = projectEconomicAccount.sumProjectEconomicAccounts(projectEconomicAccount2);
+			}
 		}
 		projectEconomicAccount.generateSumExpences123();
 		projectEconomicAccount.setName(this.getName());
@@ -102,26 +120,33 @@ public class Project extends SuperEntity {
 			ProjectEconomicAccount projectEconomicAccount = new ProjectEconomicAccount();
 			projectEconomicAccount.generateBalances(numRebalances);
 			for (ProjectEconomicAccount projectEconomicAccount2 : entry.getValue()) {
-				projectEconomicAccount.sumProjectEconomicAccounts(projectEconomicAccount2);
+				projectEconomicAccount = projectEconomicAccount.sumProjectEconomicAccounts(projectEconomicAccount2);
 			}
 			projectEconomicAccount.setCode(entry.getKey());
+			Collections.sort(entry.getValue());
 			projectEconomicAccounts.add(new DtoProjectEconomicAccount(projectEconomicAccount, entry.getValue()));
 		}
+		Collections.sort(projectEconomicAccounts);
 		return projectEconomicAccounts;
 	}
 	
 	private Map<String, List<ProjectEconomicAccount>> generateThreeDigitsProjectEconomicAccountsMap() {
 		Map<String, List<ProjectEconomicAccount>> map = new HashMap<>();
 		for (ProjectEconomicAccount projectEconomicAccount : this.projectEconomicAccounts) {
-			String threeDigits = projectEconomicAccount.getCode().substring(0, 3).concat("000");
-			if (map.containsKey(threeDigits)) {
-				List<ProjectEconomicAccount> projectEconomicAccounts = map.get(threeDigits);
-				projectEconomicAccounts.add(projectEconomicAccount);
-				map.put(threeDigits, projectEconomicAccounts);
-			} else {
-				List<ProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
-				projectEconomicAccounts.add(projectEconomicAccount);
-				map.put(threeDigits, projectEconomicAccounts);
+			List<Balance> balances = projectEconomicAccount.getBalances();
+			Collections.sort(balances);
+			projectEconomicAccount.setBalances(balances);
+			if (projectEconomicAccount.getActiveState()==ActiveState.ACTIVE) {
+				String threeDigits = projectEconomicAccount.getCode().substring(0, 3).concat("000");
+				if (map.containsKey(threeDigits)) {
+					List<ProjectEconomicAccount> projectEconomicAccounts = map.get(threeDigits);
+					projectEconomicAccounts.add(projectEconomicAccount);
+					map.put(threeDigits, projectEconomicAccounts);
+				} else {
+					List<ProjectEconomicAccount> projectEconomicAccounts = new ArrayList<>();
+					projectEconomicAccounts.add(projectEconomicAccount);
+					map.put(threeDigits, projectEconomicAccounts);
+				}
 			}
 		}
 		return map;
@@ -150,7 +175,9 @@ public class Project extends SuperEntity {
 		try {
 			List<DtoBalanceFinancialSourceObject> list = this.getProjectEconomicAccounts().get(0).generateProjectEconomicAccountDtoBalanceFinancialSourceObjectLists();
 			for (int i = 1; i < this.projectEconomicAccounts.size(); i++) {
-				list = this.projectEconomicAccounts.get(i).mergeProjectFinancialSourceBalancesLists(list, this.projectEconomicAccounts.get(i).generateProjectEconomicAccountDtoBalanceFinancialSourceObjectLists());
+				if (projectEconomicAccounts.get(i).getActiveState()==ActiveState.ACTIVE) {
+					list = this.projectEconomicAccounts.get(i).mergeProjectFinancialSourceBalancesLists(list, this.projectEconomicAccounts.get(i).generateProjectEconomicAccountDtoBalanceFinancialSourceObjectLists());
+				}
 			}		
 			int numBalances = this.getProjectEconomicAccounts().get(0).getBalances().size();
 			for (int i = 0; i < list.size(); i++) {

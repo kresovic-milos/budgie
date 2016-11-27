@@ -1,6 +1,7 @@
 package com.attozoic.main.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=ProjectEconomicAccount.class)
 @JsonTypeName("projectEconomicAccount")
-public class ProjectEconomicAccount extends SuperEconomicAccount {
+public class ProjectEconomicAccount extends SuperEconomicAccount implements Comparable<ProjectEconomicAccount> {
 	
 	
 	
@@ -85,24 +86,45 @@ public class ProjectEconomicAccount extends SuperEconomicAccount {
     public void generateSumExpences123() {
     	this.setSumExpenses123Budget(0);
     	this.setSumExpenses123Others(0);
-		for (int i = 2; i < this.balances.size(); i++) {
-    		if (this.balances.get(i).getBalanceType() == BalanceType.BUDGET) {
-    			this.setSumExpenses123Budget(this.getSumExpenses123Budget() + this.balances.get(i).getBalance_amount());
-    		} else {
-    			this.setSumExpenses123Others(this.getSumExpenses123Others() + this.balances.get(i).getBalance_amount());
-    		}
-    	}
+    	
+    	for (Balance balance : balances) {
+			if (balance.getYear() != 2016) {
+	    		if (balance.getBalanceType() == BalanceType.BUDGET) {
+	    			this.setSumExpenses123Budget(this.getSumExpenses123Budget() + balance.getBalance_amount());
+	    		} else {
+	    			this.setSumExpenses123Others(this.getSumExpenses123Others() + balance.getBalance_amount());
+	    		}
+			}
+		}
+    	
+//		for (int i = 2; i < this.balances.size(); i++) {
+//    		if (this.balances.get(i).getBalanceType() == BalanceType.BUDGET) {
+//    			this.setSumExpenses123Budget(this.getSumExpenses123Budget() + this.balances.get(i).getBalance_amount());
+//    		} else {
+//    			this.setSumExpenses123Others(this.getSumExpenses123Others() + this.balances.get(i).getBalance_amount());
+//    		}
+//    	}
     }
     
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
     
     public ProjectEconomicAccount sumProjectEconomicAccounts(ProjectEconomicAccount projectEconomicAccount) {
     	ProjectEconomicAccount projectEconomicAccount2 = new ProjectEconomicAccount();
-    	List<Balance> list = new ArrayList<>();
+    	
+    	List<Balance> list1 = this.getBalances();
+    	Collections.sort(list1);
+    	this.setBalances(list1);
+    	
+    	List<Balance> list2 = projectEconomicAccount.getBalances();
+    	Collections.sort(list2);
+    	projectEconomicAccount.setBalances(list2);
+    	
+    	List<Balance> balances = new ArrayList<>();
     	for (int i = 0; i < this.balances.size(); i++) {
-    		list.add(this.balances.get(i).sumBalancesSameYearAndType(projectEconomicAccount.getBalances().get(i)));
+    		balances.add(this.balances.get(i).sumBalancesSameYearAndType(projectEconomicAccount.getBalances().get(i)));
     	}
-    	projectEconomicAccount2.setBalances(list);
+    	Collections.sort(balances);
+    	projectEconomicAccount2.setBalances(balances);
     	projectEconomicAccount2.generateSumExpences123();
     	return projectEconomicAccount2;
     }
@@ -150,6 +172,11 @@ public class ProjectEconomicAccount extends SuperEconomicAccount {
 		}
     	return list;
     }
+
+	@Override
+	public int compareTo(ProjectEconomicAccount o) {
+		return Integer.parseInt(this.getCode()) - Integer.parseInt(o.getCode());
+	}
     
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
     

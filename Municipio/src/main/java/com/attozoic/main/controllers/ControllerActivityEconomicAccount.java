@@ -1,7 +1,5 @@
 package com.attozoic.main.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
-import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
 import com.attozoic.main.services.ServiceActivityEconomicAccount;
 
 @RestController
@@ -23,11 +20,11 @@ public class ControllerActivityEconomicAccount {
 	@Autowired
 	private ServiceActivityEconomicAccount serviceActivityEconomicAccount;
 	
-	//TEST{uid}
-	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public List<DtoBalanceFinancialSourceObject> getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(@PathVariable(value="uid") Long uid) {
-		return serviceActivityEconomicAccount.getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(uid);
-	}
+//	//TEST{uid}
+//	@RequestMapping(value="/{uid}/dto", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public List<DtoBalanceFinancialSourceObject> getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(@PathVariable(value="uid") Long uid) {
+//		return serviceActivityEconomicAccount.getActivityEconomicAccountDtoBalanceFinancialSourceObjectLists(uid);
+//	}
 	
 	//getAllActivityEconomicAccounts
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 

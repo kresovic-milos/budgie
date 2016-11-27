@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class DtoBalanceFinancialSourceObject {
+public class DtoBalanceFinancialSourceObject implements Comparable<DtoBalanceFinancialSourceObject> {
 
 	private double year;
 	private List<DtoFinancialSource> dtoFinancialSources;
@@ -15,6 +15,11 @@ public class DtoBalanceFinancialSourceObject {
 	public DtoBalanceFinancialSourceObject(double year, List<DtoFinancialSource> dtoFinancialSources) {
 		this.year = year;
 		this.dtoFinancialSources = dtoFinancialSources;
+	}
+
+	@Override
+	public int compareTo(DtoBalanceFinancialSourceObject o) {
+		return (int)(this.getYear() - o.getYear());
 	}
 	
 	// Sabira 2 ovakva objekta, zadrzava podatke THIS objekta i sabira im liste List<ActivityFinancialSource> metodom ispod

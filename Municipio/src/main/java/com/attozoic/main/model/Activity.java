@@ -1,6 +1,7 @@
 package com.attozoic.main.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
@@ -97,7 +99,12 @@ public class Activity extends SuperEntity {
 		ActivityEconomicAccount activityEconomicAccount = new ActivityEconomicAccount();
 		activityEconomicAccount.generateBalances(numRebalances);
 		for (ActivityEconomicAccount activityEconomicAccount2 : this.activityEconomicAccounts) {
-			activityEconomicAccount = activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
+			List<Balance> balances = activityEconomicAccount2.getBalances();
+			Collections.sort(balances);
+			activityEconomicAccount2.setBalances(balances);
+			if (activityEconomicAccount2.getActiveState()==ActiveState.ACTIVE) {
+				activityEconomicAccount = activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
+			}
 		}
 		activityEconomicAccount.generateSumExpences123();
 		activityEconomicAccount.setName(this.getName());
@@ -116,14 +123,20 @@ public class Activity extends SuperEntity {
 				activityEconomicAccount = activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
 			}
 			activityEconomicAccount.setCode(entry.getKey());
+			Collections.sort(entry.getValue());
 			activityEconomicAccounts.add(new DtoActivityEconomicAccount(activityEconomicAccount, entry.getValue()));
 		}
+		Collections.sort(activityEconomicAccounts);
 		return activityEconomicAccounts;
 	}
 	
 	private Map<String, List<ActivityEconomicAccount>> generateThreeDigitsActivityEconomicAccountsMap() {
 		Map<String, List<ActivityEconomicAccount>> map = new HashMap<>();
-			for (ActivityEconomicAccount activityEconomicAccount : this.activityEconomicAccounts) {
+		for (ActivityEconomicAccount activityEconomicAccount : this.activityEconomicAccounts) {
+			List<Balance> balances = activityEconomicAccount.getBalances();
+			Collections.sort(balances);
+			activityEconomicAccount.setBalances(balances);
+			if (activityEconomicAccount.getActiveState()==ActiveState.ACTIVE) {
 				String threeDigits = activityEconomicAccount.getCode().substring(0, 3).concat("000");
 				if (map.containsKey(threeDigits)) {
 					List<ActivityEconomicAccount> activityEconomicAccounts = map.get(threeDigits);
@@ -135,6 +148,7 @@ public class Activity extends SuperEntity {
 					map.put(threeDigits, activityEconomicAccounts);
 				}
 			}
+		}
 		return map;
 	}
 	
@@ -142,7 +156,7 @@ public class Activity extends SuperEntity {
 	
 	// ActivityFinancialSource LIST and FOOTER
 	
-	// generateActivityFinancialSourceMap
+	// generateActivityFinancialSourceFooter
 	public DtoFinanceFooter generateActivityFinancialSourceFooter() {
 		Map<String, double[]> map = this.generateActivityFinancialSourceMap();
 		int numBalances = this.getActivityEconomicAccounts().get(0).getBalances().size();
@@ -160,10 +174,12 @@ public class Activity extends SuperEntity {
 	// generateActivityFinancialSourceMap
 	public Map<String, double[]> generateActivityFinancialSourceMap() {
 		Map<String, double[]> map = new HashMap<>();
-		try {
+		try { // D I L E M A ! ! ! - ako prvi nije ACTIVE!!!
 			List<DtoBalanceFinancialSourceObject> list = this.getActivityEconomicAccounts().get(0).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists();
 			for (int i = 1; i < this.activityEconomicAccounts.size(); i++) {
-				list = this.activityEconomicAccounts.get(i).mergeActivityFinancialSourceBalancesLists(list, this.activityEconomicAccounts.get(i).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists());
+				if (activityEconomicAccounts.get(i).getActiveState()==ActiveState.ACTIVE) {
+					list = this.activityEconomicAccounts.get(i).mergeActivityFinancialSourceBalancesLists(list, this.activityEconomicAccounts.get(i).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists());
+				}
 			}		
 			int numBalances = this.getActivityEconomicAccounts().get(0).getBalances().size();
 			for (int i = 0; i < list.size(); i++) {

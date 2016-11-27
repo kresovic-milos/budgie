@@ -66,7 +66,7 @@ public class DaoProject extends DaoEntity {
 	public ProjectGoal addGoal(Long uid, ProjectGoal goal) {
 		Project project = (Project) getRepoEntity().findOne(uid);
 		goal.setProject(project);
-		getRepoEntity().save(project);
+		//getRepoEntity().save(project);
 		return (ProjectGoal) getRepoEntity().save(goal);
 	}
 	

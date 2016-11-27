@@ -19,6 +19,7 @@ import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.SuperFinancialSource;
 import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -30,7 +31,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=Balance.class)
-public class Balance extends SuperEntity {
+public class Balance extends SuperEntity implements Comparable<Balance> {
 	
 	private BalanceType balanceType;
 	private double year;
@@ -42,6 +43,7 @@ public class Balance extends SuperEntity {
 	private SuperEconomicAccount superEconomicAccount;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="balance")
+	@JsonIgnore
 	private List<SuperFinancialSource> financialSources = new ArrayList<>();
 	
 	private double balance_amount;
@@ -77,6 +79,22 @@ public class Balance extends SuperEntity {
 			list.add(superFinancialSource.generateDtoFinancialSource());
 		}
 		return list;
+	}
+
+	@Override
+	public int compareTo(Balance o) {
+		if (this.getYear() < o.getYear()) {
+			return -1;
+		} else if (this.getYear() > o.getYear()) {
+			return 1;
+		} else {
+			if (this.getBalanceType() == BalanceType.BUDGET) {
+				return -1;
+			} else {
+				return 1;
+			}
+		}
+		
 	}
 	
 }

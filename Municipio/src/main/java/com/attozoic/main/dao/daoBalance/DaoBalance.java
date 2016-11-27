@@ -45,4 +45,8 @@ public class DaoBalance extends DaoEntity {
 		return (SuperFinancialSource) getRepoEntity().save(superFinancialSource);
 	}
 	
+	public List<SuperFinancialSource> getFinancialSources(Long uid) {
+		return ((RepositoryBalance) getRepoEntity()).getBalanceFinancialSources(uid);
+	}
+	
 }

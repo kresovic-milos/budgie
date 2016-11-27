@@ -1,5 +1,7 @@
 package com.attozoic.main.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -20,6 +22,11 @@ public class ControllerBalance {
 
 	@Autowired
 	private ServiceBalance serviceBalance; 
+	
+	@RequestMapping(value="{uid}/financialSources", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+		public List<SuperFinancialSource> getFinancialSources(@PathVariable(value="uid") Long uid) {
+		return serviceBalance.getFinancialSources(uid);
+	}
 	
 	//addFinancialSource to Balance{uid}
 	@RequestMapping(value="/{uid}/financialSource", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
