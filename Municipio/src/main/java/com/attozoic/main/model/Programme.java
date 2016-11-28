@@ -86,7 +86,7 @@ public class Programme extends SuperEntity {
 		return programmeEconomicAccount;
 	}
 	
-	// List of ProgrammeEconomicAccounts (ActivityFooters and ProjectFooters)
+	// List of ProgrammeEconomicAccounts 
 	public List<DtoProgrammeEconomicAccount> generateProgrammeEconomicAccountList(int numRebalances) {
 		Map<String, List<SuperEconomicAccount>> map = generateProgrammeEconomicAccountMap(numRebalances);
 		List<DtoProgrammeEconomicAccount> programmeEconomicAccounts = new ArrayList<>();
@@ -152,7 +152,7 @@ public class Programme extends SuperEntity {
 	
 	// ProgrammeFinancialSource LIST and FOOTER
 	
-	// generateProgrammeFinancialSourceMap
+	// generateProgrammeFinancialSourceFooter
 	public DtoFinanceFooter generateProgrammeFinancialSourceFooter() {
 		Map<String, double[]> map = this.generateProgrammeFinancialSourceMap();
 		try {

@@ -16,4 +16,5 @@ public class DtoProgrammeChartObject {
 		this.value = value;
 		this.percnetage = percentage;
 	}
+	
 }

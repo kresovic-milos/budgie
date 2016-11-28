@@ -10,7 +10,6 @@ import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProject;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
 
@@ -25,10 +24,10 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 		return daoProject;
 	}
 	
-	@Override
-	public DtoFinanceFooter getProjectFinancialSourceFooter(Long uid) {
-		return ((DaoProject) getDaoEntity()).getProjectFinancialSourceFooter(uid);
-	}
+//	@Override
+//	public DtoFinanceFooter getProjectFinancialSourceFooter(Long uid) {
+//		return ((DaoProject) getDaoEntity()).getProjectFinancialSourceFooter(uid);
+//	}
 	
 	@Override
 	public Map<String, double[]> getProjectFinancialSourceMap(Long uid) {

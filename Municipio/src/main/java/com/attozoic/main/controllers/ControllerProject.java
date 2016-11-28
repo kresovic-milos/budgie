@@ -26,13 +26,13 @@ public class ControllerProject {
 	@Autowired
 	private ServiceProject serviceProject;
 	
-	//getActivityGoals{uid}
+	//getProjectGoals{uid}
 	@RequestMapping(value="/{uid}/goals", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<ProjectGoal> getProjectGoals(@PathVariable(value="uid") Long uid) {
 		return serviceProject.getProjectGoals(uid);
 	}
 	
-	//getProgrammeFinancialSourceFooter{uid}
+	//getProjectFinancialSourceFooter{uid}
 	@RequestMapping(value="/{uid}/financesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<Double> getProjectFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
 		return serviceProject.getProjectExpencesFooter(uid);

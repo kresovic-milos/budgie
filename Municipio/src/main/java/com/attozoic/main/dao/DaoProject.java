@@ -12,7 +12,6 @@ import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProject;
@@ -38,9 +37,9 @@ public class DaoProject extends DaoEntity {
 	}
 	
 	// getProjectFinancialSourceFooter()
-	public DtoFinanceFooter getProjectFinancialSourceFooter(Long uid) {
-		return repoProject.findOne(uid).generateProjectFinancialSourceFooter();
-	}
+//	public DtoFinanceFooter getProjectFinancialSourceFooter(Long uid) {
+//		return repoProject.findOne(uid).generateProjectFinancialSourceFooter();
+//	}
 	
 	// getProjectFinancialSourceMap
 	public Map<String, double[]> getProjectFinancialSourceMap(Long uid) {

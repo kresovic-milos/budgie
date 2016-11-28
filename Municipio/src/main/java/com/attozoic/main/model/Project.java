@@ -20,7 +20,6 @@ import org.hibernate.annotations.NotFoundAction;
 
 import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -157,18 +156,18 @@ public class Project extends SuperEntity {
 	
 	// ProjectFinancialSource LIST and FOOTER
 	
-	// generateProjectFinancialSourceMap
-	public DtoFinanceFooter generateProjectFinancialSourceFooter() {
-		Map<String, double[]> map = this.generateProjectFinancialSourceMap();
-		int numBalances = this.getProjectEconomicAccounts().get(0).getBalances().size();
-		double[] array = new double[numBalances];
-		for (Map.Entry<String, double[]> entry : map.entrySet()) {
-			for (int i = 0; i < array.length; i++) {
-				array[i] += entry.getValue()[i];
-			}
-		}
-		return new DtoFinanceFooter(this.getName(), array);
-	}
+	// generateProjectFinancialSourceFooter
+//	public DtoFinanceFooter generateProjectFinancialSourceFooter() {
+//		Map<String, double[]> map = this.generateProjectFinancialSourceMap();
+//		int numBalances = this.getProjectEconomicAccounts().get(0).getBalances().size();
+//		double[] array = new double[numBalances];
+//		for (Map.Entry<String, double[]> entry : map.entrySet()) {
+//			for (int i = 0; i < array.length; i++) {
+//				array[i] += entry.getValue()[i];
+//			}
+//		}
+//		return new DtoFinanceFooter(this.getName(), array);
+//	}
 	
 	// generateProjectFinancialSourceMap
 	public Map<String, double[]> generateProjectFinancialSourceMap() {
