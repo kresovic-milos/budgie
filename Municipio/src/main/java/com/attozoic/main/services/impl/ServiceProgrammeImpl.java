@@ -77,4 +77,9 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 		return ((DaoProgramme) getDaoEntity()).getProgrammeGoals(uid);
 	}
 
+	@Override
+	public double getSumExpences2016() {
+		return ((DaoProgramme) getDaoEntity()).getSumExpences2016();
+	}
+
 }

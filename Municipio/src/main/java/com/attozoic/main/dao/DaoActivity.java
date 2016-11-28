@@ -1,5 +1,7 @@
 package com.attozoic.main.dao;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
@@ -35,16 +37,16 @@ public class DaoActivity extends DaoEntity {
 	}
 	
 	// getActivityFinancialSourceFooter()
-	public DtoFinanceFooter getActivityFinancialSourceFooter(Long uid) {
-		return repoActivity.findOne(uid).generateActivityFinancialSourceFooter();
-	}
+//	public DtoFinanceFooter getActivityFinancialSourceFooter(Long uid) {
+//		return repoActivity.findOne(uid).generateActivityFinancialSourceFooter();
+//	}
 	
 	// getActivityFinancialSourceMap
 	public Map<String, double[]> getActivityFinancialSourceMap(Long uid) {
 		return repoActivity.findOne(uid).generateActivityFinancialSourceMap();
 	}
 	
-	// getActivityExpencesFooter
+	// getActivityExpencesFooter AND ActivityFinancesFooter
 	public List<Double> getActivityExpencesFooter(Long uid) {
 		return ((RepositoryActivity)getRepoEntity()).getActivityExpencesFooter(uid);
 	}
@@ -60,14 +62,14 @@ public class DaoActivity extends DaoEntity {
 //	}
 	
 	// getActivityEconomicAccountDTOsList
-	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(Long uid) {
-		Activity activity = (Activity)getRepoEntity().findOne(uid);
-		int numRebalances = 0;
-		try {
-			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-		} catch (NullPointerException ex) {}
-		return activity.generateActivityEconomicAccountsList(numRebalances);
-	}
+//	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(Long uid) {
+//		Activity activity = (Activity)getRepoEntity().findOne(uid);
+//		int numRebalances = 0;
+//		try {
+//			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+//		} catch (NullPointerException ex) {}
+//		return activity.generateActivityEconomicAccountsList(numRebalances);
+//	}
 	
 	// addActivityGoal
 	@SuppressWarnings("unchecked")
@@ -89,5 +91,39 @@ public class DaoActivity extends DaoEntity {
 			activityEconomicAccount.generateBalances(numRebalances);
 		return (ActivityEconomicAccount) getRepoEntity().save(activityEconomicAccount);
 	}
+	
+	// List of Expences for Activity{uid}
+	public List<DtoActivityEconomicAccount> getActivityExpencesList(Long uid) {
+		List<DtoActivityEconomicAccount> list = new ArrayList<>();
+		List<Object> objects = repoActivity.getExpencesGroups(uid);
+		List<SuperEconomicAccount> economicAccounts = repoActivity.getActivityExpences(uid);
+		for (Object o : objects) {
+			ActivityEconomicAccount aea = new ActivityEconomicAccount();
+			aea.setCode(o.toString().concat("000"));
+			aea.generateBalances(getNumRebalances());
+			List<ActivityEconomicAccount> list2 = new ArrayList<>();
+			for (SuperEconomicAccount economicAccount : economicAccounts) {
+				String threeDigit = ((ActivityEconomicAccount)economicAccount).getCode().substring(0, 3).concat("000");
+				if (aea.getCode().equals(threeDigit)) {
+					aea = aea.sumActivityEconomicAccounts((ActivityEconomicAccount)economicAccount);
+					list2.add((ActivityEconomicAccount)economicAccount);
+				}
+			}
+			Collections.sort(list2);
+			DtoActivityEconomicAccount dto = new DtoActivityEconomicAccount(aea, list2); 
+			list.add(dto);
+		}
+		Collections.sort(list);
+		return list;
+	}
+	
+	public int getNumRebalances() {
+		int numRebalances = 0;
+		try {
+			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
+		} catch (NullPointerException ex) {}
+		return numRebalances;
+	}
+	
 	
 }

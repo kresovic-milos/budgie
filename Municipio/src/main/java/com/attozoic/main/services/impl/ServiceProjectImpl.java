@@ -46,8 +46,8 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 //	}
 
 	@Override
-	public List<DtoProjectEconomicAccount> getProjectEconomicAccountsList(Long uid) {
-		return ((DaoProject) getDaoEntity()).getProjectEconomicAccountsList(uid);
+	public List<DtoProjectEconomicAccount> getProjectExpencesList(Long uid) {
+		return ((DaoProject) getDaoEntity()).getProjectExpencesList(uid);
 	}
 	
 	@Override

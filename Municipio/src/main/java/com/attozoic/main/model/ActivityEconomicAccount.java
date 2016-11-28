@@ -110,7 +110,7 @@ public class ActivityEconomicAccount extends SuperEconomicAccount implements Com
     
     public ActivityEconomicAccount sumActivityEconomicAccounts(ActivityEconomicAccount activityEconomicAccount) {
     	ActivityEconomicAccount activityEconomicAccount2 = new ActivityEconomicAccount();
-    	
+    	activityEconomicAccount2.setCode(this.getCode());
     	List<Balance> list1 = this.getBalances();
     	Collections.sort(list1);
     	this.setBalances(list1);
@@ -124,6 +124,7 @@ public class ActivityEconomicAccount extends SuperEconomicAccount implements Com
     		balances.add(this.balances.get(i).sumBalancesSameYearAndType(activityEconomicAccount.getBalances().get(i)));
     	}
     	Collections.sort(balances);
+    	
     	activityEconomicAccount2.setBalances(balances);
     	activityEconomicAccount2.generateSumExpences123();
     	return activityEconomicAccount2;

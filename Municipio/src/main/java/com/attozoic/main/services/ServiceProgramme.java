@@ -27,4 +27,6 @@ public interface ServiceProgramme extends ServiceEntity {
 	
 	List<ProgrammeGoal> getProgrammeGoals(Long uid);
 	
+	double getSumExpences2016();
+	
 }

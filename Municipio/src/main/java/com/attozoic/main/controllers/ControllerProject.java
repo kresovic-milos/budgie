@@ -53,7 +53,7 @@ public class ControllerProject {
 	//getProjectEconomicAccountsList{uid}
 	@RequestMapping(value="/{uid}/expences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<DtoProjectEconomicAccount> getProjectEconomicAccountsList(@PathVariable(value="uid") Long uid) {
-		return serviceProject.getProjectEconomicAccountsList(uid);
+		return serviceProject.getProjectExpencesList(uid);
 	}
 	
 	//addProjectGoal to Project{uid}

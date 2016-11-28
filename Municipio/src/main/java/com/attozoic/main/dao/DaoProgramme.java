@@ -58,6 +58,10 @@ public class DaoProgramme extends DaoEntity {
 //		return list;
 //	}
 	
+	public double getSumExpences2016() {
+		return repoProgramme.getSumExpences2016();
+	}
+	
 	//GENERATE BALANCES AMOUNTS
 	public void generateBalancesAmounts(Long uid) {
 		Programme programme = (Programme)repoProgramme.findOne(uid);

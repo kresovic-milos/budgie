@@ -110,6 +110,7 @@ public class ProjectEconomicAccount extends SuperEconomicAccount implements Comp
     
     public ProjectEconomicAccount sumProjectEconomicAccounts(ProjectEconomicAccount projectEconomicAccount) {
     	ProjectEconomicAccount projectEconomicAccount2 = new ProjectEconomicAccount();
+    	projectEconomicAccount2.setCode(this.getCode());
     	
     	List<Balance> list1 = this.getBalances();
     	Collections.sort(list1);

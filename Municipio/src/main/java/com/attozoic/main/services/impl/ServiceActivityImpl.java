@@ -11,7 +11,6 @@ import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.services.ServiceActivity;
 
 @Service
@@ -25,10 +24,10 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 		return daoActivity;
 	}
 	
-	@Override
-	public DtoFinanceFooter getActivityFinancialSourceFooter(Long uid) {
-		return ((DaoActivity) getDaoEntity()).getActivityFinancialSourceFooter(uid);
-	}
+//	@Override
+//	public DtoFinanceFooter getActivityFinancialSourceFooter(Long uid) {
+//		return ((DaoActivity) getDaoEntity()).getActivityFinancialSourceFooter(uid);
+//	}
 	
 	@Override
 	public Map<String, double[]> getActivityFinancialSourceMap(Long uid) {
@@ -46,8 +45,8 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 //	}
 
 	@Override
-	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(Long uid) {
-		return ((DaoActivity) getDaoEntity()).getActivityEconomicAccountsList(uid);
+	public List<DtoActivityEconomicAccount> getActivityExpencesList(Long uid) {
+		return ((DaoActivity) getDaoEntity()).getActivityExpencesList(uid);
 	}
 	
 	@Override

@@ -21,7 +21,6 @@ import org.hibernate.annotations.NotFoundAction;
 import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -158,19 +157,19 @@ public class Activity extends SuperEntity {
 	// ActivityFinancialSource LIST and FOOTER
 	
 	// generateActivityFinancialSourceFooter
-	public DtoFinanceFooter generateActivityFinancialSourceFooter() {
-		Map<String, double[]> map = this.generateActivityFinancialSourceMap();
-		int numBalances = this.getActivityEconomicAccounts().get(0).getBalances().size();
-		double[] array = new double[numBalances];
-		try {
-			for (Map.Entry<String, double[]> entry : map.entrySet()) {
-				for (int i = 0; i < array.length; i++) {
-					array[i] += entry.getValue()[i];
-				}
-			}
-		} catch(IndexOutOfBoundsException ex) {}
-		return new DtoFinanceFooter(this.getName(), array);
-	}
+//	public DtoFinanceFooter generateActivityFinancialSourceFooter() {
+//		Map<String, double[]> map = this.generateActivityFinancialSourceMap();
+//		int numBalances = this.getActivityEconomicAccounts().get(0).getBalances().size();
+//		double[] array = new double[numBalances];
+//		try {
+//			for (Map.Entry<String, double[]> entry : map.entrySet()) {
+//				for (int i = 0; i < array.length; i++) {
+//					array[i] += entry.getValue()[i];
+//				}
+//			}
+//		} catch(IndexOutOfBoundsException ex) {}
+//		return new DtoFinanceFooter(this.getName(), array);
+//	}
 	
 	// generateActivityFinancialSourceMap
 	public Map<String, double[]> generateActivityFinancialSourceMap() {

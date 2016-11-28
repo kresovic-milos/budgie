@@ -29,6 +29,12 @@ public class ControllerProgramme {
 	@Autowired
 	private ServiceProgramme serviceProgramme;
 	
+	//getSumExpences2016
+	@RequestMapping(value="/sum2016", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public double getSumExpences2016() {
+		return serviceProgramme.getSumExpences2016();
+	}
+	
 	//getProgrammeGoals{uid}
 	@RequestMapping(value="/{uid}/goals", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<ProgrammeGoal> getProgrammeGoals(@PathVariable(value="uid") Long uid) {

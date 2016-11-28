@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
@@ -26,8 +26,10 @@ import lombok.EqualsAndHashCode;
 	@JsonSubTypes.Type(value = ActivityEconomicAccount.class, name = "activityEconomicAccount"),
 	@JsonSubTypes.Type(value = ProjectEconomicAccount.class, name = "projectEconomicAccount")
 })
-@Data
-@EqualsAndHashCode(callSuper=true)
+//@Data
+//@EqualsAndHashCode(callSuper=true)
+@Getter
+@Setter
 public abstract class SuperEconomicAccount extends SuperEntity {
 	
 	private String categoryName;

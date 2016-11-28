@@ -15,4 +15,7 @@ public interface RepositoryProgramme extends RepositoryEntity<Programme> {
 	@Query("from ProgrammeGoal goal where goal.programme.uid=:programmeUid and goal.activeState = 0")
 	public List<ProgrammeGoal> getProgrammeGoals(@Param("programmeUid") Long uid);
 	
+	@Query("select SUM(b.balance_amount) from Balance b where b.activeState = 0 and b.year = 2016")
+	public double getSumExpences2016();
+	
 }

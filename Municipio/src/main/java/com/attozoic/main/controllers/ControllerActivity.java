@@ -53,7 +53,7 @@ public class ControllerActivity {
 	//getActivityEconomicAccountsList{uid}
 	@RequestMapping(value="/{uid}/expences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(@PathVariable(value="uid") Long uid) {
-		return serviceActivity.getActivityEconomicAccountsList(uid);
+		return serviceActivity.getActivityExpencesList(uid);
 	}
 
 	//addActivityGoal to Activity{uid}

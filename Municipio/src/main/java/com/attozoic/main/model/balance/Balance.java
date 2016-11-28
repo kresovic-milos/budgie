@@ -23,13 +23,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "balances")
-@Data
-@EqualsAndHashCode(callSuper=true)
+//@Data
+//@EqualsAndHashCode(callSuper=true)
+@Getter
+@Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=Balance.class)
 public class Balance extends SuperEntity implements Comparable<Balance> {
 	
