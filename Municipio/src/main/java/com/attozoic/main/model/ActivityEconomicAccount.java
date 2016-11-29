@@ -142,6 +142,7 @@ public class ActivityEconomicAccount extends SuperEconomicAccount implements Com
     
     // Vraca Listu Objekata sa godinom i listom FinSrcova za jedan EcAcc
     public List<DtoBalanceFinancialSourceObject> generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists() {
+    	Collections.sort(balances);
     	List<DtoBalanceFinancialSourceObject> list = new ArrayList<>();
     	for (Balance balance : balances) {
 			list.add(new DtoBalanceFinancialSourceObject(balance.getYear(), balance.generateDtoFinancialSourceList()));

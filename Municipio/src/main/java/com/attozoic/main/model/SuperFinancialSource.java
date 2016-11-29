@@ -54,7 +54,10 @@ public abstract class SuperFinancialSource extends SuperEntity {
 	}
 	
     public DtoFinancialSource generateDtoFinancialSource() {
-    	return new DtoFinancialSource(this.getName(), this.getYear(), this.getAmount());
+    	if (this.getActiveState() == ActiveState.ACTIVE) {
+    		return new DtoFinancialSource(this.getName(), this.getYear(), this.getAmount());
+    	}
+    	else return null;
     }
 	
 }

@@ -81,7 +81,9 @@ public class Balance extends SuperEntity implements Comparable<Balance> {
 	public List<DtoFinancialSource> generateDtoFinancialSourceList() {
 		List<DtoFinancialSource> list = new ArrayList<>();
 		for (SuperFinancialSource superFinancialSource : financialSources) {
-			list.add(superFinancialSource.generateDtoFinancialSource());
+			if (superFinancialSource.getActiveState() == ActiveState.ACTIVE) {
+				list.add(superFinancialSource.generateDtoFinancialSource());
+			}
 		}
 		return list;
 	}
