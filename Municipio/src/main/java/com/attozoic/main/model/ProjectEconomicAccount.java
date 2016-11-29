@@ -111,7 +111,6 @@ public class ProjectEconomicAccount extends SuperEconomicAccount implements Comp
     public ProjectEconomicAccount sumProjectEconomicAccounts(ProjectEconomicAccount projectEconomicAccount) {
     	ProjectEconomicAccount projectEconomicAccount2 = new ProjectEconomicAccount();
     	projectEconomicAccount2.setCode(this.getCode());
-    	
     	List<Balance> list1 = this.getBalances();
     	Collections.sort(list1);
     	this.setBalances(list1);
@@ -147,6 +146,7 @@ public class ProjectEconomicAccount extends SuperEconomicAccount implements Comp
     	for (Balance balance : balances) {
 			list.add(new DtoBalanceFinancialSourceObject(balance.getYear(), balance.generateDtoFinancialSourceList()));
 		}
+    	Collections.sort(list);
     	return list;
     }
     

@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.SuperFinancialSource;
@@ -62,7 +63,9 @@ public class Balance extends SuperEntity implements Comparable<Balance> {
 	public void generateBalanceAmount() {
 		double sum = 0;
 		for (SuperFinancialSource superFinancialSource : financialSources) {
-			sum += superFinancialSource.getAmount();
+			if (superFinancialSource.getActiveState() == ActiveState.ACTIVE) {
+				sum += superFinancialSource.getAmount();
+			}
 		}
 		this.setBalance_amount(sum);
 	}

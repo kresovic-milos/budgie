@@ -45,4 +45,20 @@ public class DaoActivityFinancialSource extends DaoEntity {
 		return afs;
 	}
 	
+	@Override
+	public void archive(Long uid) {
+		ActivityFinancialSource activityFinancialSource = repoActivityFinancialSource.findOne(uid);
+		Balance balance = repoBalance.findOne(activityFinancialSource.getBalance().getUid());
+		//repoBalance.updateBalanceAmount((activityFinancialSource.getBalance().getBalance_amount() - activityFinancialSource.getAmount()), uid);
+		super.archive(uid);
+		
+		balance.generateBalanceAmount();
+		Balance b = repoBalance.save(balance);
+		ActivityEconomicAccount aea = repoActivityEconomicAccount.findOne(b.getSuperEconomicAccount().getUid());
+		aea.generateSumExpences123();
+		//repoBalance.save(balance);
+		repoActivityEconomicAccount.save(aea);
+		//super.archive(uid);
+	}
+	
 }

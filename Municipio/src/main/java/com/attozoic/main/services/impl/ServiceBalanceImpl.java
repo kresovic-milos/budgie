@@ -31,4 +31,14 @@ public class ServiceBalanceImpl extends ServiceEntityImpl implements ServiceBala
 		return ((DaoBalance) getDaoEntity()).getFinancialSources(uid);
 	}
 
+	@Override
+	public double getSum2016Budget() {
+		return ((DaoBalance) getDaoEntity()).getSum2016Budget();
+	}
+
+	@Override
+	public double getSum2016Others() {
+		return ((DaoBalance) getDaoEntity()).getSum2016Others();
+	}
+
 }

@@ -26,6 +26,14 @@ public class DaoBalance extends DaoEntity {
 		return repoBalance;
 	}
 	
+	public double getSum2016Budget() {
+		return ((RepositoryBalance) getRepoEntity()).sum2016Budget();
+	}
+	
+	public double getSum2016Others() {
+		return ((RepositoryBalance) getRepoEntity()).sum2016Others();
+	}
+	
 	// Add SuperFinancialSource to Balance
 	@SuppressWarnings("unchecked")
 	public SuperFinancialSource addSuperFinancialSource(Long uid, SuperFinancialSource superFinancialSource) {

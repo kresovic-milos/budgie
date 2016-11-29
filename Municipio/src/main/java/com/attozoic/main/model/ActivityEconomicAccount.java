@@ -124,7 +124,6 @@ public class ActivityEconomicAccount extends SuperEconomicAccount implements Com
     		balances.add(this.balances.get(i).sumBalancesSameYearAndType(activityEconomicAccount.getBalances().get(i)));
     	}
     	Collections.sort(balances);
-    	
     	activityEconomicAccount2.setBalances(balances);
     	activityEconomicAccount2.generateSumExpences123();
     	return activityEconomicAccount2;

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.Programme;
@@ -67,12 +68,16 @@ public class DaoProgramme extends DaoEntity {
 		Programme programme = (Programme)repoProgramme.findOne(uid);
 		List<Activity> activities = programme.getActivities();
 		for (Activity activity : activities) {
-			List<ActivityEconomicAccount> activityEconomicAccounts = activity.getActivityEconomicAccounts();
-			for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccounts) {
-				List<Balance> balances = activityEconomicAccount.getBalances();
-				for (Balance balance : balances) {
-					balance.generateBalanceAmount();
-					repoBalance.save(balance);
+			if (activity.getActiveState() == ActiveState.ACTIVE) {
+				List<ActivityEconomicAccount> activityEconomicAccounts = activity.getActivityEconomicAccounts();
+				for (ActivityEconomicAccount activityEconomicAccount : activityEconomicAccounts) {
+					if (activityEconomicAccount.getActiveState() == ActiveState.ACTIVE) {
+						List<Balance> balances = activityEconomicAccount.getBalances();
+						for (Balance balance : balances) {
+							balance.generateBalanceAmount();
+							repoBalance.save(balance);
+						}
+					}
 				}
 			}
 		}

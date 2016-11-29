@@ -99,11 +99,13 @@ public class Project extends SuperEntity {
 		ProjectEconomicAccount projectEconomicAccount = new ProjectEconomicAccount();
 		projectEconomicAccount.generateBalances(numRebalances);
 		for (ProjectEconomicAccount projectEconomicAccount2 : this.projectEconomicAccounts) {
-			List<Balance> balances = projectEconomicAccount2.getBalances();
-			Collections.sort(balances);
-			projectEconomicAccount2.setBalances(balances);
-			if (projectEconomicAccount2.getActiveState()==ActiveState.ACTIVE) {
-				projectEconomicAccount = projectEconomicAccount.sumProjectEconomicAccounts(projectEconomicAccount2);
+			if (projectEconomicAccount2.getActiveState() == ActiveState.ACTIVE) {
+				List<Balance> balances = projectEconomicAccount2.getBalances();
+				Collections.sort(balances);
+				projectEconomicAccount2.setBalances(balances);
+				if (projectEconomicAccount2.getActiveState()==ActiveState.ACTIVE) {
+					projectEconomicAccount = projectEconomicAccount.sumProjectEconomicAccounts(projectEconomicAccount2);
+				}
 			}
 		}
 		projectEconomicAccount.generateSumExpences123();
@@ -174,6 +176,7 @@ public class Project extends SuperEntity {
 		Map<String, double[]> map = new HashMap<>();
 		try {
 			List<DtoBalanceFinancialSourceObject> list = this.getProjectEconomicAccounts().get(0).generateProjectEconomicAccountDtoBalanceFinancialSourceObjectLists();
+			Collections.sort(list);
 			for (int i = 1; i < this.projectEconomicAccounts.size(); i++) {
 				if (projectEconomicAccounts.get(i).getActiveState()==ActiveState.ACTIVE) {
 					list = this.projectEconomicAccounts.get(i).mergeProjectFinancialSourceBalancesLists(list, this.projectEconomicAccounts.get(i).generateProjectEconomicAccountDtoBalanceFinancialSourceObjectLists());
@@ -185,7 +188,7 @@ public class Project extends SuperEntity {
 				for (DtoFinancialSource dtoFinancialSource : dtoFinancialSources) {
 					if (map.containsKey(dtoFinancialSource.getName())) {
 						double[] dtoFinancialSourceArray = map.get(dtoFinancialSource.getName());
-						dtoFinancialSourceArray[i] = dtoFinancialSource.getAmount();
+						dtoFinancialSourceArray[i] += dtoFinancialSource.getAmount();
 						map.put(dtoFinancialSource.getName(), dtoFinancialSourceArray);
 					} else {
 						double[] dtoFinancialSourceArray = new double[numBalances];

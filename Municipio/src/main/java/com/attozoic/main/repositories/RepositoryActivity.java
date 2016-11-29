@@ -17,7 +17,7 @@ public interface RepositoryActivity extends RepositoryEntity<Activity> {
 	public List<ActivityGoal> getActivityGoals(@Param("activityUid") Long uid);
 
 	// ExpencesFooter
-	@Query("select SUM(b.balance_amount) from Balance b inner join b.superEconomicAccount as aea where aea.activity.uid=:activityUid and b.activeState = 0 group by b.year, b.balanceType")
+	@Query("select SUM(b.balance_amount) from Balance b inner join b.superEconomicAccount as aea where aea.activity.uid=:activityUid and aea.activeState = 0 and b.activeState = 0 group by b.year, b.balanceType")
 	public List<Double> getActivityExpencesFooter(@Param("activityUid") Long activityUid);
 	
 	// Expences

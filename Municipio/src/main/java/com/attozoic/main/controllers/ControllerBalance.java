@@ -23,6 +23,16 @@ public class ControllerBalance {
 	@Autowired
 	private ServiceBalance serviceBalance; 
 	
+	@RequestMapping(value="/sum2016Budget", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public double getSum2016Budget() {
+		return serviceBalance.getSum2016Budget();
+	}
+	
+	@RequestMapping(value="/sum2016Others", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public double getSum2016Others() {
+		return serviceBalance.getSum2016Others();
+	}
+	
 	@RequestMapping(value="{uid}/financialSources", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 		public List<SuperFinancialSource> getFinancialSources(@PathVariable(value="uid") Long uid) {
 		return serviceBalance.getFinancialSources(uid);

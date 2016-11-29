@@ -99,11 +99,13 @@ public class Activity extends SuperEntity {
 		ActivityEconomicAccount activityEconomicAccount = new ActivityEconomicAccount();
 		activityEconomicAccount.generateBalances(numRebalances);
 		for (ActivityEconomicAccount activityEconomicAccount2 : this.activityEconomicAccounts) {
-			List<Balance> balances = activityEconomicAccount2.getBalances();
-			Collections.sort(balances);
-			activityEconomicAccount2.setBalances(balances);
-			if (activityEconomicAccount2.getActiveState()==ActiveState.ACTIVE) {
-				activityEconomicAccount = activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
+			if (activityEconomicAccount2.getActiveState() == ActiveState.ACTIVE) {
+				List<Balance> balances = activityEconomicAccount2.getBalances();
+				Collections.sort(balances);
+				activityEconomicAccount2.setBalances(balances);
+				if (activityEconomicAccount2.getActiveState()==ActiveState.ACTIVE) {
+					activityEconomicAccount = activityEconomicAccount.sumActivityEconomicAccounts(activityEconomicAccount2);
+				}
 			}
 		}
 		activityEconomicAccount.generateSumExpences123();
@@ -174,14 +176,11 @@ public class Activity extends SuperEntity {
 	// generateActivityFinancialSourceMap
 	public Map<String, double[]> generateActivityFinancialSourceMap() {
 		Map<String, double[]> map = new HashMap<>();
-		
 		try { // D I L E M A ! ! ! - ako prvi nije ACTIVE!!!
-			
 			List<DtoBalanceFinancialSourceObject> list = this.getActivityEconomicAccounts().get(0).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists();
 			Collections.sort(list);
 			for (int i = 1; i < this.activityEconomicAccounts.size(); i++) {
 				if (activityEconomicAccounts.get(i).getActiveState()==ActiveState.ACTIVE) {
-					//Collections.sort(this.activityEconomicAccounts.get(i).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists());
 					list = this.activityEconomicAccounts.get(i).mergeActivityFinancialSourceBalancesLists(list, this.activityEconomicAccounts.get(i).generateActivityEconomicAccountDtoBalanceFinancialSourceObjectLists());
 				}
 			}		
@@ -191,7 +190,7 @@ public class Activity extends SuperEntity {
 				for (DtoFinancialSource dtoFinancialSource : dtoFinancialSources) {
 					if (map.containsKey(dtoFinancialSource.getName())) {
 						double[] dtoFinancialSourceArray = map.get(dtoFinancialSource.getName());
-						dtoFinancialSourceArray[i] = dtoFinancialSource.getAmount();
+						dtoFinancialSourceArray[i] += dtoFinancialSource.getAmount();
 						map.put(dtoFinancialSource.getName(), dtoFinancialSourceArray);
 					} else {
 						double[] dtoFinancialSourceArray = new double[numBalances];
@@ -203,8 +202,7 @@ public class Activity extends SuperEntity {
 					}
 				}
 			}
-			
-		} catch(IndexOutOfBoundsException ex){} 
+		} catch(IndexOutOfBoundsException ex) {} 
 		return map;
 	}
 	
