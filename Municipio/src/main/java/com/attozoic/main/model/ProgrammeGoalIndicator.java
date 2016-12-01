@@ -32,6 +32,9 @@ public class ProgrammeGoalIndicator extends SuperGoalIndicator {
 	
 	private String name;
 	
+	//@Column(name = "verification_source", nullable = false, columnDefinition = "varchar(511) default ''")
+	private String verificationSource;
+	
     @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="programmeGoal_uid")
     @NotFound(action=NotFoundAction.IGNORE)
@@ -52,6 +55,7 @@ public class ProgrammeGoalIndicator extends SuperGoalIndicator {
 		}
 		this.balancesText.add(new BalanceText("", 2018, this));
 		this.balancesText.add(new BalanceText("", 2019, this));
+		//this.balancesText.add(new BalanceText("", 100, this));
 	}
 	
     public void addRebalance(int numRebalances) {
