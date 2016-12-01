@@ -17,14 +17,18 @@ public interface RepositoryBalance extends RepositoryEntity<Balance> {
 	@Query("from SuperFinancialSource finSrc where finSrc.balance.uid=:balanceUid and finSrc.activeState = 0")
 	public List<SuperFinancialSource> getBalanceFinancialSources(@Param("balanceUid") Long uid);
 
-	@Query("select SUM(b.balance_amount) from Balance b where b.activeState = 0 and b.year = 2016 and b.balanceType = 0")
+	@Query(value="SELECT SUM(b.balance_amount) AS total FROM Programme p LEFT JOIN p.activities AS a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS fs where a.activeState = 0 and aea.activeState = 0 and b.year = 2016 and b.balanceType = 0 and fs.activeState = 0")
 	public double sum2016Budget();
 
-	@Query("select SUM(b.balance_amount) from Balance b where b.activeState = 0 and b.year = 2016 and b.balanceType = 1")
+	//@Query("select SUM(b.balance_amount) from Balance b where b.activeState = 0 and b.year = 2016 and b.balanceType = 1")
+	//@Query(value="SELECT SUM(sfs.amount) AS total FROM Balance b LEFT JOIN b.financialSources AS fs where b.superEconomicAccount.activeState = 0 and aea.activeState = 0 and b.year = 2016 and b.balanceType = 1")
+	@Query(value="SELECT SUM(b.balance_amount) AS total FROM Programme p LEFT JOIN p.activities AS a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS fs where a.activeState = 0 and aea.activeState = 0 and b.year = 2016 and b.balanceType = 1 and fs.activeState = 0")
 	public double sum2016Others();
 	
 	//@Modifying
 	//@Query("UPDATE Balance b SET b.balance_amount = :amount WHERE b.uid = :balanceUid")
 	//public void updateBalanceAmount(@Param("amount") Double amount, @Param("balanceUid") Long uid);
+	
+	// @Query(value="SELECT SUM(b.balance_amount) AS total FROM Programme p LEFT JOIN p.activities AS a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b where a.activeState = 0 and aea.activeState = 0 and b.year = 2016 and b.balanceType = 0 GROUP BY p.name")
 	
 }

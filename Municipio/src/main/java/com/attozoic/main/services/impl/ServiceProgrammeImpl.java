@@ -12,7 +12,6 @@ import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
-import com.attozoic.main.model.dto.DtoProgrammeChart;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.services.ServiceProgramme;
 
@@ -28,8 +27,8 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	}
 	
 	@Override
-	public DtoProgrammeChart getProgrammesChart() {
-		return ((DaoProgramme) getDaoEntity()).getProgrammesChart();
+	public List<Object> getChart(double year) {
+		return ((DaoProgramme) getDaoEntity()).getChart(year);
 	}
 	
 	@Override
@@ -75,11 +74,6 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 	@Override
 	public List<ProgrammeGoal> getProgrammeGoals(Long uid) {
 		return ((DaoProgramme) getDaoEntity()).getProgrammeGoals(uid);
-	}
-
-	@Override
-	public double getSumExpences2016() {
-		return ((DaoProgramme) getDaoEntity()).getSumExpences2016();
 	}
 
 }

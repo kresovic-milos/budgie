@@ -32,6 +32,8 @@ public class ActivityGoalIndicator extends SuperGoalIndicator {
 	
 	private String name;
 	
+	
+	
     @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="activityGoal_uid")
     @NotFound(action=NotFoundAction.IGNORE)
@@ -52,6 +54,7 @@ public class ActivityGoalIndicator extends SuperGoalIndicator {
 		}
 		this.balancesText.add(new BalanceText("", 2018, this));
 		this.balancesText.add(new BalanceText("", 2019, this));
+		this.balancesText.add(new BalanceText("", 100, this));
 	}
 	
     public void addRebalance(int numRebalances) {

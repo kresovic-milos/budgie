@@ -156,20 +156,7 @@ public class Project extends SuperEntity {
 	
 	// // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
 	
-	// ProjectFinancialSource LIST and FOOTER
-	
-	// generateProjectFinancialSourceFooter
-//	public DtoFinanceFooter generateProjectFinancialSourceFooter() {
-//		Map<String, double[]> map = this.generateProjectFinancialSourceMap();
-//		int numBalances = this.getProjectEconomicAccounts().get(0).getBalances().size();
-//		double[] array = new double[numBalances];
-//		for (Map.Entry<String, double[]> entry : map.entrySet()) {
-//			for (int i = 0; i < array.length; i++) {
-//				array[i] += entry.getValue()[i];
-//			}
-//		}
-//		return new DtoFinanceFooter(this.getName(), array);
-//	}
+	// ProjectFinancialSource LIST and FOOTER - SADA GA PRAVI QUERY
 	
 	// generateProjectFinancialSourceMap
 	public Map<String, double[]> generateProjectFinancialSourceMap() {

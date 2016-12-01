@@ -15,8 +15,6 @@ import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
-import com.attozoic.main.model.dto.DtoProgrammeChart;
-import com.attozoic.main.model.dto.DtoProgrammeChartObject;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProgramme;
@@ -41,26 +39,32 @@ public class DaoProgramme extends DaoEntity {
 		return repoProgramme;
 	}
 	
-	public List<ProgrammeGoal> getProgrammeGoals(Long uid) {
-		return repoProgramme.getProgrammeGoals(uid);
+	// ALL PROGRAMMES CHART
+	public List<Object> getChart(double year) {
+		List<Object> activities = repoProgramme.getChart(year);
+		List<Object> projects = repoProgramme.getChartP(year);
+		List<Object> list = new ArrayList<>();
+		for(int i = 0; i < activities.size(); i++) {
+			Object[] a = new Object[2]; 
+			a = (Object[])activities.get(i);
+			Object[] niz = new Object[2]; 
+			double sum = (double)a[1];
+			for(int j = 0; j < projects.size(); j++) {
+				Object[] p = new Object[2]; 
+				p = (Object[])projects.get(j);
+				if (a[0].equals(p[0])) {
+					sum += (double)p[1];
+				}
+			}
+			niz[0] = (String)a[0];
+			niz[1] = sum;
+			list.add(niz);
+		}
+		return list;
 	}
 	
-//	public List<Double> getProgrammeExpencesFooter(Long uid) {
-//		List<Double> list = new ArrayList<>();
-//		Programme programme = repoProgramme.findOne(uid);
-//		return list;
-//	}
-//	
-//	private List<Double> sumLists(List<Double> l1, List<Double> l2) {
-//		List<Double> list = new ArrayList<>();
-//		for (int i = 0; i < l1.size(); i++) {
-//			list.add(l1.get(i) + l2.get(i));
-//		}
-//		return list;
-//	}
-	
-	public double getSumExpences2016() {
-		return repoProgramme.getSumExpences2016();
+	public List<ProgrammeGoal> getProgrammeGoals(Long uid) {
+		return repoProgramme.getProgrammeGoals(uid);
 	}
 	
 	//GENERATE BALANCES AMOUNTS
@@ -81,23 +85,6 @@ public class DaoProgramme extends DaoEntity {
 				}
 			}
 		}
-	}
-	
-	// getProgrammesChart
-	public DtoProgrammeChart getProgrammesChart() {
-		double budgetValue = 0;
-		List<DtoProgrammeChartObject> programmeChartObjects = new ArrayList<>();
-		List<Programme> programmes = repoProgramme.findAll();
-		for (Programme programme : programmes) {
-			budgetValue += programme.generateProgrammeValue();
-		}
-		for (Programme programme : programmes) {
-			DtoProgrammeChartObject programmeChartObject = programme.generateProgrammeChart();
-			programmeChartObject.setPercnetage((programmeChartObject.getValue()/budgetValue)*100);
-			programmeChartObjects.add(programmeChartObject);
-		}
-		DtoProgrammeChart programmesChart = new DtoProgrammeChart(budgetValue, programmeChartObjects);
-		return programmesChart;
 	}
 	
 	// getProgrammeFinancialSourceFooter

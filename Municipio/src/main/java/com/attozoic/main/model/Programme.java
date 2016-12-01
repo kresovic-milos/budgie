@@ -18,7 +18,6 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import com.attozoic.main.model.dto.DtoFinanceFooter;
-import com.attozoic.main.model.dto.DtoProgrammeChartObject;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -215,22 +214,5 @@ public class Programme extends SuperEntity {
  	}
 	
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
-	
-	// C H A R T 
-	
-	public DtoProgrammeChartObject generateProgrammeChart() {
-		DtoProgrammeChartObject dtoProgrammeChartObject = new DtoProgrammeChartObject();
-		dtoProgrammeChartObject.setName(name);
-		dtoProgrammeChartObject.setValue(this.generateProgrammeValue());
-		return dtoProgrammeChartObject;
-	}
-	
-	public double generateProgrammeValue() {
-		DtoFinanceFooter dtoFinanceFooter = this.generateProgrammeFinancialSourceFooter();
-		if (dtoFinanceFooter != null) {
-			return dtoFinanceFooter.getAmounts()[dtoFinanceFooter.getAmounts().length-6];
-		}
-		return 0;
-	}
 	
 }

@@ -36,11 +36,6 @@ public class DaoActivity extends DaoEntity {
 		return repoActivity.getActivityGoals(uid);
 	}
 	
-	// getActivityFinancialSourceFooter()
-//	public DtoFinanceFooter getActivityFinancialSourceFooter(Long uid) {
-//		return repoActivity.findOne(uid).generateActivityFinancialSourceFooter();
-//	}
-	
 	// getActivityFinancialSourceMap
 	public Map<String, double[]> getActivityFinancialSourceMap(Long uid) {
 		return repoActivity.findOne(uid).generateActivityFinancialSourceMap();
@@ -50,26 +45,6 @@ public class DaoActivity extends DaoEntity {
 	public List<Double> getActivityExpencesFooter(Long uid) {
 		return ((RepositoryActivity)getRepoEntity()).getActivityExpencesFooter(uid);
 	}
-	
-	// getActivityEconomicAccountFooter
-//	public SuperEconomicAccount getActivityEconomicAccountFooter(Long uid) {
-//		Activity activity = (Activity)getRepoEntity().findOne(uid);
-//		int numRebalances = 0;
-//		try {
-//			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-//		} catch (NullPointerException ex) {}
-//		return activity.generateActivityEconomicAccountFooter(numRebalances);
-//	}
-	
-	// getActivityEconomicAccountDTOsList
-//	public List<DtoActivityEconomicAccount> getActivityEconomicAccountsList(Long uid) {
-//		Activity activity = (Activity)getRepoEntity().findOne(uid);
-//		int numRebalances = 0;
-//		try {
-//			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-//		} catch (NullPointerException ex) {}
-//		return activity.generateActivityEconomicAccountsList(numRebalances);
-//	}
 	
 	// addActivityGoal
 	@SuppressWarnings("unchecked")
@@ -124,6 +99,5 @@ public class DaoActivity extends DaoEntity {
 		} catch (NullPointerException ex) {}
 		return numRebalances;
 	}
-	
-	
+		
 }

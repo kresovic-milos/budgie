@@ -156,22 +156,7 @@ public class Activity extends SuperEntity {
 	
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //
 	
-	// ActivityFinancialSource LIST and FOOTER
-	
-	// generateActivityFinancialSourceFooter
-//	public DtoFinanceFooter generateActivityFinancialSourceFooter() {
-//		Map<String, double[]> map = this.generateActivityFinancialSourceMap();
-//		int numBalances = this.getActivityEconomicAccounts().get(0).getBalances().size();
-//		double[] array = new double[numBalances];
-//		try {
-//			for (Map.Entry<String, double[]> entry : map.entrySet()) {
-//				for (int i = 0; i < array.length; i++) {
-//					array[i] += entry.getValue()[i];
-//				}
-//			}
-//		} catch(IndexOutOfBoundsException ex) {}
-//		return new DtoFinanceFooter(this.getName(), array);
-//	}
+	// ActivityFinancialSource LIST and FOOTER - SADA GA PRAVI QUERY
 	
 	// generateActivityFinancialSourceMap
 	public Map<String, double[]> generateActivityFinancialSourceMap() {

@@ -18,7 +18,6 @@ import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.dto.DtoFinanceFooter;
-import com.attozoic.main.model.dto.DtoProgrammeChart;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.services.ServiceProgramme;
 
@@ -29,10 +28,10 @@ public class ControllerProgramme {
 	@Autowired
 	private ServiceProgramme serviceProgramme;
 	
-	//getSumExpences2016
-	@RequestMapping(value="/sum2016", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public double getSumExpences2016() {
-		return serviceProgramme.getSumExpences2016();
+	// GRAFIKON
+	@RequestMapping(value="/{year}/chartQ", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<Object> getChart(@PathVariable(value="year") double year) {
+		return serviceProgramme.getChart(year);
 	}
 	
 	//getProgrammeGoals{uid}
@@ -45,12 +44,6 @@ public class ControllerProgramme {
 	@RequestMapping(value="/{uid}/generateBalances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void generateBalancesAmounts(@PathVariable(value="uid") Long uid) {
 		serviceProgramme.generateBalancesAmounts(uid);
-	}
-	
-	//getProgrammesChart
-	@RequestMapping(value="/chart", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoProgrammeChart getProgrammesChart() {
-		return serviceProgramme.getProgrammesChart();
 	}
 	
 	//getProgrammeFinancialSourceFooter{uid}

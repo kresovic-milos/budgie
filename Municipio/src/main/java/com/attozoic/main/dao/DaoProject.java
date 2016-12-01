@@ -36,11 +36,6 @@ public class DaoProject extends DaoEntity {
 		return repoProject.getProjectGoals(uid);
 	}
 	
-	// getProjectFinancialSourceFooter()
-//	public DtoFinanceFooter getProjectFinancialSourceFooter(Long uid) {
-//		return repoProject.findOne(uid).generateProjectFinancialSourceFooter();
-//	}
-	
 	// getProjectFinancialSourceMap
 	public Map<String, double[]> getProjectFinancialSourceMap(Long uid) {
 		return repoProject.findOne(uid).generateProjectFinancialSourceMap();
@@ -51,32 +46,11 @@ public class DaoProject extends DaoEntity {
 		return ((RepositoryProject)getRepoEntity()).getProjectExpencesFooter(uid);
 	}
 	
-	// getProjectEconomicAccountFooter
-//	public SuperEconomicAccount getProjectEconomicAccountFooter(Long uid) {
-//		Project project = (Project)getRepoEntity().findOne(uid);
-//		int numRebalances = 0;
-//		try {
-//			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-//		} catch (NullPointerException ex) {}
-//		return project.generateProjectEconomicAccountFooter(numRebalances);
-//	}
-	
-	// getProjectEconomicAccountDTOsList
-//	public List<DtoProjectEconomicAccount> getProjectEconomicAccountsList(Long uid) {
-//		Project project = (Project)getRepoEntity().findOne(uid);
-//		int numRebalances = 0;
-//		try {
-//			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
-//		} catch (NullPointerException ex) {}
-//		return project.generateProjectEconomicAccountsList(numRebalances);
-//	}
-	
 	// addProjectGoal
 	@SuppressWarnings("unchecked")
 	public ProjectGoal addGoal(Long uid, ProjectGoal goal) {
 		Project project = (Project) getRepoEntity().findOne(uid);
 		goal.setProject(project);
-		//getRepoEntity().save(project);
 		return (ProjectGoal) getRepoEntity().save(goal);
 	}
 	

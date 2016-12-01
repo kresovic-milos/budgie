@@ -15,7 +15,10 @@ public interface RepositoryProgramme extends RepositoryEntity<Programme> {
 	@Query("from ProgrammeGoal goal where goal.programme.uid=:programmeUid and goal.activeState = 0")
 	public List<ProgrammeGoal> getProgrammeGoals(@Param("programmeUid") Long uid);
 	
-	@Query("select SUM(b.balance_amount) from Balance b where b.activeState = 0 and b.year = 2016")
-	public double getSumExpences2016();
+	@Query(value="SELECT p.name, COALESCE(SUM(b.balance_amount), 0) AS total FROM Programme p LEFT JOIN p.activities AS a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b WHERE aea.activeState=0 AND b.activeState=0 AND b.year=:year AND b.balanceType=0 GROUP BY p.name ORDER BY p.uid")
+	public List<Object> getChart(@Param("year") double year);
+	
+	@Query(value="SELECT p.name, COALESCE(SUM(b.balance_amount), 0) AS total FROM Programme p LEFT JOIN p.projects AS a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b WHERE aea.activeState=0 AND b.activeState=0 AND b.year=:year AND b.balanceType=0 GROUP BY p.name ORDER BY p.uid")
+	public List<Object> getChartP(@Param("year") double year);
 	
 }
