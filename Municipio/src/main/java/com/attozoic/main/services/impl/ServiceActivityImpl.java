@@ -63,5 +63,22 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	public List<ActivityGoal> getActivityGoals(Long uid) {
 		return ((DaoActivity) getDaoEntity()).getActivityGoals(uid);
 	}
+
+//	@Override
+//	public List<Object> getActivityFinancesB(Long uid) {
+//		return ((DaoActivity) getDaoEntity()).getActivityFinancesB(uid);
+//	}
+//
+//	@Override
+//	public List<Object> getActivityFinancesO(Long uid) {
+//		return ((DaoActivity) getDaoEntity()).getActivityFinancesO(uid);
+//	}
+
+	@Override
+	public List<Object> getActivityFinancial(Long uid) {
+		// TODO Auto-generated method stub
+		//daoActivity.getActivityFinancial(uid);
+		return ((DaoActivity) getDaoEntity()).getActivityFinancial(uid);
+	}
 	
 }

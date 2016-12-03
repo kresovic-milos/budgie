@@ -2,6 +2,7 @@ package com.attozoic.main.dao;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,13 +33,157 @@ public class DaoActivity extends DaoEntity {
 		return repoActivity;
 	}
 	
+//	public List<Object> getActivityFinancesB(Long uid) {
+//		return repoActivity.getActivityFinancesB(uid);
+//	}
+//	
+//	public List<Object> getActivityFinancesO(Long uid) {
+//		return repoActivity.getActivityFinancesO(uid);
+//	}
+	
 	public List<ActivityGoal> getActivityGoals(Long uid) {
 		return repoActivity.getActivityGoals(uid);
 	}
 	
+	//
+	// getActivityFinancialSourceMap
+	public List<Object> getActivityFinancial(Long uid) {
+		return repoActivity.getFinances(uid);
+	}
+	
 	// getActivityFinancialSourceMap
 	public Map<String, double[]> getActivityFinancialSourceMap(Long uid) {
-		return repoActivity.findOne(uid).generateActivityFinancialSourceMap();
+		Map<String, double[]> map = new HashMap<>();
+		List<Object> list1 = repoActivity.getActivityFinances2016B(uid);
+		List<Object> list2 = repoActivity.getActivityFinances2016O(uid);
+		List<Object> list3 = repoActivity.getActivityFinances2017B(uid);
+		List<Object> list4 = repoActivity.getActivityFinances2017O(uid);
+		List<Object> list5 = repoActivity.getActivityFinances2018B(uid);
+		List<Object> list6 = repoActivity.getActivityFinances2018O(uid);
+		List<Object> list7 = repoActivity.getActivityFinances2019B(uid);
+		List<Object> list8 = repoActivity.getActivityFinances2019O(uid);
+		for (Object o : list1) {
+			Object[] objects = new Object[2];
+			objects = (Object[])o; // Objekat pretvoren u niz od 2 clana [String, double]
+			String s = (String)objects[0];
+			
+			if (map.containsKey(s)) {
+				double[] values = map.get(s);
+				values[0] = (double)objects[1];
+				map.put(s, values);
+			} else {
+				double[] values = new double[8];
+				values[0] = (double)objects[1];
+				map.put(s, values);
+			}
+		}
+		for (Object o : list2) {
+			Object[] objects = new Object[2];
+			objects = (Object[])o; // Objekat pretvoren u niz od 2 clana [String, double]
+			String s = (String)objects[0];
+			
+			if (map.containsKey(s)) {
+				double[] values = map.get(s);
+				values[1] = (double)objects[1];
+				map.put(s, values);
+			} else {
+				double[] values = new double[8];
+				values[1] = (double)objects[1];
+				map.put(s, values);
+			}
+		}
+		for (Object o : list3) {
+			Object[] objects = new Object[2];
+			objects = (Object[])o; // Objekat pretvoren u niz od 2 clana [String, double]
+			String s = (String)objects[0];
+			
+			if (map.containsKey(s)) {
+				double[] values = map.get(s);
+				values[2] = (double)objects[1];
+				map.put(s, values);
+			} else {
+				double[] values = new double[8];
+				values[2] = (double)objects[1];
+				map.put(s, values);
+			}
+		}
+		for (Object o : list4) {
+			Object[] objects = new Object[2];
+			objects = (Object[])o; // Objekat pretvoren u niz od 2 clana [String, double]
+			String s = (String)objects[0];
+			
+			if (map.containsKey(s)) {
+				double[] values = map.get(s);
+				values[3] = (double)objects[1];
+				map.put(s, values);
+			} else {
+				double[] values = new double[8];
+				values[3] = (double)objects[1];
+				map.put(s, values);
+			}
+		}
+		for (Object o : list5) {
+			Object[] objects = new Object[2];
+			objects = (Object[])o; // Objekat pretvoren u niz od 2 clana [String, double]
+			String s = (String)objects[0];
+			
+			if (map.containsKey(s)) {
+				double[] values = map.get(s);
+				values[4] = (double)objects[1];
+				map.put(s, values);
+			} else {
+				double[] values = new double[8];
+				values[4] = (double)objects[1];
+				map.put(s, values);
+			}
+		}
+		for (Object o : list6) {
+			Object[] objects = new Object[2];
+			objects = (Object[])o; // Objekat pretvoren u niz od 2 clana [String, double]
+			String s = (String)objects[0];
+			
+			if (map.containsKey(s)) {
+				double[] values = map.get(s);
+				values[5] = (double)objects[1];
+				map.put(s, values);
+			} else {
+				double[] values = new double[8];
+				values[5] = (double)objects[1];
+				map.put(s, values);
+			}
+		}
+		for (Object o : list7) {
+			Object[] objects = new Object[2];
+			objects = (Object[])o; // Objekat pretvoren u niz od 2 clana [String, double]
+			String s = (String)objects[0];
+			
+			if (map.containsKey(s)) {
+				double[] values = map.get(s);
+				values[6] = (double)objects[1];
+				map.put(s, values);
+			} else {
+				double[] values = new double[8];
+				values[6] = (double)objects[1];
+				map.put(s, values);
+			}
+		}
+		for (Object o : list8) {
+			Object[] objects = new Object[2];
+			objects = (Object[])o; // Objekat pretvoren u niz od 2 clana [String, double]
+			String s = (String)objects[0];
+			
+			if (map.containsKey(s)) {
+				double[] values = map.get(s);
+				values[7] = (double)objects[1];
+				map.put(s, values);
+			} else {
+				double[] values = new double[8];
+				values[7] = (double)objects[1];
+				map.put(s, values);
+			}
+		}
+		return map;
+		//return repoActivity.findOne(uid).generateActivityFinancialSourceMap();
 	}
 	
 	// getActivityExpencesFooter AND ActivityFinancesFooter

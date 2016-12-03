@@ -1,6 +1,7 @@
 package com.attozoic.main.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,12 @@ public class DaoProgramme extends DaoEntity {
 	
 	@Autowired
 	private RepositoryProgramme repoProgramme;
+	
+	@Autowired
+	private DaoActivity daoActivity;
+	
+	@Autowired
+	private DaoProject daoProject;
 	
 	@Autowired
 	private RepositoryRebalancesCount repoRebalanceCount;
@@ -89,12 +96,66 @@ public class DaoProgramme extends DaoEntity {
 	
 	// getProgrammeFinancialSourceFooter
 	public DtoFinanceFooter getProgrammeFinancialSourceFooter(Long uid) {
-		return repoProgramme.findOne(uid).generateProgrammeFinancialSourceFooter();
+		Map<String, double[]> map = getProgrammeFinancialSourceMap(uid);
+		DtoFinanceFooter dto = new DtoFinanceFooter();
+		dto.setName(repoProgramme.findOne(uid).getName());
+		double[] values = new double[8];
+		for (Map.Entry<String, double[]> entry : map.entrySet()) {
+			for (int i = 0; i < entry.getValue().length; i++) {
+				values[i] += entry.getValue()[i];
+			}
+		}
+		dto.setAmounts(values);
+		return dto;
+		//return repoProgramme.findOne(uid).generateProgrammeFinancialSourceFooter();
 	}
 	
-	// getProgrammeFinancialSourceMap
+	// getProgrammeFinancialSourceMap and FOOTER
 	public Map<String, double[]> getProgrammeFinancialSourceMap(Long uid) {
-		return repoProgramme.findOne(uid).generateProgrammeFinancialSourceMap();
+		Map<String, double[]> map = new HashMap<>();
+		List<Activity> activities = repoProgramme.getActiveActivities(uid);
+		List<Project> projects = repoProgramme.getActiveProjects(uid);
+		for (Activity activity : activities) {
+			Map<String, double[]> activitiesMap = daoActivity.getActivityFinancialSourceMap(activity.getUid());
+			for (Map.Entry<String, double[]> entry : activitiesMap.entrySet()) {
+				if (map.containsKey(entry.getKey())) {
+					double[] niz = map.get(entry.getKey());
+					double[] niz1 = entry.getValue();
+					for (int i = 0; i < niz.length; i++) {
+						niz[i] += niz1[i];
+					}
+					map.put(entry.getKey(), niz);
+				} else {
+					map.put(entry.getKey(), entry.getValue());
+				}
+			}
+		}
+		for (Project project : projects) {
+			Map<String, double[]> projectsMap = daoProject.getProjectFinancialSourceMap(project.getUid());
+			for (Map.Entry<String, double[]> entry : projectsMap.entrySet()) {
+				if (map.containsKey(entry.getKey())) {
+					double[] niz = map.get(entry.getKey());
+					double[] niz1 = entry.getValue();
+					for (int i = 0; i < niz.length; i++) {
+						niz[i] += niz1[i];
+					}
+					map.put(entry.getKey(), niz);
+				} else {
+					map.put(entry.getKey(), entry.getValue());
+				}
+			}
+		}
+		DtoFinanceFooter dto = new DtoFinanceFooter();
+		dto.setName(repoProgramme.findOne(uid).getName());
+		double[] values = new double[8];
+		for (Map.Entry<String, double[]> entry : map.entrySet()) {
+			for (int i = 0; i < entry.getValue().length; i++) {
+				values[i] += entry.getValue()[i];
+			}
+		}
+		dto.setAmounts(values);
+		// RETURN objekat sa Mapom i objektom
+		return map;
 	}
 	
 	// getProgrammeEconomicAccountFooter

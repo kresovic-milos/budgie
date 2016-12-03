@@ -28,4 +28,38 @@ public interface RepositoryActivity extends RepositoryEntity<Activity> {
 	@Query("SELECT DISTINCT SUBSTRING(aea.code,1,3) FROM SuperEconomicAccount AS aea WHERE aea.activity.uid=:activityUid AND aea.activeState = 0")
 	public List<Object> getExpencesGroups(@Param("activityUid") Long activityUid);
 	
+	// ===========================================================================================================================
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2016 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getActivityFinances2016B(@Param("activityUid") Long activityUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2016 AND b.balanceType=1 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getActivityFinances2016O(@Param("activityUid") Long activityUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2017 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getActivityFinances2017B(@Param("activityUid") Long activityUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2017 AND b.balanceType=1 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getActivityFinances2017O(@Param("activityUid") Long activityUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2018 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getActivityFinances2018B(@Param("activityUid") Long activityUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2018 AND b.balanceType=1 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getActivityFinances2018O(@Param("activityUid") Long activityUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2019 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getActivityFinances2019B(@Param("activityUid") Long activityUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2019 AND b.balanceType=1 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getActivityFinances2019O(@Param("activityUid") Long activityUid);
+	
+	// ===========================================================================================================================
+	
+	@Query("SELECT fs.name, b.year, b.balanceType, COALESCE(SUM(fs.amount), 0) FROM SuperFinancialSource AS fs RIGHT JOIN fs.balance AS b LEFT JOIN b.superEconomicAccount aea WHERE b.activeState=0 AND aea.activity.uid=:activityUid AND aea.activeState = 0 AND fs.activeState=0 GROUP BY fs.name, b.year, b.balanceType")
+	public List<Object> getFinances(@Param("activityUid") Long activityUid);
+	
+	//@Query("SELECT fs.name, b.year, b.balanceType, COALESCE(SUM(fs.amount), 0) FROM SuperFinancialSource AS fs RIGHT JOIN fs.balance AS b LEFT JOIN b.superEconomicAccount aea WHERE b.activeState=0 AND aea.activity.uid=:activityUid AND aea.activeState = 0 AND fs.activeState=0 GROUP BY fs.name, b.year, b.balanceType")
+	//public List<Object> getFinances(@Param("activityUid") Long activityUid);
+	
 }

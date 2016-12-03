@@ -9,6 +9,9 @@ import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 
 public interface ServiceActivity extends ServiceEntity {
 
+//	List<Object> getActivityFinancesB(Long uid);
+//	List<Object> getActivityFinancesO(Long uid);
+	
 	//DtoFinanceFooter getActivityFinancialSourceFooter(Long uid);
 	Map<String, double[]> getActivityFinancialSourceMap(Long uid);
 	//SuperEconomicAccount getActivityEconomicAccountFooter(Long uid);
@@ -19,5 +22,7 @@ public interface ServiceActivity extends ServiceEntity {
 	ActivityEconomicAccount addActivityEconomicAccount(Long uid, ActivityEconomicAccount activityEconomicAccount);
 	
 	List<ActivityGoal> getActivityGoals(Long uid);
+
+	List<Object> getActivityFinancial(Long uid);
 	
 }

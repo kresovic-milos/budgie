@@ -27,6 +27,24 @@ public class ControllerActivity {
 	private ServiceActivity serviceActivity;
 	
 	//getActivityGoals{uid}
+	@RequestMapping(value="/{uid}/f", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<Object> getActivityFinancial(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityFinancial(uid);
+	}
+	
+//	// B
+//	@RequestMapping(value="/{uid}/activitiesFB", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public List<Object> getActivityFinancesB(@PathVariable(value="uid") Long uid) {
+//		return serviceActivity.getActivityFinancesB(uid);
+//	}
+//	
+//	// O
+//	@RequestMapping(value="/{uid}/activitiesFO", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public List<Object> getActivityFinancesO(@PathVariable(value="uid") Long uid) {
+//		return serviceActivity.getActivityFinancesO(uid);
+//	}
+	
+	//getActivityGoals{uid}
 	@RequestMapping(value="/{uid}/goals", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<ActivityGoal> getActivityGoals(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.getActivityGoals(uid);

@@ -28,6 +28,33 @@ public interface RepositoryProject extends RepositoryEntity<Project> {
 	@Query("SELECT DISTINCT SUBSTRING(aea.code,1,3) FROM SuperEconomicAccount AS aea WHERE aea.project.uid=:projectUid AND aea.activeState = 0")
 	public List<Object> getExpencesGroups(@Param("projectUid") Long projectUid);
 	
+	// ===========================================================================================================================
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Project a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.project.uid=:projectUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2016 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getProjectFinances2016B(@Param("projectUid") Long projectUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Project a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.project.uid=:projectUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2016 AND b.balanceType=1 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getProjectFinances2016O(@Param("projectUid") Long projectUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Project a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.project.uid=:projectUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2017 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getProjectFinances2017B(@Param("projectUid") Long projectUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Project a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.project.uid=:projectUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2017 AND b.balanceType=1 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getProjectFinances2017O(@Param("projectUid") Long projectUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Project a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.project.uid=:projectUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2018 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getProjectFinances2018B(@Param("projectUid") Long projectUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Project a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.project.uid=:projectUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2018 AND b.balanceType=1 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getProjectFinances2018O(@Param("projectUid") Long projectUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Project a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.project.uid=:projectUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2019 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getProjectFinances2019B(@Param("projectUid") Long projectUid);
+	
+	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Project a LEFT JOIN a.projectEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.project.uid=:projectUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2019 AND b.balanceType=1 and sfs.activeState = 0 GROUP BY sfs.name")
+	public List<Object> getProjectFinances2019O(@Param("projectUid") Long projectUid);
+	
+	// ===========================================================================================================================
 	
 	
 }
