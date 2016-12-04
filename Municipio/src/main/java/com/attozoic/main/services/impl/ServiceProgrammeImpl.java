@@ -1,7 +1,6 @@
 package com.attozoic.main.services.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +10,8 @@ import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
+import com.attozoic.main.model.dto.DtoProgrammeFinances;
 import com.attozoic.main.services.ServiceProgramme;
 
 @Service
@@ -31,14 +30,14 @@ public class ServiceProgrammeImpl extends ServiceEntityImpl implements ServicePr
 		return ((DaoProgramme) getDaoEntity()).getChart(year);
 	}
 	
-	@Override
-	public DtoFinanceFooter getProgrammeFinancialSourceFooter(Long uid) {
-		return ((DaoProgramme) getDaoEntity()).getProgrammeFinancialSourceFooter(uid);
-	}
+//	@Override
+//	public DtoProgrammeFinances getProgrammeFinancialSourceFooter(Long uid) {
+//		return ((DaoProgramme) getDaoEntity()).getProgrammeFinancialSourceFooter(uid);
+//	}
 	
 	@Override
-	public Map<String, double[]> getProgrammeFinancialSourceMap(Long uid) {
-		return ((DaoProgramme) getDaoEntity()).getProgrammeFinancialSourceMap(uid);
+	public DtoProgrammeFinances getProgrammeFinances(Long uid) {
+		return ((DaoProgramme) getDaoEntity()).getProgrammeFinances(uid);
 	}
 	
 	@Override

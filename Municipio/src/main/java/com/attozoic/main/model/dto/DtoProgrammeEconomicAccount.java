@@ -9,7 +9,7 @@ import com.attozoic.main.model.balance.BalanceType;
 import lombok.Data;
 
 @Data
-public class DtoProgrammeEconomicAccount {
+public class DtoProgrammeEconomicAccount implements Comparable<DtoProgrammeEconomicAccount> {
 
 	private String name;
 	
@@ -64,5 +64,10 @@ public class DtoProgrammeEconomicAccount {
     	programmeEconomicAccount2.generateSumExpences123();
     	return programmeEconomicAccount2;
     }
+
+	@Override
+	public int compareTo(DtoProgrammeEconomicAccount o) {
+		return this.getName().substring(0, 9).compareTo(o.getName().substring(0, 9));
+	}
 	
 }

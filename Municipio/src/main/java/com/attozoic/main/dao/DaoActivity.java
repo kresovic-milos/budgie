@@ -2,6 +2,7 @@ package com.attozoic.main.dao;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -182,6 +183,12 @@ public class DaoActivity extends DaoEntity {
 				map.put(s, values);
 			}
 		}
+		List<Map.Entry<String, double[]>> entries = new ArrayList<Map.Entry<String, double[]>>(map.entrySet());
+		Collections.sort(entries, new Comparator<Map.Entry<String, double[]>>() {
+			public int compare(Map.Entry<String, double[]> entry1, Map.Entry<String, double[]> entry2) {
+				return (entry1.getKey().substring(0, 2)).compareTo(entry2.getKey().substring(0, 2));
+			}
+		});
 		return map;
 		//return repoActivity.findOne(uid).generateActivityFinancialSourceMap();
 	}

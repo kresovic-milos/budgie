@@ -1,7 +1,6 @@
 package com.attozoic.main.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +16,7 @@ import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.SuperEntity;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
+import com.attozoic.main.model.dto.DtoProgrammeFinances;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.services.ServiceProgramme;
 
@@ -47,15 +46,15 @@ public class ControllerProgramme {
 	}
 	
 	//getProgrammeFinancialSourceFooter{uid}
-	@RequestMapping(value="/{uid}/financesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public DtoFinanceFooter getProgrammeFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
-		return serviceProgramme.getProgrammeFinancialSourceFooter(uid);
-	}
+//	@RequestMapping(value="/{uid}/financesFooter", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public DtoProgrammeFinances getProgrammeFinancialSourceFooter(@PathVariable(value="uid") Long uid) {
+//		return serviceProgramme.getProgrammeFinancialSourceFooter(uid);
+//	}
 	
-	//getProgrammeFinancialSourceMap{uid}
+	//getProgrammeFinances{uid}
 	@RequestMapping(value="/{uid}/finances", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, double[]> getProgrammeFinancialSourceMap(@PathVariable(value="uid") Long uid) {
-		return serviceProgramme.getProgrammeFinancialSourceMap(uid);
+	public DtoProgrammeFinances getProgrammeFinances(@PathVariable(value="uid") Long uid) {
+		return serviceProgramme.getProgrammeFinances(uid);
 	}
 	
 	//getProgrammeEconomicAccountFooter{uid}

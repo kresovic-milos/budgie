@@ -1,18 +1,17 @@
 package com.attozoic.main.services;
 
 import java.util.List;
-import java.util.Map;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ProgrammeGoal;
 import com.attozoic.main.model.Project;
-import com.attozoic.main.model.dto.DtoFinanceFooter;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
+import com.attozoic.main.model.dto.DtoProgrammeFinances;
 
 public interface ServiceProgramme extends ServiceEntity {
 	
-	DtoFinanceFooter getProgrammeFinancialSourceFooter(Long uid);
-	Map<String, double[]> getProgrammeFinancialSourceMap(Long uid);
+	//DtoProgrammeFinances getProgrammeFinancialSourceFooter(Long uid);
+	DtoProgrammeFinances getProgrammeFinances(Long uid);
 	DtoProgrammeEconomicAccount getProgrammeEconomicAccountFooter(Long uid);
 	List<DtoProgrammeEconomicAccount> getProgrammeEconomicAccountList(Long uid);
 
