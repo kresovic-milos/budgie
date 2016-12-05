@@ -23,8 +23,8 @@ import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
 import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -35,7 +35,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=Project.class)
-public class Project extends SuperEntity {
+public class Project extends SuperEntity implements Comparable<Project> {
 
 	
 	
@@ -51,6 +51,14 @@ public class Project extends SuperEntity {
 	private String rudiment;
 	@Column(length = 2048)
 	private String description;
+	
+	@Column(length = 1024)
+	private String duration;
+	@Column(length = 1024)
+	private String isCapital;
+	@Column(length = 1024)
+	private String isIpa;
+	
 	@Column(length = 2048)
 	private String anex;
 	@Column(length = 2048)
@@ -77,7 +85,8 @@ public class Project extends SuperEntity {
     @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="programme_uid")
     @NotFound(action=NotFoundAction.IGNORE)
-    @JsonIgnoreProperties({"categoryID", "code", "ordNumber", "name", "purpose", "rudiment", "description", "budgetUser", "responsibleAuthority", "programmeGoals", "activities", "projects"})
+    //@JsonIgnoreProperties({"categoryID", "code", "ordNumber", "name", "purpose", "rudiment", "description", "budgetUser", "responsibleAuthority", "programmeGoals", "activities", "projects"})
+    @JsonIdentityReference(alwaysAsId = true)
     private Programme programme;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="project")
@@ -189,6 +198,11 @@ public class Project extends SuperEntity {
 			}
 		} catch(IndexOutOfBoundsException ex) {}
 		return map;
+	}
+
+	@Override
+	public int compareTo(Project o) {
+		return this.getName().substring(0, 4).compareTo(o.getName().substring(0, 3));
 	}
 	
 }

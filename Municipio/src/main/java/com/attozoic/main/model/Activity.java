@@ -23,8 +23,8 @@ import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.model.dto.DtoBalanceFinancialSourceObject;
 import com.attozoic.main.model.dto.DtoFinancialSource;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -35,7 +35,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid", scope=Activity.class)
-public class Activity extends SuperEntity { 
+public class Activity extends SuperEntity implements Comparable<Activity> { 
 	
 	private Long categoryID;
 	
@@ -77,7 +77,8 @@ public class Activity extends SuperEntity {
     @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="programme_uid")
     @NotFound(action=NotFoundAction.IGNORE)
-    @JsonIgnoreProperties({"categoryID", "code", "ordNumber", "name", "purpose", "rudiment", "description", "budgetUser", "responsibleAuthority", "programmeGoals", "activities", "projects"})
+    //@JsonIgnoreProperties({"categoryID", "code", "ordNumber", "name", "purpose", "rudiment", "description", "budgetUser", "responsibleAuthority", "programmeGoals", "activities", "projects"})
+    @JsonIdentityReference(alwaysAsId = true)
     private Programme programme;
 
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="activity")
@@ -189,6 +190,11 @@ public class Activity extends SuperEntity {
 			}
 		} catch(IndexOutOfBoundsException ex) {} 
 		return map;
+	}
+
+	@Override
+	public int compareTo(Activity o) {
+		return this.getName().substring(0, 4).compareTo(o.getName().substring(0, 4));
 	}
 	
 }

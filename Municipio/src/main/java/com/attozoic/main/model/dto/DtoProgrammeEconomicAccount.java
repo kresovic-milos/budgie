@@ -67,7 +67,11 @@ public class DtoProgrammeEconomicAccount implements Comparable<DtoProgrammeEcono
 
 	@Override
 	public int compareTo(DtoProgrammeEconomicAccount o) {
-		return this.getName().substring(0, 9).compareTo(o.getName().substring(0, 9));
+		if (this.getName().toCharArray().length < 9 || o.getName().toCharArray().length < 9) {
+			return this.getName().substring(0, 3).compareTo(o.getName().substring(0, 3));
+		} else {
+			return this.getName().substring(0, 9).compareTo(o.getName().substring(0, 9));
+		}
 	}
 	
 }
