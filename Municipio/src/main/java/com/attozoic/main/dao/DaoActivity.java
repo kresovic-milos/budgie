@@ -33,6 +33,14 @@ public class DaoActivity extends DaoEntity {
 		return repoActivity;
 	}
 	
+	public List<SuperEconomicAccount> getActivityExpences(Long uid) {
+		return ((RepositoryActivity)getRepoEntity()).getActivityExpences(uid);
+	}
+	
+//	public List<ActivityFinancialSource> getActivityFinances(Long uid) {
+//		return ((RepositoryActivity)getRepoEntity()).getActivityFinances(uid);
+//	}
+	
 //	public List<Object> getActivityFinancesB(Long uid) {
 //		return repoActivity.getActivityFinancesB(uid);
 //	}
@@ -188,10 +196,6 @@ public class DaoActivity extends DaoEntity {
 //				return (entry1.getKey().substring(0, 2)).compareTo(entry2.getKey().substring(0, 2));
 //			}
 //		});
-//		map = new HashMap<String, double[]>();
-//		for (Map.Entry<String, double[]> entry : entries) {
-//			map.put(entry.getKey(), entry.getValue());
-//		}
 		return map;
 		//return repoActivity.findOne(uid).generateActivityFinancialSourceMap();
 	}

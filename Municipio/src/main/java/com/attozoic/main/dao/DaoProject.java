@@ -33,6 +33,14 @@ public class DaoProject extends DaoEntity {
 		return repoProject;
 	}
 	
+	public List<SuperEconomicAccount> getProjectExpences(Long uid) {
+		return ((RepositoryProject)getRepoEntity()).getProjectExpences(uid);
+	}
+	
+//	public List<SuperFinancialSource> getProjectFinances(Long uid) {
+//		return ((RepositoryProject)getRepoEntity()).getProjectFinances(uid);
+//	}
+	
 	public List<ProjectGoal> getProjectGoals(Long uid) {
 		return repoProject.getProjectGoals(uid);
 	}

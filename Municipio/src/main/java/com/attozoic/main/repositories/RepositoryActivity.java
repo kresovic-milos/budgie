@@ -20,9 +20,13 @@ public interface RepositoryActivity extends RepositoryEntity<Activity> {
 	@Query("select SUM(b.balance_amount) from Balance b inner join b.superEconomicAccount as aea where aea.activity.uid=:activityUid and aea.activeState = 0 and b.activeState = 0 group by b.year, b.balanceType")
 	public List<Double> getActivityExpencesFooter(@Param("activityUid") Long activityUid);
 	
-	// Expences
+	// GET ACTIVITY ECONOMIC ACCOUNTS
 	@Query("FROM SuperEconomicAccount as aea WHERE aea.activity.uid=:activityUid AND aea.activeState = 0 ORDER BY aea.code")
 	public List<SuperEconomicAccount> getActivityExpences(@Param("activityUid") Long uid);
+	
+	// GET ACTIVITY FINANCIAL SOURCES
+	//@Query("FROM ActivityFinancialSource as afs WHERE afs.activity.uid=:activityUid AND afs.activeState = 0 ORDER BY afs.name")
+	//public List<ActivityFinancialSource> getActivityFinances(@Param("activityUid") Long uid);
 	
 	// Expences ThreeDigits
 	@Query("SELECT DISTINCT SUBSTRING(aea.code,1,3) FROM SuperEconomicAccount AS aea WHERE aea.activity.uid=:activityUid AND aea.activeState = 0")

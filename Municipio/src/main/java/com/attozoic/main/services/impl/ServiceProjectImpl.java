@@ -10,6 +10,7 @@ import com.attozoic.main.dao.DaoEntity;
 import com.attozoic.main.dao.DaoProject;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
 
@@ -23,6 +24,16 @@ public class ServiceProjectImpl extends ServiceEntityImpl implements ServiceProj
 	public DaoEntity getDaoEntity() {
 		return daoProject;
 	}
+	
+	@Override
+	public List<SuperEconomicAccount> getProjectExpences(Long uid) {
+		return ((DaoProject) getDaoEntity()).getProjectExpences(uid);
+	}
+
+//	@Override
+//	public List<SuperFinancialSource> getProjectFinances(Long uid) {
+//		return ((DaoProject) getDaoEntity()).getProjectFinances(uid);
+//	}
 	
 //	@Override
 //	public DtoFinanceFooter getProjectFinancialSourceFooter(Long uid) {

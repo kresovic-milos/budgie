@@ -5,16 +5,15 @@ import java.util.Map;
 
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 
 public interface ServiceActivity extends ServiceEntity {
-
-//	List<Object> getActivityFinancesB(Long uid);
-//	List<Object> getActivityFinancesO(Long uid);
 	
-	//DtoFinanceFooter getActivityFinancialSourceFooter(Long uid);
+	List<SuperEconomicAccount> getActivityExpences(Long uid);
+	//List<ActivityFinancialSource> getActivityFinances(Long uid);
+	
 	Map<String, double[]> getActivityFinancialSourceMap(Long uid);
-	//SuperEconomicAccount getActivityEconomicAccountFooter(Long uid);
 	List<Double> getActivityExpencesFooter(Long uid);
 	List<DtoActivityEconomicAccount> getActivityExpencesList(Long uid);
 

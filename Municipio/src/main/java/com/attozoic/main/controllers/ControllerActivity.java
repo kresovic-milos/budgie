@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
+import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.services.ServiceActivity;
@@ -26,23 +27,23 @@ public class ControllerActivity {
 	@Autowired
 	private ServiceActivity serviceActivity;
 	
-	//getActivityGoals{uid}
+	//getActivityEconomicAccounts{uid}
+	@RequestMapping(value="/{uid}/economicAccounts", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<SuperEconomicAccount> getActivityEconomicAccounts(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityExpences(uid);
+	}
+	
+	//getActivityFinancialSources{uid}
+//	@RequestMapping(value="/{uid}/financialSources", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public List<ActivityFinancialSource> getActivityFinancialSources(@PathVariable(value="uid") Long uid) {
+//		return serviceActivity.getActivityFinances(uid);
+//	}
+	
+	// Izvori finansiranja aktivnosti - Kresina Lista Objekata - Ne koristim je sada
 	@RequestMapping(value="/{uid}/f", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> getActivityFinancial(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.getActivityFinancial(uid);
 	}
-	
-//	// B
-//	@RequestMapping(value="/{uid}/activitiesFB", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public List<Object> getActivityFinancesB(@PathVariable(value="uid") Long uid) {
-//		return serviceActivity.getActivityFinancesB(uid);
-//	}
-//	
-//	// O
-//	@RequestMapping(value="/{uid}/activitiesFO", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public List<Object> getActivityFinancesO(@PathVariable(value="uid") Long uid) {
-//		return serviceActivity.getActivityFinancesO(uid);
-//	}
 	
 	//getActivityGoals{uid}
 	@RequestMapping(value="/{uid}/goals", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
