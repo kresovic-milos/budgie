@@ -20,8 +20,8 @@ import org.hibernate.annotations.NotFoundAction;
 
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
@@ -55,8 +55,9 @@ public class Programme extends SuperEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="sector_uid")
 	@NotFound(action=NotFoundAction.IGNORE)
-	@JsonIgnoreProperties({"categoryID", "programmes"}) 
-    private Sector sector;
+	//@JsonIgnoreProperties({"categoryID", "programmes"}) 
+	@JsonIdentityReference(alwaysAsId = true)
+	private Sector sector;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="programme")
 	@JsonIgnore

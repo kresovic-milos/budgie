@@ -41,7 +41,7 @@ public class Activity extends SuperEntity implements Comparable<Activity> {
 	
 	private String ordNumber; 
 	private String categoryName;
-	private String code; 
+	private String code;
 	@Column(length = 512)
 	private String name;
     
@@ -194,7 +194,7 @@ public class Activity extends SuperEntity implements Comparable<Activity> {
 
 	@Override
 	public int compareTo(Activity o) {
-		return this.getName().substring(0, 4).compareTo(o.getName().substring(0, 4));
+		return this.getCategoryName().substring(0, 9).compareTo(o.getCategoryName().substring(0, 9));
 	}
 	
 }

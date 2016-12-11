@@ -3,6 +3,7 @@ package com.attozoic.main.services;
 import java.util.List;
 import java.util.Map;
 
+import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
@@ -10,8 +11,11 @@ import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 
 public interface ServiceProject extends ServiceEntity {
 
+	void updateAll();
+	
+	List<Project> getProjectsByAuthority(String authorityCode);
+	
 	List<SuperEconomicAccount> getProjectExpences(Long uid);
-	//List<SuperFinancialSource> getProjectFinances(Long uid);
 	
 	Map<String, double[]> getProjectFinancialSourceMap(Long uid);
 	List<Double> getProjectExpencesFooter(Long uid);

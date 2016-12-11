@@ -3,12 +3,15 @@ package com.attozoic.main.services;
 import java.util.List;
 import java.util.Map;
 
+import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 
 public interface ServiceActivity extends ServiceEntity {
+	
+	List<Activity> getActivitiesByAuthority(String authorityCode);
 	
 	List<SuperEconomicAccount> getActivityExpences(Long uid);
 	//List<ActivityFinancialSource> getActivityFinances(Long uid);
@@ -23,5 +26,7 @@ public interface ServiceActivity extends ServiceEntity {
 	List<ActivityGoal> getActivityGoals(Long uid);
 
 	List<Object> getActivityFinancial(Long uid);
+	
+	List<Object> getActivityFinancesTest(Long activityUid);
 	
 }

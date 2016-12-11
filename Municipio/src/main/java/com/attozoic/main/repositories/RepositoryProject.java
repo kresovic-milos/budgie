@@ -13,6 +13,9 @@ import com.attozoic.main.model.SuperEconomicAccount;
 @Repository
 public interface RepositoryProject extends RepositoryEntity<Project> {
 	
+	@Query("from Project p where p.authorityCode=:authorityCode and p.activeState = 0 order by p.programme.uid asc, p.headCode asc")
+	public List<Project> getProjectsByAuthority(@Param("authorityCode") String authorityCode);
+	
 	@Query("from ProjectGoal goal where goal.project.uid=:projectUid and goal.activeState = 0")
 	public List<ProjectGoal> getProjectGoals(@Param("projectUid") Long uid);
 	

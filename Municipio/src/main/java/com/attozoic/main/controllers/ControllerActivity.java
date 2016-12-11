@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.attozoic.main.dao.DaoActivity;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
@@ -26,6 +27,21 @@ public class ControllerActivity {
 
 	@Autowired
 	private ServiceActivity serviceActivity;
+	
+	@Autowired
+	public DaoActivity daoActivity;
+	
+	//getActivitiesByAuthority{authorityCode}
+	@RequestMapping(value="/{uid}/ttt", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<Object> getActivityFinancesTest(@PathVariable(value="uid") Long uid) {
+		return serviceActivity.getActivityFinancesTest(uid);
+	}
+	
+	//getActivitiesByAuthority{authorityCode}
+	@RequestMapping(value="/{autorityCode}/r", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<Activity> getActivitiesByAuthority(@PathVariable(value="autorityCode") String autorityCode) {
+		return serviceActivity.getActivitiesByAuthority(autorityCode);
+	}
 	
 	//getActivityEconomicAccounts{uid}
 	@RequestMapping(value="/{uid}/economicAccounts", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -141,4 +157,11 @@ public class ControllerActivity {
 		serviceActivity.unarchive(uid);
 	}
 
+	////////////////matrix //////////////
+
+	@RequestMapping(value="/{uid}/expencesGroups", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+		public List<ActivityEconomicAccount> getExpencesGroups(@PathVariable(value="uid") Long uid) {
+		return daoActivity.getActivityExpencesGroups(uid);
+	}
+	
 }

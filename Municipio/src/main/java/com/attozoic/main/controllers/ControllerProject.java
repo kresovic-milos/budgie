@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.attozoic.main.dao.DaoProject;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
@@ -27,17 +28,26 @@ public class ControllerProject {
 	@Autowired
 	private ServiceProject serviceProject;
 	
+	@Autowired
+	public DaoProject daoProject;
+	
+	//getProjectsByAuthority{authorityCode}
+	@RequestMapping(value="/{autorityCode}/r", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<Project> getProjectsByAuthority(@PathVariable(value="autorityCode") String autorityCode) {
+		return serviceProject.getProjectsByAuthority(autorityCode);
+	}
+	
+	//getProjectEconomicAccounts{uid}
+	@RequestMapping(value="/updateAll", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void updateAll() {
+		serviceProject.updateAll();
+	}
+	
 	//getProjectEconomicAccounts{uid}
 	@RequestMapping(value="/{uid}/economicAccounts", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<SuperEconomicAccount> getProjectEconomicAccounts(@PathVariable(value="uid") Long uid) {
 		return serviceProject.getProjectExpences(uid);
 	}
-	
-	//getProjectFinancialSources{uid}
-//	@RequestMapping(value="/{uid}/financialSources", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	public List<SuperFinancialSource> getProjectFinancialSources(@PathVariable(value="uid") Long uid) {
-//		return serviceProject.getProjectFinances(uid);
-//	}
 	
 	//getProjectGoals{uid}
 	@RequestMapping(value="/{uid}/goals", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -133,6 +143,13 @@ public class ControllerProject {
 	@RequestMapping(value="{uid}/unarchive", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void unarchive(@PathVariable(value="uid") Long uid) {
 		serviceProject.unarchive(uid);
+	}
+	
+	////////////////matrix //////////////
+	
+	@RequestMapping(value="/{uid}/expencesGroups", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+		public List<ProjectEconomicAccount> getExpencesGroups(@PathVariable(value="uid") Long uid) {
+		return daoProject.getProjectExpencesGroups(uid);
 	}
 	
 }

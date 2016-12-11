@@ -13,6 +13,11 @@ import com.attozoic.main.model.SuperEconomicAccount;
 @Repository
 public interface RepositoryActivity extends RepositoryEntity<Activity> {
 	
+	@Query("from Activity a where a.authorityCode=:authorityCode and a.activeState = 0 order by a.programme.uid asc, a.headCode asc")
+	public List<Activity> getActivitiesByAuthority(@Param("authorityCode") String authorityCode);
+	
+	// ===========================================================================================================================
+	
 	@Query("from ActivityGoal goal where goal.activity.uid=:activityUid and goal.activeState = 0")
 	public List<ActivityGoal> getActivityGoals(@Param("activityUid") Long uid);
 
@@ -33,7 +38,8 @@ public interface RepositoryActivity extends RepositoryEntity<Activity> {
 	public List<Object> getExpencesGroups(@Param("activityUid") Long activityUid);
 	
 	// ===========================================================================================================================
-	
+
+	// ORDER BY sfs.name
 	@Query(value="SELECT sfs.name, COALESCE(SUM(sfs.amount), 0) AS total FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2016 AND b.balanceType=0 and sfs.activeState = 0 GROUP BY sfs.name")
 	public List<Object> getActivityFinances2016B(@Param("activityUid") Long activityUid);
 	
@@ -65,5 +71,16 @@ public interface RepositoryActivity extends RepositoryEntity<Activity> {
 	
 	//@Query("SELECT fs.name, b.year, b.balanceType, COALESCE(SUM(fs.amount), 0) FROM SuperFinancialSource AS fs RIGHT JOIN fs.balance AS b LEFT JOIN b.superEconomicAccount aea WHERE b.activeState=0 AND aea.activity.uid=:activityUid AND aea.activeState = 0 AND fs.activeState=0 GROUP BY fs.name, b.year, b.balanceType")
 	//public List<Object> getFinances(@Param("activityUid") Long activityUid);
+	
+	@Query(value="SELECT sfs.name, ( SELECT COALESCE(SUM(sfs.amount), 0) AS total2016B FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2016 AND b.balanceType=0 AND sfs.activeState = 0),"
+								+ "( SELECT COALESCE(SUM(sfs.amount), 0) AS total2016O FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2016 AND b.balanceType=1 AND sfs.activeState = 0),"
+								+ "( SELECT COALESCE(SUM(sfs.amount), 0) AS total2017B FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2017 AND b.balanceType=0 AND sfs.activeState = 0),"
+								+ "( SELECT COALESCE(SUM(sfs.amount), 0) AS total2017O FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2017 AND b.balanceType=1 AND sfs.activeState = 0),"
+								+ "( SELECT COALESCE(SUM(sfs.amount), 0) AS total2018B FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2018 AND b.balanceType=0 AND sfs.activeState = 0),"
+								+ "( SELECT COALESCE(SUM(sfs.amount), 0) AS total2018O FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2018 AND b.balanceType=1 AND sfs.activeState = 0),"
+								+ "( SELECT COALESCE(SUM(sfs.amount), 0) AS total2019B FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2019 AND b.balanceType=0 AND sfs.activeState = 0),"
+								+ "( SELECT COALESCE(SUM(sfs.amount), 0) AS total2019O FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND b.year=2019 AND b.balanceType=1 AND sfs.activeState = 0)"
+								+ "FROM Activity a LEFT JOIN a.activityEconomicAccounts AS aea LEFT JOIN aea.balances AS b LEFT JOIN b.financialSources AS sfs WHERE aea.activity.uid=:activityUid AND aea.activeState=0 AND b.activeState=0 AND sfs.activeState = 0 ORDER BY sfs.name ASC")
+	public List<Object> getActivityFinancesTest(@Param("activityUid") Long activityUid);
 	
 }

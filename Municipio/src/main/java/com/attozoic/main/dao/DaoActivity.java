@@ -33,6 +33,10 @@ public class DaoActivity extends DaoEntity {
 		return repoActivity;
 	}
 	
+	public List<Activity> getActivitiesByAuthority(String authorityCode) {
+		return ((RepositoryActivity)getRepoEntity()).getActivitiesByAuthority(authorityCode);
+	}
+	
 	public List<SuperEconomicAccount> getActivityExpences(Long uid) {
 		return ((RepositoryActivity)getRepoEntity()).getActivityExpences(uid);
 	}
@@ -258,5 +262,32 @@ public class DaoActivity extends DaoEntity {
 		} catch (NullPointerException ex) {}
 		return numRebalances;
 	}
+	
+	///////// MATRIX ////////////
+	
+	public List<ActivityEconomicAccount> getActivityExpencesGroups(Long uid) {
+		List<ActivityEconomicAccount> list = new ArrayList<>();
+		List<Object> objects = repoActivity.getExpencesGroups(uid);
+		List<SuperEconomicAccount> economicAccounts = repoActivity.getActivityExpences(uid);
+		for (Object o : objects) {
+			ActivityEconomicAccount aea = new ActivityEconomicAccount();
+			aea.setCode(o.toString());
+			aea.generateBalances(getNumRebalances());
+			//List<ActivityEconomicAccount> list2 = new ArrayList<>();
+			for (SuperEconomicAccount economicAccount : economicAccounts) {
+				String threeDigit = ((ActivityEconomicAccount)economicAccount).getCode().substring(0, 3);
+				if (aea.getCode().equals(threeDigit)) {
+					aea = aea.sumActivityEconomicAccounts((ActivityEconomicAccount)economicAccount);
+					//list2.add((ActivityEconomicAccount)economicAccount);
+				}
+			}
+			list.add(aea);
+		}
+		Collections.sort(list);
+		return list;
+	}
 		
+	public List<Object> getActivityFinancesTest(Long activityUid) {
+		return ((RepositoryActivity)getRepoEntity()).getActivityFinancesTest(activityUid);
+	}
 }

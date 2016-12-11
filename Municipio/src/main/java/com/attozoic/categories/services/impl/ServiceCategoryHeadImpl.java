@@ -1,5 +1,7 @@
 package com.attozoic.categories.services.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class ServiceCategoryHeadImpl extends ServiceCategoryEntityImpl implement
 	@Override
 	public DaoCategoryEntity getDaoCategoryEntity() {
 		return daoCategoryHead;
+	}
+
+	@Override
+	public Map<String, String> getHeadsMap() {
+		return ((DaoCategoryHead)getDaoCategoryEntity()).getHeadsMap();
 	}
 
 }

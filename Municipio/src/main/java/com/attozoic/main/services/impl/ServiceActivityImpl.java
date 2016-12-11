@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.attozoic.main.dao.DaoActivity;
 import com.attozoic.main.dao.DaoEntity;
+import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
@@ -23,6 +24,11 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	@Override
 	public DaoEntity getDaoEntity() {
 		return daoActivity;
+	}
+	
+	@Override
+	public List<Activity> getActivitiesByAuthority(String authorityCode) {
+		return ((DaoActivity) getDaoEntity()).getActivitiesByAuthority(authorityCode);
 	}
 	
 //	@Override
@@ -88,6 +94,11 @@ public class ServiceActivityImpl extends ServiceEntityImpl implements ServiceAct
 	@Override
 	public List<Object> getActivityFinancial(Long uid) {
 		return ((DaoActivity) getDaoEntity()).getActivityFinancial(uid);
+	}
+
+	@Override
+	public List<Object> getActivityFinancesTest(Long activityUid) {
+		return ((DaoActivity) getDaoEntity()).getActivityFinancesTest(activityUid);
 	}
 	
 }

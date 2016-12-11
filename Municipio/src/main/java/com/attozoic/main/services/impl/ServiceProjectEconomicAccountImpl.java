@@ -18,4 +18,14 @@ public class ServiceProjectEconomicAccountImpl extends ServiceEntityImpl impleme
 		return daoProjectEconomicAccount;
 	}
 		
+	@Override
+	public double get411Sum() {
+		return ((DaoProjectEconomicAccount)getDaoEntity()).get411Sum();
+	}
+
+	@Override
+	public double get412Sum() {
+		return ((DaoProjectEconomicAccount)getDaoEntity()).get412Sum();
+	}
+	
 }

@@ -1,5 +1,7 @@
 package com.attozoic.main.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.attozoic.main.dao.DaoActivityEconomicAccount;
 import com.attozoic.main.model.ActivityEconomicAccount;
+import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.services.ServiceActivityEconomicAccount;
 
@@ -20,11 +24,32 @@ public class ControllerActivityEconomicAccount {
 	@Autowired
 	private ServiceActivityEconomicAccount serviceActivityEconomicAccount;
 	
-	//getAllActivityEconomicAccounts
-//	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
-//	public Page<SuperEntity> getAllActivityEconomicAccounts() {
-//		return serviceActivityEconomicAccount.findAll();
-//	}
+	@Autowired
+	private DaoActivityEconomicAccount dao;
+	
+	//getAll A/P Expences
+	@RequestMapping(value="/g", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public List<Object> getExpencesG() {
+		return dao.getExpencesG();
+	}
+	
+	//getAll A/P Expences
+	@RequestMapping(value="/expencesss", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public List<SuperEconomicAccount> getAllExpences() {
+		return serviceActivityEconomicAccount.getAllExpences();
+	}
+	
+	//411
+	@RequestMapping(value="/411", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public double get411Sum() {
+		return serviceActivityEconomicAccount.get411Sum();
+	}
+	
+	//412
+	@RequestMapping(value="/412", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public double get412Sum() {
+		return serviceActivityEconomicAccount.get412Sum();
+	}
 	
 	//getAllActivityEconomicAccounts
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 

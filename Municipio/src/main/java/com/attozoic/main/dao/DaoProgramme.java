@@ -19,6 +19,8 @@ import com.attozoic.main.model.Project;
 import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.model.dto.DtoProgrammeFinances;
+import com.attozoic.main.model.dto.DtoSuperEA;
+import com.attozoic.main.repositories.RepositoryActivityEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProgramme;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
@@ -42,11 +44,35 @@ public class DaoProgramme extends DaoEntity {
 	@Autowired
 	private RepositoryBalance repoBalance;
 	
+	@Autowired
+	private RepositoryActivityEconomicAccount repoActivityEcAcc;
+	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public RepositoryEntity getRepoEntity() {
 		return repoProgramme;
 	}
+	
+	// EKONOMSKA KLASIFIKACIJA ===============================================
+	public List<DtoSuperEA> getThreeDigitsList() {
+		List<DtoSuperEA> list = new ArrayList<>();
+		for (Object o1 : repoActivityEcAcc.getExpences2017B()) {
+			Object[] arr1 = (Object[])o1;
+			for (Object o2 : repoActivityEcAcc.getExpences2017O()) {
+				Object[] arr2 = (Object[])o2;
+				if (((String)arr1[0]).equals((String)arr2[0])) {
+					List<Double> balances = new ArrayList<>();
+					balances.add((Double)arr1[1]);
+					balances.add((Double)arr2[1]);
+					DtoSuperEA dto = new DtoSuperEA("", (String)arr1[0], balances);
+					list.add(dto);
+				}
+			}
+		}
+		return list;
+	}
+	
+	// ========================================================================
 	
 	// ALL PROGRAMMES CHART
 	public List<Object> getChart(double year) {
@@ -202,6 +228,7 @@ public class DaoProgramme extends DaoEntity {
 	public Activity addActivity(Long uid, Activity activity) {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		activity.setProgramme(programme);
+		activity.setAnex("(Анекс 3 Упутства за израду програмског буџета- релевантно само за Републику Србију)");
 		return (Activity) getRepoEntity().save(activity);
 	}
 	
@@ -209,6 +236,10 @@ public class DaoProgramme extends DaoEntity {
 	public Project addProject(Long uid, Project project) {
 		Programme programme = (Programme) getRepoEntity().findOne(uid);
 		project.setProgramme(programme);
+		project.setCode(programme.getCode() + "-(П1, П2, П3...)");
+		project.setIsCapital("(статус пројектно техничке документације, постоји или не постоји, статус имовинско правних односа, решени или нерешени)");
+		project.setIsIpa("(бира се ИПА година финансирања и ИПА програм/мере из предефинисане листе коју у базу уноси Министарство финансија)");
+		project.setAnex("(Анекс 3 Упутства за израду програмског буџета- релевантно само за Републику Србију)");
 		return (Project) getRepoEntity().save(project);
 	}
 	

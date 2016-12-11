@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.attozoic.main.dao.DaoProgramme;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.Programme;
 import com.attozoic.main.model.ProgrammeGoal;
@@ -18,6 +19,7 @@ import com.attozoic.main.model.Project;
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.dto.DtoProgrammeEconomicAccount;
 import com.attozoic.main.model.dto.DtoProgrammeFinances;
+import com.attozoic.main.model.dto.DtoSuperEA;
 import com.attozoic.main.services.ServiceProgramme;
 
 @RestController
@@ -26,6 +28,15 @@ public class ControllerProgramme {
 
 	@Autowired
 	private ServiceProgramme serviceProgramme;
+	
+	@Autowired
+	private DaoProgramme daoProgramme;
+	
+	//EKONOMSKA KLASIFIKACIJA
+	@RequestMapping(value="/threeDigitExpences", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public List<DtoSuperEA> getProgrammethreeDigitExpences() {
+		return daoProgramme.getThreeDigitsList();
+	}
 	
 	// GRAFIKON
 	@RequestMapping(value="/{year}/chartQ", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)

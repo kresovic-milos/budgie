@@ -33,6 +33,21 @@ public class DaoProject extends DaoEntity {
 		return repoProject;
 	}
 	
+	public List<Project> getProjectsByAuthority(String authorityCode) {
+		return ((RepositoryProject)getRepoEntity()).getProjectsByAuthority(authorityCode);
+	}
+	
+	public void updateAll() {
+		List<Project> projects = ((RepositoryProject)getRepoEntity()).findAll();
+		for (Project project : projects) {
+			project.setCode(project.getProgramme().getCode() + "-(П1, П2, П3...)");
+			project.setIsCapital("(статус пројектно техничке документације, постоји или не постоји, статус имовинско правних односа, решени или нерешени)");
+			project.setIsIpa("(бира се ИПА година финансирања и ИПА програм/мере из предефинисане листе коју у базу уноси Министарство финансија)");
+			project.setAnex("(Анекс 3 Упутства за израду програмског буџета- релевантно само за Републику Србију)");
+			((RepositoryProject)getRepoEntity()).save(project);
+		}
+	}
+	
 	public List<SuperEconomicAccount> getProjectExpences(Long uid) {
 		return ((RepositoryProject)getRepoEntity()).getProjectExpences(uid);
 	}
@@ -242,6 +257,31 @@ public class DaoProject extends DaoEntity {
 			numRebalances = repoRebalanceCount.findOne(new Long(1)).getRebalancesCount();
 		} catch (NullPointerException ex) {}
 		return numRebalances;
+	}
+	
+	 ///////// MATRIX ////////////
+
+
+	public List<ProjectEconomicAccount> getProjectExpencesGroups(Long uid) {
+		List<ProjectEconomicAccount> list = new ArrayList<>();
+		List<Object> objects = repoProject.getExpencesGroups(uid);
+		List<SuperEconomicAccount> economicAccounts = repoProject.getProjectExpences(uid);
+		for (Object o : objects) {
+			ProjectEconomicAccount pea = new ProjectEconomicAccount();
+			pea.setCode(o.toString());
+			pea.generateBalances(getNumRebalances());
+			//List<ProjectEconomicAccount> list2 = new ArrayList<>();
+			for (SuperEconomicAccount economicAccount : economicAccounts) {
+			String threeDigit = ((ProjectEconomicAccount)economicAccount).getCode().substring(0, 3);
+				if (pea.getCode().equals(threeDigit)) {
+				pea = pea.sumProjectEconomicAccounts((ProjectEconomicAccount)economicAccount);
+				//list2.add((ProjectEconomicAccount)economicAccount);
+				}
+			}	
+		list.add(pea);
+		}
+		Collections.sort(list);
+		return list;
 	}
 	
 }

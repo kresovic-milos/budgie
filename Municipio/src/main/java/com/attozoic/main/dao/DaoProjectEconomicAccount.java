@@ -18,14 +18,12 @@ public class DaoProjectEconomicAccount extends DaoEntity {
 		return repoProjectEconomicAccount;
 	}
 	
-//	@Override
-//	public SuperEntity update(SuperEntity superEntity) {
-//		ProjectEconomicAccount projectEconomicAccount = (ProjectEconomicAccount) superEntity;
-//		projectEconomicAccount.setSumExpenses123Budget(projectEconomicAccount.sumExpenses123Budget());
-//		projectEconomicAccount.setSumExpenses123Others(projectEconomicAccount.sumExpenses123Others());
-//		return super.update(projectEconomicAccount);
-//	}
+	public double get411Sum() {
+		return ((RepositoryProjectEconomicAccount)getRepoEntity()).get411Sum();
+	}
 	
-
+	public double get412Sum() {
+		return ((RepositoryProjectEconomicAccount)getRepoEntity()).get412Sum();
+	}
 	
 }

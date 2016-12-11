@@ -20,6 +20,18 @@ public class ControllerProjectEconomicAccount {
 	@Autowired
 	private ServiceProjectEconomicAccount serviceProjectEconomicAccount;
 	
+	//411
+	@RequestMapping(value="/411", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public double get411Sum() {
+		return serviceProjectEconomicAccount.get411Sum();
+	}
+	
+	//412
+	@RequestMapping(value="/412", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public double get412Sum() {
+		return serviceProjectEconomicAccount.get412Sum();
+	}
+	
 	//getAllProjectEconomicAccounts
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public Page<SuperEntity> getAllProjectEconomicAccounts() {

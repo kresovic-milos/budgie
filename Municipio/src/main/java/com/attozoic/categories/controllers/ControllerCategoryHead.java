@@ -1,6 +1,7 @@
 package com.attozoic.categories.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,11 @@ public class ControllerCategoryHead {
 
 	@Autowired
 	private ServiceCategoryHead serviceCategoryHead;
+	
+	@RequestMapping(value="/map", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, String> getHeadsMap() {
+		return serviceCategoryHead.getHeadsMap();
+	}
 	
 	@RequestMapping(value="/addAll", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void addAllHeadCategories(@RequestBody List<CategoryHead> categoryHeads) {

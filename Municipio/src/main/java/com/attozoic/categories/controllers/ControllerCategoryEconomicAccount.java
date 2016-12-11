@@ -1,6 +1,7 @@
 package com.attozoic.categories.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,21 @@ public class ControllerCategoryEconomicAccount {
 
 	@Autowired
 	private ServiceCategoryEconomicAccount serviceEconomicAccount;
+	
+	@RequestMapping(value="/threeDigits", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, String> getThreeDigits() {
+		return serviceEconomicAccount.getThreeDigits();
+	}
+	
+	@RequestMapping(value="/twoDigits", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, String> getTwoDigits() {
+		return serviceEconomicAccount.getTwoDigits();
+	}
+	
+	@RequestMapping(value="/oneDigits", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, String> getOneDigits() {
+		return serviceEconomicAccount.getOneDigits();
+	}
 	
 	@RequestMapping(value="/addAll", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void addAllExpencesCategories(@RequestBody List<CategoryEconomicAccount> categoryExpences) {
