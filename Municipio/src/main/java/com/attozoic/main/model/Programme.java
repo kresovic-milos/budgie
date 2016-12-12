@@ -102,7 +102,7 @@ public class Programme extends SuperEntity {
 						activityEconomicAccount = activityEconomicAccount.sumActivityEconomicAccounts(aea);
 					}
 				}
-				DtoProgrammeEconomicAccount programmeEconomicAccount = new DtoProgrammeEconomicAccount(entry.getKey(), activityEconomicAccount.getBalances());
+				DtoProgrammeEconomicAccount programmeEconomicAccount = new DtoProgrammeEconomicAccount(entry.getKey(), activityEconomicAccount.getCode(), activityEconomicAccount.getBalances());
 				programmeEconomicAccount.generateSumExpences123();
 				programmeEconomicAccounts.add(programmeEconomicAccount);
 			} else {
@@ -115,7 +115,7 @@ public class Programme extends SuperEntity {
 						projectEconomicAccount = projectEconomicAccount.sumProjectEconomicAccounts(pea);
 					}
 				}
-				DtoProgrammeEconomicAccount programmeEconomicAccount = new DtoProgrammeEconomicAccount(entry.getKey(), projectEconomicAccount.getBalances());
+				DtoProgrammeEconomicAccount programmeEconomicAccount = new DtoProgrammeEconomicAccount(entry.getKey(), projectEconomicAccount.getCode(), projectEconomicAccount.getBalances());
 				programmeEconomicAccount.generateSumExpences123();
 				programmeEconomicAccounts.add(programmeEconomicAccount);
 			}

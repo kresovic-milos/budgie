@@ -12,6 +12,7 @@ import lombok.Data;
 public class DtoProgrammeEconomicAccount implements Comparable<DtoProgrammeEconomicAccount> {
 
 	private String name;
+	private String code;
 	
 	private List<Balance> balances = new ArrayList<>();
 	
@@ -20,8 +21,9 @@ public class DtoProgrammeEconomicAccount implements Comparable<DtoProgrammeEcono
 	
 	public DtoProgrammeEconomicAccount() {}
 	
-	public DtoProgrammeEconomicAccount(String name, List<Balance> balances) {
+	public DtoProgrammeEconomicAccount(String name, String code, List<Balance> balances) {
 		this.name = name;
+		this.code = code;
 		this.balances = balances;
 	}
 	

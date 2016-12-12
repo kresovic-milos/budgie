@@ -15,6 +15,7 @@ import com.attozoic.main.dao.DaoActivityEconomicAccount;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.dto.DtoFunction2;
 import com.attozoic.main.services.ServiceActivityEconomicAccount;
 
 @RestController
@@ -26,6 +27,12 @@ public class ControllerActivityEconomicAccount {
 	
 	@Autowired
 	private DaoActivityEconomicAccount dao;
+	
+	//getAll A/P Expences
+	@RequestMapping(value="/functions", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
+	public List<DtoFunction2> getFunctions() {
+		return dao.getFunctions();
+	}
 	
 	//getAll A/P Expences
 	@RequestMapping(value="/g", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 

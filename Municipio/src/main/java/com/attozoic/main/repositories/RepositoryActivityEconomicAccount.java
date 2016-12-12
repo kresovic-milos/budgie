@@ -27,6 +27,12 @@ public interface RepositoryActivityEconomicAccount extends RepositoryEntity<Acti
 	@Query("SELECT DISTINCT SUBSTRING(aea.code,1,3), COALESCE(SUM(b.balance_amount), 0) FROM SuperEconomicAccount AS aea LEFT JOIN aea.balances AS b WHERE aea.activeState = 0 AND b.year=2017 AND b.balanceType=1 GROUP BY SUBSTRING(aea.code,1,3) ORDER BY aea.code ASC")
 	public List<Object> getExpences2017O();
 	
+	@Query("SELECT aea.activity.function, COALESCE(SUM(b.balance_amount), 0) FROM SuperEconomicAccount AS aea LEFT JOIN aea.balances AS b WHERE aea.activeState = 0 AND b.year=2017 AND b.balanceType=0 GROUP BY aea.activity.function ORDER BY aea.activity.functionCode ASC")
+	public List<Object> getFunctions2017B();
+	
+	@Query("SELECT aea.activity.function, COALESCE(SUM(b.balance_amount), 0) FROM SuperEconomicAccount AS aea LEFT JOIN aea.balances AS b WHERE aea.activeState = 0 AND b.year=2017 AND b.balanceType=1 GROUP BY aea.activity.function ORDER BY aea.activity.functionCode ASC")
+	public List<Object> getFunctions2017O();
+	
 //	@Query("SELECT DISTINCT SUBSTRING(aea.code,1,3), "
 //			+ "(COALESCE(SUM(b.balance_amount), 0) FROM Balance AS b WHERE b.superEconomicAccount.activeState=0 AND b.year=2017 AND b.balanceType=0 GROUP BY SUBSTRING(aea.code,1,3) ORDER BY aea.code ASC), "
 //			+ "(COALESCE(SUM(b.balance_amount), 0) FROM Balance AS b WHERE b.superEconomicAccount.activeState=0 AND b.year=2017 AND b.balanceType=1 GROUP BY SUBSTRING(aea.code,1,3) ORDER BY aea.code ASC) GROP")
