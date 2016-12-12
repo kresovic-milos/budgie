@@ -100,9 +100,10 @@ public class Programme extends SuperEntity {
 					if (superEconomicAccount2.getActiveState() == ActiveState.ACTIVE) {
 						ActivityEconomicAccount aea = (ActivityEconomicAccount)superEconomicAccount2;
 						activityEconomicAccount = activityEconomicAccount.sumActivityEconomicAccounts(aea);
+						activityEconomicAccount.setCategoryName(((ActivityEconomicAccount)superEconomicAccount2).getCategoryName());
 					}
 				}
-				DtoProgrammeEconomicAccount programmeEconomicAccount = new DtoProgrammeEconomicAccount(entry.getKey(), activityEconomicAccount.getCode(), activityEconomicAccount.getBalances());
+				DtoProgrammeEconomicAccount programmeEconomicAccount = new DtoProgrammeEconomicAccount(entry.getKey(), activityEconomicAccount.getCategoryName().substring(0, 9), activityEconomicAccount.getBalances());
 				programmeEconomicAccount.generateSumExpences123();
 				programmeEconomicAccounts.add(programmeEconomicAccount);
 			} else {
@@ -113,9 +114,11 @@ public class Programme extends SuperEntity {
 					if (superEconomicAccount2.getActiveState() == ActiveState.ACTIVE) {
 						ProjectEconomicAccount pea = (ProjectEconomicAccount)superEconomicAccount2;
 						projectEconomicAccount = projectEconomicAccount.sumProjectEconomicAccounts(pea);
+						projectEconomicAccount.setCategoryName(((ProjectEconomicAccount)superEconomicAccount2).getCategoryName());
+						projectEconomicAccount.setName(((ProjectEconomicAccount)superEconomicAccount2).getName());
 					}
 				}
-				DtoProgrammeEconomicAccount programmeEconomicAccount = new DtoProgrammeEconomicAccount(entry.getKey(), projectEconomicAccount.getCode(), projectEconomicAccount.getBalances());
+				DtoProgrammeEconomicAccount programmeEconomicAccount = new DtoProgrammeEconomicAccount(entry.getKey(), projectEconomicAccount.getName(), projectEconomicAccount.getBalances());
 				programmeEconomicAccount.generateSumExpences123();
 				programmeEconomicAccounts.add(programmeEconomicAccount);
 			}

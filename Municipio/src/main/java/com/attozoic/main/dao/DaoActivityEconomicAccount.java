@@ -2,7 +2,9 @@ package com.attozoic.main.dao;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,45 +33,53 @@ public class DaoActivityEconomicAccount extends DaoEntity {
 	
 	public List<DtoFunction> getFunctions2017B() {
 		List<DtoFunction> list = new ArrayList<>();
+		Map<String, Double> map = new HashMap<>();
 		List<Object> activityFunctions = repoActivityEconomicAccount.getFunctions2017B();
 		List<Object> projectFunctions = repoProjectEconomicAccount.getFunctions2017B();
-		for (Object o1 : activityFunctions) {
-			Object[] arr1 = (Object[])o1;
+		activityFunctions.addAll(projectFunctions);
+		for (Object object : activityFunctions) {
+			Object[] arr1 = (Object[])object;
 			String s1 = (String)arr1[0];
-			for (Object o2 : projectFunctions) {
-				Object[] arr2 = (Object[])o2;
-				String s2 = (String)arr2[0];
-				if (s1.equals(s2)) {
-					DtoFunction dto = new DtoFunction();
-					dto.setName(s1);
-					dto.setAmount((double)arr1[1]+(double)arr2[1]);
-					list.add(dto);
-				}
+			double d1 = (double)arr1[1];
+			if (map.containsKey(s1)) {
+				double d = map.get(s1) + d1;
+				map.put(s1, d);
+			} else {
+				map.put(s1, d1);
 			}
 		}
-		Collections.sort(list);
+		for (Map.Entry<String, Double> entry : map.entrySet()) {
+			DtoFunction dto = new DtoFunction();
+			dto.setName(entry.getKey());
+			dto.setAmount(entry.getValue());
+			list.add(dto);
+		}
 		return list;
 	}
 	
 	public List<DtoFunction> getFunctions2017O() {
 		List<DtoFunction> list = new ArrayList<>();
+		Map<String, Double> map = new HashMap<>();
 		List<Object> activityFunctions = repoActivityEconomicAccount.getFunctions2017O();
 		List<Object> projectFunctions = repoProjectEconomicAccount.getFunctions2017O();
-		for (Object o1 : activityFunctions) {
-			Object[] arr1 = (Object[])o1;
+		activityFunctions.addAll(projectFunctions);
+		for (Object object : activityFunctions) {
+			Object[] arr1 = (Object[])object;
 			String s1 = (String)arr1[0];
-			for (Object o2 : projectFunctions) {
-				Object[] arr2 = (Object[])o2;
-				String s2 = (String)arr2[0];
-				if (s1.equals(s2)) {
-					DtoFunction dto = new DtoFunction();
-					dto.setName(s1);
-					dto.setAmount((double)arr1[1]+(double)arr2[1]);
-					list.add(dto);
-				}
+			double d1 = (double)arr1[1];
+			if (map.containsKey(s1)) {
+				double d = map.get(s1) + d1;
+				map.put(s1, d);
+			} else {
+				map.put(s1, d1);
 			}
 		}
-		Collections.sort(list);
+		for (Map.Entry<String, Double> entry : map.entrySet()) {
+			DtoFunction dto = new DtoFunction();
+			dto.setName(entry.getKey());
+			dto.setAmount(entry.getValue());
+			list.add(dto);
+		}
 		return list;
 	}
 	
@@ -77,7 +87,8 @@ public class DaoActivityEconomicAccount extends DaoEntity {
 		List<DtoFunction2> list = new ArrayList<>();
 		List<DtoFunction> l1 = getFunctions2017B();
 		List<DtoFunction> l2 = getFunctions2017O();
-		
+		System.out.println(l1.size());
+		System.out.println(l2.size());
 		for (DtoFunction d1 : l1) {
 			for (DtoFunction d2 : l2) {
 				if (d1.getName().equals(d2.getName())) {

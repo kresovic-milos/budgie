@@ -1,6 +1,7 @@
 package com.attozoic.categories.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,11 @@ public class ControllerCategoryFunction {
 		for (CategoryFunction categoryFunction : categoryFunctions) {
 			serviceFunction.save(categoryFunction);
 		}
+	}
+	
+	@RequestMapping(value="/oneDigit", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, String> getOneDigits() {
+		return serviceFunction.getOneDigits();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)

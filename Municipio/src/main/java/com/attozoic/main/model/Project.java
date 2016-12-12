@@ -118,7 +118,7 @@ public class Project extends SuperEntity implements Comparable<Project> {
 			}
 		}
 		projectEconomicAccount.generateSumExpences123();
-		projectEconomicAccount.setName(this.getName());
+		projectEconomicAccount.setName(this.getCode());
 		projectEconomicAccount.setCategoryName(this.getName());
 		return projectEconomicAccount;
 	}
