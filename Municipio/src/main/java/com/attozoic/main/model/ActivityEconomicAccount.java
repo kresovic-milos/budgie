@@ -42,7 +42,7 @@ public class ActivityEconomicAccount extends SuperEconomicAccount implements Com
 	private String code;
 	private String name;
 	private String poz;
-
+	
 	private double sumExpenses123Budget = 0;
 	private double sumExpenses123Others = 0;
 

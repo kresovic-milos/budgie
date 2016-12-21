@@ -33,6 +33,7 @@ import lombok.Setter;
 public abstract class SuperEconomicAccount extends SuperEntity {
 	
 	private String categoryName;
+	private String finSrcs;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="superEconomicAccount")
 	List<Balance> balances = new ArrayList<>();

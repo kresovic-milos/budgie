@@ -28,7 +28,7 @@ public class ControllerActivityEconomicAccount {
 	@Autowired
 	private DaoActivityEconomicAccount dao;
 	
-	//getAll A/P Expences
+	//getAll A/P Functions
 	@RequestMapping(value="/functions", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) 
 	public List<DtoFunction2> getFunctions() {
 		return dao.getFunctions();

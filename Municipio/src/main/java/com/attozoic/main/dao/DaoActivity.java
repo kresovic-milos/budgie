@@ -11,10 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
+import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
+import com.attozoic.main.model.balance.Balance;
+import com.attozoic.main.model.balance.BalanceType;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.repositories.RepositoryActivity;
+import com.attozoic.main.repositories.RepositoryActivityFinancialSource;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
 
@@ -23,6 +27,9 @@ public class DaoActivity extends DaoEntity {
 
 	@Autowired
 	private RepositoryActivity repoActivity;
+	
+	@Autowired
+	private RepositoryActivityFinancialSource repoActivityFinancialSource;
 	
 	@Autowired
 	private RepositoryRebalancesCount repoRebalanceCount;
@@ -232,6 +239,7 @@ public class DaoActivity extends DaoEntity {
 	
 	// List of Expences for Activity{uid}
 	public List<DtoActivityEconomicAccount> getActivityExpencesList(Long uid) {
+		System.out.println("srda");
 		List<DtoActivityEconomicAccount> list = new ArrayList<>();
 		List<Object> objects = repoActivity.getExpencesGroups(uid);
 		List<SuperEconomicAccount> economicAccounts = repoActivity.getActivityExpences(uid);
@@ -241,6 +249,26 @@ public class DaoActivity extends DaoEntity {
 			aea.generateBalances(getNumRebalances());
 			List<ActivityEconomicAccount> list2 = new ArrayList<>();
 			for (SuperEconomicAccount economicAccount : economicAccounts) {
+				Balance b = new Balance();
+				for (Balance balance : economicAccount.getBalances()) {
+					if (balance.getBalanceType()==BalanceType.BUDGET && balance.getYear()==(double)Double.valueOf(2017)) {
+						b = balance;
+					}
+				}
+				List<ActivityFinancialSource> finSrcs = repoActivityFinancialSource.getFinancialSources(b.getUid()); 
+				String s = "";
+				for (ActivityFinancialSource fs : finSrcs) {
+					String code = fs.getCode();
+					System.err.println(code);
+					double amount = fs.getAmount(); 
+					s = code;
+					s.concat(" ");
+					s.concat(String.valueOf(amount));
+					s.concat(" / ");
+				}
+				economicAccount.setFinSrcs(s);
+				System.out.println(s);
+				System.out.println("Fin Src" + economicAccount.getFinSrcs());
 				String threeDigit = ((ActivityEconomicAccount)economicAccount).getCode().substring(0, 3).concat("000");
 				if (aea.getCode().equals(threeDigit)) {
 					aea = aea.sumActivityEconomicAccounts((ActivityEconomicAccount)economicAccount);
@@ -254,6 +282,33 @@ public class DaoActivity extends DaoEntity {
 		Collections.sort(list);
 		return list;
 	}
+	
+//	public List<DtoActivityEconomicAccount> getActivityExpencesList(Long uid) {
+//		List<DtoActivityEconomicAccount> list = new ArrayList<>();
+//		List<ThreeDigitEconomicAccount> threeDigits = repoThreeDigitEconomicAccount.getThreeDigitEconomicAccounts(uid);
+//		//List<Object> objects = repoActivity.getExpencesGroups(uid);
+//		List<SuperEconomicAccount> economicAccounts = repoActivity.getActivityExpences(uid);
+//		for (ThreeDigitEconomicAccount o : threeDigits) {
+//			ActivityEconomicAccount aea = new ActivityEconomicAccount();
+//			//aea.setCode(o.toString().concat("000"));
+//			aea.generateBalances(getNumRebalances());
+//			aea.setCode(o.getCode());
+//			aea.setPoz(o.getPoz());
+//			List<ActivityEconomicAccount> list2 = new ArrayList<>();
+//			for (SuperEconomicAccount economicAccount : economicAccounts) {
+//				String threeDigit = ((ActivityEconomicAccount)economicAccount).getCode().substring(0, 3).concat("000");
+//				if (aea.getCode().concat("000").equals(threeDigit)) {
+//					aea = aea.sumActivityEconomicAccounts((ActivityEconomicAccount)economicAccount);
+//					list2.add((ActivityEconomicAccount)economicAccount);
+//				}
+//			}
+//			Collections.sort(list2);
+//			DtoActivityEconomicAccount dto = new DtoActivityEconomicAccount(aea, list2); 
+//			list.add(dto);
+//		}
+//		Collections.sort(list);
+//		return list;
+//	}
 	
 	public int getNumRebalances() {
 		int numRebalances = 0;

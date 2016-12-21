@@ -18,8 +18,10 @@ import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.ThreeDigitEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.services.ServiceActivity;
+import com.attozoic.main.services.ServiceThreeDigitEconomicAccount;
 
 @RestController
 @RequestMapping("/activities")
@@ -29,9 +31,12 @@ public class ControllerActivity {
 	private ServiceActivity serviceActivity;
 	
 	@Autowired
+	private ServiceThreeDigitEconomicAccount serviceThreeDigitEconomicAccount;
+	
+	@Autowired
 	public DaoActivity daoActivity;
 	
-	//getActivitiesByAuthority{authorityCode}
+	
 	@RequestMapping(value="/{uid}/ttt", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> getActivityFinancesTest(@PathVariable(value="uid") Long uid) {
 		return serviceActivity.getActivityFinancesTest(uid);
@@ -99,7 +104,10 @@ public class ControllerActivity {
 	
 	//addActivityEconomicAccount to Activity{uid}
 	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityEconomicAccount addActivityEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount) {
+	public ActivityEconomicAccount addActivityEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount, @RequestBody ThreeDigitEconomicAccount threeDigitEconomicAccount) {
+		if (!threeDigitEconomicAccount.equals(null)) {
+			serviceThreeDigitEconomicAccount.save(threeDigitEconomicAccount);
+		}
 		return serviceActivity.addActivityEconomicAccount(uid, activityEconomicAccount);
 	}
 	
