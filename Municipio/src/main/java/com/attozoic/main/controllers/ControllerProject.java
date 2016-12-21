@@ -18,8 +18,10 @@ import com.attozoic.main.model.ProjectEconomicAccount;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
+import com.attozoic.main.model.ThreeDigitEconomicAccount;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.services.ServiceProject;
+import com.attozoic.main.services.ServiceThreeDigitEconomicAccount;
 
 @RestController
 @RequestMapping("/projects")
@@ -27,6 +29,9 @@ public class ControllerProject {
 
 	@Autowired
 	private ServiceProject serviceProject;
+	
+	@Autowired
+	private ServiceThreeDigitEconomicAccount serviceThreeDigitEconomicAccount;
 	
 	@Autowired
 	public DaoProject daoProject;
@@ -87,7 +92,10 @@ public class ControllerProject {
 	
 	//addProjectEconomicAccount to Project{uid}
 	@RequestMapping(value="/{uid}/projectEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ProjectEconomicAccount addProjectEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ProjectEconomicAccount projectEconomicAccount) {
+	public ProjectEconomicAccount addProjectEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ProjectEconomicAccount projectEconomicAccount, @RequestBody ThreeDigitEconomicAccount threeDigitEconomicAccount) {
+		if (!threeDigitEconomicAccount.equals(null)) {
+			serviceThreeDigitEconomicAccount.save(threeDigitEconomicAccount);
+		}
 		return serviceProject.addProjectEconomicAccount(uid, projectEconomicAccount);
 	}
 	
