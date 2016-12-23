@@ -18,8 +18,8 @@ import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.SuperEntity;
-import com.attozoic.main.model.ThreeDigitEconomicAccount;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
+import com.attozoic.main.model.dto.DtoEconomicAccountTwoObjects;
 import com.attozoic.main.services.ServiceActivity;
 import com.attozoic.main.services.ServiceThreeDigitEconomicAccount;
 
@@ -104,10 +104,11 @@ public class ControllerActivity {
 	
 	//addActivityEconomicAccount to Activity{uid}
 	@RequestMapping(value="/{uid}/activityEconomicAccounts", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ActivityEconomicAccount addActivityEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody ActivityEconomicAccount activityEconomicAccount, @RequestBody ThreeDigitEconomicAccount threeDigitEconomicAccount) {
-		if (!threeDigitEconomicAccount.equals(null)) {
-			serviceThreeDigitEconomicAccount.save(threeDigitEconomicAccount);
+	public ActivityEconomicAccount addActivityEconomicAccount(@PathVariable(value="uid") Long uid, @RequestBody DtoEconomicAccountTwoObjects dto) {
+		if (!(dto.getThreeDigitEconomicAccount()==null)) {
+			serviceThreeDigitEconomicAccount.save(dto.getThreeDigitEconomicAccount());
 		}
+		ActivityEconomicAccount activityEconomicAccount = (ActivityEconomicAccount)dto.getSuperEconomicAccount();
 		return serviceActivity.addActivityEconomicAccount(uid, activityEconomicAccount);
 	}
 	
