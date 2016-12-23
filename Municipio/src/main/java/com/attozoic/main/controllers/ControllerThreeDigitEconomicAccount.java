@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.attozoic.main.model.SuperEntity;
 import com.attozoic.main.model.ThreeDigitEconomicAccount;
 import com.attozoic.main.services.ServiceThreeDigitEconomicAccount;
 
+@RestController
+@RequestMapping("/threeDigitEconomicAccounts")
 public class ControllerThreeDigitEconomicAccount {
 
 	@Autowired
