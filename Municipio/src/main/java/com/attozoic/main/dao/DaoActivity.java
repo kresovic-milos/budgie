@@ -249,25 +249,24 @@ public class DaoActivity extends DaoEntity {
 			aea.generateBalances(getNumRebalances());
 			List<ActivityEconomicAccount> list2 = new ArrayList<>();
 			for (SuperEconomicAccount economicAccount : economicAccounts) {
-				Balance b = new Balance();
-				for (Balance balance : economicAccount.getBalances()) {
-					if (balance.getBalanceType()==BalanceType.BUDGET && balance.getYear()==(double)Double.valueOf(2017)) {
-						b = balance;
-					}
-				}
+				List<Balance> balances = economicAccount.getBalances();
+				Collections.sort(balances);
+				Balance b = balances.get(balances.size()-6);
 				List<ActivityFinancialSource> finSrcs = repoActivityFinancialSource.getFinancialSources(b.getUid()); 
-				String s = "";
+				StringBuilder sb = new StringBuilder();
 				for (ActivityFinancialSource fs : finSrcs) {
 					String code = fs.getCode();
 					System.err.println(code);
 					double amount = fs.getAmount(); 
-					s = code;
-					s.concat(" ");
-					s.concat(String.valueOf(amount));
-					s.concat(" / ");
+					System.err.println(amount);
+					sb.append(code);
+					sb.append("-");
+					sb.append(String.valueOf(amount));
+					sb.append(" ");
 				}
-				economicAccount.setFinSrcs(s);
-				System.out.println(s);
+				economicAccount.setFinSrcs(sb.toString());
+				System.out.println("------------------------");
+				System.out.println(sb.toString());
 				System.out.println("Fin Src" + economicAccount.getFinSrcs());
 				String threeDigit = ((ActivityEconomicAccount)economicAccount).getCode().substring(0, 3).concat("000");
 				if (aea.getCode().equals(threeDigit)) {
