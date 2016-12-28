@@ -1,5 +1,6 @@
 package com.attozoic.main.dao;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,13 +10,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Activity;
 import com.attozoic.main.model.ActivityEconomicAccount;
 import com.attozoic.main.model.ActivityFinancialSource;
 import com.attozoic.main.model.ActivityGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
 import com.attozoic.main.model.balance.Balance;
-import com.attozoic.main.model.balance.BalanceType;
 import com.attozoic.main.model.dto.DtoActivityEconomicAccount;
 import com.attozoic.main.repositories.RepositoryActivity;
 import com.attozoic.main.repositories.RepositoryActivityFinancialSource;
@@ -255,19 +256,16 @@ public class DaoActivity extends DaoEntity {
 				List<ActivityFinancialSource> finSrcs = repoActivityFinancialSource.getFinancialSources(b.getUid()); 
 				StringBuilder sb = new StringBuilder();
 				for (ActivityFinancialSource fs : finSrcs) {
-					String code = fs.getCode();
-					System.err.println(code);
-					double amount = fs.getAmount(); 
-					System.err.println(amount);
-					sb.append(code);
-					sb.append("-");
-					sb.append(String.valueOf(amount));
-					sb.append(" ");
+					if (fs.getActiveState()==ActiveState.ACTIVE) {
+						String code = fs.getCode();
+						long amount = (long)fs.getAmount(); 
+						sb.append(code);
+						sb.append("-");
+						sb.append(String.valueOf(NumberFormat.getInstance().format(amount)));
+						sb.append(" ");
+					}
 				}
 				economicAccount.setFinSrcs(sb.toString());
-				System.out.println("------------------------");
-				System.out.println(sb.toString());
-				System.out.println("Fin Src" + economicAccount.getFinSrcs());
 				String threeDigit = ((ActivityEconomicAccount)economicAccount).getCode().substring(0, 3).concat("000");
 				if (aea.getCode().equals(threeDigit)) {
 					aea = aea.sumActivityEconomicAccounts((ActivityEconomicAccount)economicAccount);
