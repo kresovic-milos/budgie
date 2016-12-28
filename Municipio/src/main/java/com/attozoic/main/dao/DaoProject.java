@@ -1,5 +1,6 @@
 package com.attozoic.main.dao;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,13 +10,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.attozoic.main.model.ActiveState;
 import com.attozoic.main.model.Project;
 import com.attozoic.main.model.ProjectEconomicAccount;
+import com.attozoic.main.model.ProjectFinancialSource;
 import com.attozoic.main.model.ProjectGoal;
 import com.attozoic.main.model.SuperEconomicAccount;
+import com.attozoic.main.model.balance.Balance;
 import com.attozoic.main.model.dto.DtoProjectEconomicAccount;
 import com.attozoic.main.repositories.RepositoryEntity;
 import com.attozoic.main.repositories.RepositoryProject;
+import com.attozoic.main.repositories.RepositoryProjectFinancialSource;
 import com.attozoic.main.repositories.RepositoryRebalancesCount;
 
 @Repository
@@ -23,6 +28,9 @@ public class DaoProject extends DaoEntity {
 
 	@Autowired
 	private RepositoryProject repoProject;
+	
+	@Autowired
+	private RepositoryProjectFinancialSource repoProjectFinancialSource;
 	
 	@Autowired
 	private RepositoryRebalancesCount repoRebalanceCount;
@@ -237,6 +245,22 @@ public class DaoProject extends DaoEntity {
 			pea.generateBalances(getNumRebalances());
 			List<ProjectEconomicAccount> list2 = new ArrayList<>();
 			for (SuperEconomicAccount economicAccount : economicAccounts) {
+				List<Balance> balances = economicAccount.getBalances();
+				Collections.sort(balances);
+				Balance b = balances.get(balances.size()-6);
+				List<ProjectFinancialSource> finSrcs = repoProjectFinancialSource.getFinancialSources(b.getUid()); 
+				StringBuilder sb = new StringBuilder();
+				for (ProjectFinancialSource fs : finSrcs) {
+					if (fs.getActiveState()==ActiveState.ACTIVE) {
+						String code = fs.getCode();
+						long amount = (long)fs.getAmount(); 
+						sb.append(code);
+						sb.append("-");
+						sb.append(String.valueOf(NumberFormat.getInstance().format(amount)));
+						sb.append(" ");
+					}
+				}
+				economicAccount.setFinSrcs(sb.toString());
 				String threeDigit = ((ProjectEconomicAccount)economicAccount).getCode().substring(0, 3).concat("000");
 				if (pea.getCode().equals(threeDigit)) {
 					pea = pea.sumProjectEconomicAccounts((ProjectEconomicAccount)economicAccount);

@@ -240,7 +240,6 @@ public class DaoActivity extends DaoEntity {
 	
 	// List of Expences for Activity{uid}
 	public List<DtoActivityEconomicAccount> getActivityExpencesList(Long uid) {
-		System.out.println("srda");
 		List<DtoActivityEconomicAccount> list = new ArrayList<>();
 		List<Object> objects = repoActivity.getExpencesGroups(uid);
 		List<SuperEconomicAccount> economicAccounts = repoActivity.getActivityExpences(uid);
